@@ -197,6 +197,9 @@ class _MealPageState extends State<MealPage> {
       context: context,
       builder: (BuildContext context) {
         FoodItem currentSelection = meal.selectedFood;
+        int initialIndex = widget.dietData.availableFoods.indexOf(meal.selectedFood);
+        if (initialIndex == -1) initialIndex = 0;
+
         return Container(
           height: 400,
           padding: const EdgeInsets.only(top: 16),
@@ -218,6 +221,7 @@ class _MealPageState extends State<MealPage> {
                     height: 300,
                     autoPlay: false,
                     enlargeCenterPage: true,
+                    initialPage: initialIndex,
                     onPageChanged: (index, reason) {
                         currentSelection = widget.dietData.availableFoods[index];
                     }
