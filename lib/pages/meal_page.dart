@@ -53,6 +53,9 @@ class _MealPageState extends State<MealPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int totalCalories = _breakfast.calories + _lunch.calories + _dinner.calories;
+    int totalProtein = _breakfast.protein + _lunch.protein + _dinner.protein;
+    int totalCarbs = _breakfast.carbs + _lunch.carbs + _dinner.carbs;
+    int totalFat = _breakfast.fat + _lunch.fat + _dinner.fat;
 
     return Scaffold(
       body: NestedScrollView(
@@ -99,9 +102,23 @@ class _MealPageState extends State<MealPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Total Calorias: $totalCalories',
-                  style: Theme.of(context).textTheme.headline6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Total Calorias: $totalCalories',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildMacroChip('Proteínas', '${totalProtein}g', Colors.redAccent),
+                        _buildMacroChip('Carboidratos', '${totalCarbs}g', Colors.orangeAccent),
+                        _buildMacroChip('Gorduras', '${totalFat}g', Colors.yellow[800]!),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               _buildMealSection(
@@ -166,7 +183,7 @@ class _MealPageState extends State<MealPage> {
                       style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      '${currentMeal.calories} calorias',
+                      '${currentMeal.calories} kcal | P: ${currentMeal.protein}g C: ${currentMeal.carbs}g G: ${currentMeal.fat}g',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ],
@@ -267,7 +284,7 @@ class _MealPageState extends State<MealPage> {
           ),
           SizedBox(height: 4),
           Text(
-            '${meal.calories} calorias',
+            '${meal.calories} kcal | P: ${meal.protein}g C: ${meal.carbs}g G: ${meal.fat}g',
             style: TextStyle(
               fontSize: 16,
               color: Colors.grey,
@@ -275,6 +292,20 @@ class _MealPageState extends State<MealPage> {
           ),
           SizedBox(height: 8),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMacroChip(String label, String value, Color color) {
+    return Chip(
+      backgroundColor: color.withOpacity(0.2),
+      label: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: color.withOpacity(1.0), // Slightly darker for text
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
       ),
     );
   }
