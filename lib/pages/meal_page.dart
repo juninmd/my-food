@@ -87,7 +87,7 @@ class _MealPageState extends State<MealPage> {
                   ],
                   background: Stack(fit: StackFit.expand, children: <Widget>[
                     Image.asset(
-                      "assets/images/bg3.jpg",
+                      "assets/images/lanche.jpg",
                       fit: BoxFit.cover,
                       color: const Color(0xaa212121),
                       colorBlendMode: BlendMode.darken,
