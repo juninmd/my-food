@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../data/meal_data.dart';
 import 'shopping_list_page.dart';
+import 'bmi_page.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({Key? key}) : super(key: key);
@@ -17,6 +18,8 @@ class _MealPageState extends State<MealPage> {
   late Meal _breakfast;
   late Meal _lunch;
   late Meal _dinner;
+  int _waterGlasses = 0;
+  final int _targetGlasses = 8;
 
   @override
   void initState() {
@@ -58,6 +61,36 @@ class _MealPageState extends State<MealPage> {
     int totalFat = _breakfast.fat + _lunch.fat + _dinner.fat;
 
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.calculate),
+              title: const Text('Calculadora IMC'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BMICalculatorPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
@@ -106,18 +139,60 @@ class _MealPageState extends State<MealPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      'Hidratação Diária',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove_circle_outline),
+                          onPressed: () {
+                            if (_waterGlasses > 0) {
+                              setState(() {
+                                _waterGlasses--;
+                              });
+                            }
+                          },
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                '$_waterGlasses / $_targetGlasses copos (250ml)',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(height: 4),
+                              LinearProgressIndicator(
+                                value: _waterGlasses / _targetGlasses,
+                                backgroundColor: Colors.blue[100],
+                                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                                minHeight: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add_circle_outline),
+                          onPressed: () {
+                            setState(() {
+                              _waterGlasses++;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 32),
+                    Text(
                       'Total Calorias: $totalCalories',
                       style: Theme.of(context).textTheme.headline6,
                     ),
+                    SizedBox(height: 16),
+                    _buildMacroBar('Proteínas', totalProtein, 150, Colors.redAccent),
                     SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildMacroChip('Proteínas', '${totalProtein}g', Colors.redAccent),
-                        _buildMacroChip('Carboidratos', '${totalCarbs}g', Colors.orangeAccent),
-                        _buildMacroChip('Gorduras', '${totalFat}g', Colors.yellow[800]!),
-                      ],
-                    ),
+                    _buildMacroBar('Carboidratos', totalCarbs, 300, Colors.orangeAccent),
+                    SizedBox(height: 8),
+                    _buildMacroBar('Gorduras', totalFat, 70, Colors.yellow[800]!),
                   ],
                 ),
               ),
@@ -151,6 +226,34 @@ class _MealPageState extends State<MealPage> {
         icon: const Icon(Icons.auto_awesome),
         label: const Text('Me Surpreenda'),
       ),
+    );
+  }
+
+  Widget _buildMacroBar(String label, int value, int target, Color color) {
+    double progress = value / target;
+    if (progress > 1.0) progress = 1.0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text('${value}g / ${target}g'),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: progress,
+            backgroundColor: color.withOpacity(0.2),
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 10,
+          ),
+        ),
+      ],
     );
   }
 
@@ -292,20 +395,6 @@ class _MealPageState extends State<MealPage> {
           ),
           SizedBox(height: 8),
         ],
-      ),
-    );
-  }
-
-  Widget _buildMacroChip(String label, String value, Color color) {
-    return Chip(
-      backgroundColor: color.withOpacity(0.2),
-      label: Text(
-        '$label: $value',
-        style: TextStyle(
-          color: color.withOpacity(1.0), // Slightly darker for text
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-        ),
       ),
     );
   }

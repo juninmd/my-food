@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ShoppingListPage extends StatefulWidget {
   final List<String> ingredients;
@@ -22,6 +23,31 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
     }
   }
 
+  void _copyToClipboard() {
+    final buffer = StringBuffer();
+    buffer.writeln('Lista de Compras:');
+
+    final sortedIngredients = _ingredientCounts.keys.toList()..sort();
+
+    for (var ingredient in sortedIngredients) {
+      final count = _ingredientCounts[ingredient];
+      final isChecked = _checkedIngredients.contains(ingredient);
+      final checkStatus = isChecked ? '[x]' : '[ ]';
+      final quantity = count! > 1 ? ' (x$count)' : '';
+
+      buffer.writeln('$checkStatus $ingredient$quantity');
+    }
+
+    Clipboard.setData(ClipboardData(text: buffer.toString()));
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Lista copiada para a área de transferência!'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final sortedIngredients = _ingredientCounts.keys.toList()..sort();
@@ -29,6 +55,13 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista de Compras'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.copy),
+            onPressed: _copyToClipboard,
+            tooltip: 'Copiar lista',
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: sortedIngredients.length,
