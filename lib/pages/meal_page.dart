@@ -4,8 +4,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../data/meal_data.dart';
+import '../services/api_service.dart';
 import 'shopping_list_page.dart';
 import 'bmi_page.dart';
+import 'random_recipe_page.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _MealPageState extends State<MealPage> {
   late Meal _dinner;
   int _waterGlasses = 0;
   final int _targetGlasses = 8;
+  late Future<String> _quoteFuture;
 
   @override
   void initState() {
@@ -27,6 +30,7 @@ class _MealPageState extends State<MealPage> {
     _breakfast = MealData.breakfastOptions[0];
     _lunch = MealData.lunchOptions[0];
     _dinner = MealData.dinnerOptions[0];
+    _quoteFuture = ApiService().fetchQuote();
   }
 
   void _surpriseMe() {
@@ -88,6 +92,17 @@ class _MealPageState extends State<MealPage> {
                 );
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.restaurant_menu),
+              title: const Text('Receita Surpresa'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RandomRecipePage()),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -138,6 +153,31 @@ class _MealPageState extends State<MealPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    FutureBuilder<String>(
+                      future: _quoteFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.blue.shade100),
+                            ),
+                            child: Text(
+                              snapshot.data!,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.blueAccent,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
                     Text(
                       'Hidratação Diária',
                       style: Theme.of(context).textTheme.headline6,
