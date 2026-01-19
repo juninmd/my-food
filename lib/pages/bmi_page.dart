@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/bmi_calculator.dart';
 
 class BMICalculatorPage extends StatefulWidget {
   const BMICalculatorPage({Key? key}) : super(key: key);
@@ -20,23 +21,10 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
 
     if (weight != null && height != null && height > 0) {
       setState(() {
-        // Height in meters
-        double heightInMeters = height / 100;
-        _bmi = weight / (heightInMeters * heightInMeters);
-
-        if (_bmi! < 18.5) {
-          _resultText = 'Abaixo do peso';
-          _resultColor = Colors.orange;
-        } else if (_bmi! >= 18.5 && _bmi! < 24.9) {
-          _resultText = 'Peso normal';
-          _resultColor = Colors.green;
-        } else if (_bmi! >= 25 && _bmi! < 29.9) {
-          _resultText = 'Sobrepeso';
-          _resultColor = Colors.orangeAccent;
-        } else {
-          _resultText = 'Obesidade';
-          _resultColor = Colors.red;
-        }
+        final result = BmiCalculator.calculate(weight, height);
+        _bmi = result.bmi;
+        _resultText = result.category;
+        _resultColor = result.color;
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
