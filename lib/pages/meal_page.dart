@@ -39,6 +39,7 @@ class _MealPageState extends State<MealPage> {
       _breakfast = MealData.breakfastOptions[random.nextInt(MealData.breakfastOptions.length)];
       _lunch = MealData.lunchOptions[random.nextInt(MealData.lunchOptions.length)];
       _dinner = MealData.dinnerOptions[random.nextInt(MealData.dinnerOptions.length)];
+      _quoteFuture = ApiService().fetchQuote();
     });
   }
 
