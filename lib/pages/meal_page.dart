@@ -12,6 +12,7 @@ import 'random_recipe_page.dart';
 class MealPage extends StatefulWidget {
   const MealPage({Key? key}) : super(key: key);
 
+  // Main page for meal planning
   @override
   _MealPageState createState() => _MealPageState();
 }
