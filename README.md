@@ -1,20 +1,53 @@
 # my_food
 
-Planejamento alimentar
+Aplicativo de Planejamento Alimentar e Saúde.
 
-## Getting Started
+Este projeto oferece uma solução completa para gerenciamento de dieta e saúde de pacientes.
 
-This project is a starting point for a Flutter application.
+## Funcionalidades Principais
 
-A few resources to get you started if this is your first Flutter project:
+*   **Dieta de Pacientes (MealPage)**:
+    *   Planejamento diário (Café da Manhã, Almoço, Jantar).
+    *   Visualização de opções de refeições e detalhes (ingredientes, descrição).
+    *   Monitoramento de hidratação diária (contador de copos de água).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+*   **Cálculo de Nutrientes**:
+    *   Cálculo automático de calorias totais do dia.
+    *   Barras de progresso para macronutrientes (Proteínas, Carboidratos, Gorduras).
+    *   **Calculadora IMC**: Ferramenta dedicada para cálculo do Índice de Massa Corporal (BMI) com categorização de saúde.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*   **Lista de Compras (ShoppingListPage)**:
+    *   Geração automática de lista baseada nas refeições do dia.
+    *   Agrupamento de ingredientes iguais.
+    *   Funcionalidade de marcar itens comprados.
+    *   Copiar lista para a área de transferência.
 
-- https://flutterawesome.com/animated-counter-widget-flutter/
-- https://flutterawesome.com/a-flutter-app-for-wger-workout-manager/
-- https://flutterawesome.com/a-flutter-plugin-to-use-the-flutter-widgets-in-the-native-home-widgets/
+*   **Me Surpreenda (Surprise Me)**:
+    *   **Refeições Aleatórias**: Botão "Me Surpreenda" na tela principal que gera um plano alimentar aleatório para o dia.
+    *   **Frases Motivacionais**: Exibição de frases inspiradoras via API.
+    *   **Receita Surpresa**: Funcionalidade extra para buscar uma receita aleatória de uma API externa (TheMealDB).
+
+## Estrutura do Projeto
+
+*   `lib/pages`: Contém as telas principais (MealPage, ShoppingListPage, BMICalculatorPage, RandomRecipePage).
+*   `lib/models`: Modelos de dados (Meal).
+*   `lib/data`: Dados estáticos das refeições.
+*   `lib/services`: Lógica de comunicação com APIs externas.
+*   `lib/utils`: Utilitários (Calculadora de IMC).
+
+## Executando o Projeto
+
+Este projeto utiliza Flutter. Para rodar:
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Testes
+
+O projeto inclui testes unitários e de widget para garantir a integridade das funcionalidades principais.
+
+```bash
+flutter test
+```
