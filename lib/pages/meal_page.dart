@@ -158,6 +158,14 @@ class _MealPageState extends State<MealPage> {
                     FutureBuilder<String>(
                       future: _quoteFuture,
                       builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
                         if (snapshot.hasData) {
                           return Container(
                             margin: const EdgeInsets.only(bottom: 16),
