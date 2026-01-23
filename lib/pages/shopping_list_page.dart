@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 class ShoppingListPage extends StatefulWidget {
   final List<String> ingredients;
 
-  const ShoppingListPage({Key? key, required this.ingredients}) : super(key: key);
+  const ShoppingListPage({super.key, required this.ingredients});
 
   @override
-  _ShoppingListPageState createState() => _ShoppingListPageState();
+  State<ShoppingListPage> createState() => _ShoppingListPageState();
 }
 
 class _ShoppingListPageState extends State<ShoppingListPage> {

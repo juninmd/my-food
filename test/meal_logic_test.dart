@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_food/data/meal_data.dart';
-import 'package:my_food/models/meal.dart';
 
 void main() {
   group('MealData Tests', () {
