@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 
 class RandomRecipePage extends StatefulWidget {
-  const RandomRecipePage({Key? key}) : super(key: key);
+  const RandomRecipePage({super.key});
 
   @override
-  _RandomRecipePageState createState() => _RandomRecipePageState();
+  State<RandomRecipePage> createState() => _RandomRecipePageState();
 }
 
 class _RandomRecipePageState extends State<RandomRecipePage> {

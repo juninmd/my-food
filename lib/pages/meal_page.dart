@@ -10,11 +10,11 @@ import 'bmi_page.dart';
 import 'random_recipe_page.dart';
 
 class MealPage extends StatefulWidget {
-  const MealPage({Key? key}) : super(key: key);
+  const MealPage({super.key});
 
   // Main page for meal planning
   @override
-  _MealPageState createState() => _MealPageState();
+  State<MealPage> createState() => _MealPageState();
 }
 
 class _MealPageState extends State<MealPage> {
@@ -146,8 +146,7 @@ class _MealPageState extends State<MealPage> {
             ),
           ];
         },
-        body: Container(
-          child: ListView(
+        body: ListView(
             padding: const EdgeInsets.only(bottom: 80),
             children: [
               Padding(
@@ -269,7 +268,6 @@ class _MealPageState extends State<MealPage> {
               ),
             ],
           ),
-        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _surpriseMe,
@@ -298,7 +296,7 @@ class _MealPageState extends State<MealPage> {
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: progress,
-            backgroundColor: color.withOpacity(0.2),
+            backgroundColor: color.withValues(alpha: 0.2),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 10,
           ),
@@ -352,7 +350,7 @@ class _MealPageState extends State<MealPage> {
               showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
+                  return SizedBox(
                     height: 400,
                     child: Column(
                       children: [
