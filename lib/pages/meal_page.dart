@@ -190,7 +190,7 @@ class _MealPageState extends State<MealPage> {
                     ),
                     Text(
                       'Hidratação Diária',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -235,7 +235,7 @@ class _MealPageState extends State<MealPage> {
                     const Divider(height: 32),
                     Text(
                       'Total Calorias: $totalCalories',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     SizedBox(height: 16),
                     _buildMacroBar('Proteínas', totalProtein, 150, Colors.redAccent),
@@ -316,7 +316,7 @@ class _MealPageState extends State<MealPage> {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(height: 16),
           Row(
@@ -333,11 +333,11 @@ class _MealPageState extends State<MealPage> {
                   children: [
                     Text(
                       currentMeal.name,
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '${currentMeal.calories} kcal | P: ${currentMeal.protein}g C: ${currentMeal.carbs}g G: ${currentMeal.fat}g',
-                      style: Theme.of(context).textTheme.caption,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
