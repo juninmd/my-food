@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../data/meal_data.dart';
+import '../data/diet_constants.dart';
 import '../services/api_service.dart';
 import 'shopping_list_page.dart';
 import 'bmi_page.dart';
@@ -22,7 +23,7 @@ class _MealPageState extends State<MealPage> {
   late Meal _lunch;
   late Meal _dinner;
   int _waterGlasses = 0;
-  final int _targetGlasses = 8;
+  final int _targetGlasses = DietConstants.waterGlassTarget;
   late Future<String> _quoteFuture;
 
   @override
@@ -237,11 +238,11 @@ class _MealPageState extends State<MealPage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     SizedBox(height: 16),
-                    _buildMacroBar('Proteínas', totalProtein, 150, Colors.redAccent),
+                    _buildMacroBar('Proteínas', totalProtein, DietConstants.proteinTarget, Colors.redAccent),
                     SizedBox(height: 8),
-                    _buildMacroBar('Carboidratos', totalCarbs, 300, Colors.orangeAccent),
+                    _buildMacroBar('Carboidratos', totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
                     SizedBox(height: 8),
-                    _buildMacroBar('Gorduras', totalFat, 70, Colors.yellow[800]!),
+                    _buildMacroBar('Gorduras', totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
                   ],
                 ),
               ),
