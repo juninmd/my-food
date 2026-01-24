@@ -5,9 +5,13 @@ class ApiService {
   static const String quoteUrl = 'https://dummyjson.com/quotes/random';
   static const String mealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
+  final http.Client client;
+
+  ApiService({http.Client? client}) : client = client ?? http.Client();
+
   Future<String> fetchQuote() async {
     try {
-      final response = await http.get(Uri.parse(quoteUrl));
+      final response = await client.get(Uri.parse(quoteUrl));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -22,7 +26,7 @@ class ApiService {
 
   Future<Map<String, dynamic>> fetchRandomRecipe() async {
     try {
-      final response = await http.get(Uri.parse(mealUrl));
+      final response = await client.get(Uri.parse(mealUrl));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
