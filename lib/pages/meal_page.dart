@@ -11,7 +11,9 @@ import 'bmi_page.dart';
 import 'random_recipe_page.dart';
 
 class MealPage extends StatefulWidget {
-  const MealPage({super.key});
+  final ApiService? apiService;
+
+  const MealPage({super.key, this.apiService});
 
   // Main page for meal planning
   @override
@@ -25,14 +27,16 @@ class _MealPageState extends State<MealPage> {
   int _waterGlasses = 0;
   final int _targetGlasses = DietConstants.waterGlassTarget;
   late Future<String> _quoteFuture;
+  late ApiService _apiService;
 
   @override
   void initState() {
     super.initState();
+    _apiService = widget.apiService ?? ApiService();
     _breakfast = MealData.breakfastOptions[0];
     _lunch = MealData.lunchOptions[0];
     _dinner = MealData.dinnerOptions[0];
-    _quoteFuture = ApiService().fetchQuote();
+    _quoteFuture = _apiService.fetchQuote();
   }
 
   void _surpriseMe() {
@@ -41,7 +45,7 @@ class _MealPageState extends State<MealPage> {
       _breakfast = MealData.breakfastOptions[random.nextInt(MealData.breakfastOptions.length)];
       _lunch = MealData.lunchOptions[random.nextInt(MealData.lunchOptions.length)];
       _dinner = MealData.dinnerOptions[random.nextInt(MealData.dinnerOptions.length)];
-      _quoteFuture = ApiService().fetchQuote();
+      _quoteFuture = _apiService.fetchQuote();
     });
   }
 
