@@ -42,9 +42,12 @@ class _MealPageState extends State<MealPage> {
   void _surpriseMe() {
     setState(() {
       final random = Random();
-      _breakfast = MealData.breakfastOptions[random.nextInt(MealData.breakfastOptions.length)];
-      _lunch = MealData.lunchOptions[random.nextInt(MealData.lunchOptions.length)];
-      _dinner = MealData.dinnerOptions[random.nextInt(MealData.dinnerOptions.length)];
+      _breakfast = MealData
+          .breakfastOptions[random.nextInt(MealData.breakfastOptions.length)];
+      _lunch =
+          MealData.lunchOptions[random.nextInt(MealData.lunchOptions.length)];
+      _dinner =
+          MealData.dinnerOptions[random.nextInt(MealData.dinnerOptions.length)];
       _quoteFuture = _apiService.fetchQuote();
     });
   }
@@ -66,7 +69,8 @@ class _MealPageState extends State<MealPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int totalCalories = _breakfast.calories + _lunch.calories + _dinner.calories;
+    int totalCalories =
+        _breakfast.calories + _lunch.calories + _dinner.calories;
     int totalProtein = _breakfast.protein + _lunch.protein + _dinner.protein;
     int totalCarbs = _breakfast.carbs + _lunch.carbs + _dinner.carbs;
     int totalFat = _breakfast.fat + _lunch.fat + _dinner.fat;
@@ -95,7 +99,8 @@ class _MealPageState extends State<MealPage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BMICalculatorPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const BMICalculatorPage()),
                 );
               },
             ),
@@ -106,7 +111,8 @@ class _MealPageState extends State<MealPage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RandomRecipePage()),
+                  MaterialPageRoute(
+                      builder: (context) => const RandomRecipePage()),
                 );
               },
             ),
@@ -152,127 +158,131 @@ class _MealPageState extends State<MealPage> {
           ];
         },
         body: ListView(
-            padding: const EdgeInsets.only(bottom: 80),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FutureBuilder<String>(
-                      future: _quoteFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade50,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.blue.shade100),
-                            ),
-                            child: Text(
-                              snapshot.data!,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.blueAccent,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    Text(
-                      'Hidratação Diária',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove_circle_outline),
-                          onPressed: () {
-                            if (_waterGlasses > 0) {
-                              setState(() {
-                                _waterGlasses--;
-                              });
-                            }
-                          },
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                '$_waterGlasses / $_targetGlasses copos (250ml)',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 4),
-                              LinearProgressIndicator(
-                                value: _waterGlasses / _targetGlasses,
-                                backgroundColor: Colors.blue[100],
-                                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                                minHeight: 10,
-                              ),
-                            ],
+          padding: const EdgeInsets.only(bottom: 80),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder<String>(
+                    future: _quoteFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.add_circle_outline),
-                          onPressed: () {
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.blue.shade100),
+                          ),
+                          child: Text(
+                            snapshot.data!,
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blueAccent,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  Text(
+                    'Hidratação Diária',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
+                        onPressed: () {
+                          if (_waterGlasses > 0) {
                             setState(() {
-                              _waterGlasses++;
+                              _waterGlasses--;
                             });
-                          },
+                          }
+                        },
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              '$_waterGlasses / $_targetGlasses copos (250ml)',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 4),
+                            LinearProgressIndicator(
+                              value: _waterGlasses / _targetGlasses,
+                              backgroundColor: Colors.blue[100],
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.blue),
+                              minHeight: 10,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const Divider(height: 32),
-                    Text(
-                      'Total Calorias: $totalCalories',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    SizedBox(height: 16),
-                    _buildMacroBar('Proteínas', totalProtein, DietConstants.proteinTarget, Colors.redAccent),
-                    SizedBox(height: 8),
-                    _buildMacroBar('Carboidratos', totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
-                    SizedBox(height: 8),
-                    _buildMacroBar('Gorduras', totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
-                  ],
-                ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle_outline),
+                        onPressed: () {
+                          setState(() {
+                            _waterGlasses++;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 32),
+                  Text(
+                    'Total Calorias: $totalCalories',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  SizedBox(height: 16),
+                  _buildMacroBar('Proteínas', totalProtein,
+                      DietConstants.proteinTarget, Colors.redAccent),
+                  SizedBox(height: 8),
+                  _buildMacroBar('Carboidratos', totalCarbs,
+                      DietConstants.carbsTarget, Colors.orangeAccent),
+                  SizedBox(height: 8),
+                  _buildMacroBar('Gorduras', totalFat, DietConstants.fatTarget,
+                      Colors.yellow[800]!),
+                ],
               ),
-              _buildMealSection(
-                context,
-                'Café da manhã',
-                _breakfast,
-                MealData.breakfastOptions,
-                (meal) => setState(() => _breakfast = meal),
-              ),
-              _buildMealSection(
-                context,
-                'Almoço',
-                _lunch,
-                MealData.lunchOptions,
-                (meal) => setState(() => _lunch = meal),
-              ),
-              _buildMealSection(
-                context,
-                'Jantar',
-                _dinner,
-                MealData.dinnerOptions,
-                (meal) => setState(() => _dinner = meal),
-              ),
-            ],
-          ),
+            ),
+            _buildMealSection(
+              context,
+              'Café da manhã',
+              _breakfast,
+              MealData.breakfastOptions,
+              (meal) => setState(() => _breakfast = meal),
+            ),
+            _buildMealSection(
+              context,
+              'Almoço',
+              _lunch,
+              MealData.lunchOptions,
+              (meal) => setState(() => _lunch = meal),
+            ),
+            _buildMealSection(
+              context,
+              'Jantar',
+              _dinner,
+              MealData.dinnerOptions,
+              (meal) => setState(() => _dinner = meal),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _surpriseMe,
@@ -310,8 +320,8 @@ class _MealPageState extends State<MealPage> {
     );
   }
 
-  Widget _buildMealSection(
-      BuildContext context, String title, Meal currentMeal, List<Meal> options, Function(Meal) onSelect) {
+  Widget _buildMealSection(BuildContext context, String title, Meal currentMeal,
+      List<Meal> options, Function(Meal) onSelect) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -336,7 +346,10 @@ class _MealPageState extends State<MealPage> {
                   children: [
                     Text(
                       currentMeal.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '${currentMeal.calories} kcal | P: ${currentMeal.protein}g C: ${currentMeal.carbs}g G: ${currentMeal.fat}g',
@@ -380,8 +393,8 @@ class _MealPageState extends State<MealPage> {
                               builder: (BuildContext context) {
                                 return GestureDetector(
                                   onTap: () {
-                                     onSelect(meal);
-                                     Navigator.pop(context);
+                                    onSelect(meal);
+                                    Navigator.pop(context);
                                   },
                                   child: _buildCarouselItem(meal),
                                 );
@@ -407,9 +420,7 @@ class _MealPageState extends State<MealPage> {
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

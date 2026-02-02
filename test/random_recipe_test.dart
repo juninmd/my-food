@@ -8,7 +8,8 @@ import 'package:my_food/pages/random_recipe_page.dart';
 import 'package:my_food/services/api_service.dart';
 
 void main() {
-  testWidgets('RandomRecipePage shows loading indicator initially', (WidgetTester tester) async {
+  testWidgets('RandomRecipePage shows loading indicator initially',
+      (WidgetTester tester) async {
     final completer = Completer<http.Response>();
     final client = MockClient((request) => completer.future);
     final apiService = ApiService(client: client);
@@ -23,7 +24,9 @@ void main() {
     await tester.pumpAndSettle();
   });
 
-  testWidgets('RandomRecipePage displays recipe details when API call is successful', (WidgetTester tester) async {
+  testWidgets(
+      'RandomRecipePage displays recipe details when API call is successful',
+      (WidgetTester tester) async {
     final mockMeal = {
       'idMeal': '123',
       'strMeal': 'Spaghetti Carbonara',
@@ -34,7 +37,11 @@ void main() {
 
     final client = MockClient((request) async {
       if (request.url.toString() == ApiService.mealUrl) {
-        return http.Response(jsonEncode({'meals': [mockMeal]}), 200);
+        return http.Response(
+            jsonEncode({
+              'meals': [mockMeal]
+            }),
+            200);
       }
       return http.Response('Not Found', 404);
     });
@@ -50,7 +57,8 @@ void main() {
 
     expect(find.text('Spaghetti Carbonara'), findsOneWidget);
     expect(find.text('Categoria: Pasta'), findsOneWidget);
-    expect(find.text('Boil pasta. Fry bacon. Mix with eggs and cheese.'), findsOneWidget);
+    expect(find.text('Boil pasta. Fry bacon. Mix with eggs and cheese.'),
+        findsOneWidget);
     expect(find.text('Nova Receita'), findsOneWidget);
     // Image.network is tricky to test as it loads asynchronously and depends on network,
     // but in widget tests with MockClient it might try to load.
@@ -60,7 +68,9 @@ void main() {
     // However, the test focuses on text content which validates the logic.
   });
 
-  testWidgets('RandomRecipePage displays error message and retry button on failure', (WidgetTester tester) async {
+  testWidgets(
+      'RandomRecipePage displays error message and retry button on failure',
+      (WidgetTester tester) async {
     final client = MockClient((request) async {
       return http.Response('Internal Server Error', 500);
     });
@@ -78,9 +88,10 @@ void main() {
     expect(find.text('Tentar Novamente'), findsOneWidget);
   });
 
-  testWidgets('RandomRecipePage retry button triggers new fetch', (WidgetTester tester) async {
-     var callCount = 0;
-     final mockMeal = {
+  testWidgets('RandomRecipePage retry button triggers new fetch',
+      (WidgetTester tester) async {
+    var callCount = 0;
+    final mockMeal = {
       'idMeal': '123',
       'strMeal': 'Spaghetti Carbonara',
       'strCategory': 'Pasta',
@@ -92,7 +103,11 @@ void main() {
       if (callCount == 1) {
         return http.Response('Error', 500);
       } else {
-        return http.Response(jsonEncode({'meals': [mockMeal]}), 200);
+        return http.Response(
+            jsonEncode({
+              'meals': [mockMeal]
+            }),
+            200);
       }
     });
 

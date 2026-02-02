@@ -69,7 +69,8 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                           return Container(
                             height: 200,
                             color: Colors.grey,
-                            child: const Center(child: Icon(Icons.broken_image, size: 50)),
+                            child: const Center(
+                                child: Icon(Icons.broken_image, size: 50)),
                           );
                         },
                       ),
@@ -77,12 +78,14 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                   const SizedBox(height: 16),
                   Text(
                     meal['strMeal'] ?? 'Sem nome',
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Categoria: ${meal['strCategory'] ?? 'N/A'}',
-                    style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                    style: const TextStyle(
+                        fontSize: 16, fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(height: 16),
                   const Text(

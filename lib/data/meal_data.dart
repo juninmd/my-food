@@ -53,7 +53,13 @@ class MealData {
       carbs: 15,
       fat: 25,
       description: 'Alface, croutons e molho especial.',
-      ingredients: ['Alface', 'Croutons', 'Queijo parmesão', 'Molho Caesar', 'Frango'],
+      ingredients: [
+        'Alface',
+        'Croutons',
+        'Queijo parmesão',
+        'Molho Caesar',
+        'Frango'
+      ],
     ),
     Meal(
       name: 'Peixe Grelhado',

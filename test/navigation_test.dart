@@ -5,7 +5,8 @@ import 'package:my_food/pages/bmi_page.dart';
 import 'package:my_food/pages/shopping_list_page.dart';
 
 void main() {
-  testWidgets('Navigation to BMI Calculator Page via Drawer', (WidgetTester tester) async {
+  testWidgets('Navigation to BMI Calculator Page via Drawer',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
     // Open Drawer
@@ -24,7 +25,8 @@ void main() {
     expect(find.text('Calculadora IMC'), findsOneWidget);
   });
 
-  testWidgets('Navigation to Shopping List Page via Action', (WidgetTester tester) async {
+  testWidgets('Navigation to Shopping List Page via Action',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
     // Find Shopping Cart icon

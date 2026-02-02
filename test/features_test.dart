@@ -4,12 +4,14 @@ import 'package:my_food/utils/bmi_calculator.dart';
 
 void main() {
   group('Project Features Verification', () {
-
     // Feature 1: Patient Diet
     test('Diet Data Integrity', () {
-      expect(MealData.breakfastOptions.length, greaterThan(1), reason: 'Should have multiple breakfast options for variety');
-      expect(MealData.lunchOptions.length, greaterThan(1), reason: 'Should have multiple lunch options for variety');
-      expect(MealData.dinnerOptions.length, greaterThan(1), reason: 'Should have multiple dinner options for variety');
+      expect(MealData.breakfastOptions.length, greaterThan(1),
+          reason: 'Should have multiple breakfast options for variety');
+      expect(MealData.lunchOptions.length, greaterThan(1),
+          reason: 'Should have multiple lunch options for variety');
+      expect(MealData.dinnerOptions.length, greaterThan(1),
+          reason: 'Should have multiple dinner options for variety');
 
       final meal = MealData.breakfastOptions[0];
       expect(meal.name, isNotEmpty);
@@ -23,11 +25,14 @@ void main() {
       final lunch = MealData.lunchOptions[0];
       final dinner = MealData.dinnerOptions[0];
 
-      final totalCalories = breakfast.calories + lunch.calories + dinner.calories;
+      final totalCalories =
+          breakfast.calories + lunch.calories + dinner.calories;
       final totalProtein = breakfast.protein + lunch.protein + dinner.protein;
 
-      expect(totalCalories, equals(breakfast.calories + lunch.calories + dinner.calories));
-      expect(totalProtein, equals(breakfast.protein + lunch.protein + dinner.protein));
+      expect(totalCalories,
+          equals(breakfast.calories + lunch.calories + dinner.calories));
+      expect(totalProtein,
+          equals(breakfast.protein + lunch.protein + dinner.protein));
 
       // Validate BMI Calculator logic as part of patient health tracking
       final bmiResult = BmiCalculator.calculate(70, 175);

@@ -31,11 +31,13 @@ void main() {
       final lunch = MealData.lunchOptions[0];
       final dinner = MealData.dinnerOptions[0];
 
-      final totalCalories = breakfast.calories + lunch.calories + dinner.calories;
+      final totalCalories =
+          breakfast.calories + lunch.calories + dinner.calories;
 
       // Verification logic similar to what's in MealPage
       expect(totalCalories, greaterThan(0));
-      expect(totalCalories, breakfast.calories + lunch.calories + dinner.calories);
+      expect(
+          totalCalories, breakfast.calories + lunch.calories + dinner.calories);
     });
 
     test('Shopping List Aggregation Logic', () {
