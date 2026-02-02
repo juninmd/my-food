@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 
 class RandomRecipePage extends StatefulWidget {
-  const RandomRecipePage({super.key});
+  final ApiService? apiService;
+
+  const RandomRecipePage({super.key, this.apiService});
 
   @override
   State<RandomRecipePage> createState() => _RandomRecipePageState();
 }
 
 class _RandomRecipePageState extends State<RandomRecipePage> {
-  final ApiService _apiService = ApiService();
+  late ApiService _apiService;
   late Future<Map<String, dynamic>> _recipeFuture;
 
   @override
   void initState() {
     super.initState();
+    _apiService = widget.apiService ?? ApiService();
     _recipeFuture = _apiService.fetchRandomRecipe();
   }
 
