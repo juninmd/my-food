@@ -10,12 +10,14 @@ import 'shopping_list_page.dart';
 import 'bmi_page.dart';
 import 'random_recipe_page.dart';
 
+/// The main page of the application, responsible for displaying meal plans,
+/// tracking water intake, and showing nutritional progress.
 class MealPage extends StatefulWidget {
+  /// Optional [ApiService] for dependency injection, primarily for testing.
   final ApiService? apiService;
 
   const MealPage({super.key, this.apiService});
 
-  // Main page for meal planning
   @override
   State<MealPage> createState() => _MealPageState();
 }
@@ -136,7 +138,7 @@ class _MealPageState extends State<MealPage> {
                 ),
               ],
               flexibleSpace: FlexibleSpaceBar(
-                  stretchModes: <StretchMode>[
+                  stretchModes: const <StretchMode>[
                     StretchMode.zoomBackground,
                     StretchMode.blurBackground,
                   ],
@@ -241,11 +243,11 @@ class _MealPageState extends State<MealPage> {
                       'Total Calorias: $totalCalories',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildMacroBar('Proteínas', totalProtein, DietConstants.proteinTarget, Colors.redAccent),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildMacroBar('Carboidratos', totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildMacroBar('Gorduras', totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
                   ],
                 ),
@@ -301,7 +303,8 @@ class _MealPageState extends State<MealPage> {
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: progress,
-            backgroundColor: color.withValues(alpha: 0.2),
+            // ignore: deprecated_member_use
+            backgroundColor: color.withOpacity(0.2),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 10,
           ),
@@ -321,7 +324,7 @@ class _MealPageState extends State<MealPage> {
             title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
               Image.asset(
@@ -329,7 +332,7 @@ class _MealPageState extends State<MealPage> {
                 height: 60,
                 width: 60,
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,9 +350,9 @@ class _MealPageState extends State<MealPage> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(currentMeal.description),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
               showModalBottomSheet(
@@ -359,8 +362,8 @@ class _MealPageState extends State<MealPage> {
                     height: 400,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Selecione um alimento:',
                             style: TextStyle(
@@ -395,7 +398,7 @@ class _MealPageState extends State<MealPage> {
                 },
               );
             },
-            child: Text('Trocar Alimento'),
+            child: const Text('Trocar Alimento'),
           ),
         ],
       ),
@@ -405,7 +408,7 @@ class _MealPageState extends State<MealPage> {
   Widget _buildCarouselItem(Meal meal) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0)
@@ -419,34 +422,34 @@ class _MealPageState extends State<MealPage> {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             meal.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               meal.description,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
               ),
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             '${meal.calories} kcal | P: ${meal.protein}g C: ${meal.carbs}g G: ${meal.fat}g',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.grey,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
         ],
       ),
     );
