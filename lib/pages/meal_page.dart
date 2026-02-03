@@ -41,6 +41,14 @@ class _MealPageState extends State<MealPage> {
     _quoteFuture = _apiService.fetchQuote();
   }
 
+  @override
+  void dispose() {
+    if (widget.apiService == null) {
+      _apiService.dispose();
+    }
+    super.dispose();
+  }
+
   void _surpriseMe() {
     setState(() {
       final random = Random();
