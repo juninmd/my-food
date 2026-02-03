@@ -10,12 +10,14 @@ import 'shopping_list_page.dart';
 import 'bmi_page.dart';
 import 'random_recipe_page.dart';
 
+/// The main page of the application, responsible for displaying meal plans,
+/// tracking water intake, and showing nutritional progress.
 class MealPage extends StatefulWidget {
+  /// Optional [ApiService] for dependency injection, primarily for testing.
   final ApiService? apiService;
 
   const MealPage({super.key, this.apiService});
 
-  // Main page for meal planning
   @override
   State<MealPage> createState() => _MealPageState();
 }
