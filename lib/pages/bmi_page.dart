@@ -15,6 +15,13 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
   String _resultText = '';
   Color _resultColor = Colors.black;
 
+  @override
+  void dispose() {
+    _weightController.dispose();
+    _heightController.dispose();
+    super.dispose();
+  }
+
   void _calculateBMI() {
     final double? weight = double.tryParse(_weightController.text);
     final double? height = double.tryParse(_heightController.text);

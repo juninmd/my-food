@@ -53,4 +53,9 @@ class ApiService {
       throw Exception('Erro de conexão.');
     }
   }
+
+  /// Closes the underlying HTTP client.
+  void dispose() {
+    client.close();
+  }
 }
