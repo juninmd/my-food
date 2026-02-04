@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/meal.dart';
 import '../data/meal_data.dart';
 import '../data/diet_constants.dart';
@@ -39,6 +40,47 @@ class _MealPageState extends State<MealPage> {
     _lunch = MealData.lunchOptions[0];
     _dinner = MealData.dinnerOptions[0];
     _quoteFuture = _apiService.fetchQuote();
+    _loadState();
+  }
+
+  Future<void> _loadState() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    setState(() {
+      _waterGlasses = prefs.getInt('water_glasses') ?? 0;
+
+      int breakfastIndex = prefs.getInt('breakfast_index') ?? 0;
+      if (breakfastIndex >= 0 && breakfastIndex < MealData.breakfastOptions.length) {
+        _breakfast = MealData.breakfastOptions[breakfastIndex];
+      }
+
+      int lunchIndex = prefs.getInt('lunch_index') ?? 0;
+      if (lunchIndex >= 0 && lunchIndex < MealData.lunchOptions.length) {
+        _lunch = MealData.lunchOptions[lunchIndex];
+      }
+
+      int dinnerIndex = prefs.getInt('dinner_index') ?? 0;
+      if (dinnerIndex >= 0 && dinnerIndex < MealData.dinnerOptions.length) {
+        _dinner = MealData.dinnerOptions[dinnerIndex];
+      }
+    });
+  }
+
+  Future<void> _saveWater() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('water_glasses', _waterGlasses);
+  }
+
+  Future<void> _saveMealPlan(int breakfastIndex, int lunchIndex, int dinnerIndex) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('breakfast_index', breakfastIndex);
+    await prefs.setInt('lunch_index', lunchIndex);
+    await prefs.setInt('dinner_index', dinnerIndex);
+  }
+
+  Future<void> _saveSingleMeal(String key, int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(key, index);
   }
 
   @override
@@ -52,9 +94,16 @@ class _MealPageState extends State<MealPage> {
   void _surpriseMe() {
     setState(() {
       final random = Random();
-      _breakfast = MealData.breakfastOptions[random.nextInt(MealData.breakfastOptions.length)];
-      _lunch = MealData.lunchOptions[random.nextInt(MealData.lunchOptions.length)];
-      _dinner = MealData.dinnerOptions[random.nextInt(MealData.dinnerOptions.length)];
+      final breakfastIndex = random.nextInt(MealData.breakfastOptions.length);
+      final lunchIndex = random.nextInt(MealData.lunchOptions.length);
+      final dinnerIndex = random.nextInt(MealData.dinnerOptions.length);
+
+      _breakfast = MealData.breakfastOptions[breakfastIndex];
+      _lunch = MealData.lunchOptions[lunchIndex];
+      _dinner = MealData.dinnerOptions[dinnerIndex];
+
+      _saveMealPlan(breakfastIndex, lunchIndex, dinnerIndex);
+
       _quoteFuture = _apiService.fetchQuote();
     });
   }
@@ -215,6 +264,7 @@ class _MealPageState extends State<MealPage> {
                             if (_waterGlasses > 0) {
                               setState(() {
                                 _waterGlasses--;
+                                _saveWater();
                               });
                             }
                           },
@@ -241,6 +291,7 @@ class _MealPageState extends State<MealPage> {
                           onPressed: () {
                             setState(() {
                               _waterGlasses++;
+                              _saveWater();
                             });
                           },
                         ),
@@ -265,21 +316,30 @@ class _MealPageState extends State<MealPage> {
                 'Café da manhã',
                 _breakfast,
                 MealData.breakfastOptions,
-                (meal) => setState(() => _breakfast = meal),
+                (meal) {
+                  setState(() => _breakfast = meal);
+                  _saveSingleMeal('breakfast_index', MealData.breakfastOptions.indexOf(meal));
+                },
               ),
               _buildMealSection(
                 context,
                 'Almoço',
                 _lunch,
                 MealData.lunchOptions,
-                (meal) => setState(() => _lunch = meal),
+                (meal) {
+                  setState(() => _lunch = meal);
+                  _saveSingleMeal('lunch_index', MealData.lunchOptions.indexOf(meal));
+                },
               ),
               _buildMealSection(
                 context,
                 'Jantar',
                 _dinner,
                 MealData.dinnerOptions,
-                (meal) => setState(() => _dinner = meal),
+                (meal) {
+                  setState(() => _dinner = meal);
+                  _saveSingleMeal('dinner_index', MealData.dinnerOptions.indexOf(meal));
+                },
               ),
             ],
           ),

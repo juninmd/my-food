@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingListPage extends StatefulWidget {
   final List<String> ingredients;
@@ -21,6 +22,23 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
     for (var ingredient in widget.ingredients) {
       _ingredientCounts[ingredient] = (_ingredientCounts[ingredient] ?? 0) + 1;
     }
+    _loadCheckedIngredients();
+  }
+
+  Future<void> _loadCheckedIngredients() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    final List<String>? checked = prefs.getStringList('checked_ingredients');
+    if (checked != null) {
+      setState(() {
+        _checkedIngredients.addAll(checked);
+      });
+    }
+  }
+
+  Future<void> _saveCheckedIngredients() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('checked_ingredients', _checkedIngredients.toList());
   }
 
   void _copyToClipboard() {
@@ -90,6 +108,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                 } else {
                   _checkedIngredients.add(ingredient);
                 }
+                _saveCheckedIngredients();
               });
             },
           );
