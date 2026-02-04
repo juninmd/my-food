@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_food/pages/shopping_list_page.dart';
 
 void main() {
   group('ShoppingListPage Widget Tests', () {
     final ingredients = ['Ovos', 'Pão', 'Ovos', 'Leite']; // 2 Ovos, 1 Pão, 1 Leite
+
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
 
     testWidgets('Displays aggregated ingredients correctly', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
