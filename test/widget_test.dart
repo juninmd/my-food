@@ -19,13 +19,13 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that the title exists
-    expect(find.text('Alimentação'), findsOneWidget);
+    // Verify that the title exists (English)
+    expect(find.text('Diet'), findsOneWidget);
 
     // Verify that Total Calories is displayed
-    expect(find.textContaining('Total Calorias:'), findsOneWidget);
+    expect(find.textContaining('Total Calories:'), findsOneWidget);
 
     // Verify that Me Surpreenda button exists
-    expect(find.text('Me Surpreenda'), findsOneWidget);
+    expect(find.text('Surprise Me'), findsOneWidget);
   });
 }

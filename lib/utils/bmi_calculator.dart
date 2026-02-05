@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+enum BmiCategory { underweight, normal, overweight, obesity }
+
 class BmiResult {
   final double bmi;
-  final String category;
+  final BmiCategory category;
   final Color color;
 
   const BmiResult({
@@ -21,20 +23,20 @@ class BmiCalculator {
     double heightInMeters = heightCm / 100;
     double bmi = weight / (heightInMeters * heightInMeters);
 
-    String category;
+    BmiCategory category;
     Color color;
 
     if (bmi < 18.5) {
-      category = 'Abaixo do peso';
+      category = BmiCategory.underweight;
       color = Colors.orange;
     } else if (bmi < 25.0) {
-      category = 'Peso normal';
+      category = BmiCategory.normal;
       color = Colors.green;
     } else if (bmi < 30.0) {
-      category = 'Sobrepeso';
+      category = BmiCategory.overweight;
       color = Colors.orangeAccent;
     } else {
-      category = 'Obesidade';
+      category = BmiCategory.obesity;
       color = Colors.red;
     }
 

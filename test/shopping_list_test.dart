@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_food/pages/shopping_list_page.dart';
@@ -12,13 +14,26 @@ void main() {
       SharedPreferences.setMockInitialValues({});
     });
 
+    Widget createLocalizedContext(Widget child) {
+      return MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en')],
+        home: child,
+      );
+    }
+
     testWidgets('Displays aggregated ingredients correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: ShoppingListPage(ingredients: ingredients),
+      await tester.pumpWidget(createLocalizedContext(
+        ShoppingListPage(ingredients: ingredients),
       ));
 
-      // Verify title
-      expect(find.text('Lista de Compras'), findsOneWidget);
+      // Verify title "Shopping List" (English)
+      expect(find.text('Shopping List'), findsOneWidget);
 
       // Verify ingredients
       expect(find.text('Ovos'), findsOneWidget);
@@ -26,13 +41,12 @@ void main() {
       expect(find.text('Leite'), findsOneWidget);
 
       // Verify count for Ovos (x2)
-      // Note: The text might be "x2" in a trailing widget
       expect(find.text('x2'), findsOneWidget);
     });
 
     testWidgets('Toggles checkbox when item is tapped', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: ShoppingListPage(ingredients: ingredients),
+      await tester.pumpWidget(createLocalizedContext(
+        ShoppingListPage(ingredients: ingredients),
       ));
 
       // Initially unchecked
@@ -64,8 +78,8 @@ void main() {
         return null;
       });
 
-      await tester.pumpWidget(MaterialApp(
-        home: ShoppingListPage(ingredients: ingredients),
+      await tester.pumpWidget(createLocalizedContext(
+        ShoppingListPage(ingredients: ingredients),
       ));
 
       // Tap copy button
@@ -73,8 +87,8 @@ void main() {
       await tester.pump(); // Start animation
       await tester.pump(const Duration(seconds: 1)); // Wait for snackbar
 
-      // Verify SnackBar
-      expect(find.text('Lista copiada para a área de transferência!'), findsOneWidget);
+      // Verify SnackBar "List copied to clipboard!"
+      expect(find.text('List copied to clipboard!'), findsOneWidget);
 
       // Verify Clipboard was called
       expect(log, isNotEmpty);
@@ -83,7 +97,7 @@ void main() {
       final args = log.last.arguments as Map;
       final text = args['text'] as String;
 
-      expect(text, contains('Lista de Compras:'));
+      expect(text, contains('Shopping List:'));
       expect(text, contains('[ ] Leite'));
       expect(text, contains('[ ] Ovos (x2)'));
       expect(text, contains('[ ] Pão'));

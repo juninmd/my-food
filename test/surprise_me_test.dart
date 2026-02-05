@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -11,6 +13,19 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
+
+  Widget createLocalizedContext(Widget child) {
+    return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en')],
+      home: child,
+    );
+  }
 
   testWidgets('Surprise Me button fetches new quote and updates UI', (WidgetTester tester) async {
     // Setup Mock Client with dynamic response
@@ -30,12 +45,13 @@ void main() {
     final apiService = ApiService(client: client);
 
     // Pump widget with the injected ApiService
-    await tester.pumpWidget(MaterialApp(
-      home: MealPage(apiService: apiService),
+    await tester.pumpWidget(createLocalizedContext(
+      MealPage(apiService: apiService),
     ));
 
     // Verify initial state
-    expect(find.text('Me Surpreenda'), findsOneWidget);
+    // "Surprise Me" is localized to "Surprise Me" in English
+    expect(find.text('Surprise Me'), findsOneWidget);
 
     // Wait for the initial future to complete
     await tester.pumpAndSettle();
@@ -44,7 +60,7 @@ void main() {
     expect(find.text('"First Quote" - Author 1'), findsOneWidget);
 
     // Tap Surprise Me button
-    await tester.tap(find.text('Me Surpreenda'));
+    await tester.tap(find.text('Surprise Me'));
 
     // Pump to start the future
     await tester.pump();

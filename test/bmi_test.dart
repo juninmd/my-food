@@ -15,14 +15,14 @@ void main() {
       // BMI < 18.5
       // 50kg, 175cm -> 50 / 3.0625 = 16.32
       final result = BmiCalculator.calculate(50, 175);
-      expect(result.category, 'Abaixo do peso');
+      expect(result.category, BmiCategory.underweight);
       expect(result.color, Colors.orange);
     });
 
     test('Categorizes Normal Weight correctly', () {
       // BMI 22.86 (from before)
       final result = BmiCalculator.calculate(70, 175);
-      expect(result.category, 'Peso normal');
+      expect(result.category, BmiCategory.normal);
       expect(result.color, Colors.green);
     });
 
@@ -30,7 +30,7 @@ void main() {
       // BMI 25-30
       // 85kg, 175cm -> 85 / 3.0625 = 27.75
       final result = BmiCalculator.calculate(85, 175);
-      expect(result.category, 'Sobrepeso');
+      expect(result.category, BmiCategory.overweight);
       expect(result.color, Colors.orangeAccent);
     });
 
@@ -38,7 +38,7 @@ void main() {
       // BMI >= 30
       // 100kg, 175cm -> 100 / 3.0625 = 32.65
       final result = BmiCalculator.calculate(100, 175);
-      expect(result.category, 'Obesidade');
+      expect(result.category, BmiCategory.obesity);
       expect(result.color, Colors.red);
     });
 
@@ -47,11 +47,11 @@ void main() {
       // Let's force a value.
       // Height 100cm (1m). Weight 24.95kg -> BMI 24.95
       final result = BmiCalculator.calculate(24.95, 100);
-      expect(result.category, 'Peso normal'); // Should be Normal (<25)
+      expect(result.category, BmiCategory.normal); // Should be Normal (<25)
 
       // Height 100cm. Weight 25.0kg -> BMI 25.0
       final result2 = BmiCalculator.calculate(25.0, 100);
-      expect(result2.category, 'Sobrepeso'); // Should be Overweight (>=25)
+      expect(result2.category, BmiCategory.overweight); // Should be Overweight (>=25)
     });
 
     test('Throws error on invalid height', () {

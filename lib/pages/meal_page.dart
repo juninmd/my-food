@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import '../models/meal.dart';
 import '../data/meal_data.dart';
 import '../data/diet_constants.dart';
@@ -24,9 +25,9 @@ class MealPage extends StatefulWidget {
 }
 
 class _MealPageState extends State<MealPage> {
-  late Meal _breakfast;
-  late Meal _lunch;
-  late Meal _dinner;
+  int _breakfastIndex = 0;
+  int _lunchIndex = 0;
+  int _dinnerIndex = 0;
   int _waterGlasses = 0;
   final int _targetGlasses = DietConstants.waterGlassTarget;
   late Future<String> _quoteFuture;
@@ -36,9 +37,6 @@ class _MealPageState extends State<MealPage> {
   void initState() {
     super.initState();
     _apiService = widget.apiService ?? ApiService();
-    _breakfast = MealData.breakfastOptions[0];
-    _lunch = MealData.lunchOptions[0];
-    _dinner = MealData.dinnerOptions[0];
     _quoteFuture = _apiService.fetchQuote();
     _loadState();
   }
@@ -48,21 +46,9 @@ class _MealPageState extends State<MealPage> {
     if (!mounted) return;
     setState(() {
       _waterGlasses = prefs.getInt('water_glasses') ?? 0;
-
-      int breakfastIndex = prefs.getInt('breakfast_index') ?? 0;
-      if (breakfastIndex >= 0 && breakfastIndex < MealData.breakfastOptions.length) {
-        _breakfast = MealData.breakfastOptions[breakfastIndex];
-      }
-
-      int lunchIndex = prefs.getInt('lunch_index') ?? 0;
-      if (lunchIndex >= 0 && lunchIndex < MealData.lunchOptions.length) {
-        _lunch = MealData.lunchOptions[lunchIndex];
-      }
-
-      int dinnerIndex = prefs.getInt('dinner_index') ?? 0;
-      if (dinnerIndex >= 0 && dinnerIndex < MealData.dinnerOptions.length) {
-        _dinner = MealData.dinnerOptions[dinnerIndex];
-      }
+      _breakfastIndex = prefs.getInt('breakfast_index') ?? 0;
+      _lunchIndex = prefs.getInt('lunch_index') ?? 0;
+      _dinnerIndex = prefs.getInt('dinner_index') ?? 0;
     });
   }
 
@@ -92,27 +78,28 @@ class _MealPageState extends State<MealPage> {
   }
 
   void _surpriseMe() {
+    final l10n = AppLocalizations.of(context)!;
+    final breakfastOptions = MealData.getBreakfastOptions(l10n);
+    final lunchOptions = MealData.getLunchOptions(l10n);
+    final dinnerOptions = MealData.getDinnerOptions(l10n);
+
     setState(() {
       final random = Random();
-      final breakfastIndex = random.nextInt(MealData.breakfastOptions.length);
-      final lunchIndex = random.nextInt(MealData.lunchOptions.length);
-      final dinnerIndex = random.nextInt(MealData.dinnerOptions.length);
+      _breakfastIndex = random.nextInt(breakfastOptions.length);
+      _lunchIndex = random.nextInt(lunchOptions.length);
+      _dinnerIndex = random.nextInt(dinnerOptions.length);
 
-      _breakfast = MealData.breakfastOptions[breakfastIndex];
-      _lunch = MealData.lunchOptions[lunchIndex];
-      _dinner = MealData.dinnerOptions[dinnerIndex];
-
-      _saveMealPlan(breakfastIndex, lunchIndex, dinnerIndex);
+      _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
 
       _quoteFuture = _apiService.fetchQuote();
     });
   }
 
-  void _openShoppingList() {
+  void _openShoppingList(Meal breakfast, Meal lunch, Meal dinner) {
     List<String> allIngredients = [];
-    allIngredients.addAll(_breakfast.ingredients);
-    allIngredients.addAll(_lunch.ingredients);
-    allIngredients.addAll(_dinner.ingredients);
+    allIngredients.addAll(breakfast.ingredients);
+    allIngredients.addAll(lunch.ingredients);
+    allIngredients.addAll(dinner.ingredients);
 
     Navigator.push(
       context,
@@ -124,24 +111,38 @@ class _MealPageState extends State<MealPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     Size size = MediaQuery.of(context).size;
-    int totalCalories = _breakfast.calories + _lunch.calories + _dinner.calories;
-    int totalProtein = _breakfast.protein + _lunch.protein + _dinner.protein;
-    int totalCarbs = _breakfast.carbs + _lunch.carbs + _dinner.carbs;
-    int totalFat = _breakfast.fat + _lunch.fat + _dinner.fat;
+
+    final breakfastOptions = MealData.getBreakfastOptions(l10n);
+    final lunchOptions = MealData.getLunchOptions(l10n);
+    final dinnerOptions = MealData.getDinnerOptions(l10n);
+
+    if (_breakfastIndex >= breakfastOptions.length) _breakfastIndex = 0;
+    if (_lunchIndex >= lunchOptions.length) _lunchIndex = 0;
+    if (_dinnerIndex >= dinnerOptions.length) _dinnerIndex = 0;
+
+    final breakfast = breakfastOptions[_breakfastIndex];
+    final lunch = lunchOptions[_lunchIndex];
+    final dinner = dinnerOptions[_dinnerIndex];
+
+    int totalCalories = breakfast.calories + lunch.calories + dinner.calories;
+    int totalProtein = breakfast.protein + lunch.protein + dinner.protein;
+    int totalCarbs = breakfast.carbs + lunch.carbs + dinner.carbs;
+    int totalFat = breakfast.fat + lunch.fat + dinner.fat;
 
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            DrawerHeader(
+              decoration: const BoxDecoration(
                 color: Colors.black,
               ),
               child: Text(
-                'Menu',
-                style: TextStyle(
+                l10n.menuTitle,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                 ),
@@ -149,7 +150,7 @@ class _MealPageState extends State<MealPage> {
             ),
             ListTile(
               leading: const Icon(Icons.calculate),
-              title: const Text('Calculadora IMC'),
+              title: Text(l10n.bmiTitle),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -160,7 +161,7 @@ class _MealPageState extends State<MealPage> {
             ),
             ListTile(
               leading: const Icon(Icons.restaurant_menu),
-              title: const Text('Receita Surpresa'),
+              title: Text(l10n.randomRecipeTitle),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -181,17 +182,17 @@ class _MealPageState extends State<MealPage> {
               toolbarHeight: size.height * 0.1,
               collapsedHeight: size.height * 0.1,
               expandedHeight: size.height * 0.2,
-              title: const Text(
-                "Alimentação",
-                style: TextStyle(color: Colors.white),
+              title: Text(
+                l10n.mealPageTitle,
+                style: const TextStyle(color: Colors.white),
               ),
               centerTitle: true,
               backgroundColor: Colors.black,
               actions: [
                 IconButton(
                   icon: const Icon(Icons.shopping_cart),
-                  onPressed: _openShoppingList,
-                  tooltip: 'Lista de Compras',
+                  onPressed: () => _openShoppingList(breakfast, lunch, dinner),
+                  tooltip: l10n.shoppingListTitle,
                 ),
               ],
               flexibleSpace: FlexibleSpaceBar(
@@ -252,7 +253,7 @@ class _MealPageState extends State<MealPage> {
                       },
                     ),
                     Text(
-                      'Hidratação Diária',
+                      l10n.dailyHydration,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8),
@@ -273,7 +274,7 @@ class _MealPageState extends State<MealPage> {
                           child: Column(
                             children: [
                               Text(
-                                '$_waterGlasses / $_targetGlasses copos (250ml)',
+                                l10n.hydrationStatus(_waterGlasses, _targetGlasses),
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const SizedBox(height: 4),
@@ -299,46 +300,55 @@ class _MealPageState extends State<MealPage> {
                     ),
                     const Divider(height: 32),
                     Text(
-                      'Total Calorias: $totalCalories',
+                      l10n.totalCalories(totalCalories),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 16),
-                    _buildMacroBar('Proteínas', totalProtein, DietConstants.proteinTarget, Colors.redAccent),
+                    _buildMacroBar(l10n.macroProtein, totalProtein, DietConstants.proteinTarget, Colors.redAccent),
                     const SizedBox(height: 8),
-                    _buildMacroBar('Carboidratos', totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
+                    _buildMacroBar(l10n.macroCarbs, totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
                     const SizedBox(height: 8),
-                    _buildMacroBar('Gorduras', totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
+                    _buildMacroBar(l10n.macroFat, totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
                   ],
                 ),
               ),
               _buildMealSection(
                 context,
-                'Café da manhã',
-                _breakfast,
-                MealData.breakfastOptions,
+                l10n.mealBreakfast,
+                breakfast,
+                breakfastOptions,
                 (meal) {
-                  setState(() => _breakfast = meal);
-                  _saveSingleMeal('breakfast_index', MealData.breakfastOptions.indexOf(meal));
+                  final index = breakfastOptions.indexOf(meal);
+                  setState(() {
+                    _breakfastIndex = index;
+                    _saveSingleMeal('breakfast_index', index);
+                  });
                 },
               ),
               _buildMealSection(
                 context,
-                'Almoço',
-                _lunch,
-                MealData.lunchOptions,
+                l10n.mealLunch,
+                lunch,
+                lunchOptions,
                 (meal) {
-                  setState(() => _lunch = meal);
-                  _saveSingleMeal('lunch_index', MealData.lunchOptions.indexOf(meal));
+                  final index = lunchOptions.indexOf(meal);
+                  setState(() {
+                    _lunchIndex = index;
+                    _saveSingleMeal('lunch_index', index);
+                  });
                 },
               ),
               _buildMealSection(
                 context,
-                'Jantar',
-                _dinner,
-                MealData.dinnerOptions,
+                l10n.mealDinner,
+                dinner,
+                dinnerOptions,
                 (meal) {
-                  setState(() => _dinner = meal);
-                  _saveSingleMeal('dinner_index', MealData.dinnerOptions.indexOf(meal));
+                  final index = dinnerOptions.indexOf(meal);
+                  setState(() {
+                    _dinnerIndex = index;
+                    _saveSingleMeal('dinner_index', index);
+                  });
                 },
               ),
             ],
@@ -347,7 +357,7 @@ class _MealPageState extends State<MealPage> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _surpriseMe,
         icon: const Icon(Icons.auto_awesome),
-        label: const Text('Me Surpreenda'),
+        label: Text(l10n.surpriseMeButton),
       ),
     );
   }
@@ -372,7 +382,7 @@ class _MealPageState extends State<MealPage> {
           child: LinearProgressIndicator(
             value: progress,
             // ignore: deprecated_member_use
-            backgroundColor: color.withOpacity(0.2),
+            backgroundColor: color.withValues(alpha: 0.2),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 10,
           ),
@@ -383,6 +393,7 @@ class _MealPageState extends State<MealPage> {
 
   Widget _buildMealSection(
       BuildContext context, String title, Meal currentMeal, List<Meal> options, Function(Meal) onSelect) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -430,11 +441,11 @@ class _MealPageState extends State<MealPage> {
                     height: 400,
                     child: Column(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Selecione um alimento:',
-                            style: TextStyle(
+                            l10n.selectFoodTitle,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -466,7 +477,7 @@ class _MealPageState extends State<MealPage> {
                 },
               );
             },
-            child: const Text('Trocar Alimento'),
+            child: Text(l10n.changeFoodButton),
           ),
         ],
       ),

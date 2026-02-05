@@ -12,16 +12,16 @@ void main() {
     await tester.tap(find.byTooltip('Open navigation menu'));
     await tester.pumpAndSettle();
 
-    // Verify Drawer is open and find BMI item
-    expect(find.text('Calculadora IMC'), findsOneWidget);
+    // Verify Drawer is open and find BMI item (English default)
+    expect(find.text('BMI Calculator'), findsOneWidget);
 
     // Tap BMI item
-    await tester.tap(find.text('Calculadora IMC'));
+    await tester.tap(find.text('BMI Calculator'));
     await tester.pumpAndSettle();
 
     // Verify we are on BMI Page
     expect(find.byType(BMICalculatorPage), findsOneWidget);
-    expect(find.text('Calculadora IMC'), findsOneWidget);
+    expect(find.text('BMI Calculator'), findsOneWidget);
   });
 
   testWidgets('Navigation to Shopping List Page via Action', (WidgetTester tester) async {
@@ -36,6 +36,6 @@ void main() {
 
     // Verify we are on Shopping List Page
     expect(find.byType(ShoppingListPage), findsOneWidget);
-    expect(find.text('Lista de Compras'), findsOneWidget);
+    expect(find.text('Shopping List'), findsOneWidget);
   });
 }
