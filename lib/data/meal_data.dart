@@ -1,102 +1,109 @@
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import '../models/meal.dart';
 
 class MealData {
-  static const List<Meal> breakfastOptions = [
-    Meal(
-      name: 'Pão com Ovo',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 300,
-      protein: 15,
-      carbs: 30,
-      fat: 12,
-      description: 'Pão integral com ovos mexidos.',
-      ingredients: ['Pão integral', 'Ovos', 'Manteiga', 'Sal'],
-    ),
-    Meal(
-      name: 'Mingau de Aveia',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 250,
-      protein: 8,
-      carbs: 45,
-      fat: 5,
-      description: 'Aveia cozida com leite e canela.',
-      ingredients: ['Aveia', 'Leite', 'Canela', 'Açúcar'],
-    ),
-    Meal(
-      name: 'Frutas com Iogurte',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 200,
-      protein: 6,
-      carbs: 40,
-      fat: 2,
-      description: 'Salada de frutas com iogurte natural.',
-      ingredients: ['Banana', 'Maçã', 'Iogurte Natural', 'Mel'],
-    ),
-  ];
+  static List<Meal> getBreakfastOptions(AppLocalizations l10n) {
+    return [
+      Meal(
+        name: l10n.mealBreadWithEggName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 300,
+        protein: 15,
+        carbs: 30,
+        fat: 12,
+        description: l10n.mealBreadWithEggDesc,
+        ingredients: [l10n.ingWholeWheatBread, l10n.ingEggs, l10n.ingButter, l10n.ingSalt],
+      ),
+      Meal(
+        name: l10n.mealOatmealName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 250,
+        protein: 8,
+        carbs: 45,
+        fat: 5,
+        description: l10n.mealOatmealDesc,
+        ingredients: [l10n.ingOats, l10n.ingMilk, l10n.ingCinnamon, l10n.ingSugar],
+      ),
+      Meal(
+        name: l10n.mealFruitYogurtName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 200,
+        protein: 6,
+        carbs: 40,
+        fat: 2,
+        description: l10n.mealFruitYogurtDesc,
+        ingredients: [l10n.ingBanana, l10n.ingApple, l10n.ingNaturalYogurt, l10n.ingHoney],
+      ),
+    ];
+  }
 
-  static const List<Meal> lunchOptions = [
-    Meal(
-      name: 'Frango com Batata Doce',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 500,
-      protein: 40,
-      carbs: 60,
-      fat: 10,
-      description: 'Peito de frango grelhado com purê de batata doce.',
-      ingredients: ['Peito de frango', 'Batata doce', 'Azeite', 'Sal'],
-    ),
-    Meal(
-      name: 'Salada Ceasar',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 400,
-      protein: 25,
-      carbs: 15,
-      fat: 25,
-      description: 'Alface, croutons e molho especial.',
-      ingredients: ['Alface', 'Croutons', 'Queijo parmesão', 'Molho Caesar', 'Frango'],
-    ),
-    Meal(
-      name: 'Peixe Grelhado',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 450,
-      protein: 35,
-      carbs: 20,
-      fat: 20,
-      description: 'Filé de tilápia com legumes.',
-      ingredients: ['Tilápia', 'Brócolis', 'Cenoura', 'Azeite'],
-    ),
-  ];
+  static List<Meal> getLunchOptions(AppLocalizations l10n) {
+    return [
+      Meal(
+        name: l10n.mealChickenSweetPotatoName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 500,
+        protein: 40,
+        carbs: 60,
+        fat: 10,
+        description: l10n.mealChickenSweetPotatoDesc,
+        ingredients: [l10n.ingChickenBreast, l10n.ingSweetPotato, l10n.ingOliveOil, l10n.ingSalt],
+      ),
+      Meal(
+        name: l10n.mealCaesarSaladName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 400,
+        protein: 25,
+        carbs: 15,
+        fat: 25,
+        description: l10n.mealCaesarSaladDesc,
+        ingredients: [l10n.ingLettuce, l10n.ingCroutons, l10n.ingParmesanCheese, l10n.ingCaesarSauce, l10n.ingChicken],
+      ),
+      Meal(
+        name: l10n.mealGrilledFishName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 450,
+        protein: 35,
+        carbs: 20,
+        fat: 20,
+        description: l10n.mealGrilledFishDesc,
+        ingredients: [l10n.ingTilapia, l10n.ingBroccoli, l10n.ingCarrot, l10n.ingOliveOil],
+      ),
+    ];
+  }
 
-  static const List<Meal> dinnerOptions = [
-    Meal(
-      name: 'Sopa de Legumes',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 250,
-      protein: 5,
-      carbs: 40,
-      fat: 8,
-      description: 'Sopa leve com variedade de legumes.',
-      ingredients: ['Batata', 'Cenoura', 'Abobrinha', 'Cebola', 'Alho'],
-    ),
-    Meal(
-      name: 'Omelete de Queijo',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 350,
-      protein: 20,
-      carbs: 5,
-      fat: 28,
-      description: 'Omelete recheado com queijo minas.',
-      ingredients: ['Ovos', 'Queijo minas', 'Orégano', 'Sal'],
-    ),
-    Meal(
-      name: 'Sanduíche Natural',
-      imagePath: 'assets/images/lanche.jpg',
-      calories: 300,
-      protein: 15,
-      carbs: 35,
-      fat: 10,
-      description: 'Pão de forma com patê de atum.',
-      ingredients: ['Pão de forma', 'Atum', 'Maionese', 'Alface'],
-    ),
-  ];
+  static List<Meal> getDinnerOptions(AppLocalizations l10n) {
+    return [
+      Meal(
+        name: l10n.mealVegetableSoupName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 250,
+        protein: 5,
+        carbs: 40,
+        fat: 8,
+        description: l10n.mealVegetableSoupDesc,
+        ingredients: [l10n.ingPotato, l10n.ingCarrot, l10n.ingZucchini, l10n.ingOnion, l10n.ingGarlic],
+      ),
+      Meal(
+        name: l10n.mealCheeseOmeletName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 350,
+        protein: 20,
+        carbs: 5,
+        fat: 28,
+        description: l10n.mealCheeseOmeletDesc,
+        ingredients: [l10n.ingEggs, l10n.ingMinasCheese, l10n.ingOregano, l10n.ingSalt],
+      ),
+      Meal(
+        name: l10n.mealNaturalSandwichName,
+        imagePath: 'assets/images/lanche.jpg',
+        calories: 300,
+        protein: 15,
+        carbs: 35,
+        fat: 10,
+        description: l10n.mealNaturalSandwichDesc,
+        ingredients: [l10n.ingSlicedBread, l10n.ingTuna, l10n.ingMayonnaise, l10n.ingLettuce],
+      ),
+    ];
+  }
 }

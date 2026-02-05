@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -8,13 +10,26 @@ import 'package:my_food/pages/random_recipe_page.dart';
 import 'package:my_food/services/api_service.dart';
 
 void main() {
+  Widget createLocalizedContext(Widget child) {
+    return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en')],
+      home: child,
+    );
+  }
+
   testWidgets('RandomRecipePage shows loading indicator initially', (WidgetTester tester) async {
     final completer = Completer<http.Response>();
     final client = MockClient((request) => completer.future);
     final apiService = ApiService(client: client);
 
-    await tester.pumpWidget(MaterialApp(
-      home: RandomRecipePage(apiService: apiService),
+    await tester.pumpWidget(createLocalizedContext(
+      RandomRecipePage(apiService: apiService),
     ));
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
@@ -41,23 +56,19 @@ void main() {
 
     final apiService = ApiService(client: client);
 
-    await tester.pumpWidget(MaterialApp(
-      home: RandomRecipePage(apiService: apiService),
+    await tester.pumpWidget(createLocalizedContext(
+      RandomRecipePage(apiService: apiService),
     ));
 
     // Wait for Future to complete
     await tester.pumpAndSettle();
 
     expect(find.text('Spaghetti Carbonara'), findsOneWidget);
-    expect(find.text('Categoria: Pasta'), findsOneWidget);
+    // "Category: " is from l10n (English), "Pasta" is from API
+    expect(find.text('Category: Pasta'), findsOneWidget);
     expect(find.text('Boil pasta. Fry bacon. Mix with eggs and cheese.'), findsOneWidget);
-    expect(find.text('Nova Receita'), findsOneWidget);
-    // Image.network is tricky to test as it loads asynchronously and depends on network,
-    // but in widget tests with MockClient it might try to load.
-    // Flutter test environment usually intercepts HTTP calls from Image.network and returns 400 or similar
-    // unless mocked deeply (HttpOverrides).
-    // But since we are mocking ApiService, the Image.network is separate.
-    // However, the test focuses on text content which validates the logic.
+    // "New Recipe" from l10n
+    expect(find.text('New Recipe'), findsOneWidget);
   });
 
   testWidgets('RandomRecipePage displays error message and retry button on failure', (WidgetTester tester) async {
@@ -67,15 +78,16 @@ void main() {
 
     final apiService = ApiService(client: client);
 
-    await tester.pumpWidget(MaterialApp(
-      home: RandomRecipePage(apiService: apiService),
+    await tester.pumpWidget(createLocalizedContext(
+      RandomRecipePage(apiService: apiService),
     ));
 
     await tester.pumpAndSettle();
 
-    // ApiService wraps all errors in 'Exception: Erro de conexão.'
+    // ApiService wraps all errors in 'Exception: Erro de conexão.' (Hardcoded PT)
     expect(find.textContaining('Erro de conexão'), findsOneWidget);
-    expect(find.text('Tentar Novamente'), findsOneWidget);
+    // "Try Again" from l10n
+    expect(find.text('Try Again'), findsOneWidget);
   });
 
   testWidgets('RandomRecipePage retry button triggers new fetch', (WidgetTester tester) async {
@@ -98,17 +110,17 @@ void main() {
 
     final apiService = ApiService(client: client);
 
-    await tester.pumpWidget(MaterialApp(
-      home: RandomRecipePage(apiService: apiService),
+    await tester.pumpWidget(createLocalizedContext(
+      RandomRecipePage(apiService: apiService),
     ));
 
     await tester.pumpAndSettle();
 
     // First attempt failed
-    expect(find.text('Tentar Novamente'), findsOneWidget);
+    expect(find.text('Try Again'), findsOneWidget);
 
     // Tap retry
-    await tester.tap(find.text('Tentar Novamente'));
+    await tester.tap(find.text('Try Again'));
     await tester.pump(); // Start future
     await tester.pumpAndSettle(); // Resolve future
 

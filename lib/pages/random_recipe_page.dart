@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 import '../services/api_service.dart';
 
 class RandomRecipePage extends StatefulWidget {
@@ -29,9 +30,11 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Receita Surpresa'),
+        title: Text(l10n.randomRecipeTitle),
         backgroundColor: Colors.black,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
@@ -44,10 +47,10 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Erro: ${snapshot.error}'),
+                  Text('${l10n.randomRecipeErrorPrefix}${snapshot.error}'),
                   ElevatedButton(
                     onPressed: _refreshRecipe,
-                    child: const Text('Tentar Novamente'),
+                    child: Text(l10n.randomRecipeRetry),
                   ),
                 ],
               ),
@@ -76,22 +79,22 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                     ),
                   const SizedBox(height: 16),
                   Text(
-                    meal['strMeal'] ?? 'Sem nome',
+                    meal['strMeal'] ?? l10n.randomRecipeNoName,
                     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Categoria: ${meal['strCategory'] ?? 'N/A'}',
+                    '${l10n.randomRecipeCategoryPrefix}${meal['strCategory'] ?? l10n.randomRecipeNA}',
                     style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Instruções:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    l10n.randomRecipeInstructions,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    meal['strInstructions'] ?? 'Sem instruções disponíveis.',
+                    meal['strInstructions'] ?? l10n.randomRecipeNoInstructions,
                     style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 24),
@@ -99,14 +102,14 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                     child: ElevatedButton.icon(
                       onPressed: _refreshRecipe,
                       icon: const Icon(Icons.refresh),
-                      label: const Text('Nova Receita'),
+                      label: Text(l10n.randomRecipeNew),
                     ),
                   ),
                 ],
               ),
             );
           } else {
-            return const Center(child: Text('Nenhum dado encontrado.'));
+            return Center(child: Text(l10n.randomRecipeNoData));
           }
         },
       ),

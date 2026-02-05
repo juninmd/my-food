@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 
 class ShoppingListPage extends StatefulWidget {
   final List<String> ingredients;
@@ -42,8 +43,9 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
   }
 
   void _copyToClipboard() {
+    final l10n = AppLocalizations.of(context)!;
     final buffer = StringBuffer();
-    buffer.writeln('Lista de Compras:');
+    buffer.writeln(l10n.shoppingListClipboardTitle);
 
     final sortedIngredients = _ingredientCounts.keys.toList()..sort();
 
@@ -59,25 +61,26 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
     Clipboard.setData(ClipboardData(text: buffer.toString()));
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Lista copiada para a área de transferência!'),
-        duration: Duration(seconds: 2),
+      SnackBar(
+        content: Text(l10n.shoppingListCopied),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final sortedIngredients = _ingredientCounts.keys.toList()..sort();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Compras'),
+        title: Text(l10n.shoppingListTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.copy),
             onPressed: _copyToClipboard,
-            tooltip: 'Copiar lista',
+            tooltip: l10n.shoppingListCopyTooltip,
           ),
         ],
       ),
