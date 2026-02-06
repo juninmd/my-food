@@ -1,52 +1,52 @@
 # my_food
 
-Aplicativo de Planejamento Alimentar e Saúde.
+Meal Planning and Health Application.
 
-Este projeto oferece uma solução completa para gerenciamento de dieta e saúde de pacientes.
+This project offers a complete solution for patient diet and health management.
 
-## Funcionalidades Principais
+## Main Features
 
-*   **Dieta de Pacientes (MealPage)**:
-    *   Planejamento diário (Café da Manhã, Almoço, Jantar).
-    *   Visualização de opções de refeições e detalhes (ingredientes, descrição).
-    *   Monitoramento de hidratação diária (contador de copos de água).
+*   **Patient Diet (MealPage)**:
+    *   Daily planning (Breakfast, Lunch, Dinner).
+    *   Visualization of meal options and details (ingredients, description).
+    *   Daily hydration tracking (water glass counter).
 
-*   **Cálculo de Nutrientes**:
-    *   Cálculo automático de calorias totais do dia.
-    *   Barras de progresso para macronutrientes (Proteínas, Carboidratos, Gorduras).
-    *   **Calculadora IMC**: Ferramenta dedicada para cálculo do Índice de Massa Corporal (BMI) com categorização de saúde.
+*   **Nutrient Calculation**:
+    *   Automatic calculation of total daily calories.
+    *   Progress bars for macronutrients (Protein, Carbs, Fat).
+    *   **BMI Calculator**: Dedicated tool for Body Mass Index (BMI) calculation with health categorization.
 
-*   **Lista de Compras (ShoppingListPage)**:
-    *   Geração automática de lista baseada nas refeições do dia.
-    *   Agrupamento de ingredientes iguais.
-    *   Funcionalidade de marcar itens comprados.
-    *   Copiar lista para a área de transferência.
+*   **Shopping List (ShoppingListPage)**:
+    *   Automatic list generation based on daily meals.
+    *   Grouping of identical ingredients.
+    *   Functionality to check off purchased items.
+    *   Copy list to clipboard.
 
-*   **Me Surpreenda (Surprise Me)**:
-    *   **Refeições Aleatórias**: Botão "Me Surpreenda" na tela principal que gera um plano alimentar aleatório para o dia.
-    *   **Frases Motivacionais**: Exibição de frases inspiradoras via API.
-    *   **Receita Surpresa**: Funcionalidade extra para buscar uma receita aleatória de uma API externa (TheMealDB).
+*   **Surprise Me**:
+    *   **Random Meals**: "Surprise Me" button on the main screen that generates a random meal plan for the day.
+    *   **Motivational Quotes**: Display of inspiring quotes via API.
+    *   **Surprise Recipe**: Extra functionality to fetch a random recipe from an external API (TheMealDB).
 
-## Estrutura do Projeto
+## Project Structure
 
-*   `lib/pages`: Contém as telas principais (MealPage, ShoppingListPage, BMICalculatorPage, RandomRecipePage).
-*   `lib/models`: Modelos de dados (Meal).
-*   `lib/data`: Dados estáticos das refeições.
-*   `lib/services`: Lógica de comunicação com APIs externas.
-*   `lib/utils`: Utilitários (Calculadora de IMC).
+*   `lib/pages`: Contains the main screens (MealPage, ShoppingListPage, BMICalculatorPage, RandomRecipePage).
+*   `lib/models`: Data models (Meal).
+*   `lib/data`: Static meal data.
+*   `lib/services`: Logic for communication with external APIs.
+*   `lib/utils`: Utilities (BMI Calculator).
 
-## Executando o Projeto
+## Running the Project
 
-Este projeto utiliza Flutter. Para rodar:
+This project uses Flutter. To run:
 
 ```bash
 flutter pub get
 flutter run
 ```
 
-## Testes
+## Tests
 
-O projeto inclui testes unitários e de widget para garantir a integridade das funcionalidades principais.
+The project includes unit and widget tests to ensure the integrity of main features.
 
 ```bash
 flutter test
