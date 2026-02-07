@@ -2,6 +2,9 @@
 command = "flutter gen-l10n && flutter build web"
 publish = "build/web"
 
+[build.environment]
+  NODE_VERSION = "20"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
