@@ -17,6 +17,6 @@ This file serves as a guide for AI agents working on this repository.
 ## Future Roadmap
 
 1.  **Persistent Storage**: Implement `shared_preferences` or `hive` to save daily water intake, current meal plan, and checked shopping list items across app restarts. (Completed)
-2.  **Semantic Release**: enhance the CI/CD pipeline to fully automate versioning and changelog generation using Conventional Commits. (Completed)
+2.  **Semantic Release**: enhance the CI/CD pipeline to fully automate versioning and changelog generation using Conventional Commits.
 3.  **Localization (l10n)**: Refactor the app to use Flutter's `gen_l10n` to support multiple languages (English and Portuguese), removing hardcoded strings. (Completed)
 4.  **Standardize Documentation**: Unify the language of documentation (README.md is in PT, CONTRIBUTING.md is in EN). (Completed)
