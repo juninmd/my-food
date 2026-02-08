@@ -17,6 +17,11 @@
 -   **Action**: Added `dispose()` to `ApiService`.
 -   **Action**: Added test for `ApiService` lifecycle.
 
+### Latest Update (Jules)
+-   **Action**: Configured Semantic Release with `release.config.js`.
+-   **Action**: Updated CI/CD pipeline `.github/workflows/flutter_release.yml` to use `semantic-release` on `main` branch.
+-   **Action**: Configured automatic version injection into `pubspec.yaml` using `@semantic-release/exec`.
+
 ## Project Context
 -   **Framework**: Flutter
 -   **State Management**: `setState` (Local)
