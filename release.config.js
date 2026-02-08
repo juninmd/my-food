@@ -1,3 +1,14 @@
+/**
+ * Semantic Release Configuration
+ *
+ * This configuration handles:
+ * 1. Version analysis based on commits.
+ * 2. Changelog generation.
+ * 3. NPM package version bumping.
+ * 4. Flutter pubspec.yaml version bumping and APK building.
+ * 5. Git committing of artifacts.
+ * 6. GitHub release creation with APK asset.
+ */
 module.exports = {
   branches: ['main'],
   plugins: [
