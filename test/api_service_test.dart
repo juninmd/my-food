@@ -27,7 +27,10 @@ void main() {
 
       final apiService = ApiService(client: client);
 
-      expect(apiService.fetchQuote(), throwsException);
+      expect(
+        apiService.fetchQuote(),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Failed to load quote')))
+      );
     });
 
     test('fetchQuote throws exception on network error', () async {
@@ -37,7 +40,10 @@ void main() {
 
       final apiService = ApiService(client: client);
 
-      expect(apiService.fetchQuote(), throwsException);
+      expect(
+        apiService.fetchQuote(),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Connection error')))
+      );
     });
 
     test('fetchRandomRecipe returns meal when call is successful', () async {

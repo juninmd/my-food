@@ -30,6 +30,7 @@ class ApiService {
         throw Exception('Failed to load quote');
       }
     } catch (e) {
+      if (e.toString().contains('Failed to load quote')) rethrow;
       throw Exception('Connection error');
     }
   }
@@ -50,6 +51,7 @@ class ApiService {
         throw Exception('Failed to load recipe');
       }
     } catch (e) {
+      if (e.toString().contains('Failed to load recipe')) rethrow;
       throw Exception('Connection error');
     }
   }

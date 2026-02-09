@@ -1,5 +1,5 @@
 [build]
-command = "flutter gen-l10n && flutter build web"
+command = "flutter build web"
 publish = "build/web"
 
 [[redirects]]
