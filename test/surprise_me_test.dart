@@ -71,4 +71,20 @@ void main() {
     // Verify second quote is displayed
     expect(find.text('"Second Quote" - Author 2'), findsOneWidget);
   });
+
+  testWidgets('Surprise Me displays fallback message on API error', (WidgetTester tester) async {
+    final client = MockClient((request) async {
+      return http.Response('Error', 500);
+    });
+
+    final apiService = ApiService(client: client);
+
+    await tester.pumpWidget(createLocalizedContext(
+      MealPage(apiService: apiService),
+    ));
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Keep focused and healthy!'), findsOneWidget);
+  });
 }

@@ -105,5 +105,9 @@
   "mealDinner": "Dinner",
   "surpriseMeButton": "Surprise Me",
   "changeFoodButton": "Change Food",
-  "selectFoodTitle": "Select a food:"
+  "selectFoodTitle": "Select a food:",
+  "quoteErrorMessage": "Failed to load quote.",
+  "quoteFallbackMessage": "Keep focused and healthy!",
+  "recipeLoadError": "Failed to load recipe.",
+  "connectionError": "Connection error."
 }

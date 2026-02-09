@@ -283,4 +283,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectFoodTitle => 'Select a food:';
+
+  @override
+  String get quoteErrorMessage => 'Failed to load quote.';
+
+  @override
+  String get quoteFallbackMessage => 'Keep focused and healthy!';
+
+  @override
+  String get recipeLoadError => 'Failed to load recipe.';
+
+  @override
+  String get connectionError => 'Connection error.';
 }

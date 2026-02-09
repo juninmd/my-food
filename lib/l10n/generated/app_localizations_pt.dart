@@ -283,4 +283,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get selectFoodTitle => 'Selecione um alimento:';
+
+  @override
+  String get quoteErrorMessage => 'Falha ao carregar frase.';
+
+  @override
+  String get quoteFallbackMessage => 'Mantenha-se focado e saudável!';
+
+  @override
+  String get recipeLoadError => 'Falha ao carregar receita.';
+
+  @override
+  String get connectionError => 'Erro de conexão.';
 }

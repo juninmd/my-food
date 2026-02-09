@@ -20,26 +20,30 @@ void main() {
       expect(quote, equals('"Test Quote" - Test Author'));
     });
 
-    test('fetchQuote returns default message on error', () async {
+    test('fetchQuote throws exception on error', () async {
       final client = MockClient((request) async {
         return http.Response('Error', 500);
       });
 
       final apiService = ApiService(client: client);
-      final quote = await apiService.fetchQuote();
 
-      expect(quote, equals('Falha ao carregar frase.'));
+      expect(
+        apiService.fetchQuote(),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Failed to load quote')))
+      );
     });
 
-    test('fetchQuote returns fallback message on exception', () async {
+    test('fetchQuote throws exception on network error', () async {
       final client = MockClient((request) async {
         throw Exception('Network Error');
       });
 
       final apiService = ApiService(client: client);
-      final quote = await apiService.fetchQuote();
 
-      expect(quote, equals('Mantenha-se focado e saudável!'));
+      expect(
+        apiService.fetchQuote(),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Connection error')))
+      );
     });
 
     test('fetchRandomRecipe returns meal when call is successful', () async {
