@@ -18,7 +18,7 @@ class ApiService {
   /// Fetches a random quote from the dummyjson API.
   ///
   /// Returns a formatted string with the quote and author.
-  /// Returns a default error message if the request fails or an exception occurs.
+  /// Throws an [Exception] if the request fails or an error occurs.
   Future<String> fetchQuote() async {
     try {
       final response = await client.get(Uri.parse(quoteUrl));
@@ -27,10 +27,10 @@ class ApiService {
         final data = json.decode(response.body);
         return '"${data['quote']}" - ${data['author']}';
       } else {
-        return 'Falha ao carregar frase.';
+        throw Exception('Failed to load quote');
       }
     } catch (e) {
-      return 'Mantenha-se focado e saudável!';
+      throw Exception('Connection error');
     }
   }
 
@@ -47,10 +47,10 @@ class ApiService {
         final meal = data['meals'][0];
         return meal;
       } else {
-        throw Exception('Falha ao carregar receita.');
+        throw Exception('Failed to load recipe');
       }
     } catch (e) {
-      throw Exception('Erro de conexão.');
+      throw Exception('Connection error');
     }
   }
 

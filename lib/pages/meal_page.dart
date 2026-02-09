@@ -249,6 +249,25 @@ class _MealPageState extends State<MealPage> {
                             ),
                           );
                         }
+                        if (snapshot.hasError) {
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.blue.shade100),
+                            ),
+                            child: Text(
+                              l10n.quoteFallbackMessage,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.blueAccent,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        }
                         return const SizedBox.shrink();
                       },
                     ),

@@ -84,8 +84,9 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    // ApiService wraps all errors in 'Exception: Erro de conexão.' (Hardcoded PT)
-    expect(find.textContaining('Erro de conexão'), findsOneWidget);
+    // ApiService wraps all errors, RandomRecipePage displays l10n.recipeLoadError
+    // "Error: Failed to load recipe."
+    expect(find.text('Error: Failed to load recipe.'), findsOneWidget);
     // "Try Again" from l10n
     expect(find.text('Try Again'), findsOneWidget);
   });

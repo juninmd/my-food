@@ -47,7 +47,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('${l10n.randomRecipeErrorPrefix}${snapshot.error}'),
+                  Text('${l10n.randomRecipeErrorPrefix}${l10n.recipeLoadError}'),
                   ElevatedButton(
                     onPressed: _refreshRecipe,
                     child: Text(l10n.randomRecipeRetry),
