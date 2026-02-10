@@ -29,6 +29,14 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
   }
 
   @override
+  void dispose() {
+    if (widget.apiService == null) {
+      _apiService.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
