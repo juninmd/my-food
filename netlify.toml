@@ -1,5 +1,5 @@
 [build]
-command = "flutter pub get && flutter gen-l10n && flutter build web"
+command = "./build_web.sh"
 publish = "build/web"
 
 [[redirects]]
