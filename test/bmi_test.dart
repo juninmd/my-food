@@ -51,7 +51,8 @@ void main() {
 
       // Height 100cm. Weight 25.0kg -> BMI 25.0
       final result2 = BmiCalculator.calculate(25.0, 100);
-      expect(result2.category, BmiCategory.overweight); // Should be Overweight (>=25)
+      expect(result2.category,
+          BmiCategory.overweight); // Should be Overweight (>=25)
     });
 
     test('Throws error on invalid height', () {

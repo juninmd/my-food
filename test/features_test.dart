@@ -7,8 +7,8 @@ import 'package:my_food/utils/bmi_calculator.dart';
 
 void main() {
   group('Project Features Verification', () {
-
-    Widget createLocalizedContext(Widget Function(BuildContext context) builder) {
+    Widget createLocalizedContext(
+        Widget Function(BuildContext context) builder) {
       return MaterialApp(
         localizationsDelegates: const [
           AppLocalizations.delegate,
@@ -29,9 +29,12 @@ void main() {
         final lunchOptions = MealData.getLunchOptions(l10n);
         final dinnerOptions = MealData.getDinnerOptions(l10n);
 
-        expect(breakfastOptions.length, greaterThan(1), reason: 'Should have multiple breakfast options for variety');
-        expect(lunchOptions.length, greaterThan(1), reason: 'Should have multiple lunch options for variety');
-        expect(dinnerOptions.length, greaterThan(1), reason: 'Should have multiple dinner options for variety');
+        expect(breakfastOptions.length, greaterThan(1),
+            reason: 'Should have multiple breakfast options for variety');
+        expect(lunchOptions.length, greaterThan(1),
+            reason: 'Should have multiple lunch options for variety');
+        expect(dinnerOptions.length, greaterThan(1),
+            reason: 'Should have multiple dinner options for variety');
 
         final meal = breakfastOptions[0];
         expect(meal.name, isNotEmpty);
@@ -42,17 +45,20 @@ void main() {
 
     // Feature 2: Nutrient Calculation
     testWidgets('Nutrient Calculation Logic', (WidgetTester tester) async {
-       await tester.pumpWidget(createLocalizedContext((context) {
+      await tester.pumpWidget(createLocalizedContext((context) {
         final l10n = AppLocalizations.of(context)!;
         final breakfast = MealData.getBreakfastOptions(l10n)[0];
         final lunch = MealData.getLunchOptions(l10n)[0];
         final dinner = MealData.getDinnerOptions(l10n)[0];
 
-        final totalCalories = breakfast.calories + lunch.calories + dinner.calories;
+        final totalCalories =
+            breakfast.calories + lunch.calories + dinner.calories;
         final totalProtein = breakfast.protein + lunch.protein + dinner.protein;
 
-        expect(totalCalories, equals(breakfast.calories + lunch.calories + dinner.calories));
-        expect(totalProtein, equals(breakfast.protein + lunch.protein + dinner.protein));
+        expect(totalCalories,
+            equals(breakfast.calories + lunch.calories + dinner.calories));
+        expect(totalProtein,
+            equals(breakfast.protein + lunch.protein + dinner.protein));
         return const SizedBox();
       }));
 
@@ -82,7 +88,8 @@ void main() {
     testWidgets('Surprise Me Foundations', (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext((context) {
         final l10n = AppLocalizations.of(context)!;
-        expect(MealData.getBreakfastOptions(l10n).length, greaterThanOrEqualTo(3));
+        expect(
+            MealData.getBreakfastOptions(l10n).length, greaterThanOrEqualTo(3));
         expect(MealData.getLunchOptions(l10n).length, greaterThanOrEqualTo(3));
         expect(MealData.getDinnerOptions(l10n).length, greaterThanOrEqualTo(3));
         return const SizedBox();

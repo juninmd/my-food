@@ -661,6 +661,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connection error.'**
   String get connectionError;
+
+  /// No description provided for @surpriseMeFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal plan randomized! Check out the new quote.'**
+  String get surpriseMeFeedback;
 }
 
 class _AppLocalizationsDelegate

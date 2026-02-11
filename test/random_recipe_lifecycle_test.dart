@@ -33,7 +33,8 @@ void main() {
     );
   }
 
-  testWidgets('RandomRecipePage does NOT dispose injected ApiService', (WidgetTester tester) async {
+  testWidgets('RandomRecipePage does NOT dispose injected ApiService',
+      (WidgetTester tester) async {
     final client = MockClient((request) async {
       return http.Response('Error', 500);
     });

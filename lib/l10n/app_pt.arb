@@ -109,5 +109,6 @@
   "quoteErrorMessage": "Falha ao carregar frase.",
   "quoteFallbackMessage": "Mantenha-se focado e saudável!",
   "recipeLoadError": "Falha ao carregar receita.",
-  "connectionError": "Erro de conexão."
+  "connectionError": "Erro de conexão.",
+  "surpriseMeFeedback": "Plano alimentar alterado! Confira a nova frase."
 }

@@ -8,7 +8,12 @@ import 'package:my_food/pages/shopping_list_page.dart';
 
 void main() {
   group('ShoppingListPage Widget Tests', () {
-    final ingredients = ['Ovos', 'Pão', 'Ovos', 'Leite']; // 2 Ovos, 1 Pão, 1 Leite
+    final ingredients = [
+      'Ovos',
+      'Pão',
+      'Ovos',
+      'Leite'
+    ]; // 2 Ovos, 1 Pão, 1 Leite
 
     setUp(() {
       SharedPreferences.setMockInitialValues({});
@@ -27,7 +32,8 @@ void main() {
       );
     }
 
-    testWidgets('Displays aggregated ingredients correctly', (WidgetTester tester) async {
+    testWidgets('Displays aggregated ingredients correctly',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext(
         ShoppingListPage(ingredients: ingredients),
       ));
@@ -44,7 +50,8 @@ void main() {
       expect(find.text('x2'), findsOneWidget);
     });
 
-    testWidgets('Toggles checkbox when item is tapped', (WidgetTester tester) async {
+    testWidgets('Toggles checkbox when item is tapped',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext(
         ShoppingListPage(ingredients: ingredients),
       ));
@@ -69,11 +76,13 @@ void main() {
       expect(find.byIcon(Icons.check_box_outline_blank), findsNWidgets(3));
     });
 
-    testWidgets('Copy to clipboard triggers SnackBar', (WidgetTester tester) async {
+    testWidgets('Copy to clipboard triggers SnackBar',
+        (WidgetTester tester) async {
       // Mock Clipboard
       final List<MethodCall> log = <MethodCall>[];
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(SystemChannels.platform, (MethodCall methodCall) async {
+          .setMockMethodCallHandler(SystemChannels.platform,
+              (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });

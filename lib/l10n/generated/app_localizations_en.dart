@@ -295,4 +295,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get connectionError => 'Connection error.';
+
+  @override
+  String get surpriseMeFeedback =>
+      'Meal plan randomized! Check out the new quote.';
 }

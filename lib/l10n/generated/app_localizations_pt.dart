@@ -295,4 +295,8 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get connectionError => 'Erro de conexão.';
+
+  @override
+  String get surpriseMeFeedback =>
+      'Plano alimentar alterado! Confira a nova frase.';
 }
