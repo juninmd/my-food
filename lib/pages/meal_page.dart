@@ -57,7 +57,8 @@ class _MealPageState extends State<MealPage> {
     await prefs.setInt('water_glasses', _waterGlasses);
   }
 
-  Future<void> _saveMealPlan(int breakfastIndex, int lunchIndex, int dinnerIndex) async {
+  Future<void> _saveMealPlan(
+      int breakfastIndex, int lunchIndex, int dinnerIndex) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('breakfast_index', breakfastIndex);
     await prefs.setInt('lunch_index', lunchIndex);
@@ -77,6 +78,15 @@ class _MealPageState extends State<MealPage> {
     super.dispose();
   }
 
+  int _nextIntDifferent(int currentIndex, int length, Random random) {
+    if (length <= 1) return 0;
+    int newIndex = currentIndex;
+    while (newIndex == currentIndex) {
+      newIndex = random.nextInt(length);
+    }
+    return newIndex;
+  }
+
   void _surpriseMe() {
     final l10n = AppLocalizations.of(context)!;
     final breakfastOptions = MealData.getBreakfastOptions(l10n);
@@ -85,14 +95,25 @@ class _MealPageState extends State<MealPage> {
 
     setState(() {
       final random = Random();
-      _breakfastIndex = random.nextInt(breakfastOptions.length);
-      _lunchIndex = random.nextInt(lunchOptions.length);
-      _dinnerIndex = random.nextInt(dinnerOptions.length);
+      _breakfastIndex =
+          _nextIntDifferent(_breakfastIndex, breakfastOptions.length, random);
+      _lunchIndex = _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
+      _dinnerIndex =
+          _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
 
       _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
 
       _quoteFuture = _apiService.fetchQuote();
     });
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.surpriseMeFeedback),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   void _openShoppingList(Meal breakfast, Meal lunch, Meal dinner) {
@@ -155,7 +176,8 @@ class _MealPageState extends State<MealPage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BMICalculatorPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const BMICalculatorPage()),
                 );
               },
             ),
@@ -166,7 +188,8 @@ class _MealPageState extends State<MealPage> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RandomRecipePage()),
+                  MaterialPageRoute(
+                      builder: (context) => const RandomRecipePage()),
                 );
               },
             ),
@@ -212,166 +235,171 @@ class _MealPageState extends State<MealPage> {
           ];
         },
         body: ListView(
-            padding: const EdgeInsets.only(bottom: 80),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FutureBuilder<String>(
-                      future: _quoteFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade50,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.blue.shade100),
-                            ),
-                            child: Text(
-                              snapshot.data!,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.blueAccent,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        }
-                        if (snapshot.hasError) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade50,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.blue.shade100),
-                            ),
-                            child: Text(
-                              l10n.quoteFallbackMessage,
-                              style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.blueAccent,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    Text(
-                      l10n.dailyHydration,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove_circle_outline),
-                          onPressed: () {
-                            if (_waterGlasses > 0) {
-                              setState(() {
-                                _waterGlasses--;
-                                _saveWater();
-                              });
-                            }
-                          },
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                l10n.hydrationStatus(_waterGlasses, _targetGlasses),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 4),
-                              LinearProgressIndicator(
-                                value: _waterGlasses / _targetGlasses,
-                                backgroundColor: Colors.blue[100],
-                                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                                minHeight: 10,
-                              ),
-                            ],
+          padding: const EdgeInsets.only(bottom: 80),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder<String>(
+                    future: _quoteFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: CircularProgressIndicator(),
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.add_circle_outline),
-                          onPressed: () {
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.blue.shade100),
+                          ),
+                          child: Text(
+                            snapshot.data!,
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blueAccent,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.blue.shade100),
+                          ),
+                          child: Text(
+                            l10n.quoteFallbackMessage,
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blueAccent,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  Text(
+                    l10n.dailyHydration,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
+                        onPressed: () {
+                          if (_waterGlasses > 0) {
                             setState(() {
-                              _waterGlasses++;
+                              _waterGlasses--;
                               _saveWater();
                             });
-                          },
+                          }
+                        },
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              l10n.hydrationStatus(
+                                  _waterGlasses, _targetGlasses),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 4),
+                            LinearProgressIndicator(
+                              value: _waterGlasses / _targetGlasses,
+                              backgroundColor: Colors.blue[100],
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.blue),
+                              minHeight: 10,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const Divider(height: 32),
-                    Text(
-                      l10n.totalCalories(totalCalories),
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildMacroBar(l10n.macroProtein, totalProtein, DietConstants.proteinTarget, Colors.redAccent),
-                    const SizedBox(height: 8),
-                    _buildMacroBar(l10n.macroCarbs, totalCarbs, DietConstants.carbsTarget, Colors.orangeAccent),
-                    const SizedBox(height: 8),
-                    _buildMacroBar(l10n.macroFat, totalFat, DietConstants.fatTarget, Colors.yellow[800]!),
-                  ],
-                ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle_outline),
+                        onPressed: () {
+                          setState(() {
+                            _waterGlasses++;
+                            _saveWater();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 32),
+                  Text(
+                    l10n.totalCalories(totalCalories),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  _buildMacroBar(l10n.macroProtein, totalProtein,
+                      DietConstants.proteinTarget, Colors.redAccent),
+                  const SizedBox(height: 8),
+                  _buildMacroBar(l10n.macroCarbs, totalCarbs,
+                      DietConstants.carbsTarget, Colors.orangeAccent),
+                  const SizedBox(height: 8),
+                  _buildMacroBar(l10n.macroFat, totalFat,
+                      DietConstants.fatTarget, Colors.yellow[800]!),
+                ],
               ),
-              _buildMealSection(
-                context,
-                l10n.mealBreakfast,
-                breakfast,
-                breakfastOptions,
-                (meal) {
-                  final index = breakfastOptions.indexOf(meal);
-                  setState(() {
-                    _breakfastIndex = index;
-                    _saveSingleMeal('breakfast_index', index);
-                  });
-                },
-              ),
-              _buildMealSection(
-                context,
-                l10n.mealLunch,
-                lunch,
-                lunchOptions,
-                (meal) {
-                  final index = lunchOptions.indexOf(meal);
-                  setState(() {
-                    _lunchIndex = index;
-                    _saveSingleMeal('lunch_index', index);
-                  });
-                },
-              ),
-              _buildMealSection(
-                context,
-                l10n.mealDinner,
-                dinner,
-                dinnerOptions,
-                (meal) {
-                  final index = dinnerOptions.indexOf(meal);
-                  setState(() {
-                    _dinnerIndex = index;
-                    _saveSingleMeal('dinner_index', index);
-                  });
-                },
-              ),
-            ],
-          ),
+            ),
+            _buildMealSection(
+              context,
+              l10n.mealBreakfast,
+              breakfast,
+              breakfastOptions,
+              (meal) {
+                final index = breakfastOptions.indexOf(meal);
+                setState(() {
+                  _breakfastIndex = index;
+                  _saveSingleMeal('breakfast_index', index);
+                });
+              },
+            ),
+            _buildMealSection(
+              context,
+              l10n.mealLunch,
+              lunch,
+              lunchOptions,
+              (meal) {
+                final index = lunchOptions.indexOf(meal);
+                setState(() {
+                  _lunchIndex = index;
+                  _saveSingleMeal('lunch_index', index);
+                });
+              },
+            ),
+            _buildMealSection(
+              context,
+              l10n.mealDinner,
+              dinner,
+              dinnerOptions,
+              (meal) {
+                final index = dinnerOptions.indexOf(meal);
+                setState(() {
+                  _dinnerIndex = index;
+                  _saveSingleMeal('dinner_index', index);
+                });
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _surpriseMe,
@@ -410,8 +438,8 @@ class _MealPageState extends State<MealPage> {
     );
   }
 
-  Widget _buildMealSection(
-      BuildContext context, String title, Meal currentMeal, List<Meal> options, Function(Meal) onSelect) {
+  Widget _buildMealSection(BuildContext context, String title, Meal currentMeal,
+      List<Meal> options, Function(Meal) onSelect) {
     final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -437,7 +465,10 @@ class _MealPageState extends State<MealPage> {
                   children: [
                     Text(
                       currentMeal.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '${currentMeal.calories} kcal | P: ${currentMeal.protein}g C: ${currentMeal.carbs}g G: ${currentMeal.fat}g',
@@ -481,8 +512,8 @@ class _MealPageState extends State<MealPage> {
                               builder: (BuildContext context) {
                                 return GestureDetector(
                                   onTap: () {
-                                     onSelect(meal);
-                                     Navigator.pop(context);
+                                    onSelect(meal);
+                                    Navigator.pop(context);
                                   },
                                   child: _buildCarouselItem(meal),
                                 );
@@ -508,9 +539,7 @@ class _MealPageState extends State<MealPage> {
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

@@ -27,16 +27,19 @@ void main() {
     );
   }
 
-  testWidgets('Surprise Me button fetches new quote and updates UI', (WidgetTester tester) async {
+  testWidgets('Surprise Me button fetches new quote and updates UI',
+      (WidgetTester tester) async {
     // Setup Mock Client with dynamic response
     var requestCount = 0;
     final client = MockClient((request) async {
       requestCount++;
       if (request.url.toString() == ApiService.quoteUrl) {
         if (requestCount == 1) {
-          return http.Response(jsonEncode({'quote': 'First Quote', 'author': 'Author 1'}), 200);
+          return http.Response(
+              jsonEncode({'quote': 'First Quote', 'author': 'Author 1'}), 200);
         } else {
-          return http.Response(jsonEncode({'quote': 'Second Quote', 'author': 'Author 2'}), 200);
+          return http.Response(
+              jsonEncode({'quote': 'Second Quote', 'author': 'Author 2'}), 200);
         }
       }
       return http.Response('Not Found', 404);
@@ -70,9 +73,15 @@ void main() {
 
     // Verify second quote is displayed
     expect(find.text('"Second Quote" - Author 2'), findsOneWidget);
+
+    // Verify SnackBar is displayed
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.text('Meal plan randomized! Check out the new quote.'),
+        findsOneWidget);
   });
 
-  testWidgets('Surprise Me displays fallback message on API error', (WidgetTester tester) async {
+  testWidgets('Surprise Me displays fallback message on API error',
+      (WidgetTester tester) async {
     final client = MockClient((request) async {
       return http.Response('Error', 500);
     });

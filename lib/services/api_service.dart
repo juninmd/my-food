@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 /// This service handles requests to fetch random quotes and meal recipes.
 class ApiService {
   static const String quoteUrl = 'https://dummyjson.com/quotes/random';
-  static const String mealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  static const String mealUrl =
+      'https://www.themealdb.com/api/json/v1/1/random.php';
 
   final http.Client client;
 

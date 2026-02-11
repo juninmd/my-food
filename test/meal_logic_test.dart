@@ -19,7 +19,8 @@ void main() {
   }
 
   group('MealData Tests', () {
-    testWidgets('Breakfast options should not be empty', (WidgetTester tester) async {
+    testWidgets('Breakfast options should not be empty',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext((context) {
         final l10n = AppLocalizations.of(context)!;
         expect(MealData.getBreakfastOptions(l10n).isNotEmpty, true);
@@ -27,7 +28,8 @@ void main() {
       }));
     });
 
-    testWidgets('Lunch options should not be empty', (WidgetTester tester) async {
+    testWidgets('Lunch options should not be empty',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext((context) {
         final l10n = AppLocalizations.of(context)!;
         expect(MealData.getLunchOptions(l10n).isNotEmpty, true);
@@ -35,7 +37,8 @@ void main() {
       }));
     });
 
-    testWidgets('Dinner options should not be empty', (WidgetTester tester) async {
+    testWidgets('Dinner options should not be empty',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext((context) {
         final l10n = AppLocalizations.of(context)!;
         expect(MealData.getDinnerOptions(l10n).isNotEmpty, true);
@@ -65,11 +68,13 @@ void main() {
         final lunch = MealData.getLunchOptions(l10n)[0];
         final dinner = MealData.getDinnerOptions(l10n)[0];
 
-        final totalCalories = breakfast.calories + lunch.calories + dinner.calories;
+        final totalCalories =
+            breakfast.calories + lunch.calories + dinner.calories;
 
         // Verification logic similar to what's in MealPage
         expect(totalCalories, greaterThan(0));
-        expect(totalCalories, breakfast.calories + lunch.calories + dinner.calories);
+        expect(totalCalories,
+            breakfast.calories + lunch.calories + dinner.calories);
         return const SizedBox();
       }));
     });

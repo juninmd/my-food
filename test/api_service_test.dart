@@ -9,7 +9,9 @@ void main() {
     test('fetchQuote returns quote when call is successful', () async {
       final client = MockClient((request) async {
         if (request.url.toString() == ApiService.quoteUrl) {
-          return http.Response(jsonEncode({'quote': 'Test Quote', 'author': 'Test Author'}), 200);
+          return http.Response(
+              jsonEncode({'quote': 'Test Quote', 'author': 'Test Author'}),
+              200);
         }
         return http.Response('Not Found', 404);
       });
@@ -28,9 +30,10 @@ void main() {
       final apiService = ApiService(client: client);
 
       expect(
-        apiService.fetchQuote(),
-        throwsA(predicate((e) => e is Exception && e.toString().contains('Failed to load quote')))
-      );
+          apiService.fetchQuote(),
+          throwsA(predicate((e) =>
+              e is Exception &&
+              e.toString().contains('Failed to load quote'))));
     });
 
     test('fetchQuote throws exception on network error', () async {
@@ -41,9 +44,9 @@ void main() {
       final apiService = ApiService(client: client);
 
       expect(
-        apiService.fetchQuote(),
-        throwsA(predicate((e) => e is Exception && e.toString().contains('Connection error')))
-      );
+          apiService.fetchQuote(),
+          throwsA(predicate((e) =>
+              e is Exception && e.toString().contains('Connection error'))));
     });
 
     test('fetchRandomRecipe returns meal when call is successful', () async {
@@ -55,7 +58,11 @@ void main() {
 
       final client = MockClient((request) async {
         if (request.url.toString() == ApiService.mealUrl) {
-          return http.Response(jsonEncode({'meals': [mockMeal]}), 200);
+          return http.Response(
+              jsonEncode({
+                'meals': [mockMeal]
+              }),
+              200);
         }
         return http.Response('Not Found', 404);
       });

@@ -39,7 +39,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 
   Future<void> _saveCheckedIngredients() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('checked_ingredients', _checkedIngredients.toList());
+    await prefs.setStringList(
+        'checked_ingredients', _checkedIngredients.toList());
   }
 
   void _copyToClipboard() {

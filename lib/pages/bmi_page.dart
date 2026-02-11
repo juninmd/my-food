@@ -36,7 +36,8 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.bmiErrorInvalidInput)),
+        SnackBar(
+            content: Text(AppLocalizations.of(context)!.bmiErrorInvalidInput)),
       );
     }
   }
