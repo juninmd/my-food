@@ -20,10 +20,11 @@ void main() {
     await tester.pumpWidget(const MyApp());
 
     // Verify that the title exists (English)
+    expect(find.text('My Food'), findsOneWidget);
     expect(find.text('Diet'), findsOneWidget);
 
     // Verify that Total Calories is displayed
-    expect(find.textContaining('Total Calories:'), findsOneWidget);
+    expect(find.text('Kcal'), findsWidgets);
 
     // Verify that Me Surpreenda button exists
     expect(find.text('Surprise Me'), findsOneWidget);

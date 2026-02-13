@@ -85,38 +85,81 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: sortedIngredients.length,
-        itemBuilder: (context, index) {
-          final ingredient = sortedIngredients[index];
-          final count = _ingredientCounts[ingredient];
-          final isChecked = _checkedIngredients.contains(ingredient);
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Total: ${sortedIngredients.length}',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: sortedIngredients.length,
+              itemBuilder: (context, index) {
+                final ingredient = sortedIngredients[index];
+                final count = _ingredientCounts[ingredient];
+                final isChecked = _checkedIngredients.contains(ingredient);
 
-          return ListTile(
-            leading: Icon(
-              isChecked ? Icons.check_box : Icons.check_box_outline_blank,
-              color: isChecked ? Colors.green : null,
+                return Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      isChecked ? Icons.check_box : Icons.check_box_outline_blank,
+                      color: isChecked ? Colors.green : Colors.grey,
+                    ),
+                    title: Text(
+                      ingredient,
+                      style: TextStyle(
+                        decoration: isChecked ? TextDecoration.lineThrough : null,
+                        color: isChecked ? Colors.grey : null,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: count! > 1
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              'x$count',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          )
+                        : null,
+                    onTap: () {
+                      setState(() {
+                        if (isChecked) {
+                          _checkedIngredients.remove(ingredient);
+                        } else {
+                          _checkedIngredients.add(ingredient);
+                        }
+                        _saveCheckedIngredients();
+                      });
+                    },
+                  ),
+                );
+              },
             ),
-            title: Text(
-              ingredient,
-              style: TextStyle(
-                decoration: isChecked ? TextDecoration.lineThrough : null,
-                color: isChecked ? Colors.grey : null,
-              ),
-            ),
-            trailing: count! > 1 ? Text('x$count') : null,
-            onTap: () {
-              setState(() {
-                if (isChecked) {
-                  _checkedIngredients.remove(ingredient);
-                } else {
-                  _checkedIngredients.add(ingredient);
-                }
-                _saveCheckedIngredients();
-              });
-            },
-          );
-        },
+          ),
+        ],
       ),
     );
   }
