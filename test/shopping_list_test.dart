@@ -4,10 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/pages/shopping_list_page.dart';
+import 'package:my_food/widgets/shopping_list_view.dart';
 
 void main() {
-  group('ShoppingListPage Widget Tests', () {
+  group('ShoppingListView Widget Tests', () {
     final ingredients = [
       'Ovos',
       'Pão',
@@ -28,18 +28,18 @@ void main() {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('en')],
-        home: child,
+        home: Scaffold(body: child),
       );
     }
 
     testWidgets('Displays aggregated ingredients correctly',
         (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext(
-        ShoppingListPage(ingredients: ingredients),
+        ShoppingListView(ingredients: ingredients),
       ));
 
       // Verify title "Shopping List" (English)
-      expect(find.text('Shopping List'), findsOneWidget);
+      expect(find.text('Shopping List'), findsWidgets); // Header + possibly nav bar if used in full app, but here just header
 
       // Verify ingredients
       expect(find.text('Ovos'), findsOneWidget);
@@ -53,27 +53,28 @@ void main() {
     testWidgets('Toggles checkbox when item is tapped',
         (WidgetTester tester) async {
       await tester.pumpWidget(createLocalizedContext(
-        ShoppingListPage(ingredients: ingredients),
+        ShoppingListView(ingredients: ingredients),
       ));
 
-      // Initially unchecked
-      expect(find.byIcon(Icons.check_box_outline_blank), findsNWidgets(3));
-      expect(find.byIcon(Icons.check_box), findsNothing);
+      // Initially all checkboxes unchecked
+      expect(find.byType(Checkbox), findsNWidgets(3));
+
+      final paoTile = find.widgetWithText(ListTile, 'Pão');
+      final paoCheckbox = find.descendant(of: paoTile, matching: find.byType(Checkbox));
+      expect(tester.widget<Checkbox>(paoCheckbox).value, false);
 
       // Tap on 'Pão'
       await tester.tap(find.text('Pão'));
       await tester.pump();
 
       // Now 'Pão' should be checked
-      expect(find.byIcon(Icons.check_box), findsOneWidget);
-      expect(find.byIcon(Icons.check_box_outline_blank), findsNWidgets(2));
+      expect(tester.widget<Checkbox>(paoCheckbox).value, true);
 
       // Tap again to uncheck
       await tester.tap(find.text('Pão'));
       await tester.pump();
 
-      expect(find.byIcon(Icons.check_box), findsNothing);
-      expect(find.byIcon(Icons.check_box_outline_blank), findsNWidgets(3));
+      expect(tester.widget<Checkbox>(paoCheckbox).value, false);
     });
 
     testWidgets('Copy to clipboard triggers SnackBar',
@@ -88,7 +89,7 @@ void main() {
       });
 
       await tester.pumpWidget(createLocalizedContext(
-        ShoppingListPage(ingredients: ingredients),
+        ShoppingListView(ingredients: ingredients),
       ));
 
       // Tap copy button

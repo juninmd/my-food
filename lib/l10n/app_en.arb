@@ -110,5 +110,15 @@
   "quoteFallbackMessage": "Keep focused and healthy!",
   "recipeLoadError": "Failed to load recipe.",
   "connectionError": "Connection error.",
-  "surpriseMeFeedback": "Meal plan randomized! Check out the new quote."
+  "surpriseMeFeedback": "Meal plan randomized! Check out the new quote.",
+  "dashboardTitle": "Dashboard",
+  "toolsTitle": "Tools",
+  "hello": "Hello!",
+  "caloriesLeft": "Calories Left",
+  "waterTrackerTitle": "Water Intake",
+  "addWater": "Add 250ml",
+  "editMeal": "Edit Meal",
+  "dailyGoal": "Daily Goal",
+  "consumed": "Consumed",
+  "remaining": "Remaining"
 }

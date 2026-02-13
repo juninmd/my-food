@@ -299,4 +299,34 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get surpriseMeFeedback =>
       'Plano alimentar alterado! Confira a nova frase.';
+
+  @override
+  String get dashboardTitle => 'Painel';
+
+  @override
+  String get toolsTitle => 'Ferramentas';
+
+  @override
+  String get hello => 'Olá!';
+
+  @override
+  String get caloriesLeft => 'Calorias Restantes';
+
+  @override
+  String get waterTrackerTitle => 'Hidratação';
+
+  @override
+  String get addWater => 'Adicionar 250ml';
+
+  @override
+  String get editMeal => 'Editar Refeição';
+
+  @override
+  String get dailyGoal => 'Meta Diária';
+
+  @override
+  String get consumed => 'Consumido';
+
+  @override
+  String get remaining => 'Restante';
 }

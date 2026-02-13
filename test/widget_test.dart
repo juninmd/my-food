@@ -19,14 +19,16 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that the title exists (English)
-    expect(find.text('My Food'), findsOneWidget);
-    expect(find.text('Diet'), findsOneWidget);
+    // Verify Dashboard Title (localized "Dashboard")
+    expect(find.text('Dashboard'), findsAtLeastNWidgets(1));
+    // Verify "Hello!"
+    expect(find.text('Hello!'), findsOneWidget);
 
     // Verify that Total Calories is displayed
-    expect(find.text('Kcal'), findsWidgets);
+    // "Remaining" text in NutrientRing
+    expect(find.text('Remaining'), findsOneWidget);
 
-    // Verify that Me Surpreenda button exists
-    expect(find.text('Surprise Me'), findsOneWidget);
+    // Verify that Me Surpreenda button DOES NOT exist on Dashboard (moved to Tools).
+    expect(find.text('Surprise Me'), findsNothing);
   });
 }
