@@ -299,4 +299,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get surpriseMeFeedback =>
       'Meal plan randomized! Check out the new quote.';
+
+  @override
+  String get dashboardTitle => 'Dashboard';
+
+  @override
+  String get toolsTitle => 'Tools';
+
+  @override
+  String get hello => 'Hello!';
+
+  @override
+  String get caloriesLeft => 'Calories Left';
+
+  @override
+  String get waterTrackerTitle => 'Water Intake';
+
+  @override
+  String get addWater => 'Add 250ml';
+
+  @override
+  String get editMeal => 'Edit Meal';
+
+  @override
+  String get dailyGoal => 'Daily Goal';
+
+  @override
+  String get consumed => 'Consumed';
+
+  @override
+  String get remaining => 'Remaining';
 }

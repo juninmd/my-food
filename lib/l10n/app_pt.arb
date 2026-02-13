@@ -110,5 +110,15 @@
   "quoteFallbackMessage": "Mantenha-se focado e saudável!",
   "recipeLoadError": "Falha ao carregar receita.",
   "connectionError": "Erro de conexão.",
-  "surpriseMeFeedback": "Plano alimentar alterado! Confira a nova frase."
+  "surpriseMeFeedback": "Plano alimentar alterado! Confira a nova frase.",
+  "dashboardTitle": "Painel",
+  "toolsTitle": "Ferramentas",
+  "hello": "Olá!",
+  "caloriesLeft": "Calorias Restantes",
+  "waterTrackerTitle": "Hidratação",
+  "addWater": "Adicionar 250ml",
+  "editMeal": "Editar Refeição",
+  "dailyGoal": "Meta Diária",
+  "consumed": "Consumido",
+  "remaining": "Restante"
 }

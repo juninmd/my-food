@@ -667,6 +667,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Meal plan randomized! Check out the new quote.'**
   String get surpriseMeFeedback;
+
+  /// No description provided for @dashboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboardTitle;
+
+  /// No description provided for @toolsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get toolsTitle;
+
+  /// No description provided for @hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello!'**
+  String get hello;
+
+  /// No description provided for @caloriesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories Left'**
+  String get caloriesLeft;
+
+  /// No description provided for @waterTrackerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Intake'**
+  String get waterTrackerTitle;
+
+  /// No description provided for @addWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Add 250ml'**
+  String get addWater;
+
+  /// No description provided for @editMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Meal'**
+  String get editMeal;
+
+  /// No description provided for @dailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goal'**
+  String get dailyGoal;
+
+  /// No description provided for @consumed.
+  ///
+  /// In en, this message translates to:
+  /// **'Consumed'**
+  String get consumed;
+
+  /// No description provided for @remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get remaining;
 }
 
 class _AppLocalizationsDelegate

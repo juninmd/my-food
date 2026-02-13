@@ -2,42 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_food/main.dart';
 import 'package:my_food/pages/bmi_page.dart';
-import 'package:my_food/pages/shopping_list_page.dart';
+import 'package:my_food/widgets/shopping_list_view.dart';
+import 'package:my_food/widgets/tools_view.dart';
 
 void main() {
-  testWidgets('Navigation to BMI Calculator Page via Drawer',
+  testWidgets('Navigation to BMI Calculator Page via Tools Tab',
       (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Open Drawer
-    await tester.tap(find.byTooltip('Open navigation menu'));
+    // Find Tools tab icon (Icons.grid_view is used for Tools tab)
+    // Wait, inactive icon might be different.
+    // HomePage: NavigationDestination(icon: const Icon(Icons.grid_view), ...
+    // So it should be there.
+    // Wait, BottomNavigationBar uses items: [BottomNavigationBarItem(icon: Icon(Icons.grid_view), ...)]
+
+    await tester.tap(find.byIcon(Icons.grid_view));
     await tester.pumpAndSettle();
 
-    // Verify Drawer is open and find BMI item (English default)
-    expect(find.text('BMI Calculator'), findsOneWidget);
+    // Verify Tools View
+    expect(find.byType(ToolsView), findsOneWidget);
 
-    // Tap BMI item
+    // Tap BMI Card
     await tester.tap(find.text('BMI Calculator'));
     await tester.pumpAndSettle();
 
     // Verify we are on BMI Page
     expect(find.byType(BMICalculatorPage), findsOneWidget);
-    expect(find.text('BMI Calculator'), findsOneWidget);
   });
 
-  testWidgets('Navigation to Shopping List Page via Action',
+  testWidgets('Navigation to Shopping List via Tab',
       (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Find Shopping Cart icon
-    expect(find.byIcon(Icons.shopping_cart), findsOneWidget);
+    // Find Shopping Cart icon (in BottomNav)
+    // HomePage: BottomNavigationBarItem(icon: const Icon(Icons.shopping_cart_outlined), activeIcon: const Icon(Icons.shopping_cart), ...)
+    // Initially inactive.
 
-    // Tap it
-    await tester.tap(find.byIcon(Icons.shopping_cart));
+    await tester.tap(find.byIcon(Icons.shopping_cart_outlined));
     await tester.pumpAndSettle();
 
-    // Verify we are on Shopping List Page
-    expect(find.byType(ShoppingListPage), findsOneWidget);
-    expect(find.text('Shopping List'), findsOneWidget);
+    // Verify we are on Shopping List View
+    expect(find.byType(ShoppingListView), findsOneWidget);
+    expect(find.text('Shopping List'), findsAtLeastNWidgets(1));
   });
 }
