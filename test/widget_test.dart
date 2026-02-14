@@ -28,7 +28,7 @@ void main() {
     // "Remaining" text in NutrientRing
     expect(find.text('Remaining'), findsOneWidget);
 
-    // Verify that Me Surpreenda button DOES NOT exist on Dashboard (moved to Tools).
-    expect(find.text('Surprise Me'), findsNothing);
+    // Verify that Me Surpreenda button DOES exist on Dashboard.
+    expect(find.text('Surprise Me'), findsOneWidget);
   });
 }

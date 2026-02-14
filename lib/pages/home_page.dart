@@ -274,6 +274,7 @@ class _HomePageState extends State<HomePage> {
                 _saveSingleMeal('dinner_index', _dinnerIndex);
              });
           }),
+          onSurpriseMe: _surpriseMe,
         );
         break;
       case 1:
