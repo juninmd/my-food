@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 
 class WaterTracker extends StatelessWidget {
@@ -19,69 +18,68 @@ class WaterTracker extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Each glass is 250ml
-    int currentMl = currentGlasses * 250;
-    int targetMl = targetGlasses * 250;
-
-    double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
-    if (progress > 1.0) progress = 1.0;
-
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 0,
+      color: Colors.blue.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         side: BorderSide(color: Colors.blue.withValues(alpha: 0.1)),
       ),
-      color: Colors.blue.withValues(alpha: 0.05),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
+        child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.water_drop, color: Colors.blue, size: 28),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.waterTrackerTitle,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.blue.shade800,
+                      ),
+                    ),
+                    Text(
+                      "${currentGlasses * 250}ml / ${targetGlasses * 250}ml",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.blue.shade600,
+                      ),
+                    ),
+                  ],
+                ),
+                IconButton.filled(
+                  onPressed: onAdd,
+                  icon: const Icon(Icons.add),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.waterTrackerTitle,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  const SizedBox(height: 4),
-                  LinearPercentIndicator(
-                    lineHeight: 10.0,
-                    percent: progress,
-                    progressColor: Colors.blue,
-                    backgroundColor: Colors.blue.withValues(alpha: 0.1),
-                    barRadius: const Radius.circular(5),
-                    padding: EdgeInsets.zero,
-                    animation: true,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "$currentMl / $targetMl ml",
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
-                ],
+            const SizedBox(height: 16),
+            // Icons Row
+            SizedBox(
+              height: 30,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: targetGlasses,
+                separatorBuilder: (context, index) => const SizedBox(width: 8),
+                itemBuilder: (context, index) {
+                  bool isFilled = index < currentGlasses;
+                  return Icon(
+                    isFilled ? Icons.water_drop : Icons.water_drop_outlined,
+                    color: isFilled ? Colors.blue : Colors.blue.withValues(alpha: 0.3),
+                    size: 24,
+                  );
+                },
               ),
-            ),
-            const SizedBox(width: 8),
-            IconButton.filled(
-              onPressed: onAdd,
-              icon: const Icon(Icons.add),
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-              ),
-              tooltip: l10n.addWater,
             ),
           ],
         ),
