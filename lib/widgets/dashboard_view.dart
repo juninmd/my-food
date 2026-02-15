@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/models/meal.dart';
@@ -35,7 +36,10 @@ class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final now = DateTime.now();
+    final dateFormat = DateFormat('EEE, d MMM', Localizations.localeOf(context).toString());
 
     // Calculate totals
     int totalCalories = breakfast.calories + lunch.calories + dinner.calories;
@@ -43,132 +47,147 @@ class DashboardView extends StatelessWidget {
     int totalCarbs = breakfast.carbs + lunch.carbs + dinner.carbs;
     int totalFat = breakfast.fat + lunch.fat + dinner.fat;
 
-    return ListView(
-      padding: const EdgeInsets.only(bottom: 100),
-      children: [
-        // Header
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.hello,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    l10n.dashboardTitle,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-              // Surprise Me Button
-              FloatingActionButton.extended(
-                heroTag: 'surprise_me_fab',
-                onPressed: onSurpriseMe,
-                icon: const Icon(Icons.auto_awesome),
-                label: Text(l10n.surpriseMeButton),
-                backgroundColor: colorScheme.secondary,
-                foregroundColor: colorScheme.onSecondary,
-                elevation: 2,
-              ),
-            ],
-          ),
-        ),
-
-        // Quote
-        FutureBuilder<String>(
-          future: quoteFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: colorScheme.primaryContainer),
-                ),
-                child: Row(
+    return CustomScrollView(
+      slivers: [
+        // Header Sliver
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.format_quote, color: colorScheme.primary),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        snapshot.data!,
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: colorScheme.onSurfaceVariant,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                        ),
+                    Text(
+                      l10n.hello, // "Hello"
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      dateFormat.format(now).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface,
+                        letterSpacing: -0.5,
                       ),
                     ),
                   ],
                 ),
-              );
-            }
-            return const SizedBox.shrink();
-          },
-        ),
-
-        // Macro Dashboard
-        MacroDashboardCard(
-          calories: totalCalories,
-          targetCalories: 2500, // Still static target
-          protein: totalProtein,
-          targetProtein: DietConstants.proteinTarget,
-          carbs: totalCarbs,
-          targetCarbs: DietConstants.carbsTarget,
-          fat: totalFat,
-          targetFat: DietConstants.fatTarget,
-        ),
-
-        // Water Tracker
-        WaterTracker(
-          currentGlasses: waterGlasses,
-          targetGlasses: DietConstants.waterGlassTarget,
-          onAdd: onAddWater,
-        ),
-
-        const SizedBox(height: 16),
-
-        // Meal Timeline
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Row(
-            children: [
-              Icon(Icons.restaurant_menu, color: colorScheme.primary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                l10n.dailyGoal,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: colorScheme.primaryContainer,
+                  child: Icon(Icons.person, color: colorScheme.onPrimaryContainer),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        const SizedBox(height: 8),
-        MealTimeline(
-          breakfast: breakfast,
-          lunch: lunch,
-          dinner: dinner,
-          onEditBreakfast: onEditBreakfast,
-          onEditLunch: onEditLunch,
-          onEditDinner: onEditDinner,
+
+        // Quote Sliver
+        SliverToBoxAdapter(
+          child: FutureBuilder<String>(
+            future: quoteFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: colorScheme.secondary.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: colorScheme.secondary.withValues(alpha: 0.1)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.auto_awesome, color: colorScheme.secondary, size: 20),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          snapshot.data!,
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: colorScheme.secondary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+
+        // Dashboard Content
+        SliverList(
+          delegate: SliverChildListDelegate([
+            // Macro Card
+            MacroDashboardCard(
+              calories: totalCalories,
+              targetCalories: 2500, // Still static target
+              protein: totalProtein,
+              targetProtein: DietConstants.proteinTarget,
+              carbs: totalCarbs,
+              targetCarbs: DietConstants.carbsTarget,
+              fat: totalFat,
+              targetFat: DietConstants.fatTarget,
+            ),
+
+            // Water Tracker
+            WaterTracker(
+              currentGlasses: waterGlasses,
+              targetGlasses: DietConstants.waterGlassTarget,
+              onAdd: onAddWater,
+            ),
+
+            const SizedBox(height: 24),
+
+            // Meal Timeline Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.dashboardTitle, // "Meals" or "Dashboard"
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: onSurpriseMe,
+                    icon: const Icon(Icons.shuffle, size: 18),
+                    label: Text(l10n.surpriseMeButton),
+                    style: TextButton.styleFrom(
+                      foregroundColor: colorScheme.secondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Meal Timeline
+            MealTimeline(
+              breakfast: breakfast,
+              lunch: lunch,
+              dinner: dinner,
+              onEditBreakfast: onEditBreakfast,
+              onEditLunch: onEditLunch,
+              onEditDinner: onEditDinner,
+            ),
+
+            const SizedBox(height: 100), // Bottom padding
+          ]),
         ),
       ],
     );

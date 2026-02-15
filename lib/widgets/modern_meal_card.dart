@@ -20,107 +20,120 @@ class ModernMealCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        side: BorderSide(color: Colors.grey.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onEdit,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Row(
-            children: [
-              // Image
-              Hero(
-                tag: 'meal_${meal.name}',
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    image: DecorationImage(
-                      image: AssetImage(meal.imagePath),
-                      fit: BoxFit.cover,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onEdit,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image
+                Hero(
+                  tag: 'meal_${title}_${meal.name}',
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                        image: AssetImage(meal.imagePath),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              // Content
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title.toUpperCase(),
-                      style: TextStyle(
-                        color: colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                        letterSpacing: 1.0,
+                const SizedBox(width: 16),
+
+                // Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            title.toUpperCase(),
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          Icon(
+                            Icons.edit_outlined,
+                            size: 16,
+                            color: Colors.grey.shade400,
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      meal.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                      const SizedBox(height: 4),
+                      Text(
+                        meal.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          height: 1.2,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8),
-                    // Macros Row
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 4,
-                      children: [
-                        _buildMacroBadge(context, "${meal.calories} kcal", Colors.grey.shade700, Colors.grey.shade100),
-                        _buildMacroBadge(context, "${meal.protein}g P", const Color(0xFFE57373), const Color(0xFFFFEBEE)),
-                        _buildMacroBadge(context, "${meal.carbs}g C", const Color(0xFFFFB74D), const Color(0xFFFFF3E0)),
-                        _buildMacroBadge(context, "${meal.fat}g F", const Color(0xFFFFD54F), const Color(0xFFFFF8E1)),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(height: 12),
+
+                      // Macros Row
+                      Row(
+                        children: [
+                          _buildMacroItem(Icons.local_fire_department_rounded, "${meal.calories}", Colors.orange),
+                          const SizedBox(width: 12),
+                          _buildMacroItem(Icons.fitness_center_rounded, "${meal.protein}g", Colors.redAccent),
+                          const SizedBox(width: 12),
+                          _buildMacroItem(Icons.bolt_rounded, "${meal.carbs}g", Colors.amber),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // Edit Button
-              IconButton.filledTonal(
-                onPressed: onEdit,
-                icon: const Icon(Icons.edit_outlined, size: 20),
-                style: IconButton.styleFrom(
-                  backgroundColor: colorScheme.surfaceContainerHighest ?? Colors.grey.shade100,
-                  foregroundColor: colorScheme.onSurfaceVariant,
-                ),
-                tooltip: l10n.editMeal,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMacroBadge(BuildContext context, String text, Color textColor, Color bgColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
+  Widget _buildMacroItem(IconData icon, String text, Color color) {
+    return Row(
+      children: [
+        Icon(icon, size: 14, color: color),
+        const SizedBox(width: 4),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey.shade700,
+          ),
         ),
-      ),
+      ],
     );
   }
 }
