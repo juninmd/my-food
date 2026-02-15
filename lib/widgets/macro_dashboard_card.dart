@@ -32,81 +32,101 @@ class MacroDashboardCard extends StatelessWidget {
     int remaining = targetCalories - calories;
     if (remaining < 0) remaining = 0;
 
+    // Donut chart data
+    final double caloriesRatio = (calories / targetCalories).clamp(0.0, 1.0);
+    final double remainingRatio = 1.0 - caloriesRatio;
+
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Calorie Ring
-            Expanded(
-              flex: 5,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    PieChart(
-                      PieChartData(
-                        sectionsSpace: 0,
-                        centerSpaceRadius: 40,
-                        startDegreeOffset: 270,
-                        sections: [
-                          PieChartSectionData(
-                            color: colorScheme.primary,
-                            value: calories.toDouble(),
-                            title: '',
-                            radius: 12,
-                            showTitle: false,
+            Text(
+              l10n.dailyGoal,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                // Calorie Donut
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      PieChart(
+                        PieChartData(
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 45,
+                          startDegreeOffset: 270,
+                          sections: [
+                            PieChartSectionData(
+                              color: colorScheme.primary,
+                              value: calories.toDouble(),
+                              title: '',
+                              radius: 10,
+                              showTitle: false,
+                            ),
+                            PieChartSectionData(
+                              color: colorScheme.surfaceContainerHighest ?? Colors.grey.shade100,
+                              value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
+                              title: '',
+                              radius: 10,
+                              showTitle: false,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "$remaining",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: colorScheme.onSurface,
+                            ),
                           ),
-                          PieChartSectionData(
-                            color: colorScheme.surfaceContainerHighest ?? Colors.grey.shade200,
-                            value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
-                            title: '',
-                            radius: 12,
-                            showTitle: false,
+                          Text(
+                            l10n.remaining,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$remaining",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        Text(
-                          l10n.remaining, // "Remaining" or "Restantes"
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(width: 24),
-            // Macros
-            Expanded(
-              flex: 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFE57373)), // Soft Red
-                  const SizedBox(height: 16),
-                  _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFFFFB74D)), // Soft Orange
-                  const SizedBox(height: 16),
-                  _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFFFFD54F)), // Soft Amber
-                ],
-              ),
+                const SizedBox(width: 32),
+                // Macros List
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFE57373)), // Soft Red
+                      const SizedBox(height: 16),
+                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFFFFB74D)), // Soft Orange
+                      const SizedBox(height: 16),
+                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFFFFD54F)), // Soft Amber
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -124,15 +144,15 @@ class MacroDashboardCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+            Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Colors.black87)),
             Text.rich(
               TextSpan(
                 text: "$value",
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black87),
                 children: [
                   TextSpan(
                     text: "/${target}g",
-                    style: TextStyle(color: Colors.grey.shade500, fontWeight: FontWeight.normal),
+                    style: TextStyle(color: Colors.grey.shade400, fontWeight: FontWeight.normal, fontSize: 12),
                   ),
                 ],
               ),
@@ -144,9 +164,9 @@ class MacroDashboardCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: progress,
-            backgroundColor: color.withValues(alpha: 0.15),
+            backgroundColor: color.withValues(alpha: 0.1),
             color: color,
-            minHeight: 8,
+            minHeight: 6,
           ),
         ),
       ],

@@ -35,10 +35,10 @@ void main() {
     await tester.pumpWidget(const MyApp());
 
     // Find Shopping Cart icon (in BottomNav)
-    // HomePage: BottomNavigationBarItem(icon: const Icon(Icons.shopping_cart_outlined), activeIcon: const Icon(Icons.shopping_cart), ...)
+    // HomePage: BottomNavigationBarItem(icon: const Icon(Icons.shopping_bag_outlined), activeIcon: const Icon(Icons.shopping_bag_rounded), ...)
     // Initially inactive.
 
-    await tester.tap(find.byIcon(Icons.shopping_cart_outlined));
+    await tester.tap(find.byIcon(Icons.shopping_bag_outlined));
     await tester.pumpAndSettle();
 
     // Verify we are on Shopping List View

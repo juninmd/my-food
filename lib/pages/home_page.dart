@@ -110,6 +110,8 @@ class _HomePageState extends State<HomePage> {
         SnackBar(
           content: Text(l10n.surpriseMeFeedback),
           duration: const Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
     }
@@ -117,47 +119,78 @@ class _HomePageState extends State<HomePage> {
 
   void _showMealSelector(BuildContext context, List<Meal> options, Function(Meal) onSelect) {
     final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
-          height: 500,
+          height: MediaQuery.of(context).size.height * 0.7,
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
           ),
           child: Column(
             children: [
+              // Handle bar
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 12, bottom: 8),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  l10n.selectFoodTitle,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.selectFoodTitle,
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.grey.shade100,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 380,
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                  viewportFraction: 0.8,
+              Expanded(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 400,
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    viewportFraction: 0.75,
+                    enableInfiniteScroll: true,
+                  ),
+                  items: options.map((meal) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return GestureDetector(
+                          onTap: () {
+                            onSelect(meal);
+                            Navigator.pop(context);
+                          },
+                          child: _buildSelectorCard(meal),
+                        );
+                      },
+                    );
+                  }).toList(),
                 ),
-                items: options.map((meal) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return GestureDetector(
-                        onTap: () {
-                          onSelect(meal);
-                          Navigator.pop(context);
-                        },
-                        child: _buildCarouselItem(meal),
-                      );
-                    },
-                  );
-                }).toList(),
               ),
+              const SizedBox(height: 32),
             ],
           ),
         );
@@ -165,54 +198,108 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCarouselItem(Meal meal) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 3,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-              child: Image.asset(
-                meal.imagePath,
-                fit: BoxFit.cover,
-              ),
-            ),
+  Widget _buildSelectorCard(Meal meal) {
+    final theme = Theme.of(context);
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
+        ],
+        border: Border.all(color: Colors.grey.shade100),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 5,
+              child: Stack(
+                fit: StackFit.expand,
                 children: [
-                  Text(
-                    meal.name,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Image.asset(
+                    meal.imagePath,
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    meal.description,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-                  ),
-                  const Spacer(),
-                   Text(
-                    '${meal.calories} kcal',
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 16),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withValues(alpha: 0.6),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          meal.name,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          meal.description,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: theme.primaryColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        '${meal.calories} kcal',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -294,30 +381,41 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: SafeArea(child: body),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-           BottomNavigationBarItem(
-             icon: const Icon(Icons.dashboard_outlined),
-             activeIcon: const Icon(Icons.dashboard),
-             label: l10n.dashboardTitle
-           ),
-           BottomNavigationBarItem(
-             icon: const Icon(Icons.shopping_cart_outlined),
-             activeIcon: const Icon(Icons.shopping_cart),
-             label: l10n.shoppingListTitle
-           ),
-           BottomNavigationBarItem(
-             icon: const Icon(Icons.grid_view),
-             activeIcon: const Icon(Icons.grid_view_rounded),
-             label: l10n.toolsTitle
-           ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+             BottomNavigationBarItem(
+               icon: const Icon(Icons.dashboard_outlined),
+               activeIcon: const Icon(Icons.dashboard_rounded),
+               label: l10n.dashboardTitle
+             ),
+             BottomNavigationBarItem(
+               icon: const Icon(Icons.shopping_bag_outlined),
+               activeIcon: const Icon(Icons.shopping_bag_rounded),
+               label: l10n.shoppingListTitle
+             ),
+             BottomNavigationBarItem(
+               icon: const Icon(Icons.grid_view),
+               activeIcon: const Icon(Icons.grid_view_rounded),
+               label: l10n.toolsTitle
+             ),
+          ],
+        ),
       ),
     );
   }

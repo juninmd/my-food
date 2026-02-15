@@ -16,69 +16,101 @@ class WaterTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    final double progress = (currentGlasses / targetGlasses).clamp(0.0, 1.0);
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 0,
-      color: Colors.blue.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(color: Colors.blue.withValues(alpha: 0.1)),
       ),
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: Row(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.waterTrackerTitle,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.blue.shade800,
-                      ),
-                    ),
-                    Text(
-                      "${currentGlasses * 250}ml / ${targetGlasses * 250}ml",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.blue.shade600,
-                      ),
-                    ),
-                  ],
-                ),
-                IconButton.filled(
-                  onPressed: onAdd,
-                  icon: const Icon(Icons.add),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                  ),
-                ),
-              ],
+            // Icon Container
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.water_drop_rounded,
+                color: Colors.blue,
+                size: 24,
+              ),
             ),
-            const SizedBox(height: 16),
-            // Icons Row
-            SizedBox(
-              height: 30,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: targetGlasses,
-                separatorBuilder: (context, index) => const SizedBox(width: 8),
-                itemBuilder: (context, index) {
-                  bool isFilled = index < currentGlasses;
-                  return Icon(
-                    isFilled ? Icons.water_drop : Icons.water_drop_outlined,
-                    color: isFilled ? Colors.blue : Colors.blue.withValues(alpha: 0.3),
-                    size: 24,
-                  );
-                },
+            const SizedBox(width: 16),
+
+            // Progress and Text
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        l10n.waterTrackerTitle,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text.rich(
+                        TextSpan(
+                          text: "$currentGlasses",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.blue,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "/$targetGlasses",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey.shade500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      backgroundColor: Colors.blue.withValues(alpha: 0.1),
+                      color: Colors.blue,
+                      minHeight: 8,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(width: 16),
+
+            // Add Button
+            IconButton.filled(
+              onPressed: onAdd,
+              icon: const Icon(Icons.add),
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
           ],

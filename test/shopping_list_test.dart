@@ -39,7 +39,7 @@ void main() {
       ));
 
       // Verify title "Shopping List" (English)
-      expect(find.text('Shopping List'), findsWidgets); // Header + possibly nav bar if used in full app, but here just header
+      expect(find.text('Shopping List'), findsWidgets);
 
       // Verify ingredients
       expect(find.text('Ovos'), findsOneWidget);
@@ -59,22 +59,25 @@ void main() {
       // Initially all checkboxes unchecked
       expect(find.byType(Checkbox), findsNWidgets(3));
 
-      final paoTile = find.widgetWithText(ListTile, 'Pão');
-      final paoCheckbox = find.descendant(of: paoTile, matching: find.byType(Checkbox));
-      expect(tester.widget<Checkbox>(paoCheckbox).value, false);
+      // Find the row for Pão
+      final paoTextFinder = find.text('Pão');
+      final paoRowFinder = find.ancestor(of: paoTextFinder, matching: find.byType(Row));
+      final paoCheckboxFinder = find.descendant(of: paoRowFinder, matching: find.byType(Checkbox));
 
-      // Tap on 'Pão'
-      await tester.tap(find.text('Pão'));
+      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, false);
+
+      // Tap on 'Pão' text (which is inside the InkWell)
+      await tester.tap(paoTextFinder);
       await tester.pump();
 
       // Now 'Pão' should be checked
-      expect(tester.widget<Checkbox>(paoCheckbox).value, true);
+      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, true);
 
       // Tap again to uncheck
-      await tester.tap(find.text('Pão'));
+      await tester.tap(paoTextFinder);
       await tester.pump();
 
-      expect(tester.widget<Checkbox>(paoCheckbox).value, false);
+      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, false);
     });
 
     testWidgets('Copy to clipboard triggers SnackBar',
