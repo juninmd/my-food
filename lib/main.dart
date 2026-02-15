@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData _buildThemeData() {
+    // WebDiet-inspired theme configuration
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
     const primaryColor = Color(0xFF00C853); // Vibrant Green (WebDiet style)
     const secondaryColor = Color(0xFF009688); // Teal
