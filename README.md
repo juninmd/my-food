@@ -2,7 +2,7 @@
 
 Meal Planning and Health Application.
 
-This project offers a complete solution for patient diet and health management with a modern, clean UI (Teal theme).
+This project offers a complete solution for patient diet and health management with a modern, clean UI (Teal/Green theme).
 
 ## Main Features
 
