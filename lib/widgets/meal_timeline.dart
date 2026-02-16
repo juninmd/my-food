@@ -27,19 +27,56 @@ class MealTimeline extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTimelineItem(context, l10n.mealBreakfast, breakfast, onEditBreakfast),
-        _buildTimelineItem(context, l10n.mealLunch, lunch, onEditLunch),
-        _buildTimelineItem(context, l10n.mealDinner, dinner, onEditDinner),
+        _buildTimelineItem(context, l10n.mealBreakfast, breakfast, onEditBreakfast, "08:00"),
+        _buildTimelineItem(context, l10n.mealLunch, lunch, onEditLunch, "12:00"),
+        _buildTimelineItem(context, l10n.mealDinner, dinner, onEditDinner, "19:00"),
       ],
     );
   }
 
   Widget _buildTimelineItem(
-      BuildContext context, String title, Meal meal, Function(Meal) onEdit) {
-    return ModernMealCard(
-      title: title,
-      meal: meal,
-      onEdit: () => onEdit(meal),
+      BuildContext context, String title, Meal meal, Function(Meal) onEdit, String time) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24.0, right: 0, bottom: 8),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Time Column
+            SizedBox(
+              width: 50,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 24.0),
+                child: Text(
+                  time,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            // Line decoration (optional, but nice)
+            Container(
+              width: 2,
+              color: Colors.grey.shade200,
+              margin: const EdgeInsets.only(right: 8),
+            ),
+            // Meal Card
+            Expanded(
+              child: Transform.translate(
+                offset: const Offset(-16, 0), // Pull card back slightly to cover margin if needed
+                child: ModernMealCard(
+                  title: title,
+                  meal: meal,
+                  onEdit: () => onEdit(meal),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

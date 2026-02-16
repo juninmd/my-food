@@ -52,7 +52,7 @@ class DashboardView extends StatelessWidget {
         // Header Sliver
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -60,29 +60,50 @@ class DashboardView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l10n.hello, // "Hello"
+                      dateFormat.format(now).toUpperCase(),
                       style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface.withValues(alpha: 0.5),
+                        letterSpacing: 1.0,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      dateFormat.format(now).toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
-                        letterSpacing: -0.5,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          l10n.hello,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.onSurface,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                CircleAvatar(
-                  radius: 24,
-                  backgroundColor: colorScheme.primaryContainer,
-                  child: Icon(Icons.person, color: colorScheme.onPrimaryContainer),
+                // Surprise Me Action
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onSurpriseMe,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: colorScheme.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.2)),
+                      ),
+                      child: Icon(
+                        Icons.auto_awesome,
+                        color: colorScheme.primary,
+                        size: 24,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -158,18 +179,10 @@ class DashboardView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    l10n.dashboardTitle, // "Meals" or "Dashboard"
+                    l10n.dashboardTitle,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton.icon(
-                    onPressed: onSurpriseMe,
-                    icon: const Icon(Icons.shuffle, size: 18),
-                    label: Text(l10n.surpriseMeButton),
-                    style: TextButton.styleFrom(
-                      foregroundColor: colorScheme.secondary,
                     ),
                   ),
                 ],

@@ -38,11 +38,6 @@ class MacroDashboardCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
-      ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -60,29 +55,29 @@ class MacroDashboardCard extends StatelessWidget {
               children: [
                 // Calorie Donut
                 SizedBox(
-                  height: 120,
-                  width: 120,
+                  height: 140,
+                  width: 140,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       PieChart(
                         PieChartData(
                           sectionsSpace: 0,
-                          centerSpaceRadius: 45,
+                          centerSpaceRadius: 50,
                           startDegreeOffset: 270,
                           sections: [
                             PieChartSectionData(
                               color: colorScheme.primary,
                               value: calories.toDouble(),
                               title: '',
-                              radius: 10,
+                              radius: 16,
                               showTitle: false,
                             ),
                             PieChartSectionData(
                               color: colorScheme.surfaceContainerHighest ?? Colors.grey.shade100,
                               value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
                               title: '',
-                              radius: 10,
+                              radius: 16,
                               showTitle: false,
                             ),
                           ],
@@ -95,16 +90,16 @@ class MacroDashboardCard extends StatelessWidget {
                             "$remaining",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
+                              fontSize: 28,
                               color: colorScheme.onSurface,
                             ),
                           ),
                           Text(
                             l10n.remaining,
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 12,
                               color: Colors.grey.shade500,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -159,14 +154,14 @@ class MacroDashboardCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 8),
         ClipRRect(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           child: LinearProgressIndicator(
             value: progress,
             backgroundColor: color.withValues(alpha: 0.1),
             color: color,
-            minHeight: 6,
+            minHeight: 8,
           ),
         ),
       ],
