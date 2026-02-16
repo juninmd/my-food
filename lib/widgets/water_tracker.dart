@@ -21,100 +21,107 @@ class WaterTracker extends StatelessWidget {
 
     final double progress = (currentGlasses / targetGlasses).clamp(0.0, 1.0);
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(color: Colors.blue.withValues(alpha: 0.1)),
+    const waterColor = Color(0xFF29B6F6); // Light Blue 400
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
       ),
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            // Icon Container
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.water_drop_rounded,
-                color: Colors.blue,
-                size: 24,
-              ),
+      child: Row(
+        children: [
+          // Icon Container
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: waterColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(16),
             ),
-            const SizedBox(width: 16),
+            child: const Icon(
+              Icons.water_drop_rounded,
+              color: waterColor,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
 
-            // Progress and Text
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.waterTrackerTitle,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+          // Progress and Text
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.waterTrackerTitle,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                      Text.rich(
-                        TextSpan(
-                          text: "$currentGlasses",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.blue,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: "/$targetGlasses",
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey.shade500,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: Colors.blue.withValues(alpha: 0.1),
-                      color: Colors.blue,
-                      minHeight: 8,
                     ),
+                    Text.rich(
+                      TextSpan(
+                        text: "$currentGlasses",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: waterColor,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "/$targetGlasses",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey.shade400,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: waterColor.withValues(alpha: 0.1),
+                    color: waterColor,
+                    minHeight: 10,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
 
-            const SizedBox(width: 16),
+          const SizedBox(width: 16),
 
-            // Add Button
-            IconButton.filled(
-              onPressed: onAdd,
-              icon: const Icon(Icons.add),
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
+          // Add Button
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onAdd,
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: waterColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: waterColor,
+                  size: 20,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
