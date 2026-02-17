@@ -56,28 +56,24 @@ void main() {
         ShoppingListView(ingredients: ingredients),
       ));
 
-      // Initially all checkboxes unchecked
-      expect(find.byType(Checkbox), findsNWidgets(3));
+      // Initially no check icons
+      expect(find.byIcon(Icons.check), findsNothing);
 
-      // Find the row for Pão
+      // Find the text 'Pão'
       final paoTextFinder = find.text('Pão');
-      final paoRowFinder = find.ancestor(of: paoTextFinder, matching: find.byType(Row));
-      final paoCheckboxFinder = find.descendant(of: paoRowFinder, matching: find.byType(Checkbox));
-
-      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, false);
 
       // Tap on 'Pão' text (which is inside the InkWell)
       await tester.tap(paoTextFinder);
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      // Now 'Pão' should be checked
-      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, true);
+      // Now 'Pão' should have a check icon
+      expect(find.byIcon(Icons.check), findsOneWidget);
 
       // Tap again to uncheck
       await tester.tap(paoTextFinder);
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      expect(tester.widget<Checkbox>(paoCheckboxFinder).value, false);
+      expect(find.byIcon(Icons.check), findsNothing);
     });
 
     testWidgets('Copy to clipboard triggers SnackBar',

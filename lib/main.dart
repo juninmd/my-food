@@ -49,14 +49,15 @@ class MyApp extends StatelessWidget {
 
     return ThemeData(
       useMaterial3: true,
+      fontFamily: GoogleFonts.poppins().fontFamily,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         primary: primaryColor,
         secondary: secondaryColor,
         surface: surfaceColor,
         onSurface: const Color(0xFF2D3436), // Dark Grey Text
-        surfaceContainerHighest: const Color(0xFFF1F3F5), // Slightly darker grey for containers
-        error: const Color(0xFFD32F2F),
+        surfaceContainerHighest: const Color(0xFFF8F9FA), // Lighter grey
+        error: const Color(0xFFFF5252), // Softer red
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme.apply(
@@ -82,12 +83,14 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF2D3436)),
       ),
       cardTheme: CardThemeData(
-        elevation: 0,
+        elevation: 8, // Softer, deeper shadow
+        shadowColor: const Color(0x0D000000), // Very subtle shadow
+        surfaceTintColor: Colors.transparent, // Prevent pink tint
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: Color(0xFFE0E0E0), width: 1),
+          borderRadius: BorderRadius.circular(24), // Softer corners
+          side: BorderSide.none, // Cleaner look without borders
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         color: Colors.white,
         clipBehavior: Clip.antiAlias,
       ),

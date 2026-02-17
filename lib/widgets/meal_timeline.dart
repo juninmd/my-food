@@ -57,21 +57,42 @@ class MealTimeline extends StatelessWidget {
                 ),
               ),
             ),
-            // Line decoration (optional, but nice)
-            Container(
-              width: 2,
-              color: Colors.grey.shade200,
-              margin: const EdgeInsets.only(right: 8),
+            // Line decoration
+            Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 24), // Align with time text
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: 2,
+                    color: Colors.grey.withValues(alpha: 0.1),
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                  ),
+                ),
+              ],
             ),
+            const SizedBox(width: 16),
             // Meal Card
             Expanded(
-              child: Transform.translate(
-                offset: const Offset(-16, 0), // Pull card back slightly to cover margin if needed
-                child: ModernMealCard(
-                  title: title,
-                  meal: meal,
-                  onEdit: () => onEdit(meal),
-                ),
+              child: ModernMealCard(
+                title: title,
+                meal: meal,
+                onEdit: () => onEdit(meal),
               ),
             ),
           ],
