@@ -101,19 +101,51 @@ class _ShoppingListViewState extends State<ShoppingListView> {
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-              child: Text(
-                l10n.shoppingListTitle,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.5,
-                ),
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.shoppingListTitle,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: LinearProgressIndicator(
+                            value: sortedIngredients.isNotEmpty
+                                ? _checkedIngredients.length / sortedIngredients.length
+                                : 0,
+                            minHeight: 8,
+                            backgroundColor: Colors.grey.withValues(alpha: 0.1),
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        "${_checkedIngredients.length}/${sortedIngredients.length}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.primary,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -122,7 +154,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                   final isChecked = _checkedIngredients.contains(ingredient);
 
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 12.0),
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
@@ -137,50 +169,60 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                           });
                         },
                         borderRadius: BorderRadius.circular(16),
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
                           decoration: BoxDecoration(
-                            color: isChecked ? Colors.grey.shade50 : Colors.white,
+                            color: isChecked ? Colors.grey.withValues(alpha: 0.03) : Colors.white,
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                              color: isChecked ? Colors.transparent : Colors.grey.withValues(alpha: 0.2),
+                              color: isChecked ? Colors.transparent : Colors.grey.withValues(alpha: 0.05),
                             ),
+                            boxShadow: isChecked ? [] : [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.03),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                           child: Row(
                             children: [
-                              Checkbox(
-                                value: isChecked,
-                                onChanged: (bool? value) {
-                                   setState(() {
-                                    if (value == true) {
-                                      _checkedIngredients.add(ingredient);
-                                    } else {
-                                      _checkedIngredients.remove(ingredient);
-                                    }
-                                    _saveCheckedIngredients();
-                                  });
-                                },
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                                activeColor: colorScheme.primary,
+                              // Custom Checkbox
+                              Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: isChecked ? colorScheme.primary : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: isChecked ? colorScheme.primary : Colors.grey.withValues(alpha: 0.3),
+                                    width: 2,
+                                  ),
+                                ),
+                                child: isChecked
+                                    ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                    : null,
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
                                   ingredient,
                                   style: TextStyle(
                                     decoration: isChecked ? TextDecoration.lineThrough : null,
-                                    color: isChecked ? Colors.grey : colorScheme.onSurface,
-                                    fontWeight: isChecked ? FontWeight.normal : FontWeight.w500,
-                                    fontSize: 16,
+                                    color: isChecked ? Colors.grey.withValues(alpha: 0.5) : colorScheme.onSurface,
+                                    fontWeight: isChecked ? FontWeight.w500 : FontWeight.w600,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
                               if (count! > 1)
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  margin: const EdgeInsets.only(left: 8),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: colorScheme.primaryContainer,
-                                    borderRadius: BorderRadius.circular(20),
+                                    color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     'x$count',

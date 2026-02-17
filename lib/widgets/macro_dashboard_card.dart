@@ -27,57 +27,65 @@ class MacroDashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     int remaining = targetCalories - calories;
     if (remaining < 0) remaining = 0;
 
-    // Donut chart data
-    final double caloriesRatio = (calories / targetCalories).clamp(0.0, 1.0);
-    final double remainingRatio = 1.0 - caloriesRatio;
-
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l10n.dailyGoal,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.dailyGoal,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: colorScheme.onSurface,
+                  ),
+                ),
+                Icon(
+                  Icons.show_chart_rounded,
+                  color: colorScheme.primary.withValues(alpha: 0.5),
+                ),
+              ],
             ),
             const SizedBox(height: 24),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Calorie Donut
                 SizedBox(
-                  height: 140,
-                  width: 140,
+                  height: 150,
+                  width: 150,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       PieChart(
                         PieChartData(
                           sectionsSpace: 0,
-                          centerSpaceRadius: 50,
+                          centerSpaceRadius: 60,
                           startDegreeOffset: 270,
                           sections: [
                             PieChartSectionData(
                               color: colorScheme.primary,
                               value: calories.toDouble(),
                               title: '',
-                              radius: 16,
+                              radius: 12,
                               showTitle: false,
                             ),
                             PieChartSectionData(
                               color: colorScheme.surfaceContainerHighest ?? Colors.grey.shade100,
                               value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
                               title: '',
-                              radius: 16,
+                              radius: 12,
                               showTitle: false,
                             ),
                           ],
@@ -89,17 +97,20 @@ class MacroDashboardCard extends StatelessWidget {
                           Text(
                             "$remaining",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 32,
                               color: colorScheme.onSurface,
+                              height: 1.0,
+                              letterSpacing: -1.0,
                             ),
                           ),
                           Text(
-                            l10n.remaining,
+                            l10n.remaining, // "Remaining" or "kcal left"
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey.shade500,
+                              color: colorScheme.onSurface.withValues(alpha: 0.5),
                               fontWeight: FontWeight.w600,
+                              letterSpacing: 0.5,
                             ),
                           ),
                         ],
@@ -113,11 +124,11 @@ class MacroDashboardCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFE57373)), // Soft Red
-                      const SizedBox(height: 16),
-                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFFFFB74D)), // Soft Orange
-                      const SizedBox(height: 16),
-                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFFFFD54F)), // Soft Amber
+                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFFF8A65)), // Soft Orange/Red
+                      const SizedBox(height: 20),
+                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFFFFD54F)), // Soft Amber
+                      const SizedBox(height: 20),
+                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFF4DB6AC)), // Soft Teal
                     ],
                   ),
                 ),
@@ -139,29 +150,61 @@ class MacroDashboardCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Colors.black87)),
-            Text.rich(
-              TextSpan(
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+            ),
+            RichText(
+              text: TextSpan(
                 text: "$value",
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black87),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontFamily: Theme.of(context).textTheme.bodyMedium?.fontFamily,
+                ),
                 children: [
                   TextSpan(
-                    text: "/${target}g",
-                    style: TextStyle(color: Colors.grey.shade400, fontWeight: FontWeight.normal, fontSize: 12),
+                    text: "g",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 11,
+                    ),
                   ),
                 ],
               ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: LinearProgressIndicator(
-            value: progress,
-            backgroundColor: color.withValues(alpha: 0.1),
-            color: color,
-            minHeight: 8,
+        const SizedBox(height: 6),
+        Container(
+          height: 8,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                children: [
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    height: 8,
+                    width: constraints.maxWidth * progress,
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],

@@ -52,7 +52,7 @@ class DashboardView extends StatelessWidget {
         // Header Sliver
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,42 +65,60 @@ class DashboardView extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onSurface.withValues(alpha: 0.5),
-                        letterSpacing: 1.0,
+                        letterSpacing: 1.2,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Text(
-                          l10n.hello,
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onSurface,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      l10n.hello,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                        color: colorScheme.onSurface,
+                        letterSpacing: -1.0,
+                        height: 1.1,
+                      ),
+                    ),
+                    Text(
+                      l10n.dashboardTitle,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
                 // Surprise Me Action
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: onSurpriseMe,
-                    borderRadius: BorderRadius.circular(16),
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.2)),
-                      ),
-                      child: Icon(
-                        Icons.auto_awesome,
-                        color: colorScheme.primary,
-                        size: 24,
+                Tooltip(
+                  message: l10n.surpriseMeButton,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: onSurpriseMe,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [colorScheme.primary, colorScheme.secondary],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorScheme.primary.withValues(alpha: 0.3),
+                              blurRadius: 12,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.auto_awesome,
+                          color: Colors.white,
+                          size: 26,
+                        ),
                       ),
                     ),
                   ),
@@ -117,25 +135,40 @@ class DashboardView extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   decoration: BoxDecoration(
-                    color: colorScheme.secondary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: colorScheme.secondary.withValues(alpha: 0.1)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.02),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.auto_awesome, color: colorScheme.secondary, size: 20),
-                      const SizedBox(width: 12),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: colorScheme.secondary.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.format_quote_rounded, color: colorScheme.secondary, size: 20),
+                      ),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Text(
                           snapshot.data!,
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            color: colorScheme.secondary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
+                            color: colorScheme.onSurface.withValues(alpha: 0.7),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            height: 1.4,
                           ),
                         ),
                       ),
@@ -174,18 +207,15 @@ class DashboardView extends StatelessWidget {
 
             // Meal Timeline Header
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    l10n.dashboardTitle,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Text(
+                l10n.menuTitle,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                  color: colorScheme.onSurface,
+                ),
               ),
             ),
 
