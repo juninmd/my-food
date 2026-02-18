@@ -7,6 +7,11 @@ set -e
 if [ ! -d "flutter" ]; then
     echo "Cloning Flutter..."
     git clone https://github.com/flutter/flutter.git -b stable --depth 1
+else
+    echo "Flutter directory exists. Updating..."
+    cd flutter
+    git pull
+    cd ..
 fi
 
 # Add Flutter to PATH
