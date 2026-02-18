@@ -105,13 +105,29 @@ class _ShoppingListViewState extends State<ShoppingListView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    l10n.shoppingListTitle,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.5,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        l10n.shoppingListTitle,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      if (_checkedIngredients.isNotEmpty)
+                        IconButton(
+                          icon: const Icon(Icons.delete_sweep_outlined),
+                          color: colorScheme.error,
+                          onPressed: () {
+                            setState(() {
+                              _checkedIngredients.clear();
+                              _saveCheckedIngredients();
+                            });
+                          },
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   Row(

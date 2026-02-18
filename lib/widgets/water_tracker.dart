@@ -18,116 +18,103 @@ class WaterTracker extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
-    final double progress = (currentGlasses / targetGlasses).clamp(0.0, 1.0);
-
     const waterColor = Color(0xFF29B6F6); // Light Blue 400
 
-    return Container(
+    // Determine the number of icons to show (at least target, but expand if current exceeds)
+    final int totalIcons = currentGlasses > targetGlasses ? currentGlasses : targetGlasses;
+
+    return Card(
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      decoration: BoxDecoration(
-        color: waterColor.withValues(alpha: 0.05), // Very light blue background
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: waterColor.withValues(alpha: 0.1)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: waterColor.withValues(alpha: 0.15),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Icon(Icons.water_drop_rounded, color: waterColor, size: 24),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      l10n.waterTrackerTitle,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: colorScheme.onSurface.withValues(alpha: 0.7),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: waterColor.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
                       ),
+                      child: const Icon(Icons.water_drop_rounded, color: waterColor, size: 24),
                     ),
-                    Text.rich(
-                      TextSpan(
-                        text: "$currentGlasses",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: colorScheme.onSurface,
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.waterTrackerTitle,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
+                        Text(
+                          "$currentGlasses / $targetGlasses",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: colorScheme.onSurface.withValues(alpha: 0.6),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Material(
+                  color: waterColor,
+                  borderRadius: BorderRadius.circular(30),
+                  child: InkWell(
+                    onTap: onAdd,
+                    borderRadius: BorderRadius.circular(30),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Row(
                         children: [
-                          TextSpan(
-                            text: "/$targetGlasses",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              color: colorScheme.onSurface.withValues(alpha: 0.5),
+                          const Icon(Icons.add, color: Colors.white, size: 18),
+                          const SizedBox(width: 4),
+                          Text(
+                            "250ml",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    backgroundColor: Colors.white,
-                    color: waterColor,
-                    minHeight: 6,
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(width: 16),
-          // Add Button
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: onAdd,
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: waterColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: waterColor.withValues(alpha: 0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
+            const SizedBox(height: 24),
+            Center(
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                alignment: WrapAlignment.center,
+                children: List.generate(totalIcons, (index) {
+                  final isFilled = index < currentGlasses;
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutBack,
+                    child: Icon(
+                      isFilled ? Icons.water_drop : Icons.water_drop_outlined,
+                      color: isFilled ? waterColor : Colors.grey.withValues(alpha: 0.3),
+                      size: 28,
                     ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                  );
+                }),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

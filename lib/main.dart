@@ -83,12 +83,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF2D3436)),
       ),
       cardTheme: CardThemeData(
-        elevation: 8, // Softer, deeper shadow
-        shadowColor: const Color(0x0D000000), // Very subtle shadow
-        surfaceTintColor: Colors.transparent, // Prevent pink tint
+        elevation: 0, // Flat design for modern look
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24), // Softer corners
-          side: BorderSide.none, // Cleaner look without borders
+          borderRadius: BorderRadius.circular(24),
+          side: const BorderSide(color: Color(0xFFEEEEEE), width: 1.5), // Subtle border
         ),
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         color: Colors.white,

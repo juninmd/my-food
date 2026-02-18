@@ -89,37 +89,23 @@ class DashboardView extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Surprise Me Action
-                Tooltip(
-                  message: l10n.surpriseMeButton,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: onSurpriseMe,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [colorScheme.primary, colorScheme.secondary],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: colorScheme.primary.withValues(alpha: 0.3),
-                              blurRadius: 12,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.auto_awesome,
-                          color: Colors.white,
-                          size: 26,
-                        ),
-                      ),
+                // User Avatar
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                      width: 2,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                    child: Icon(
+                      Icons.person_rounded,
+                      color: colorScheme.primary,
+                      size: 28,
                     ),
                   ),
                 ),
