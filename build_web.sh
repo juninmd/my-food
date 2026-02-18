@@ -3,16 +3,12 @@
 # Ensure the script exits on failure
 set -e
 
-# Clone Flutter if not present
-if [ ! -d "flutter" ]; then
-    echo "Cloning Flutter..."
-    git clone https://github.com/flutter/flutter.git -b stable --depth 1
-else
-    echo "Flutter directory exists. Updating..."
-    cd flutter
-    git pull
-    cd ..
-fi
+# Always use a fresh Flutter clone to ensure latest stable version and avoid git errors
+echo "Cleaning up Flutter..."
+rm -rf flutter
+
+echo "Cloning Flutter (stable)..."
+git clone https://github.com/flutter/flutter.git -b stable --depth 1
 
 # Add Flutter to PATH
 export PATH="$PATH:`pwd`/flutter/bin"
