@@ -171,85 +171,89 @@ class _ShoppingListViewState extends State<ShoppingListView> {
 
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                           setState(() {
-                            if (isChecked) {
-                              _checkedIngredients.remove(ingredient);
-                            } else {
-                              _checkedIngredients.add(ingredient);
-                            }
-                            _saveCheckedIngredients();
-                          });
-                        },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: isChecked ? Colors.transparent : Colors.white,
                         borderRadius: BorderRadius.circular(16),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          decoration: BoxDecoration(
-                            color: isChecked ? Colors.grey.withValues(alpha: 0.03) : Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: isChecked ? Colors.transparent : Colors.grey.withValues(alpha: 0.05),
-                            ),
-                            boxShadow: isChecked ? [] : [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.03),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                        border: isChecked
+                             ? Border.all(color: Colors.grey.withValues(alpha: 0.2))
+                             : Border.all(color: Colors.transparent),
+                        boxShadow: isChecked ? [] : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.03),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          child: Row(
-                            children: [
-                              // Custom Checkbox
-                              Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  color: isChecked ? colorScheme.primary : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: isChecked ? colorScheme.primary : Colors.grey.withValues(alpha: 0.3),
-                                    width: 2,
-                                  ),
-                                ),
-                                child: isChecked
-                                    ? const Icon(Icons.check, size: 16, color: Colors.white)
-                                    : null,
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  ingredient,
-                                  style: TextStyle(
-                                    decoration: isChecked ? TextDecoration.lineThrough : null,
-                                    color: isChecked ? Colors.grey.withValues(alpha: 0.5) : colorScheme.onSurface,
-                                    fontWeight: isChecked ? FontWeight.w500 : FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                              if (count! > 1)
-                                Container(
-                                  margin: const EdgeInsets.only(left: 8),
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                        child: InkWell(
+                          onTap: () {
+                             setState(() {
+                              if (isChecked) {
+                                _checkedIngredients.remove(ingredient);
+                              } else {
+                                _checkedIngredients.add(ingredient);
+                              }
+                              _saveCheckedIngredients();
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(16),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                            child: Row(
+                              children: [
+                                // Custom Checkbox (Circle)
+                                AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  width: 24,
+                                  height: 24,
                                   decoration: BoxDecoration(
-                                    color: colorScheme.primaryContainer.withValues(alpha: 0.5),
-                                    borderRadius: BorderRadius.circular(12),
+                                    color: isChecked ? colorScheme.primary : Colors.transparent,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: isChecked ? colorScheme.primary : Colors.grey.withValues(alpha: 0.4),
+                                      width: 2,
+                                    ),
                                   ),
+                                  child: isChecked
+                                      ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                      : null,
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
                                   child: Text(
-                                    'x$count',
+                                    ingredient,
                                     style: TextStyle(
-                                      color: colorScheme.onPrimaryContainer,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                                      decoration: isChecked ? TextDecoration.lineThrough : null,
+                                      color: isChecked ? Colors.grey.withValues(alpha: 0.5) : colorScheme.onSurface,
+                                      fontWeight: isChecked ? FontWeight.w500 : FontWeight.w600,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
-                            ],
+                                if (count! > 1)
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 8),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      'x$count',
+                                      style: TextStyle(
+                                        color: colorScheme.onPrimaryContainer,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -39,7 +39,7 @@ class DashboardView extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final now = DateTime.now();
-    final dateFormat = DateFormat('EEE, d MMM', Localizations.localeOf(context).toString());
+    final dateFormat = DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString());
 
     // Calculate totals
     int totalCalories = breakfast.calories + lunch.calories + dinner.calories;
@@ -49,49 +49,43 @@ class DashboardView extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        // Header Sliver
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+        // Modern App Bar Header
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(24, 20, 24, 20),
+          sliver: SliverToBoxAdapter(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      dateFormat.format(now).toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onSurface.withValues(alpha: 0.5),
-                        letterSpacing: 1.2,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.hello,
+                        style: TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.w800,
+                          color: colorScheme.onSurface,
+                          letterSpacing: -1.0,
+                          height: 1.1,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      l10n.hello,
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w800,
-                        color: colorScheme.onSurface,
-                        letterSpacing: -1.0,
-                        height: 1.1,
+                      const SizedBox(height: 4),
+                      Text(
+                        dateFormat.format(now).toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface.withValues(alpha: 0.5),
+                          letterSpacing: 1.0,
+                        ),
                       ),
-                    ),
-                    Text(
-                      l10n.dashboardTitle,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                // User Avatar
+                // User Avatar with subtle border
                 Container(
-                  padding: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(3),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -100,10 +94,10 @@ class DashboardView extends StatelessWidget {
                     ),
                   ),
                   child: CircleAvatar(
-                    radius: 24,
-                    backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                    radius: 26,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
                     child: Icon(
-                      Icons.person_rounded,
+                      Icons.person,
                       color: colorScheme.primary,
                       size: 28,
                     ),
@@ -114,22 +108,21 @@ class DashboardView extends StatelessWidget {
           ),
         ),
 
-        // Quote Sliver
+        // Quote
         SliverToBoxAdapter(
           child: FutureBuilder<String>(
             future: quoteFuture,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Container(
-                  margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.02),
+                        color: Colors.black.withValues(alpha: 0.03),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -137,14 +130,7 @@ class DashboardView extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: colorScheme.secondary.withValues(alpha: 0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.format_quote_rounded, color: colorScheme.secondary, size: 20),
-                      ),
+                      Icon(Icons.format_quote_rounded, color: colorScheme.primary.withValues(alpha: 0.5), size: 24),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Text(
@@ -153,7 +139,7 @@ class DashboardView extends StatelessWidget {
                             fontStyle: FontStyle.italic,
                             color: colorScheme.onSurface.withValues(alpha: 0.7),
                             fontWeight: FontWeight.w500,
-                            fontSize: 13,
+                            fontSize: 14,
                             height: 1.4,
                           ),
                         ),
@@ -173,13 +159,34 @@ class DashboardView extends StatelessWidget {
             // Macro Card
             MacroDashboardCard(
               calories: totalCalories,
-              targetCalories: 2500, // Still static target
+              targetCalories: 2500,
               protein: totalProtein,
               targetProtein: DietConstants.proteinTarget,
               carbs: totalCarbs,
               targetCarbs: DietConstants.carbsTarget,
               fat: totalFat,
               targetFat: DietConstants.fatTarget,
+            ),
+
+            const SizedBox(height: 32),
+
+            // Hydration Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+              child: Row(
+                children: [
+                  const Icon(Icons.water_drop, size: 20, color: Colors.blueAccent),
+                  const SizedBox(width: 8),
+                  Text(
+                    l10n.waterTrackerTitle,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             // Water Tracker
@@ -189,19 +196,24 @@ class DashboardView extends StatelessWidget {
               onAdd: onAddWater,
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
             // Meal Timeline Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Text(
-                l10n.menuTitle,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.5,
-                  color: colorScheme.onSurface,
-                ),
+              child: Row(
+                children: [
+                  Icon(Icons.restaurant_menu, size: 20, color: colorScheme.primary),
+                  const SizedBox(width: 8),
+                  Text(
+                    l10n.menuTitle,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                ],
               ),
             ),
 
