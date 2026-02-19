@@ -89,7 +89,7 @@ class MacroDashboardCard extends StatelessWidget {
                           showTitle: false,
                         ),
                         PieChartSectionData(
-                          color: const Color(0xFFF0F0F0),
+                          color: colorScheme.surfaceContainerHighest ?? const Color(0xFFF0F0F0),
                           value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
                           title: '',
                           radius: 15,
