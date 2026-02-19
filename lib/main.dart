@@ -42,10 +42,11 @@ class MyApp extends StatelessWidget {
   ThemeData _buildThemeData() {
     // Medical/Modern Clean Theme
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
-    const primaryColor = Color(0xFF00BFA5); // Teal Accent 700 - Clinical/Clean
-    const secondaryColor = Color(0xFF26A69A); // Teal 400
+    // Updated Palette for a "Fresh Mint" look
+    const primaryColor = Color(0xFF009688); // Teal 500 - Professional & Fresh
+    const secondaryColor = Color(0xFF80CBC4); // Teal 200
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFF8F9FA); // Off-white/Very light grey
+    const backgroundColor = Color(0xFFF5F7FA); // Very light blue-grey background
 
     return ThemeData(
       useMaterial3: true,
@@ -55,14 +56,15 @@ class MyApp extends StatelessWidget {
         primary: primaryColor,
         secondary: secondaryColor,
         surface: surfaceColor,
-        onSurface: const Color(0xFF2D3436), // Dark Grey Text
-        surfaceContainerHighest: const Color(0xFFF8F9FA), // Lighter grey
-        error: const Color(0xFFFF5252), // Softer red
+        onPrimary: Colors.white,
+        onSurface: const Color(0xFF263238), // Blue Grey 900
+        surfaceContainerHighest: const Color(0xFFECEFF1), // Blue Grey 50
+        error: const Color(0xFFEF5350), // Red 400
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme.apply(
-        bodyColor: const Color(0xFF2D3436),
-        displayColor: const Color(0xFF2D3436),
+        bodyColor: const Color(0xFF37474F), // Blue Grey 800
+        displayColor: const Color(0xFF263238),
       ).copyWith(
         displayLarge: baseTextTheme.displayLarge?.copyWith(fontWeight: FontWeight.bold, letterSpacing: -1.0),
         displayMedium: baseTextTheme.displayMedium?.copyWith(fontWeight: FontWeight.bold, letterSpacing: -0.5),
@@ -75,20 +77,20 @@ class MyApp extends StatelessWidget {
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        foregroundColor: Color(0xFF2D3436),
+        foregroundColor: Color(0xFF263238),
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        iconTheme: IconThemeData(color: Color(0xFF2D3436)),
+        iconTheme: IconThemeData(color: Color(0xFF263238)),
       ),
       cardTheme: CardThemeData(
-        elevation: 0, // Flat design for modern look
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+        elevation: 8, // Softer, deeper shadow
+        shadowColor: Colors.black.withValues(alpha: 0.05),
+        surfaceTintColor: Colors.white, // Critical for M3 white cards
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
-          side: const BorderSide(color: Color(0xFFEEEEEE), width: 1.5), // Subtle border
+          side: BorderSide.none, // Removed border for cleaner look
         ),
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         color: Colors.white,
@@ -98,29 +100,30 @@ class MyApp extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none, // Cleaner inputs
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: primaryColor, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         hintStyle: TextStyle(color: Colors.grey.shade400),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
-          elevation: 0,
+          elevation: 4,
+          shadowColor: primaryColor.withValues(alpha: 0.4),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
@@ -129,23 +132,23 @@ class MyApp extends StatelessWidget {
           foregroundColor: primaryColor,
           side: const BorderSide(color: primaryColor),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         ),
       ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        elevation: 4,
-        shape: CircleBorder(),
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), // Squircle
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: primaryColor,
-        unselectedItemColor: Color(0xFFADB5BD), // Light grey
+        unselectedItemColor: Color(0xFFCFD8DC), // Blue Grey 100
         type: BottomNavigationBarType.fixed,
-        elevation: 16, // Softer shadow handled by container shadow usually, but built-in uses elevation
+        elevation: 0,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),

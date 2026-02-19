@@ -34,7 +34,7 @@ class MacroDashboardCard extends StatelessWidget {
     if (remaining < 0) remaining = 0;
 
     return Card(
-      // CardTheme handles shape, color, and border
+      color: colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -47,22 +47,28 @@ class MacroDashboardCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: colorScheme.onSurface,
+                    color: colorScheme.onPrimary,
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.1),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text(
-                    "$calories / $targetCalories kcal",
-                    style: TextStyle(
-                      color: colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
+                  child: Row(
+                    children: [
+                       Icon(Icons.bolt, size: 16, color: colorScheme.onPrimary),
+                       const SizedBox(width: 4),
+                       Text(
+                        "$calories / $targetCalories",
+                        style: TextStyle(
+                          color: colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -70,29 +76,29 @@ class MacroDashboardCard extends StatelessWidget {
             const SizedBox(height: 32),
             // Calorie Ring
             SizedBox(
-              height: 160,
-              width: 160,
+              height: 180,
+              width: 180,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   PieChart(
                     PieChartData(
                       sectionsSpace: 0,
-                      centerSpaceRadius: 65,
+                      centerSpaceRadius: 75,
                       startDegreeOffset: 270,
                       sections: [
                         PieChartSectionData(
-                          color: colorScheme.primary,
+                          color: Colors.white,
                           value: calories.toDouble(),
                           title: '',
-                          radius: 15,
+                          radius: 12,
                           showTitle: false,
                         ),
                         PieChartSectionData(
-                          color: colorScheme.surfaceContainerHighest ?? const Color(0xFFF0F0F0),
+                          color: Colors.white.withValues(alpha: 0.2),
                           value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
                           title: '',
-                          radius: 15,
+                          radius: 12,
                           showTitle: false,
                         ),
                       ],
@@ -105,20 +111,20 @@ class MacroDashboardCard extends StatelessWidget {
                         "$remaining",
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          fontSize: 36,
-                          color: colorScheme.onSurface,
+                          fontSize: 42,
+                          color: colorScheme.onPrimary,
                           height: 1.0,
-                          letterSpacing: -1.5,
+                          letterSpacing: -2.0,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        l10n.remaining,
+                        l10n.remaining.toUpperCase(),
                         style: TextStyle(
-                          fontSize: 12,
-                          color: colorScheme.onSurface.withValues(alpha: 0.5),
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.5,
+                          fontSize: 10,
+                          color: colorScheme.onPrimary.withValues(alpha: 0.8),
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ],
@@ -137,13 +143,13 @@ class MacroDashboardCard extends StatelessWidget {
                     l10n.macroProtein,
                     protein,
                     targetProtein,
-                    const Color(0xFFFF8A65), // Soft Orange
+                    Icons.fitness_center,
                   ),
                 ),
                 Container(
                   width: 1,
                   height: 40,
-                  color: Theme.of(context).dividerColor,
+                  color: Colors.white.withValues(alpha: 0.2),
                 ),
                 Expanded(
                   child: _buildMacroColumn(
@@ -151,13 +157,13 @@ class MacroDashboardCard extends StatelessWidget {
                     l10n.macroCarbs,
                     carbs,
                     targetCarbs,
-                    const Color(0xFFFFD54F), // Soft Amber
+                    Icons.grain,
                   ),
                 ),
                 Container(
                   width: 1,
                   height: 40,
-                  color: Colors.grey.withValues(alpha: 0.1),
+                  color: Colors.white.withValues(alpha: 0.2),
                 ),
                 Expanded(
                   child: _buildMacroColumn(
@@ -165,7 +171,7 @@ class MacroDashboardCard extends StatelessWidget {
                     l10n.macroFat,
                     fat,
                     targetFat,
-                    const Color(0xFF4DB6AC), // Soft Teal
+                    Icons.water_drop,
                   ),
                 ),
               ],
@@ -177,40 +183,44 @@ class MacroDashboardCard extends StatelessWidget {
   }
 
   Widget _buildMacroColumn(
-      BuildContext context, String label, int value, int target, Color color) {
+      BuildContext context, String label, int value, int target, IconData icon) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
+    final onPrimary = Theme.of(context).colorScheme.onPrimary;
+
     return Column(
       children: [
+        Icon(icon, color: onPrimary.withValues(alpha: 0.8), size: 20),
+        const SizedBox(height: 8),
         Text(
-          label,
+          label.toUpperCase(),
           style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold,
+            fontSize: 10,
+            color: onPrimary.withValues(alpha: 0.7),
+            letterSpacing: 1.0,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Text(
           "${value}g",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
-            color: Theme.of(context).colorScheme.onSurface,
+            color: onPrimary,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: progress,
-              backgroundColor: color.withValues(alpha: 0.15),
-              color: color,
-              minHeight: 6,
+              backgroundColor: Colors.white.withValues(alpha: 0.2),
+              color: Colors.white,
+              minHeight: 4,
             ),
           ),
         ),
