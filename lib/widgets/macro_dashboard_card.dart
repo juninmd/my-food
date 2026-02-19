@@ -34,11 +34,10 @@ class MacroDashboardCard extends StatelessWidget {
     if (remaining < 0) remaining = 0;
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      // CardTheme handles shape, color, and border
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,85 +50,122 @@ class MacroDashboardCard extends StatelessWidget {
                     color: colorScheme.onSurface,
                   ),
                 ),
-                Icon(
-                  Icons.show_chart_rounded,
-                  color: colorScheme.primary.withValues(alpha: 0.5),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "$calories / $targetCalories kcal",
+                    style: TextStyle(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Calorie Donut
-                SizedBox(
-                  height: 150,
-                  width: 150,
-                  child: Stack(
-                    alignment: Alignment.center,
+            const SizedBox(height: 32),
+            // Calorie Ring
+            SizedBox(
+              height: 160,
+              width: 160,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  PieChart(
+                    PieChartData(
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 65,
+                      startDegreeOffset: 270,
+                      sections: [
+                        PieChartSectionData(
+                          color: colorScheme.primary,
+                          value: calories.toDouble(),
+                          title: '',
+                          radius: 15,
+                          showTitle: false,
+                        ),
+                        PieChartSectionData(
+                          color: colorScheme.surfaceContainerHighest ?? const Color(0xFFF0F0F0),
+                          value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
+                          title: '',
+                          radius: 15,
+                          showTitle: false,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 60,
-                          startDegreeOffset: 270,
-                          sections: [
-                            PieChartSectionData(
-                              color: colorScheme.primary,
-                              value: calories.toDouble(),
-                              title: '',
-                              radius: 12,
-                              showTitle: false,
-                            ),
-                            PieChartSectionData(
-                              color: colorScheme.surfaceContainerHighest ?? Colors.grey.shade100,
-                              value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
-                              title: '',
-                              radius: 12,
-                              showTitle: false,
-                            ),
-                          ],
+                      Text(
+                        "$remaining",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 36,
+                          color: colorScheme.onSurface,
+                          height: 1.0,
+                          letterSpacing: -1.5,
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "$remaining",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 32,
-                              color: colorScheme.onSurface,
-                              height: 1.0,
-                              letterSpacing: -1.0,
-                            ),
-                          ),
-                          Text(
-                            l10n.remaining, // "Remaining" or "kcal left"
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: colorScheme.onSurface.withValues(alpha: 0.5),
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.remaining,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: colorScheme.onSurface.withValues(alpha: 0.5),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(width: 32),
-                // Macros List
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            // Macros Row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFFF8A65)), // Soft Orange/Red
-                      const SizedBox(height: 20),
-                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFFFFD54F)), // Soft Amber
-                      const SizedBox(height: 20),
-                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFF4DB6AC)), // Soft Teal
-                    ],
+                  child: _buildMacroColumn(
+                    context,
+                    l10n.macroProtein,
+                    protein,
+                    targetProtein,
+                    const Color(0xFFFF8A65), // Soft Orange
+                  ),
+                ),
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Theme.of(context).dividerColor,
+                ),
+                Expanded(
+                  child: _buildMacroColumn(
+                    context,
+                    l10n.macroCarbs,
+                    carbs,
+                    targetCarbs,
+                    const Color(0xFFFFD54F), // Soft Amber
+                  ),
+                ),
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.grey.withValues(alpha: 0.1),
+                ),
+                Expanded(
+                  child: _buildMacroColumn(
+                    context,
+                    l10n.macroFat,
+                    fat,
+                    targetFat,
+                    const Color(0xFF4DB6AC), // Soft Teal
                   ),
                 ),
               ],
@@ -140,71 +176,42 @@ class MacroDashboardCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMacroRow(BuildContext context, String label, int value, int target, Color color) {
+  Widget _buildMacroColumn(
+      BuildContext context, String label, int value, int target, Color color) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-              ),
-            ),
-            RichText(
-              text: TextSpan(
-                text: "$value",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontFamily: Theme.of(context).textTheme.bodyMedium?.fontFamily,
-                ),
-                children: [
-                  TextSpan(
-                    text: "g",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-                      fontWeight: FontWeight.normal,
-                      fontSize: 11,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Container(
-          height: 8,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(4),
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+            letterSpacing: 0.5,
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Stack(
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    height: 8,
-                    width: constraints.maxWidth * progress,
-                    decoration: BoxDecoration(
-                      color: color,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ],
-              );
-            },
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "${value}g",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: progress,
+              backgroundColor: color.withValues(alpha: 0.15),
+              color: color,
+              minHeight: 6,
+            ),
           ),
         ),
       ],

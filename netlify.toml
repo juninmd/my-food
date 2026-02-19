@@ -1,5 +1,5 @@
 [build]
-command = "./build_web.sh"
+command = "chmod +x build_web.sh && ./build_web.sh"
 publish = "build/web"
 
 [[redirects]]

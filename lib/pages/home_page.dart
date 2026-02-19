@@ -381,6 +381,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: SafeArea(child: body),
+      floatingActionButton: _currentIndex == 0
+          ? FloatingActionButton.extended(
+              onPressed: _surpriseMe,
+              icon: const Icon(Icons.auto_awesome),
+              label: Text(l10n.surpriseMeButton),
+            )
+          : null,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
