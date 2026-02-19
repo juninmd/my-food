@@ -143,7 +143,7 @@ class MacroDashboardCard extends StatelessWidget {
                 Container(
                   width: 1,
                   height: 40,
-                  color: Colors.grey.withValues(alpha: 0.1),
+                  color: Theme.of(context).dividerColor,
                 ),
                 Expanded(
                   child: _buildMacroColumn(
