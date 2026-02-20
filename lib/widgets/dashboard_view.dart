@@ -63,10 +63,10 @@ class DashboardView extends StatelessWidget {
                       Text(
                         l10n.hello,
                         style: TextStyle(
-                          fontSize: 34,
+                          fontSize: 28, // Reduced from 34
                           fontWeight: FontWeight.w800,
                           color: colorScheme.onSurface,
-                          letterSpacing: -1.0,
+                          letterSpacing: -0.5,
                           height: 1.1,
                         ),
                       ),
@@ -74,7 +74,7 @@ class DashboardView extends StatelessWidget {
                       Text(
                         dateFormat.format(now).toUpperCase(),
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface.withValues(alpha: 0.5),
                           letterSpacing: 1.0,
@@ -83,25 +83,41 @@ class DashboardView extends StatelessWidget {
                     ],
                   ),
                 ),
-                // User Avatar with subtle border
-                Container(
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: colorScheme.primary.withValues(alpha: 0.2),
-                      width: 2,
+                // Actions
+                Row(
+                  children: [
+                    // Surprise Me Button - Prominent
+                    IconButton.filledTonal(
+                      onPressed: onSurpriseMe,
+                      icon: const Icon(Icons.auto_awesome),
+                      tooltip: l10n.surpriseMeButton,
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.purple.shade50,
+                        foregroundColor: Colors.purple,
+                      ),
                     ),
-                  ),
-                  child: CircleAvatar(
-                    radius: 26,
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                    child: Icon(
-                      Icons.person,
-                      color: colorScheme.primary,
-                      size: 28,
+                    const SizedBox(width: 8),
+                    // User Avatar with subtle border
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: colorScheme.primary.withValues(alpha: 0.2),
+                          width: 2,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 20, // Slightly smaller
+                        backgroundColor: colorScheme.surfaceContainerHighest,
+                        child: Icon(
+                          Icons.person,
+                          color: colorScheme.primary,
+                          size: 24,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -148,7 +164,7 @@ class DashboardView extends StatelessWidget {
                   ),
                 );
               }
-              return const SizedBox.shrink();
+              return const SizedBox.shrink(); // Hide if loading or error to keep clean
             },
           ),
         ),
@@ -168,26 +184,7 @@ class DashboardView extends StatelessWidget {
               targetFat: DietConstants.fatTarget,
             ),
 
-            const SizedBox(height: 32),
-
-            // Hydration Header
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Row(
-                children: [
-                  const Icon(Icons.water_drop, size: 20, color: Colors.blueAccent),
-                  const SizedBox(width: 8),
-                  Text(
-                    l10n.waterTrackerTitle,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 24),
 
             // Water Tracker
             WaterTracker(
