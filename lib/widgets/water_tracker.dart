@@ -15,86 +15,65 @@ class WaterTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final l10n = AppLocalizations.of(context)!; // Unused if we don't need text
-    const waterColor = Color(0xFF29B6F6); // Light Blue 400
+    final l10n = AppLocalizations.of(context)!;
 
-    // Determine the number of icons to show
+    // Determine the number of icons to show. If current exceeds target, show current.
     final int totalIcons = currentGlasses > targetGlasses ? currentGlasses : targetGlasses;
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      color: Colors.white,
-      surfaceTintColor: Colors.white,
+      color: Colors.blue.shade50,
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 12, 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Row(
           children: [
-            // Water Drop Visuals
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        "$currentGlasses",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 32,
-                          color: waterColor,
-                        ),
-                      ),
-                      Text(
-                        " / $targetGlasses",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.grey.shade500,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    l10n.waterTrackerTitle,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade900,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n.hydrationStatus(currentGlasses, targetGlasses),
+                    style: TextStyle(
+                      fontSize: 12, // Slightly smaller to fit
+                      color: Colors.blue.shade700,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 4,
+                    runSpacing: 4,
                     children: List.generate(totalIcons, (index) {
                       final isFilled = index < currentGlasses;
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeOutBack,
-                        child: Icon(
-                          isFilled ? Icons.water_drop : Icons.water_drop_outlined,
-                          color: isFilled ? waterColor : Colors.grey.withValues(alpha: 0.2),
-                          size: 26,
-                        ),
+                      return Icon(
+                        isFilled ? Icons.water_drop : Icons.water_drop_outlined,
+                        color: Colors.blue,
+                        size: 20,
                       );
                     }),
                   ),
                 ],
               ),
             ),
-
             const SizedBox(width: 16),
-
-            // Add Button (Big circular button)
-            Material(
-              color: waterColor,
-              borderRadius: BorderRadius.circular(20),
-              elevation: 4,
-              shadowColor: waterColor.withValues(alpha: 0.4),
-              child: InkWell(
-                onTap: onAdd,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  alignment: Alignment.center,
-                  child: const Icon(Icons.add, color: Colors.white, size: 32),
-                ),
-              ),
+            FloatingActionButton.small(
+              onPressed: onAdd,
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              elevation: 2,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              child: const Icon(Icons.add),
             ),
           ],
         ),

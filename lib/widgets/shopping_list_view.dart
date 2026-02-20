@@ -117,15 +117,19 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                         ),
                       ),
                       if (_checkedIngredients.isNotEmpty)
-                        IconButton(
-                          icon: const Icon(Icons.delete_sweep_outlined),
-                          color: colorScheme.error,
+                        IconButton.filledTonal(
                           onPressed: () {
                             setState(() {
                               _checkedIngredients.clear();
                               _saveCheckedIngredients();
                             });
                           },
+                          icon: const Icon(Icons.delete_sweep_outlined),
+                          style: IconButton.styleFrom(
+                            backgroundColor: colorScheme.errorContainer,
+                            foregroundColor: colorScheme.onErrorContainer,
+                          ),
+                          tooltip: "Clear Checked",
                         ),
                     ],
                   ),
@@ -206,11 +210,11 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                             child: Row(
                               children: [
-                                // Custom Checkbox (Circle)
+                                // Custom Checkbox (Circle) - Larger
                                 AnimatedContainer(
                                   duration: const Duration(milliseconds: 200),
-                                  width: 24,
-                                  height: 24,
+                                  width: 28,
+                                  height: 28,
                                   decoration: BoxDecoration(
                                     color: isChecked ? colorScheme.primary : Colors.transparent,
                                     shape: BoxShape.circle,
@@ -220,7 +224,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                                     ),
                                   ),
                                   child: isChecked
-                                      ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                      ? const Icon(Icons.check, size: 18, color: Colors.white)
                                       : null,
                                 ),
                                 const SizedBox(width: 16),

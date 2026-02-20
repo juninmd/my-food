@@ -41,7 +41,7 @@ class ModernMealCard extends StatelessWidget {
           onTap: onEdit,
           splashColor: colorScheme.primary.withValues(alpha: 0.1),
           child: Padding(
-            padding: const EdgeInsets.all(12.0), // Reduced padding to give more space to image
+            padding: const EdgeInsets.all(16.0), // Increased padding
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,8 +49,8 @@ class ModernMealCard extends StatelessWidget {
                 Hero(
                   tag: 'meal_${title}_${meal.name}',
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 110, // Increased size
+                    height: 110, // Increased size
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
@@ -76,39 +76,26 @@ class ModernMealCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Title & Calories
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  title.toUpperCase(),
-                                  style: TextStyle(
-                                    color: colorScheme.primary,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  meal.name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15, // Slightly smaller to fit
-                                    height: 1.2,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      Text(
+                        title.toUpperCase(),
+                        style: TextStyle(
+                          color: colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          letterSpacing: 1.2,
+                        ),
                       ),
-
+                      const SizedBox(height: 4),
+                      Text(
+                        meal.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold, // Bolder
+                          fontSize: 16, // Larger
+                          height: 1.2,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       const SizedBox(height: 8),
 
                       // Macros
@@ -124,17 +111,14 @@ class ModernMealCard extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-                      // Change Button - Tonal Style
+                      // Change Button - Outlined Style with Icon
                       SizedBox(
                         height: 36,
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
+                        child: OutlinedButton.icon(
                           onPressed: onEdit,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: colorScheme.primaryContainer.withValues(alpha: 0.5),
-                            foregroundColor: colorScheme.onPrimaryContainer,
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.3)),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),

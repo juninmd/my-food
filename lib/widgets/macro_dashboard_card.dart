@@ -1,5 +1,5 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 
 class MacroDashboardCard extends StatelessWidget {
@@ -32,11 +32,18 @@ class MacroDashboardCard extends StatelessWidget {
 
     int remaining = targetCalories - calories;
     if (remaining < 0) remaining = 0;
+    double progress = targetCalories > 0 ? calories / targetCalories : 0;
+    if (progress > 1.0) progress = 1.0;
 
     return Card(
-      color: colorScheme.primary,
+      elevation: 4,
+      color: Colors.white,
+      shadowColor: Colors.black.withValues(alpha: 0.1),
+      surfaceTintColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Row(
@@ -45,133 +52,71 @@ class MacroDashboardCard extends StatelessWidget {
                 Text(
                   l10n.dailyGoal,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onSurface,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                       Icon(Icons.bolt, size: 16, color: colorScheme.onPrimary),
-                       const SizedBox(width: 4),
-                       Text(
-                        "$calories / $targetCalories",
-                        style: TextStyle(
-                          color: colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+                Text(
+                  "$calories / $targetCalories kcal",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade600,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 32),
-            // Calorie Ring
-            SizedBox(
-              height: 180,
-              width: 180,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  PieChart(
-                    PieChartData(
-                      sectionsSpace: 0,
-                      centerSpaceRadius: 75,
-                      startDegreeOffset: 270,
-                      sections: [
-                        PieChartSectionData(
-                          color: Colors.white,
-                          value: calories.toDouble(),
-                          title: '',
-                          radius: 12,
-                          showTitle: false,
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                // Calorie Ring
+                Expanded(
+                  flex: 4,
+                  child: CircularPercentIndicator(
+                    radius: 60.0,
+                    lineWidth: 12.0,
+                    percent: progress,
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "$remaining",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 24,
+                            color: colorScheme.primary,
+                          ),
                         ),
-                        PieChartSectionData(
-                          color: Colors.white.withValues(alpha: 0.2),
-                          value: (targetCalories - calories).clamp(0, targetCalories).toDouble(),
-                          title: '',
-                          radius: 12,
-                          showTitle: false,
+                        Text(
+                          l10n.remaining,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: Colors.grey.shade500,
+                          ),
                         ),
                       ],
                     ),
+                    progressColor: colorScheme.primary,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    animation: true,
+                    animationDuration: 1000,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                const SizedBox(width: 24),
+                // Macros List
+                Expanded(
+                  flex: 6,
+                  child: Column(
                     children: [
-                      Text(
-                        "$remaining",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 42,
-                          color: colorScheme.onPrimary,
-                          height: 1.0,
-                          letterSpacing: -2.0,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.remaining.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: colorScheme.onPrimary.withValues(alpha: 0.8),
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
+                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, Colors.orange),
+                      const SizedBox(height: 16),
+                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, Colors.blue),
+                      const SizedBox(height: 16),
+                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, Colors.purple),
                     ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40),
-            // Macros Row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: _buildMacroColumn(
-                    context,
-                    l10n.macroProtein,
-                    protein,
-                    targetProtein,
-                    Icons.fitness_center,
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40,
-                  color: Colors.white.withValues(alpha: 0.2),
-                ),
-                Expanded(
-                  child: _buildMacroColumn(
-                    context,
-                    l10n.macroCarbs,
-                    carbs,
-                    targetCarbs,
-                    Icons.grain,
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 40,
-                  color: Colors.white.withValues(alpha: 0.2),
-                ),
-                Expanded(
-                  child: _buildMacroColumn(
-                    context,
-                    l10n.macroFat,
-                    fat,
-                    targetFat,
-                    Icons.water_drop,
                   ),
                 ),
               ],
@@ -182,47 +127,43 @@ class MacroDashboardCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMacroColumn(
-      BuildContext context, String label, int value, int target, IconData icon) {
+  Widget _buildMacroRow(BuildContext context, String label, int value, int target, Color color) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
-    final onPrimary = Theme.of(context).colorScheme.onPrimary;
-
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: onPrimary.withValues(alpha: 0.8), size: 20),
-        const SizedBox(height: 8),
-        Text(
-          label.toUpperCase(),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 10,
-            color: onPrimary.withValues(alpha: 0.7),
-            letterSpacing: 1.0,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "${value}g",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: onPrimary,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: progress,
-              backgroundColor: Colors.white.withValues(alpha: 0.2),
-              color: Colors.white,
-              minHeight: 4,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
             ),
-          ),
+            Text(
+              "${value}g / ${target}g",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                color: Colors.grey.shade500,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        LinearPercentIndicator(
+          lineHeight: 8.0,
+          percent: progress,
+          progressColor: color,
+          backgroundColor: color.withValues(alpha: 0.1),
+          barRadius: const Radius.circular(4),
+          padding: EdgeInsets.zero,
+          animation: true,
+          animationDuration: 1000,
         ),
       ],
     );
