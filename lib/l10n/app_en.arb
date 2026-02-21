@@ -120,5 +120,11 @@
   "editMeal": "Edit Meal",
   "dailyGoal": "Daily Goal",
   "consumed": "Consumed",
-  "remaining": "Remaining"
+  "remaining": "Remaining",
+  "nutritionistNoteTitle": "Nutritionist's Note",
+  "nutritionistNoteBody": "Remember to drink water before every meal and keep your protein intake high today!",
+  "planStatus": "Plan Status",
+  "approvedBy": "Approved by Dr. Smith",
+  "yourProgress": "Your Progress",
+  "swapMeal": "Swap Meal"
 }

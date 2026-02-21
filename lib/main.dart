@@ -40,13 +40,13 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData _buildThemeData() {
-    // Medical/Modern Clean Theme
+    // Medical/Modern Clean Theme v2
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
-    // Updated Palette for a "Fresh Mint" look
-    const primaryColor = Color(0xFF009688); // Teal 500 - Professional & Fresh
-    const secondaryColor = Color(0xFF80CBC4); // Teal 200
+    // Updated Palette: Deeper Teal for authority, softer background
+    const primaryColor = Color(0xFF00796B); // Teal 700
+    const secondaryColor = Color(0xFF4DB6AC); // Teal 300
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFF5F7FA); // Very light blue-grey background
+    const backgroundColor = Color(0xFFF5F7FA);
 
     return ThemeData(
       useMaterial3: true,
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         onPrimary: Colors.white,
         onSurface: const Color(0xFF263238), // Blue Grey 900
         surfaceContainerHighest: const Color(0xFFECEFF1), // Blue Grey 50
-        error: const Color(0xFFEF5350), // Red 400
+        error: const Color(0xFFD32F2F), // Red 700
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme.apply(
@@ -85,14 +85,14 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF263238)),
       ),
       cardTheme: CardThemeData(
-        elevation: 8, // Softer, deeper shadow
+        elevation: 2, // Reduced from 8 for a cleaner, flatter modern look
         shadowColor: Colors.black.withValues(alpha: 0.05),
-        surfaceTintColor: Colors.white, // Critical for M3 white cards
+        surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-          side: BorderSide.none, // Removed border for cleaner look
+          borderRadius: BorderRadius.circular(20), // Slightly less round
+          side: BorderSide(color: Colors.grey.withValues(alpha: 0.1), width: 1), // Subtle border
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8), // Tighter vertical margin
         color: Colors.white,
         clipBehavior: Clip.antiAlias,
       ),
@@ -100,55 +100,55 @@ class MyApp extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none, // Cleaner inputs
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade200),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade200),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: primaryColor, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         hintStyle: TextStyle(color: Colors.grey.shade400),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
-          elevation: 4,
-          shadowColor: primaryColor.withValues(alpha: 0.4),
+          elevation: 2,
+          shadowColor: primaryColor.withValues(alpha: 0.3),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
-          side: const BorderSide(color: primaryColor),
+          side: const BorderSide(color: primaryColor, width: 1.5),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), // Squircle
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: primaryColor,
-        unselectedItemColor: Color(0xFFCFD8DC), // Blue Grey 100
+        unselectedItemColor: Color(0xFFB0BEC5), // Blue Grey 200
         type: BottomNavigationBarType.fixed,
-        elevation: 0,
+        elevation: 8, // Add distinct shadow for bottom nav
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),

@@ -727,6 +727,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remaining'**
   String get remaining;
+
+  /// No description provided for @nutritionistNoteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutritionist\'s Note'**
+  String get nutritionistNoteTitle;
+
+  /// No description provided for @nutritionistNoteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember to drink water before every meal and keep your protein intake high today!'**
+  String get nutritionistNoteBody;
+
+  /// No description provided for @planStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Status'**
+  String get planStatus;
+
+  /// No description provided for @approvedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved by Dr. Smith'**
+  String get approvedBy;
+
+  /// No description provided for @yourProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Progress'**
+  String get yourProgress;
+
+  /// No description provided for @swapMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Swap Meal'**
+  String get swapMeal;
 }
 
 class _AppLocalizationsDelegate

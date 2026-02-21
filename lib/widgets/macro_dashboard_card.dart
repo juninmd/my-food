@@ -36,85 +36,89 @@ class MacroDashboardCard extends StatelessWidget {
     if (progress > 1.0) progress = 1.0;
 
     return Card(
-      elevation: 4,
-      color: Colors.white,
-      shadowColor: Colors.black.withValues(alpha: 0.1),
-      surfaceTintColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      // Theme handles elevation and shape
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            // Header Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  l10n.dailyGoal,
+                  l10n.yourProgress,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: colorScheme.onSurface,
                   ),
                 ),
-                Text(
-                  "$calories / $targetCalories kcal",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey.shade600,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    "$calories / $targetCalories kcal",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
+
+            // Content Row
             Row(
               children: [
-                // Calorie Ring
-                Expanded(
-                  flex: 4,
-                  child: CircularPercentIndicator(
-                    radius: 60.0,
-                    lineWidth: 12.0,
-                    percent: progress,
-                    center: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$remaining",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 24,
-                            color: colorScheme.primary,
-                          ),
+                // Calorie Ring - Left
+                CircularPercentIndicator(
+                  radius: 50.0, // Smaller than before
+                  lineWidth: 8.0,
+                  percent: progress,
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$remaining",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20, // Smaller font
+                          color: colorScheme.primary,
                         ),
-                        Text(
-                          l10n.remaining,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: Colors.grey.shade500,
-                          ),
+                      ),
+                      Text(
+                        l10n.remaining,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10,
+                          color: Colors.grey.shade500,
                         ),
-                      ],
-                    ),
-                    progressColor: colorScheme.primary,
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                    circularStrokeCap: CircularStrokeCap.round,
-                    animation: true,
-                    animationDuration: 1000,
+                      ),
+                    ],
                   ),
+                  progressColor: colorScheme.primary,
+                  backgroundColor: colorScheme.surfaceContainerHighest,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  animation: true,
+                  animationDuration: 1000,
                 ),
                 const SizedBox(width: 24),
-                // Macros List
+
+                // Macros List - Right
                 Expanded(
-                  flex: 6,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, Colors.orange),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, Colors.blue),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       _buildMacroRow(context, l10n.macroFat, fat, targetFat, Colors.purple),
                     ],
                   ),
@@ -139,28 +143,29 @@ class MacroDashboardCard extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
-            ),
-            Text(
-              "${value}g / ${target}g",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
-                color: Colors.grey.shade500,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+              ),
+            ),
+            Text(
+              "${value}g", // Simplified text
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],
         ),
         const SizedBox(height: 6),
         LinearPercentIndicator(
-          lineHeight: 8.0,
+          lineHeight: 6.0, // Thinner bar
           percent: progress,
           progressColor: color,
           backgroundColor: color.withValues(alpha: 0.1),
-          barRadius: const Radius.circular(4),
+          barRadius: const Radius.circular(3),
           padding: EdgeInsets.zero,
           animation: true,
           animationDuration: 1000,
