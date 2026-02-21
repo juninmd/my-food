@@ -120,5 +120,11 @@
   "editMeal": "Editar Refeição",
   "dailyGoal": "Meta Diária",
   "consumed": "Consumido",
-  "remaining": "Restante"
+  "remaining": "Restante",
+  "nutritionistNoteTitle": "Nota da Nutricionista",
+  "nutritionistNoteBody": "Lembre-se de beber água antes de cada refeição e manter a ingestão de proteínas alta hoje!",
+  "planStatus": "Status do Plano",
+  "approvedBy": "Aprovado por Dr. Smith",
+  "yourProgress": "Seu Progresso",
+  "swapMeal": "Trocar Refeição"
 }

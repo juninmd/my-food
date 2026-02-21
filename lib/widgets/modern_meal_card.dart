@@ -125,7 +125,7 @@ class ModernMealCard extends StatelessWidget {
                           ),
                           icon: const Icon(Icons.swap_horiz, size: 18),
                           label: Text(
-                            l10n.changeFoodButton,
+                            l10n.swapMeal,
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,

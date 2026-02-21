@@ -329,4 +329,23 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get remaining => 'Restante';
+
+  @override
+  String get nutritionistNoteTitle => 'Nota da Nutricionista';
+
+  @override
+  String get nutritionistNoteBody =>
+      'Lembre-se de beber água antes de cada refeição e manter a ingestão de proteínas alta hoje!';
+
+  @override
+  String get planStatus => 'Status do Plano';
+
+  @override
+  String get approvedBy => 'Aprovado por Dr. Smith';
+
+  @override
+  String get yourProgress => 'Seu Progresso';
+
+  @override
+  String get swapMeal => 'Trocar Refeição';
 }
