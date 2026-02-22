@@ -126,5 +126,6 @@
   "planStatus": "Plan Status",
   "approvedBy": "Approved by Dr. Smith",
   "yourProgress": "Your Progress",
-  "swapMeal": "Swap Meal"
+  "swapMeal": "Swap Meal",
+  "caloriesTitle": "Calories"
 }

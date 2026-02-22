@@ -763,6 +763,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Swap Meal'**
   String get swapMeal;
+
+  /// No description provided for @caloriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories'**
+  String get caloriesTitle;
 }
 
 class _AppLocalizationsDelegate

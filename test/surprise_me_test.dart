@@ -56,7 +56,9 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify first quote is displayed on Dashboard
-    expect(find.text('"First Quote" - Author 1'), findsOneWidget);
+    final firstQuoteFinder = find.text('"First Quote" - Author 1');
+    await tester.scrollUntilVisible(firstQuoteFinder, 500.0, scrollable: find.byType(Scrollable));
+    expect(firstQuoteFinder, findsOneWidget);
 
     // Tap Tools tab
     await tester.tap(find.byIcon(Icons.grid_view));
@@ -76,7 +78,9 @@ void main() {
 
     // Verify we are back on Dashboard (Dashboard icon is selected/active)
     // Or just check for the quote
-    expect(find.text('"Second Quote" - Author 2'), findsOneWidget);
+    final secondQuoteFinder = find.text('"Second Quote" - Author 2');
+    await tester.scrollUntilVisible(secondQuoteFinder, 500.0, scrollable: find.byType(Scrollable));
+    expect(secondQuoteFinder, findsOneWidget);
 
     // Verify SnackBar is displayed
     expect(find.byType(SnackBar), findsOneWidget);
@@ -98,45 +102,9 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    // This message is likely shown if future fails
-    // But FutureBuilder in DashboardView handles snapshot.hasData check.
-    // If error, it returns SizedBox.shrink().
-    // Wait, let's check DashboardView logic.
-    // FutureBuilder<String>...
-    // if (snapshot.hasData) ...
-    // If error, no data -> SizedBox.shrink().
-    // So "Keep focused and healthy!" fallback logic seems to be gone or inside ApiService?
-    // ApiService throws exception. FutureBuilder catches error in snapshot.hasError.
-    // DashboardView only checks hasData. So it shows nothing on error.
-    // I should probably fix DashboardView to show fallback or verify nothing is shown.
-
-    // The previous MealPage logic handled error?
-    // MealPage:
-    // FutureBuilder... if (snapshot.hasData)...
-    // So it didn't show fallback message in UI either?
-    // But existing test checks for 'Keep focused and healthy!'.
-    // Maybe ApiService catches exception and returns fallback?
-    // Let's check ApiService again.
-
-    // ApiService: throws Exception.
-    // So snapshot.hasData is false.
-
-    // So the existing test was probably failing or I missed something in MealPage read.
-    // Ah, MealPage read:
-    // if (snapshot.hasData) ... return Text...
-    // return const SizedBox.shrink();
-
-    // So the existing test logic in `surprise_me_test.dart` seems wrong or relies on something I missed.
-    // Wait, the ARB file has `quoteFallbackMessage`.
-    // Maybe `MealPage` had logic I missed?
-    // Or maybe I should add fallback logic to `DashboardView`.
-
-    // I'll update the test to expect NOTHING or add fallback logic.
-    // I'll add fallback logic to `DashboardView` because it's better UX.
-
-    // Update DashboardView:
-    // if (snapshot.hasError) return Text(l10n.quoteFallbackMessage);
-
-    // But for now, to make test pass and improve UX, I'll modify DashboardView.
+    // Verify fallback message is displayed
+    final fallbackFinder = find.text('Keep focused and healthy!');
+    await tester.scrollUntilVisible(fallbackFinder, 500.0, scrollable: find.byType(Scrollable));
+    expect(fallbackFinder, findsOneWidget);
   });
 }

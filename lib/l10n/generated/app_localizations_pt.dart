@@ -348,4 +348,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get swapMeal => 'Trocar Refeição';
+
+  @override
+  String get caloriesTitle => 'Calorias';
 }

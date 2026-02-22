@@ -348,4 +348,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get swapMeal => 'Swap Meal';
+
+  @override
+  String get caloriesTitle => 'Calories';
 }
