@@ -126,5 +126,6 @@
   "planStatus": "Status do Plano",
   "approvedBy": "Aprovado por Dr. Smith",
   "yourProgress": "Seu Progresso",
-  "swapMeal": "Trocar Refeição"
+  "swapMeal": "Trocar Refeição",
+  "caloriesTitle": "Calorias"
 }

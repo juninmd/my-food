@@ -50,130 +50,181 @@ class DashboardView extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        // Modern App Bar Header
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(24, 20, 24, 10),
-          sliver: SliverToBoxAdapter(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // New Modern Header with Gradient
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  colorScheme.primary,
+                  Color.lerp(colorScheme.primary, Colors.black, 0.1) ?? colorScheme.primary,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(32)),
+              boxShadow: [
+                BoxShadow(
+                  color: colorScheme.primary.withValues(alpha: 0.3),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                // Top Row: User Avatar & Status
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                      ),
+                      child: Row(
                         children: [
+                          const Icon(Icons.check_circle, size: 14, color: Colors.white),
+                          const SizedBox(width: 6),
                           Text(
-                            l10n.hello,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w800,
-                              color: colorScheme.onSurface,
-                              letterSpacing: -0.5,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          // Plan Status Badge
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.green.shade50,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.green.shade100),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.check_circle, size: 12, color: Colors.green.shade700),
-                                const SizedBox(width: 4),
-                                Text(
-                                  l10n.planStatus, // "Active" or similar
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green.shade700,
-                                  ),
-                                ),
-                              ],
+                            l10n.planStatus, // "Active Plan"
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.approvedBy, // "Approved by Dr. Smith"
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: colorScheme.onSurface.withValues(alpha: 0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Actions
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: onSurpriseMe,
-                      icon: const Icon(Icons.auto_awesome),
-                      tooltip: l10n.surpriseMeButton,
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.purple.shade50,
-                        foregroundColor: Colors.purple,
-                      ),
                     ),
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: colorScheme.primary.withValues(alpha: 0.2),
-                          width: 2,
-                        ),
-                      ),
+                    CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.white,
                       child: CircleAvatar(
-                        radius: 18,
+                        radius: 20,
                         backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                        child: Icon(Icons.person, size: 20, color: colorScheme.primary),
+                        child: Icon(Icons.person, size: 24, color: colorScheme.primary),
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 24),
+
+                // Greeting & Main Action
+                Text(
+                  l10n.hello,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.approvedBy,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Surprise Me Button - Prominent Feature
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: onSurpriseMe,
+                    icon: Icon(Icons.auto_awesome, color: colorScheme.primary),
+                    label: Text(l10n.surpriseMeButton.toUpperCase()),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: colorScheme.primary,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
 
-        // Nutritionist Note
-        const SliverToBoxAdapter(
-          child: NutritionistNoteCard(),
-        ),
-
-        // Daily Summary Section
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              MacroDashboardCard(
-                calories: totalCalories,
-                targetCalories: 2500,
-                protein: totalProtein,
-                targetProtein: DietConstants.proteinTarget,
-                carbs: totalCarbs,
-                targetCarbs: DietConstants.carbsTarget,
-                fat: totalFat,
-                targetFat: DietConstants.fatTarget,
-              ),
-              WaterTracker(
-                currentGlasses: waterGlasses,
-                targetGlasses: DietConstants.waterGlassTarget,
-                onAdd: onAddWater,
-              ),
-            ],
+        // Nutritionist Note (Overlapping slightly or just below)
+        const SliverPadding(
+          padding: EdgeInsets.only(top: 24),
+          sliver: SliverToBoxAdapter(
+            child: NutritionistNoteCard(),
           ),
         ),
 
-        // Quote (Moved below trackers for cleaner top flow)
+        // Daily Progress Section
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.yourProgress, // Ensure this exists or use "Daily Progress"
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.03),
+                        blurRadius: 15,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      MacroDashboardCard(
+                        calories: totalCalories,
+                        targetCalories: 2500,
+                        protein: totalProtein,
+                        targetProtein: DietConstants.proteinTarget,
+                        carbs: totalCarbs,
+                        targetCarbs: DietConstants.carbsTarget,
+                        fat: totalFat,
+                        targetFat: DietConstants.fatTarget,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(),
+                      ),
+                      WaterTracker(
+                        currentGlasses: waterGlasses,
+                        targetGlasses: DietConstants.waterGlassTarget,
+                        onAdd: onAddWater,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        // Quote
         SliverToBoxAdapter(
           child: FutureBuilder<String>(
             future: quoteFuture,
@@ -181,29 +232,42 @@ class DashboardView extends StatelessWidget {
               if (snapshot.hasData) {
                 return Container(
                   margin: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey.shade100),
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.format_quote_rounded, color: colorScheme.primary.withValues(alpha: 0.4), size: 20),
+                      Icon(Icons.lightbulb_outline, color: colorScheme.primary, size: 20),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           snapshot.data!,
                           style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            color: colorScheme.onSurface.withValues(alpha: 0.6),
+                            color: colorScheme.onSurface.withValues(alpha: 0.7),
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
                       ),
                     ],
                   ),
+                );
+              }
+              if (snapshot.hasError) {
+                return Container(
+                  margin: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                     color: colorScheme.surfaceContainerHighest,
+                     borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                     l10n.quoteFallbackMessage,
+                     style: TextStyle(color: colorScheme.onSurface),
+                  )
                 );
               }
               return const SizedBox.shrink();
@@ -220,14 +284,22 @@ class DashboardView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.calendar_today_rounded, size: 18, color: colorScheme.primary),
-                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: colorScheme.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(Icons.restaurant_menu_rounded, size: 18, color: colorScheme.primary),
+                    ),
+                    const SizedBox(width: 12),
                     Text(
                       l10n.menuTitle,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: colorScheme.onSurface,
+                        letterSpacing: -0.5,
                       ),
                     ),
                   ],
@@ -235,9 +307,9 @@ class DashboardView extends StatelessWidget {
                 Text(
                   dateFormat.format(now).toUpperCase(),
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface.withValues(alpha: 0.4),
+                    color: Colors.grey.shade400,
                     letterSpacing: 1.0,
                   ),
                 ),
