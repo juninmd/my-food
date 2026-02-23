@@ -4,15 +4,20 @@
 set -e
 set -x
 
+# Define variables
+FLUTTER_ROOT="$PWD/flutter"
+
 # Always use a fresh Flutter clone to ensure latest stable version and avoid git errors
-echo "Cleaning up Flutter..."
-rm -rf flutter
+if [ -d "$FLUTTER_ROOT" ]; then
+  echo "Cleaning up Flutter..."
+  rm -rf "$FLUTTER_ROOT"
+fi
 
 echo "Cloning Flutter (stable)..."
-git clone https://github.com/flutter/flutter.git -b stable --depth 1
+git clone https://github.com/flutter/flutter.git -b stable --depth 1 "$FLUTTER_ROOT"
 
 # Add Flutter to PATH
-export PATH="$PATH:`pwd`/flutter/bin"
+export PATH="$PATH:$FLUTTER_ROOT/bin"
 
 # Run Flutter commands
 echo "Checking Flutter version..."
