@@ -43,11 +43,11 @@ class MyApp extends StatelessWidget {
     // Medical/Modern Clean Theme v3 (Updated for Reformulation)
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
 
-    // Updated Palette: More vibrant, "Mint/Teal" modern aesthetic
-    const primaryColor = Color(0xFF00BFA5); // Teal Accent 700 - Sharper, more modern
-    const secondaryColor = Color(0xFF1DE9B6); // Teal Accent 400
+    // Updated Palette: Professional Medical/Diet Aesthetic
+    const primaryColor = Color(0xFF009688); // Teal 500 - Professional, Calm
+    const secondaryColor = Color(0xFFFF6D00); // Orange Accent 400 - Actionable, Vibrant
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFF7F9FC); // Very light cool grey
+    const backgroundColor = Color(0xFFFAFAFA); // Almost White
 
     return ThemeData(
       useMaterial3: true,
@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
         surface: surfaceColor,
         onPrimary: Colors.white,
         onSurface: const Color(0xFF2D3436), // Charcoal
-        surfaceContainerHighest: const Color(0xFFF0F4F8), // Light Blue Grey
-        error: const Color(0xFFFF5252), // Soft Red
+        surfaceContainerHighest: const Color(0xFFECEFF1), // Blue Grey 50
+        error: const Color(0xFFE57373), // Red 300
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme.apply(

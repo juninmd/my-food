@@ -26,8 +26,8 @@ void main() {
     expect(find.text('Hello!'), findsOneWidget);
 
     // Verify that Total Calories is displayed
-    // "Remaining" text in NutrientRing
-    expect(find.text('Remaining'), findsOneWidget);
+    // "Remaining" text in NutrientRing (now Uppercase in new design)
+    expect(find.text('REMAINING'), findsOneWidget);
 
     // Verify that Me Surpreenda button DOES exist on Dashboard.
     expect(find.byIcon(Icons.auto_awesome), findsOneWidget);

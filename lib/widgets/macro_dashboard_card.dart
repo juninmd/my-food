@@ -35,64 +35,37 @@ class MacroDashboardCard extends StatelessWidget {
     double progress = targetCalories > 0 ? calories / targetCalories : 0;
     if (progress > 1.0) progress = 1.0;
 
-    // No Card wrapper, just content for the parent container
     return Column(
       children: [
-        // Calorie Header
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // Ring Centered
+        Stack(
+          alignment: Alignment.center,
           children: [
-             Row(
-               children: [
-                 Icon(Icons.local_fire_department_rounded, size: 20, color: Colors.orange),
-                 const SizedBox(width: 8),
-                 Text(
-                   l10n.caloriesTitle ?? "Calories", // Fallback if key missing, though it should be there or use macroCalories
-                   style: TextStyle(
-                     fontSize: 16,
-                     fontWeight: FontWeight.bold,
-                     color: colorScheme.onSurface,
-                   ),
-                 ),
-               ],
-             ),
-             Text(
-               "$calories / $targetCalories kcal",
-               style: TextStyle(
-                 fontSize: 14,
-                 fontWeight: FontWeight.bold,
-                 color: colorScheme.primary,
-               ),
-             ),
-          ],
-        ),
-        const SizedBox(height: 20),
-
-        // Content Row
-        Row(
-          children: [
-            // Calorie Ring - Left
             CircularPercentIndicator(
-              radius: 55.0,
-              lineWidth: 10.0,
+              radius: 70.0,
+              lineWidth: 12.0,
               percent: progress,
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(Icons.local_fire_department_rounded, size: 24, color: Colors.orange),
+                  const SizedBox(height: 4),
                   Text(
                     "$remaining",
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
-                      fontSize: 22,
+                      fontSize: 28,
                       color: colorScheme.onSurface,
+                      letterSpacing: -1.0,
                     ),
                   ),
                   Text(
-                    l10n.remaining,
+                    l10n.remaining.toUpperCase(),
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.bold,
                       fontSize: 10,
                       color: Colors.grey.shade500,
+                      letterSpacing: 1.0,
                     ),
                   ),
                 ],
@@ -103,77 +76,65 @@ class MacroDashboardCard extends StatelessWidget {
               animation: true,
               animationDuration: 1000,
             ),
-            const SizedBox(width: 24),
+          ],
+        ),
+        const SizedBox(height: 32),
 
-            // Macros List - Right
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, Colors.orange),
-                  const SizedBox(height: 16),
-                  _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, Colors.blue),
-                  const SizedBox(height: 16),
-                  _buildMacroRow(context, l10n.macroFat, fat, targetFat, Colors.purple),
-                ],
-              ),
-            ),
+        // Macros Row
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildMacroItem(context, l10n.macroProtein, protein, targetProtein, Colors.orange),
+            Container(width: 1, height: 40, color: Colors.grey.shade200),
+            _buildMacroItem(context, l10n.macroCarbs, carbs, targetCarbs, Colors.blue),
+             Container(width: 1, height: 40, color: Colors.grey.shade200),
+            _buildMacroItem(context, l10n.macroFat, fat, targetFat, Colors.purple),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildMacroRow(BuildContext context, String label, int value, int target, Color color) {
+  Widget _buildMacroItem(BuildContext context, String label, int value, int target, Color color) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-              ),
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              color: Colors.grey.shade600,
             ),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(
-                   color: Theme.of(context).colorScheme.onSurface,
-                   fontFamily: Theme.of(context).textTheme.bodyMedium?.fontFamily,
-                ),
-                children: [
-                  TextSpan(
-                    text: "$value",
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                  ),
-                  TextSpan(
-                    text: "/${target}g",
-                    style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
-                  ),
-                ],
-              ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "${value}g",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        LinearPercentIndicator(
-          lineHeight: 8.0,
-          percent: progress,
-          progressColor: color,
-          backgroundColor: color.withValues(alpha: 0.1),
-          barRadius: const Radius.circular(4),
-          padding: EdgeInsets.zero,
-          animation: true,
-          animationDuration: 1000,
-        ),
-      ],
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: LinearPercentIndicator(
+              lineHeight: 6.0,
+              percent: progress,
+              progressColor: color,
+              backgroundColor: color.withValues(alpha: 0.1),
+              barRadius: const Radius.circular(3),
+              padding: EdgeInsets.zero,
+              animation: true,
+              animationDuration: 1000,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
