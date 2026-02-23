@@ -49,8 +49,8 @@ class ModernMealCard extends StatelessWidget {
                 Hero(
                   tag: 'meal_${title}_${meal.name}',
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: 120,
+                    height: 120,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
@@ -76,26 +76,21 @@ class ModernMealCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Header Row (Title & Time/Type)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              title.toUpperCase(),
-                              style: TextStyle(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          title.toUpperCase(),
+                          style: TextStyle(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            letterSpacing: 0.5,
                           ),
-                        ],
+                        ),
                       ),
                       const SizedBox(height: 8),
 
@@ -113,36 +108,39 @@ class ModernMealCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
 
-                      // Macros & Action Row
+                      // Macros
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Macros
-                          Row(
-                            children: [
-                              _buildMacroText(context, "${meal.calories} kcal", isBold: true),
-                              const SizedBox(width: 8),
-                              Container(width: 1, height: 12, color: Colors.grey.shade300),
-                              const SizedBox(width: 8),
-                              _buildMacroText(context, "P: ${meal.protein}g"),
-                            ],
-                          ),
-
-                          // Swap Button (Icon Only for cleaner look)
-                          Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: colorScheme.secondaryContainer.withValues(alpha: 0.4),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.swap_horiz_rounded,
-                              size: 18,
-                              color: colorScheme.onSecondaryContainer,
-                            ),
-                          ),
+                          Icon(Icons.local_fire_department_rounded, size: 14, color: Colors.orange),
+                          const SizedBox(width: 4),
+                          _buildMacroText(context, "${meal.calories}", isBold: true),
+                          const SizedBox(width: 12),
+                          Icon(Icons.fitness_center_rounded, size: 14, color: colorScheme.primary),
+                          const SizedBox(width: 4),
+                          _buildMacroText(context, "${meal.protein}g P"),
                         ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      // Action Button
+                      SizedBox(
+                        height: 32,
+                        child: OutlinedButton.icon(
+                          onPressed: onEdit,
+                          icon: const Icon(Icons.swap_horiz_rounded, size: 16),
+                          label: Text(
+                             l10n.swapMeal,
+                             style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            side: BorderSide(color: colorScheme.outline.withValues(alpha: 0.3)),
+                            foregroundColor: colorScheme.onSurface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
