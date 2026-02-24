@@ -127,5 +127,6 @@
   "approvedBy": "Approved by Dr. Smith",
   "yourProgress": "Your Progress",
   "swapMeal": "Swap Meal",
-  "caloriesTitle": "Calories"
+  "caloriesTitle": "Calories",
+  "ingredientsTitle": "Ingredients"
 }

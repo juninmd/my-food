@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:my_food/utils/ingredient_categorizer.dart';
 
 class ShoppingListView extends StatefulWidget {
   final List<String> ingredients;
@@ -13,29 +14,12 @@ class ShoppingListView extends StatefulWidget {
 }
 
 class _ShoppingListViewState extends State<ShoppingListView> {
-  final Map<String, int> _ingredientCounts = {};
   final Set<String> _checkedIngredients = {};
 
   @override
   void initState() {
     super.initState();
-    _updateCounts();
     _loadCheckedIngredients();
-  }
-
-  @override
-  void didUpdateWidget(ShoppingListView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.ingredients != oldWidget.ingredients) {
-       _updateCounts();
-    }
-  }
-
-  void _updateCounts() {
-    _ingredientCounts.clear();
-    for (var ingredient in widget.ingredients) {
-      _ingredientCounts[ingredient] = (_ingredientCounts[ingredient] ?? 0) + 1;
-    }
   }
 
   Future<void> _loadCheckedIngredients() async {
@@ -55,15 +39,15 @@ class _ShoppingListViewState extends State<ShoppingListView> {
         'checked_ingredients', _checkedIngredients.toList());
   }
 
-  void _copyToClipboard() {
+  void _copyToClipboard(Map<String, int> ingredientCounts) {
     final l10n = AppLocalizations.of(context)!;
     final buffer = StringBuffer();
     buffer.writeln(l10n.shoppingListClipboardTitle);
 
-    final sortedIngredients = _ingredientCounts.keys.toList()..sort();
+    final sortedIngredients = ingredientCounts.keys.toList()..sort();
 
     for (var ingredient in sortedIngredients) {
-      final count = _ingredientCounts[ingredient];
+      final count = ingredientCounts[ingredient];
       final isChecked = _checkedIngredients.contains(ingredient);
       final checkStatus = isChecked ? '[x]' : '[ ]';
       final quantity = count! > 1 ? ' (x$count)' : '';
@@ -86,14 +70,45 @@ class _ShoppingListViewState extends State<ShoppingListView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final sortedIngredients = _ingredientCounts.keys.toList()..sort();
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+
+    // 1. Calculate Counts
+    final Map<String, int> ingredientCounts = {};
+    for (var ingredient in widget.ingredients) {
+      ingredientCounts[ingredient] = (ingredientCounts[ingredient] ?? 0) + 1;
+    }
+
+    // 2. Categorize
+    final Map<String, List<String>> categorized = {};
+    for (var ingredient in ingredientCounts.keys) {
+      final category = IngredientCategorizer.getCategory(ingredient, l10n);
+      categorized.putIfAbsent(category, () => []).add(ingredient);
+    }
+
+    // 3. Flatten List
+    final List<dynamic> listItems = [];
+    final sortedCategories = categorized.keys.toList()..sort();
+
+    // Ensure "Other" is last if present (optional polish)
+    if (sortedCategories.contains("Other")) {
+      sortedCategories.remove("Other");
+      sortedCategories.add("Other");
+    }
+
+    for (var category in sortedCategories) {
+      listItems.add(category); // Add Header
+      final ingredients = categorized[category]!;
+      ingredients.sort();
+      listItems.addAll(ingredients); // Add Ingredients
+    }
+
+    final totalIngredients = ingredientCounts.length;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _copyToClipboard,
+        onPressed: () => _copyToClipboard(ingredientCounts),
         icon: const Icon(Icons.copy),
         label: Text(l10n.shoppingListCopyTooltip),
       ),
@@ -140,8 +155,8 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
-                            value: sortedIngredients.isNotEmpty
-                                ? _checkedIngredients.length / sortedIngredients.length
+                            value: totalIngredients > 0
+                                ? _checkedIngredients.length / totalIngredients
                                 : 0,
                             minHeight: 8,
                             backgroundColor: Colors.grey.withValues(alpha: 0.1),
@@ -151,7 +166,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        "${_checkedIngredients.length}/${sortedIngredients.length}",
+                        "${_checkedIngredients.length}/$totalIngredients",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.primary,
@@ -169,8 +184,30 @@ class _ShoppingListViewState extends State<ShoppingListView> {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final ingredient = sortedIngredients[index];
-                  final count = _ingredientCounts[ingredient];
+                  final item = listItems[index];
+
+                  if (item is String && !ingredientCounts.containsKey(item)) {
+                     // It's a Header (assuming category names don't clash with ingredients, which they shouldn't as ingredients are localized)
+                     // A safer check is if item is in categories keys, but categorized keys are just strings.
+                     // Since listItems is mixed, we can check categorized.containsKey(item).
+                     if (categorized.containsKey(item)) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 16.0, bottom: 12.0),
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.secondary,
+                            ),
+                          ),
+                        );
+                     }
+                  }
+
+                  // It's an ingredient
+                  final ingredient = item as String;
+                  final count = ingredientCounts[ingredient];
                   final isChecked = _checkedIngredients.contains(ingredient);
 
                   return Padding(
@@ -264,7 +301,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                     ),
                   );
                 },
-                childCount: sortedIngredients.length,
+                childCount: listItems.length,
               ),
             ),
           ),

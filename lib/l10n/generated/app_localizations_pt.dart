@@ -351,4 +351,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get caloriesTitle => 'Calorias';
+
+  @override
+  String get ingredientsTitle => 'Ingredientes';
 }
