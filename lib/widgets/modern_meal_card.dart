@@ -123,7 +123,7 @@ class ModernMealCard extends StatelessWidget {
                       // Macros
                       Row(
                         children: [
-                          Icon(Icons.local_fire_department_rounded, size: 14, color: Colors.orange),
+                          const Icon(Icons.local_fire_department_rounded, size: 14, color: Colors.orange),
                           const SizedBox(width: 4),
                           _buildMacroText(context, "${meal.calories}", isBold: true),
                           const SizedBox(width: 12),
