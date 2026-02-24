@@ -48,7 +48,7 @@ class MacroDashboardCard extends StatelessWidget {
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.local_fire_department_rounded, size: 24, color: Colors.orange),
+                  const Icon(Icons.local_fire_department_rounded, size: 24, color: Colors.orange),
                   const SizedBox(height: 4),
                   Text(
                     "$remaining",

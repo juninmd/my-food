@@ -86,11 +86,45 @@ class _HomePageState extends State<HomePage> {
     return newIndex;
   }
 
-  void _surpriseMe() {
+  Future<void> _surpriseMe() async {
     final l10n = AppLocalizations.of(context)!;
     final breakfastOptions = MealData.getBreakfastOptions(l10n);
     final lunchOptions = MealData.getLunchOptions(l10n);
     final dinnerOptions = MealData.getDinnerOptions(l10n);
+
+    // Show Loading Dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Preparing your surprise...",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    // Simulate delay
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
+    Navigator.pop(context); // Close dialog
 
     setState(() {
       final random = Random();

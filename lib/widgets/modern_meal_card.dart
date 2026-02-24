@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_food/models/meal.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:my_food/pages/meal_detail_page.dart';
 
 class ModernMealCard extends StatelessWidget {
   final Meal meal;
@@ -38,7 +39,18 @@ class ModernMealCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: onEdit,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MealDetailPage(
+                  meal: meal,
+                  onSwap: onEdit,
+                  heroTag: 'meal_${title}_${meal.name}',
+                ),
+              ),
+            );
+          },
           splashColor: colorScheme.primary.withValues(alpha: 0.05),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -111,7 +123,7 @@ class ModernMealCard extends StatelessWidget {
                       // Macros
                       Row(
                         children: [
-                          Icon(Icons.local_fire_department_rounded, size: 14, color: Colors.orange),
+                          const Icon(Icons.local_fire_department_rounded, size: 14, color: Colors.orange),
                           const SizedBox(width: 4),
                           _buildMacroText(context, "${meal.calories}", isBold: true),
                           const SizedBox(width: 12),
