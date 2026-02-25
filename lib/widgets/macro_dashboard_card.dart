@@ -35,63 +35,89 @@ class MacroDashboardCard extends StatelessWidget {
     double progress = targetCalories > 0 ? calories / targetCalories : 0;
     if (progress > 1.0) progress = 1.0;
 
-    return Column(
-      children: [
-        // Ring Centered
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            CircularPercentIndicator(
-              radius: 70.0,
-              lineWidth: 12.0,
-              percent: progress,
-              center: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.local_fire_department_rounded, size: 24, color: Colors.orange),
-                  const SizedBox(height: 4),
-                  Text(
-                    "$remaining",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 28,
-                      color: colorScheme.onSurface,
-                      letterSpacing: -1.0,
-                    ),
-                  ),
-                  Text(
-                    l10n.remaining.toUpperCase(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
-                      color: Colors.grey.shade500,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                ],
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Header
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                l10n.caloriesTitle,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
               ),
-              progressColor: colorScheme.primary,
-              backgroundColor: colorScheme.surfaceContainerHighest,
-              circularStrokeCap: CircularStrokeCap.round,
-              animation: true,
-              animationDuration: 1000,
-            ),
-          ],
-        ),
-        const SizedBox(height: 32),
+              Icon(Icons.more_horiz, color: Colors.grey.shade400),
+            ],
+          ),
+          const SizedBox(height: 24),
 
-        // Macros Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildMacroItem(context, l10n.macroProtein, protein, targetProtein, Colors.orange),
-            Container(width: 1, height: 40, color: Colors.grey.shade200),
-            _buildMacroItem(context, l10n.macroCarbs, carbs, targetCarbs, Colors.blue),
-             Container(width: 1, height: 40, color: Colors.grey.shade200),
-            _buildMacroItem(context, l10n.macroFat, fat, targetFat, Colors.purple),
-          ],
-        ),
-      ],
+          // Main Indicator
+          CircularPercentIndicator(
+            radius: 80.0,
+            lineWidth: 12.0,
+            percent: progress,
+            center: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.local_fire_department_rounded, size: 28, color: colorScheme.primary),
+                const SizedBox(height: 4),
+                Text(
+                  "$remaining",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 32,
+                    color: colorScheme.onSurface,
+                    letterSpacing: -1.0,
+                    height: 1.0,
+                  ),
+                ),
+                Text(
+                  l10n.remaining.toLowerCase(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+              ],
+            ),
+            progressColor: colorScheme.primary,
+            backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+            circularStrokeCap: CircularStrokeCap.round,
+            animation: true,
+            animationDuration: 1000,
+            backgroundWidth: 12.0,
+          ),
+          const SizedBox(height: 32),
+
+          // Macros Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildMacroItem(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFFF6D00)), // Orange
+              Container(width: 1, height: 40, color: Colors.grey.shade100),
+              _buildMacroItem(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFF2196F3)), // Blue
+              Container(width: 1, height: 40, color: Colors.grey.shade100),
+              _buildMacroItem(context, l10n.macroFat, fat, targetFat, const Color(0xFF9C27B0)), // Purple
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -107,21 +133,21 @@ class MacroDashboardCard extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 12,
-              color: Colors.grey.shade600,
+              color: Colors.grey.shade500,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
           Text(
             "${value}g",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 18,
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: LinearPercentIndicator(
               lineHeight: 6.0,
               percent: progress,

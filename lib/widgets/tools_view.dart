@@ -11,64 +11,75 @@ class ToolsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.toolsTitle,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          expandedHeight: 120.0,
+          floating: true,
+          pinned: true,
+          backgroundColor: colorScheme.surface,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: false,
+            titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+            title: Text(
+              l10n.toolsTitle,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              children: [
-                _buildToolCard(
-                  context,
-                  icon: Icons.monitor_weight,
-                  title: l10n.bmiTitle,
-                  color: Colors.blue,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BMICalculatorPage()),
-                    );
-                  },
-                ),
-                _buildToolCard(
-                  context,
-                  icon: Icons.auto_awesome,
-                  title: l10n.surpriseMeButton,
-                  color: Colors.purple,
-                  onTap: onSurpriseMe,
-                ),
-                _buildToolCard(
-                  context,
-                  icon: Icons.restaurant_menu,
-                  title: l10n.randomRecipeTitle,
-                  color: Colors.orange,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RandomRecipePage()),
-                    );
-                  },
-                ),
-              ],
-            ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.all(24),
+          sliver: SliverGrid.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.8,
+            children: [
+              _buildToolCard(
+                context,
+                icon: Icons.monitor_weight_outlined,
+                title: l10n.bmiTitle,
+                color: Colors.blue,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BMICalculatorPage()),
+                  );
+                },
+                description: l10n.bmiCalculateTitle, // Using existing string
+              ),
+              _buildToolCard(
+                context,
+                icon: Icons.auto_awesome_outlined,
+                title: l10n.surpriseMeButton,
+                color: Colors.purple,
+                onTap: onSurpriseMe,
+                description: l10n.surpriseMeFeedback, // Reuse localized string
+              ),
+              _buildToolCard(
+                context,
+                icon: Icons.restaurant_menu_outlined,
+                title: l10n.randomRecipeTitle,
+                color: Colors.orange,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RandomRecipePage()),
+                  );
+                },
+                description: l10n.randomRecipeNew, // Reuse localized string
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -76,16 +87,17 @@ class ToolsView extends StatelessWidget {
       {required IconData icon,
       required String title,
       required Color color,
-      required VoidCallback onTap}) {
+      required VoidCallback onTap,
+      required String description}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.08),
+            color: color.withValues(alpha: 0.1),
             blurRadius: 16,
-            offset: const Offset(0, 4),
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -97,34 +109,42 @@ class ToolsView extends StatelessWidget {
           onTap: onTap,
           splashColor: color.withValues(alpha: 0.1),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        color.withValues(alpha: 0.1),
-                        color.withValues(alpha: 0.2),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: color.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(icon, color: color, size: 36),
+                  child: Icon(icon, color: color, size: 32),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ],
             ),
