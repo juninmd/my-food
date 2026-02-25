@@ -50,59 +50,96 @@ class DashboardView extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        // Clean Modern Header
+        // App Bar
+        SliverAppBar(
+          expandedHeight: 120.0,
+          floating: false,
+          pinned: true,
+          backgroundColor: colorScheme.surface,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: false,
+            titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+            title: Text(
+              l10n.hello,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 24.0),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                child: Icon(Icons.person, color: colorScheme.primary),
+              ),
+            ),
+          ],
+        ),
+
+        // Date & Quote
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.hello,
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      dateFormat.format(now),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade500,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                Text(
+                  dateFormat.format(now).toUpperCase(),
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: Colors.grey.shade500,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                  ),
                 ),
-                CircleAvatar(
-                  radius: 24,
-                  backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                  child: Icon(Icons.person, color: colorScheme.primary),
+                const SizedBox(height: 8),
+                FutureBuilder<String>(
+                  future: quoteFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data!,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                          fontSize: 14,
+                        ),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Text(
+                        l10n.quoteFallbackMessage,
+                        style: TextStyle(color: colorScheme.onSurface),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
                 ),
               ],
             ),
           ),
         ),
 
-        // Surprise Me Action (Prominent Banner)
+        const SliverPadding(padding: EdgeInsets.only(top: 24)),
+
+        // Surprise Me Action
         SliverToBoxAdapter(
           child: Container(
-            margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+            margin: const EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [colorScheme.primary, colorScheme.secondary],
+                colors: [colorScheme.secondary, Colors.orangeAccent],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.primary.withValues(alpha: 0.3),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
+                  color: colorScheme.secondary.withValues(alpha: 0.4),
+                  blurRadius: 16,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
@@ -112,18 +149,18 @@ class DashboardView extends StatelessWidget {
                 onTap: onSurpriseMe,
                 borderRadius: BorderRadius.circular(24),
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
+                        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,13 +168,14 @@ class DashboardView extends StatelessWidget {
                             Text(
                               l10n.surpriseMeButton,
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
+                            const SizedBox(height: 4),
                             Text(
-                              l10n.approvedBy, // Using "Nutritionist Approved" or similar key as subtitle
+                              l10n.approvedBy,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white.withValues(alpha: 0.9),
@@ -146,7 +184,7 @@ class DashboardView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 16),
+                      const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 18),
                     ],
                   ),
                 ),
@@ -154,6 +192,8 @@ class DashboardView extends StatelessWidget {
             ),
           ),
         ),
+
+        const SliverPadding(padding: EdgeInsets.only(top: 24)),
 
         // Nutritionist Note
         const SliverToBoxAdapter(
@@ -163,171 +203,75 @@ class DashboardView extends StatelessWidget {
           ),
         ),
 
-        // Daily Progress Section
+        // Daily Progress (Macros)
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           sliver: SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.yourProgress, // Ensure this exists or use "Daily Progress"
-                  style: TextStyle(
-                    fontSize: 18,
+                  l10n.dailyGoal,
+                  style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.03),
-                        blurRadius: 15,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      MacroDashboardCard(
-                        calories: totalCalories,
-                        targetCalories: 2500,
-                        protein: totalProtein,
-                        targetProtein: DietConstants.proteinTarget,
-                        carbs: totalCarbs,
-                        targetCarbs: DietConstants.carbsTarget,
-                        fat: totalFat,
-                        targetFat: DietConstants.fatTarget,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Divider(),
-                      ),
-                      WaterTracker(
-                        currentGlasses: waterGlasses,
-                        targetGlasses: DietConstants.waterGlassTarget,
-                        onAdd: onAddWater,
-                      ),
-                    ],
-                  ),
+                MacroDashboardCard(
+                  calories: totalCalories,
+                  targetCalories: 2500,
+                  protein: totalProtein,
+                  targetProtein: DietConstants.proteinTarget,
+                  carbs: totalCarbs,
+                  targetCarbs: DietConstants.carbsTarget,
+                  fat: totalFat,
+                  targetFat: DietConstants.fatTarget,
+                ),
+                const SizedBox(height: 24),
+                WaterTracker(
+                  currentGlasses: waterGlasses,
+                  targetGlasses: DietConstants.waterGlassTarget,
+                  onAdd: onAddWater,
                 ),
               ],
             ),
           ),
         ),
 
-        // Quote
-        SliverToBoxAdapter(
-          child: FutureBuilder<String>(
-            future: quoteFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  margin: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.lightbulb_outline, color: colorScheme.primary, size: 20),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          snapshot.data!,
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: colorScheme.onSurface.withValues(alpha: 0.7),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              if (snapshot.hasError) {
-                return Container(
-                  margin: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                     color: colorScheme.surfaceContainerHighest,
-                     borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                     l10n.quoteFallbackMessage,
-                     style: TextStyle(color: colorScheme.onSurface),
-                  )
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ),
-
-        // Meal Timeline Header
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-          sliver: SliverToBoxAdapter(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(Icons.restaurant_menu_rounded, size: 18, color: colorScheme.primary),
-                    ),
-                    const SizedBox(width: 12),
-                    Text(
-                      l10n.menuTitle,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  dateFormat.format(now).toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade400,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        const SliverPadding(padding: EdgeInsets.only(top: 32)),
 
         // Meal Timeline
         SliverToBoxAdapter(
-          child: MealTimeline(
-            breakfast: breakfast,
-            lunch: lunch,
-            dinner: dinner,
-            onEditBreakfast: onEditBreakfast,
-            onEditLunch: onEditLunch,
-            onEditDinner: onEditDinner,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.menuTitle,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Icon(Icons.restaurant_menu, color: colorScheme.primary),
+              ],
+            ),
           ),
         ),
 
-        const SliverPadding(padding: EdgeInsets.only(bottom: 100)),
+        SliverPadding(
+          padding: const EdgeInsets.only(top: 16, bottom: 100),
+          sliver: SliverToBoxAdapter(
+             child: MealTimeline(
+               breakfast: breakfast,
+               lunch: lunch,
+               dinner: dinner,
+               onEditBreakfast: onEditBreakfast,
+               onEditLunch: onEditLunch,
+               onEditDinner: onEditDinner,
+             ),
+          ),
+        ),
       ],
     );
   }

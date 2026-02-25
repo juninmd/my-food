@@ -56,11 +56,11 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify first quote is displayed on Dashboard
+    // The quote is near the top, so we shouldn't need to scroll.
     final firstQuoteFinder = find.text('"First Quote" - Author 1');
-    await tester.scrollUntilVisible(firstQuoteFinder, 500.0, scrollable: find.byType(Scrollable));
     expect(firstQuoteFinder, findsOneWidget);
 
-    // Tap Tools tab
+    // Tap Tools tab (it might be at the bottom, but bottom nav bar is usually visible)
     await tester.tap(find.byIcon(Icons.grid_view));
     await tester.pumpAndSettle();
 
@@ -79,7 +79,6 @@ void main() {
     // Verify we are back on Dashboard (Dashboard icon is selected/active)
     // Or just check for the quote
     final secondQuoteFinder = find.text('"Second Quote" - Author 2');
-    await tester.scrollUntilVisible(secondQuoteFinder, 500.0, scrollable: find.byType(Scrollable));
     expect(secondQuoteFinder, findsOneWidget);
 
     // Verify SnackBar is displayed
@@ -104,7 +103,7 @@ void main() {
 
     // Verify fallback message is displayed
     final fallbackFinder = find.text('Keep focused and healthy!');
-    await tester.scrollUntilVisible(fallbackFinder, 500.0, scrollable: find.byType(Scrollable));
+    // Again, assume visibility at top
     expect(fallbackFinder, findsOneWidget);
   });
 }

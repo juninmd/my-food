@@ -20,14 +20,13 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify Dashboard Title (localized "Dashboard")
-    expect(find.text('Dashboard'), findsAtLeastNWidgets(1));
-    // Verify "Hello!"
+    // Verify Dashboard Title (localized "Hello!")
     expect(find.text('Hello!'), findsOneWidget);
 
-    // Verify that Total Calories is displayed
-    // "Remaining" text in NutrientRing (now Uppercase in new design)
-    expect(find.text('REMAINING'), findsOneWidget);
+    // Verify "remaining" text in NutrientRing (lowercase in new design)
+    // Note: Depends on locale, assuming 'en' -> 'remaining'
+    // If l10n.remaining is 'Remaining', then toLowerCase() is 'remaining'.
+    expect(find.text('remaining'), findsOneWidget);
 
     // Verify that Me Surpreenda button DOES exist on Dashboard.
     expect(find.byIcon(Icons.auto_awesome), findsOneWidget);

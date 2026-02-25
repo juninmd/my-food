@@ -56,24 +56,26 @@ void main() {
         ShoppingListView(ingredients: ingredients),
       ));
 
-      // Initially no check icons
-      expect(find.byIcon(Icons.check), findsNothing);
+      // Find the CheckboxListTile for 'Pão'
+      final tileFinder = find.widgetWithText(CheckboxListTile, 'Pão');
+      expect(tileFinder, findsOneWidget);
 
-      // Find the text 'Pão'
-      final paoTextFinder = find.text('Pão');
+      // Verify initial state (unchecked)
+      expect(tester.widget<CheckboxListTile>(tileFinder).value, isFalse);
 
-      // Tap on 'Pão' text (which is inside the InkWell)
-      await tester.tap(paoTextFinder);
+      // Tap on the tile
+      await tester.tap(tileFinder);
       await tester.pumpAndSettle();
 
-      // Now 'Pão' should have a check icon
-      expect(find.byIcon(Icons.check), findsOneWidget);
+      // Verify new state (checked)
+      expect(tester.widget<CheckboxListTile>(tileFinder).value, isTrue);
 
       // Tap again to uncheck
-      await tester.tap(paoTextFinder);
+      await tester.tap(tileFinder);
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.check), findsNothing);
+      // Verify final state (unchecked)
+      expect(tester.widget<CheckboxListTile>(tileFinder).value, isFalse);
     });
 
     testWidgets('Copy to clipboard triggers SnackBar',
