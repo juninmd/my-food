@@ -775,6 +775,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ingredients'**
   String get ingredientsTitle;
+
+  /// No description provided for @catDairyEggs.
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy & Eggs'**
+  String get catDairyEggs;
+
+  /// No description provided for @catFruitsVegetables.
+  ///
+  /// In en, this message translates to:
+  /// **'Fruits & Vegetables'**
+  String get catFruitsVegetables;
+
+  /// No description provided for @catMeatPoultry.
+  ///
+  /// In en, this message translates to:
+  /// **'Meat & Poultry'**
+  String get catMeatPoultry;
+
+  /// No description provided for @catGrains.
+  ///
+  /// In en, this message translates to:
+  /// **'Grains & Bread'**
+  String get catGrains;
+
+  /// No description provided for @catPantry.
+  ///
+  /// In en, this message translates to:
+  /// **'Pantry'**
+  String get catPantry;
+
+  /// No description provided for @catOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get catOther;
 }
 
 class _AppLocalizationsDelegate

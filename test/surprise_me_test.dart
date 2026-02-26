@@ -76,15 +76,22 @@ void main() {
     // Wait for the second future to complete and navigation
     await tester.pumpAndSettle();
 
-    // Verify we are back on Dashboard (Dashboard icon is selected/active)
-    // Or just check for the quote
+    // The Dashboard updates in the background when onReveal is called.
+    // The Dialog also displays the quote.
+    // So we expect to find the quote twice.
     final secondQuoteFinder = find.text('"Second Quote" - Author 2');
-    expect(secondQuoteFinder, findsOneWidget);
+    expect(secondQuoteFinder, findsNWidgets(2));
 
-    // Verify SnackBar is displayed
-    expect(find.byType(SnackBar), findsOneWidget);
+    // Verify Dialog feedback message
     expect(find.text('Meal plan randomized! Check out the new quote.'),
         findsOneWidget);
+
+    // Tap OK to close the dialog
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+
+    // Verify we are back on Dashboard and only one quote exists
+    expect(secondQuoteFinder, findsOneWidget);
   });
 
   testWidgets('Surprise Me displays fallback message on API error',

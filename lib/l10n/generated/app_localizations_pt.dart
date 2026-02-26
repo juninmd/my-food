@@ -354,4 +354,22 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get ingredientsTitle => 'Ingredientes';
+
+  @override
+  String get catDairyEggs => 'Laticínios e Ovos';
+
+  @override
+  String get catFruitsVegetables => 'Frutas e Vegetais';
+
+  @override
+  String get catMeatPoultry => 'Carnes e Aves';
+
+  @override
+  String get catGrains => 'Grãos e Pães';
+
+  @override
+  String get catPantry => 'Despensa';
+
+  @override
+  String get catOther => 'Outros';
 }

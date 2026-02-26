@@ -354,4 +354,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ingredientsTitle => 'Ingredients';
+
+  @override
+  String get catDairyEggs => 'Dairy & Eggs';
+
+  @override
+  String get catFruitsVegetables => 'Fruits & Vegetables';
+
+  @override
+  String get catMeatPoultry => 'Meat & Poultry';
+
+  @override
+  String get catGrains => 'Grains & Bread';
+
+  @override
+  String get catPantry => 'Pantry';
+
+  @override
+  String get catOther => 'Other';
 }

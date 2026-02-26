@@ -12,7 +12,7 @@ class IngredientCategorizer {
         ingredient == l10n.ingNaturalYogurt ||
         ingredient == l10n.ingParmesanCheese ||
         ingredient == l10n.ingMinasCheese) {
-      return "Dairy & Eggs";
+      return l10n.catDairyEggs;
     }
 
     // Fruits & Vegetables
@@ -26,7 +26,7 @@ class IngredientCategorizer {
         ingredient == l10n.ingZucchini ||
         ingredient == l10n.ingOnion ||
         ingredient == l10n.ingGarlic) {
-      return "Fruits & Vegetables";
+      return l10n.catFruitsVegetables;
     }
 
     // Meat & Poultry
@@ -34,7 +34,7 @@ class IngredientCategorizer {
         ingredient == l10n.ingChicken ||
         ingredient == l10n.ingTilapia ||
         ingredient == l10n.ingTuna) {
-      return "Meat & Poultry";
+      return l10n.catMeatPoultry;
     }
 
     // Grains
@@ -42,7 +42,7 @@ class IngredientCategorizer {
         ingredient == l10n.ingOats ||
         ingredient == l10n.ingCroutons ||
         ingredient == l10n.ingSlicedBread) {
-      return "Grains & Bread";
+      return l10n.catGrains;
     }
 
     // Pantry (everything else essentially, but let's be specific)
@@ -54,9 +54,9 @@ class IngredientCategorizer {
         ingredient == l10n.ingCaesarSauce ||
         ingredient == l10n.ingOregano ||
         ingredient == l10n.ingMayonnaise) {
-      return "Pantry";
+      return l10n.catPantry;
     }
 
-    return "Other";
+    return l10n.catOther;
   }
 }
