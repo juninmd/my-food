@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_food/models/meal.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/pages/meal_detail_page.dart';
 
 class ModernMealCard extends StatelessWidget {
@@ -17,7 +16,6 @@ class ModernMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
