@@ -10,6 +10,7 @@ import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
 import 'package:my_food/widgets/dashboard_view.dart';
 import 'package:my_food/widgets/shopping_list_view.dart';
+import 'package:my_food/widgets/surprise_me_dialog.dart';
 import 'package:my_food/widgets/tools_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -92,63 +93,33 @@ class _HomePageState extends State<HomePage> {
     final lunchOptions = MealData.getLunchOptions(l10n);
     final dinnerOptions = MealData.getDinnerOptions(l10n);
 
-    // Show Loading Dialog
+    final quoteFuture = _apiService.fetchQuote();
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor,
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  "Preparing your surprise...",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
+        return SurpriseMeDialog(
+          quoteFuture: quoteFuture,
+          onReveal: () {
+            if (!mounted) return;
+            setState(() {
+              final random = Random();
+              _breakfastIndex = _nextIntDifferent(
+                  _breakfastIndex, breakfastOptions.length, random);
+              _lunchIndex =
+                  _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
+              _dinnerIndex =
+                  _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
+
+              _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
+
+              _quoteFuture = quoteFuture;
+            });
+          },
         );
       },
     );
-
-    // Simulate delay
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (!mounted) return;
-    Navigator.pop(context); // Close dialog
-
-    setState(() {
-      final random = Random();
-      _breakfastIndex =
-          _nextIntDifferent(_breakfastIndex, breakfastOptions.length, random);
-      _lunchIndex = _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
-      _dinnerIndex =
-          _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
-
-      _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
-
-      _quoteFuture = _apiService.fetchQuote();
-    });
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.surpriseMeFeedback),
-          duration: const Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
-      );
-    }
   }
 
   void _showMealSelector(BuildContext context, List<Meal> options, Function(Meal) onSelect) {

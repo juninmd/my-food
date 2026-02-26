@@ -43,6 +43,18 @@ class MealDetailPage extends StatelessWidget {
                 child: Image.asset(
                   meal.imagePath,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey.shade200,
+                      child: Center(
+                        child: Icon(
+                          Icons.restaurant_menu_rounded,
+                          size: 64,
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

@@ -86,21 +86,118 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       categorized.putIfAbsent(category, () => []).add(ingredient);
     }
 
-    // 3. Flatten List
-    final List<dynamic> listItems = [];
+    // 3. Build List of Widgets
+    final List<Widget> listItems = [];
     final sortedCategories = categorized.keys.toList()..sort();
 
-    // Ensure "Other" is last if present (optional polish)
-    if (sortedCategories.contains("Other")) {
-      sortedCategories.remove("Other");
-      sortedCategories.add("Other");
+    // Ensure "Other" is last if present
+    if (sortedCategories.contains(l10n.catOther)) {
+      sortedCategories.remove(l10n.catOther);
+      sortedCategories.add(l10n.catOther);
     }
 
     for (var category in sortedCategories) {
-      listItems.add(category); // Add Header
       final ingredients = categorized[category]!;
       ingredients.sort();
-      listItems.addAll(ingredients); // Add Ingredients
+
+      listItems.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
+          child: Text(
+            category.toUpperCase(),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: colorScheme.primary,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ),
+      );
+
+      listItems.add(
+        Card(
+          elevation: 0,
+          margin: const EdgeInsets.only(bottom: 8),
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: Colors.grey.shade100),
+          ),
+          child: Column(
+            children: ingredients.map((ingredient) {
+              final count = ingredientCounts[ingredient];
+              final isChecked = _checkedIngredients.contains(ingredient);
+              final isLast = ingredient == ingredients.last;
+
+              return Column(
+                children: [
+                  CheckboxListTile(
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        if (value == true) {
+                          _checkedIngredients.add(ingredient);
+                        } else {
+                          _checkedIngredients.remove(ingredient);
+                        }
+                        _saveCheckedIngredients();
+                      });
+                    },
+                    title: Text(
+                      ingredient,
+                      style: TextStyle(
+                        decoration:
+                            isChecked ? TextDecoration.lineThrough : null,
+                        color: isChecked
+                            ? Colors.grey.withValues(alpha: 0.5)
+                            : colorScheme.onSurface,
+                        fontWeight:
+                            isChecked ? FontWeight.w500 : FontWeight.w600,
+                      ),
+                    ),
+                    secondary: count! > 1
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'x$count',
+                              style: TextStyle(
+                                color: colorScheme.onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          )
+                        : null,
+                    activeColor: colorScheme.primary,
+                    checkboxShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  if (!isLast)
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      indent: 16,
+                      endIndent: 16,
+                      color: Colors.grey.shade100,
+                    ),
+                ],
+              );
+            }).toList(),
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -149,93 +246,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final item = listItems[index];
-
-                  if (item is String && !ingredientCounts.containsKey(item)) {
-                     // It's a Header
-                     if (categorized.containsKey(item)) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
-                          child: Text(
-                            item.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: colorScheme.primary,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                        );
-                     }
-                  }
-
-                  // It's an ingredient
-                  final ingredient = item as String;
-                  final count = ingredientCounts[ingredient];
-                  final isChecked = _checkedIngredients.contains(ingredient);
-
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.03),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: CheckboxListTile(
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if (value == true) {
-                            _checkedIngredients.add(ingredient);
-                          } else {
-                            _checkedIngredients.remove(ingredient);
-                          }
-                          _saveCheckedIngredients();
-                        });
-                      },
-                      title: Text(
-                        ingredient,
-                        style: TextStyle(
-                          decoration: isChecked ? TextDecoration.lineThrough : null,
-                          color: isChecked ? Colors.grey.withValues(alpha: 0.5) : colorScheme.onSurface,
-                          fontWeight: isChecked ? FontWeight.w500 : FontWeight.w600,
-                        ),
-                      ),
-                      secondary: count! > 1
-                          ? Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: colorScheme.primaryContainer,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'x$count',
-                                style: TextStyle(
-                                  color: colorScheme.onPrimaryContainer,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            )
-                          : null,
-                      activeColor: colorScheme.primary,
-                      checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  );
-                },
+                (context, index) => listItems[index],
                 childCount: listItems.length,
               ),
             ),

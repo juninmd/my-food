@@ -128,5 +128,11 @@
   "yourProgress": "Seu Progresso",
   "swapMeal": "Trocar Refeição",
   "caloriesTitle": "Calorias",
-  "ingredientsTitle": "Ingredientes"
+  "ingredientsTitle": "Ingredientes",
+  "catDairyEggs": "Laticínios e Ovos",
+  "catFruitsVegetables": "Frutas e Vegetais",
+  "catMeatPoultry": "Carnes e Aves",
+  "catGrains": "Grãos e Pães",
+  "catPantry": "Despensa",
+  "catOther": "Outros"
 }
