@@ -93,8 +93,8 @@ void main() {
         ShoppingListView(ingredients: ingredients),
       ));
 
-      // Tap copy button
-      await tester.tap(find.byIcon(Icons.copy));
+      // Tap copy button (using Icons.copy_rounded as updated in widget)
+      await tester.tap(find.byIcon(Icons.copy_rounded));
       await tester.pump(); // Start animation
       await tester.pump(const Duration(seconds: 1)); // Wait for snackbar
 

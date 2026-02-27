@@ -27,15 +27,18 @@ class MealTimeline extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTimelineItem(context, l10n.mealBreakfast, breakfast, onEditBreakfast, "08:00"),
+        _buildTimelineItem(context, l10n.mealBreakfast, breakfast, onEditBreakfast, "08:00", isFirst: true),
         _buildTimelineItem(context, l10n.mealLunch, lunch, onEditLunch, "12:00"),
-        _buildTimelineItem(context, l10n.mealDinner, dinner, onEditDinner, "19:00"),
+        _buildTimelineItem(context, l10n.mealDinner, dinner, onEditDinner, "19:00", isLast: true),
       ],
     );
   }
 
   Widget _buildTimelineItem(
-      BuildContext context, String title, Meal meal, Function(Meal) onEdit, String time) {
+      BuildContext context, String title, Meal meal, Function(Meal) onEdit, String time,
+      {bool isFirst = false, bool isLast = false}) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(left: 24.0, right: 0, bottom: 8),
       child: IntrinsicHeight(
@@ -51,48 +54,66 @@ class MealTimeline extends StatelessWidget {
                   time,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: colorScheme.primary,
                     fontSize: 14,
                   ),
                 ),
               ),
             ),
             // Line decoration
-            Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 24), // Align with time text
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+            SizedBox(
+              width: 20,
+              child: Column(
+                children: [
+                   // Top line segment (only if not first)
+                  if (!isFirst)
+                    Container(
+                      width: 2,
+                      height: 24, // Connects to the previous item
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                    )
+                  else
+                    const SizedBox(height: 24),
+
+                  // Dot
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: colorScheme.primary.withValues(alpha: 0.3),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Bottom line segment (extends to next item)
+                  if (!isLast)
+                    Expanded(
+                      child: Container(
+                        width: 2,
+                        color: colorScheme.primary.withValues(alpha: 0.2),
                       ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    width: 2,
-                    color: Colors.grey.withValues(alpha: 0.1),
-                    margin: const EdgeInsets.symmetric(vertical: 4),
-                  ),
-                ),
-              ],
+                    ),
+                ],
+              ),
             ),
             const SizedBox(width: 16),
             // Meal Card
             Expanded(
-              child: ModernMealCard(
-                title: title,
-                meal: meal,
-                onEdit: () => onEdit(meal),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: ModernMealCard(
+                  title: title,
+                  meal: meal,
+                  onEdit: () => onEdit(meal),
+                ),
               ),
             ),
           ],
