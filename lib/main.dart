@@ -40,14 +40,14 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData _buildThemeData() {
-    // Medical/Modern Clean Theme v3 (Updated for Reformulation)
+    // Medical/Modern Clean Theme v3 (Refined for Professional Look)
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
 
     // Updated Palette: Professional Medical/Diet Aesthetic
-    const primaryColor = Color(0xFF009688); // Teal 500 - Professional, Calm
-    const secondaryColor = Color(0xFFFF6D00); // Orange Accent 400 - Actionable, Vibrant
+    const primaryColor = Color(0xFF00BFA5); // Teal A700 - Modern, Clean, Fresh
+    const secondaryColor = Color(0xFF26A69A); // Teal 400 - Supporting Teal
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFFAFAFA); // Almost White
+    const backgroundColor = Color(0xFFF5F7FA); // Cool Grey/White - Clinical but soft
 
     return ThemeData(
       useMaterial3: true,
@@ -58,14 +58,14 @@ class MyApp extends StatelessWidget {
         secondary: secondaryColor,
         surface: surfaceColor,
         onPrimary: Colors.white,
-        onSurface: const Color(0xFF2D3436), // Charcoal
+        onSurface: const Color(0xFF263238), // Blue Grey 900 - High Contrast
         surfaceContainerHighest: const Color(0xFFECEFF1), // Blue Grey 50
-        error: const Color(0xFFE57373), // Red 300
+        error: const Color(0xFFEF5350), // Red 400
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme.apply(
         bodyColor: const Color(0xFF455A64), // Blue Grey 700
-        displayColor: const Color(0xFF2D3436),
+        displayColor: const Color(0xFF263238),
       ).copyWith(
         displayLarge: baseTextTheme.displayLarge?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -1.0),
         displayMedium: baseTextTheme.displayMedium?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -0.5),
@@ -78,20 +78,20 @@ class MyApp extends StatelessWidget {
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        foregroundColor: Color(0xFF2D3436),
+        foregroundColor: Color(0xFF263238),
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        iconTheme: IconThemeData(color: Color(0xFF2D3436)),
+        iconTheme: IconThemeData(color: Color(0xFF263238)),
       ),
       cardTheme: CardThemeData(
         elevation: 0, // Flat design
-        shadowColor: Colors.transparent,
+        shadowColor: Colors.black.withValues(alpha: 0.05),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-          side: BorderSide.none,
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: Colors.grey.shade100),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.white,
@@ -99,14 +99,14 @@ class MyApp extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey.shade100,
+        fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Colors.grey.shade200),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Colors.grey.shade200),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -142,7 +142,7 @@ class MyApp extends StatelessWidget {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        elevation: 6,
+        elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -150,7 +150,7 @@ class MyApp extends StatelessWidget {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey.shade400,
         type: BottomNavigationBarType.fixed,
-        elevation: 0,
+        elevation: 10,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),

@@ -40,7 +40,7 @@ class DashboardView extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final now = DateTime.now();
-    final dateFormat = DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString());
+    final dateFormat = DateFormat('EEEE, d MMMM', Localizations.localeOf(context).toString());
 
     // Calculate totals
     int totalCalories = breakfast.calories + lunch.calories + dinner.calories;
@@ -50,156 +50,103 @@ class DashboardView extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
-        // App Bar
+        // App Bar & Header
         SliverAppBar(
-          expandedHeight: 120.0,
+          expandedHeight: 140.0,
           floating: false,
           pinned: true,
-          backgroundColor: colorScheme.surface,
+          backgroundColor: theme.scaffoldBackgroundColor,
+          surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
-            titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-            title: Text(
-              l10n.hello,
-              style: TextStyle(
-                color: colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-              ),
+            titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  l10n.hello,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  dateFormat.format(now),
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18, // Reduced from standard title size to fit
+                  ),
+                ),
+              ],
             ),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: CircleAvatar(
-                radius: 20,
-                backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                child: Icon(Icons.person, color: colorScheme.primary),
+              padding: const EdgeInsets.only(right: 24.0, top: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  radius: 22,
+                  backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                  child: Icon(Icons.person, color: colorScheme.primary),
+                ),
               ),
             ),
           ],
         ),
 
-        // Date & Quote
+        // Quote
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  dateFormat.format(now).toUpperCase(),
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                FutureBuilder<String>(
-                  future: quoteFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        snapshot.data!,
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          color: colorScheme.onSurface.withValues(alpha: 0.7),
-                          fontSize: 14,
-                        ),
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      return Text(
-                        l10n.quoteFallbackMessage,
-                        style: TextStyle(color: colorScheme.onSurface),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        const SliverPadding(padding: EdgeInsets.only(top: 24)),
-
-        // Surprise Me Action
-        SliverToBoxAdapter(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [colorScheme.secondary, Colors.orangeAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: colorScheme.secondary.withValues(alpha: 0.4),
-                  blurRadius: 16,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: onSurpriseMe,
-                borderRadius: BorderRadius.circular(24),
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.surpriseMeButton,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+            padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+            child: FutureBuilder<String>(
+              future: quoteFuture,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: colorScheme.secondary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                          color: colorScheme.secondary.withValues(alpha: 0.2)),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.format_quote_rounded,
+                            color: colorScheme.secondary, size: 20),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            snapshot.data!,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: colorScheme.secondary.withValues(alpha: 1.0), // Darker shade
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              l10n.approvedBy,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white.withValues(alpha: 0.9),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 18),
-                    ],
-                  ),
-                ),
-              ),
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
-          ),
-        ),
-
-        const SliverPadding(padding: EdgeInsets.only(top: 24)),
-
-        // Nutritionist Note
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 24),
-            child: NutritionistNoteCard(),
           ),
         ),
 
@@ -210,11 +157,52 @@ class DashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l10n.dailyGoal,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.dailyGoal,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
+                    // Surprise Me Mini Button
+                    InkWell(
+                      onTap: onSurpriseMe,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [colorScheme.secondary, Colors.orangeAccent],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorScheme.secondary.withValues(alpha: 0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.auto_awesome, color: Colors.white, size: 14),
+                            const SizedBox(width: 6),
+                            Text(
+                              l10n.surpriseMeButton,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
                 MacroDashboardCard(
@@ -240,20 +228,42 @@ class DashboardView extends StatelessWidget {
 
         const SliverPadding(padding: EdgeInsets.only(top: 32)),
 
+        // Nutritionist Note
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 24),
+            child: NutritionistNoteCard(),
+          ),
+        ),
+
         // Meal Timeline
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 4,
+                      ),
+                    ],
+                  ),
+                  child: Icon(Icons.restaurant_menu_rounded, color: colorScheme.primary, size: 20),
+                ),
+                const SizedBox(width: 12),
                 Text(
                   l10n.menuTitle,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: colorScheme.onSurface,
                   ),
                 ),
-                Icon(Icons.restaurant_menu, color: colorScheme.primary),
               ],
             ),
           ),
@@ -262,14 +272,14 @@ class DashboardView extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.only(top: 16, bottom: 100),
           sliver: SliverToBoxAdapter(
-             child: MealTimeline(
-               breakfast: breakfast,
-               lunch: lunch,
-               dinner: dinner,
-               onEditBreakfast: onEditBreakfast,
-               onEditLunch: onEditLunch,
-               onEditDinner: onEditDinner,
-             ),
+            child: MealTimeline(
+              breakfast: breakfast,
+              lunch: lunch,
+              dinner: dinner,
+              onEditBreakfast: onEditBreakfast,
+              onEditLunch: onEditLunch,
+              onEditDinner: onEditDinner,
+            ),
           ),
         ),
       ],

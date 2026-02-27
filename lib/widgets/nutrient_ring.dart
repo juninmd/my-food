@@ -35,68 +35,63 @@ class NutrientRing extends StatelessWidget {
     int remaining = targetCalories - calories;
     if (remaining < 0) remaining = 0;
 
-    return Card(
-      margin: const EdgeInsets.all(16),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: Colors.grey.shade200),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: CircularPercentIndicator(
-                    radius: 60.0,
-                    lineWidth: 12.0,
-                    percent: calorieProgress,
-                    center: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$remaining",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                        ),
-                        Text(
-                          l10n.remaining,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 5,
+            child: CircularPercentIndicator(
+              radius: 70.0,
+              lineWidth: 12.0,
+              percent: calorieProgress,
+              center: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.local_fire_department_rounded, size: 24, color: colorScheme.primary),
+                  Text(
+                    "$remaining",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 28,
+                      color: colorScheme.onSurface,
+                      letterSpacing: -1.0,
+                      height: 1.0,
                     ),
-                    progressColor: colorScheme.primary,
-                    backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                    circularStrokeCap: CircularStrokeCap.round,
-                    animation: true,
                   ),
-                ),
-                const SizedBox(width: 24),
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, Colors.redAccent),
-                      const SizedBox(height: 12),
-                      _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, Colors.orangeAccent),
-                      const SizedBox(height: 12),
-                      _buildMacroRow(context, l10n.macroFat, fat, targetFat, Colors.amber),
-                    ],
+                  Text(
+                    l10n.remaining.toLowerCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Colors.grey.shade500,
+                    ),
                   ),
-                ),
+                ],
+              ),
+              progressColor: colorScheme.primary,
+              backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+              circularStrokeCap: CircularStrokeCap.round,
+              animation: true,
+              animationDuration: 1000,
+              backgroundWidth: 12.0,
+            ),
+          ),
+          const SizedBox(width: 24),
+          Expanded(
+            flex: 6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFFF7043)), // Deep Orange
+                const SizedBox(height: 16),
+                _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFF42A5F5)), // Blue
+                const SizedBox(height: 16),
+                _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFFAB47BC)), // Purple
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -111,19 +106,34 @@ class NutrientRing extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-            Text("${value}g / ${target}g", style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            Text(
+              "${value}g / ${target}g",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
           ],
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         LinearPercentIndicator(
-          lineHeight: 8.0,
+          lineHeight: 6.0,
           percent: progress,
           progressColor: color,
-          backgroundColor: color.withValues(alpha: 0.1),
-          barRadius: const Radius.circular(4),
+          backgroundColor: color.withValues(alpha: 0.15),
+          barRadius: const Radius.circular(3),
           padding: EdgeInsets.zero,
           animation: true,
+          animationDuration: 1000,
         ),
       ],
     );

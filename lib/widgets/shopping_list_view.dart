@@ -102,15 +102,28 @@ class _ShoppingListViewState extends State<ShoppingListView> {
 
       listItems.add(
         Padding(
-          padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
-          child: Text(
-            category.toUpperCase(),
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: colorScheme.primary,
-              letterSpacing: 1.2,
-            ),
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
+          child: Row(
+            children: [
+              Container(
+                width: 4,
+                height: 16,
+                decoration: BoxDecoration(
+                  color: colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                category.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.secondary,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -118,10 +131,10 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       listItems.add(
         Card(
           elevation: 0,
-          margin: const EdgeInsets.only(bottom: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(color: Colors.grey.shade100),
           ),
           child: Column(
@@ -154,20 +167,21 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                             : colorScheme.onSurface,
                         fontWeight:
                             isChecked ? FontWeight.w500 : FontWeight.w600,
+                        fontSize: 15,
                       ),
                     ),
                     secondary: count! > 1
                         ? Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                                horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: colorScheme.primaryContainer,
-                              borderRadius: BorderRadius.circular(8),
+                              color: colorScheme.primary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
                               'x$count',
                               style: TextStyle(
-                                color: colorScheme.onPrimaryContainer,
+                                color: colorScheme.primary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
@@ -179,17 +193,18 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 4),
+                        horizontal: 16, vertical: 6),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    controlAffinity: ListTileControlAffinity.leading,
                   ),
                   if (!isLast)
                     Divider(
                       height: 1,
                       thickness: 1,
-                      indent: 16,
-                      endIndent: 16,
+                      indent: 56, // Align with text
+                      endIndent: 20,
                       color: Colors.grey.shade100,
                     ),
                 ],
@@ -204,7 +219,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       backgroundColor: theme.scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _copyToClipboard(ingredientCounts),
-        icon: const Icon(Icons.copy),
+        icon: const Icon(Icons.copy_rounded),
         label: Text(l10n.shoppingListCopyTooltip),
       ),
       body: CustomScrollView(
@@ -213,7 +228,8 @@ class _ShoppingListViewState extends State<ShoppingListView> {
             expandedHeight: 120.0,
             floating: true,
             pinned: true,
-            backgroundColor: colorScheme.surface,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
@@ -243,7 +259,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
           ),
 
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
+            padding: const EdgeInsets.only(bottom: 100),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => listItems[index],
