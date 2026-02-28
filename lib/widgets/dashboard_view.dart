@@ -115,7 +115,10 @@ class DashboardView extends StatelessWidget {
             child: FutureBuilder<String>(
               future: quoteFuture,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.hasData || snapshot.hasError) {
+                  final text = snapshot.hasError
+                      ? l10n.quoteFallbackMessage
+                      : snapshot.data!;
                   return Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
@@ -131,7 +134,7 @@ class DashboardView extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            snapshot.data!,
+                            text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: colorScheme.secondary.withValues(alpha: 1.0), // Darker shade
