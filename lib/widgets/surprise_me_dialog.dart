@@ -95,7 +95,8 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
               ),
               const SizedBox(height: 20),
             ] else if (_error != null) ...[
-              Icon(Icons.error_outline, color: theme.colorScheme.error, size: 48),
+              Icon(Icons.error_outline,
+                  color: theme.colorScheme.error, size: 48),
               const SizedBox(height: 16),
               Text(l10n.quoteErrorMessage),
               const SizedBox(height: 24),

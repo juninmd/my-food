@@ -27,15 +27,20 @@ class MealTimeline extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTimelineItem(context, l10n.mealBreakfast, breakfast, onEditBreakfast, "08:00", isFirst: true),
-        _buildTimelineItem(context, l10n.mealLunch, lunch, onEditLunch, "12:00"),
-        _buildTimelineItem(context, l10n.mealDinner, dinner, onEditDinner, "19:00", isLast: true),
+        _buildTimelineItem(
+            context, l10n.mealBreakfast, breakfast, onEditBreakfast, "08:00",
+            isFirst: true),
+        _buildTimelineItem(
+            context, l10n.mealLunch, lunch, onEditLunch, "12:00"),
+        _buildTimelineItem(
+            context, l10n.mealDinner, dinner, onEditDinner, "19:00",
+            isLast: true),
       ],
     );
   }
 
-  Widget _buildTimelineItem(
-      BuildContext context, String title, Meal meal, Function(Meal) onEdit, String time,
+  Widget _buildTimelineItem(BuildContext context, String title, Meal meal,
+      Function(Meal) onEdit, String time,
       {bool isFirst = false, bool isLast = false}) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -49,13 +54,13 @@ class MealTimeline extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Padding(
-                padding: const EdgeInsets.only(top: 24.0),
+                padding: const EdgeInsets.only(top: 28.0),
                 child: Text(
                   time,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
                     color: colorScheme.primary,
-                    fontSize: 14,
+                    fontSize: 13,
                   ),
                 ),
               ),
@@ -65,28 +70,31 @@ class MealTimeline extends StatelessWidget {
               width: 20,
               child: Column(
                 children: [
-                   // Top line segment (only if not first)
+                  // Top line segment (only if not first)
                   if (!isFirst)
                     Container(
                       width: 2,
-                      height: 24, // Connects to the previous item
-                      color: colorScheme.primary.withValues(alpha: 0.2),
+                      height: 28, // Connects to the previous item
+                      color: colorScheme.primary
+                          .withValues(alpha: 0.15), // Softer line
                     )
                   else
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 28),
 
                   // Dot
                   Container(
-                    width: 12,
-                    height: 12,
+                    width: 16,
+                    height: 16,
                     decoration: BoxDecoration(
                       color: colorScheme.primary,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
+                      border: Border.all(
+                          color: colorScheme.surface,
+                          width: 4), // Thicker border to stand out
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.primary.withValues(alpha: 0.3),
-                          blurRadius: 4,
+                          color: colorScheme.primary.withValues(alpha: 0.2),
+                          blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
                       ],
@@ -98,7 +106,7 @@ class MealTimeline extends StatelessWidget {
                     Expanded(
                       child: Container(
                         width: 2,
-                        color: colorScheme.primary.withValues(alpha: 0.2),
+                        color: colorScheme.primary.withValues(alpha: 0.15),
                       ),
                     ),
                 ],

@@ -122,7 +122,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _showMealSelector(BuildContext context, List<Meal> options, Function(Meal) onSelect) {
+  void _showMealSelector(
+      BuildContext context, List<Meal> options, Function(Meal) onSelect) {
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
@@ -157,9 +158,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       l10n.selectFoodTitle,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
                     IconButton(
                       icon: const Icon(Icons.close),
@@ -285,7 +287,8 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: theme.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
@@ -341,30 +344,34 @@ class _HomePageState extends State<HomePage> {
           dinner: dinner,
           waterGlasses: _waterGlasses,
           onAddWater: () {
-             setState(() {
-                if (_waterGlasses < _targetGlasses + 5) { // Allow slightly over target
-                  _waterGlasses++;
-                  _saveWater();
-                }
-             });
+            setState(() {
+              if (_waterGlasses < _targetGlasses + 5) {
+                // Allow slightly over target
+                _waterGlasses++;
+                _saveWater();
+              }
+            });
           },
-          onEditBreakfast: (meal) => _showMealSelector(context, breakfastOptions, (selected) {
-             setState(() {
-                _breakfastIndex = breakfastOptions.indexOf(selected);
-                _saveSingleMeal('breakfast_index', _breakfastIndex);
-             });
+          onEditBreakfast: (meal) =>
+              _showMealSelector(context, breakfastOptions, (selected) {
+            setState(() {
+              _breakfastIndex = breakfastOptions.indexOf(selected);
+              _saveSingleMeal('breakfast_index', _breakfastIndex);
+            });
           }),
-          onEditLunch: (meal) => _showMealSelector(context, lunchOptions, (selected) {
-             setState(() {
-                _lunchIndex = lunchOptions.indexOf(selected);
-                _saveSingleMeal('lunch_index', _lunchIndex);
-             });
+          onEditLunch: (meal) =>
+              _showMealSelector(context, lunchOptions, (selected) {
+            setState(() {
+              _lunchIndex = lunchOptions.indexOf(selected);
+              _saveSingleMeal('lunch_index', _lunchIndex);
+            });
           }),
-          onEditDinner: (meal) => _showMealSelector(context, dinnerOptions, (selected) {
-             setState(() {
-                _dinnerIndex = dinnerOptions.indexOf(selected);
-                _saveSingleMeal('dinner_index', _dinnerIndex);
-             });
+          onEditDinner: (meal) =>
+              _showMealSelector(context, dinnerOptions, (selected) {
+            setState(() {
+              _dinnerIndex = dinnerOptions.indexOf(selected);
+              _saveSingleMeal('dinner_index', _dinnerIndex);
+            });
           }),
           onSurpriseMe: _surpriseMe,
         );
@@ -374,10 +381,10 @@ class _HomePageState extends State<HomePage> {
         break;
       case 2:
         body = ToolsView(onSurpriseMe: () {
-            _surpriseMe();
-            setState(() {
-               _currentIndex = 0; // Go back to dashboard
-            });
+          _surpriseMe();
+          setState(() {
+            _currentIndex = 0; // Go back to dashboard
+          });
         });
         break;
       default:
@@ -404,21 +411,18 @@ class _HomePageState extends State<HomePage> {
             });
           },
           items: [
-             BottomNavigationBarItem(
-               icon: const Icon(Icons.dashboard_outlined),
-               activeIcon: const Icon(Icons.dashboard_rounded),
-               label: l10n.dashboardTitle
-             ),
-             BottomNavigationBarItem(
-               icon: const Icon(Icons.shopping_bag_outlined),
-               activeIcon: const Icon(Icons.shopping_bag_rounded),
-               label: l10n.shoppingListTitle
-             ),
-             BottomNavigationBarItem(
-               icon: const Icon(Icons.grid_view),
-               activeIcon: const Icon(Icons.grid_view_rounded),
-               label: l10n.toolsTitle
-             ),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.dashboard_outlined),
+                activeIcon: const Icon(Icons.dashboard_rounded),
+                label: l10n.dashboardTitle),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.shopping_bag_outlined),
+                activeIcon: const Icon(Icons.shopping_bag_rounded),
+                label: l10n.shoppingListTitle),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.grid_view),
+                activeIcon: const Icon(Icons.grid_view_rounded),
+                label: l10n.toolsTitle),
           ],
         ),
       ),

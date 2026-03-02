@@ -192,8 +192,8 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                     checkboxShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 6),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -257,7 +257,6 @@ class _ShoppingListViewState extends State<ShoppingListView> {
               const SizedBox(width: 16),
             ],
           ),
-
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 100),
             sliver: SliverList(

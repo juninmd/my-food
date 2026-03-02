@@ -40,7 +40,8 @@ class DashboardView extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final now = DateTime.now();
-    final dateFormat = DateFormat('EEEE, d MMMM', Localizations.localeOf(context).toString());
+    final dateFormat =
+        DateFormat('EEEE, d MMMM', Localizations.localeOf(context).toString());
 
     // Calculate totals
     int totalCalories = breakfast.calories + lunch.calories + dinner.calories;
@@ -59,7 +60,8 @@ class DashboardView extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
-            titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            titlePadding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             title: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,18 +69,18 @@ class DashboardView extends StatelessWidget {
               children: [
                 Text(
                   l10n.hello,
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
                   ),
                 ),
+                const SizedBox(height: 2),
                 Text(
                   dateFormat.format(now),
-                  style: TextStyle(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18, // Reduced from standard title size to fit
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withOpacity(0.6),
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -120,7 +122,8 @@ class DashboardView extends StatelessWidget {
                       ? l10n.quoteFallbackMessage
                       : snapshot.data!;
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       color: colorScheme.secondary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
@@ -137,7 +140,8 @@ class DashboardView extends StatelessWidget {
                             text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              color: colorScheme.secondary.withValues(alpha: 1.0), // Darker shade
+                              color: colorScheme.secondary
+                                  .withValues(alpha: 1.0), // Darker shade
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -160,52 +164,48 @@ class DashboardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      l10n.dailyGoal,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        l10n.dailyGoal,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: colorScheme.onSurface,
+                        ),
                       ),
-                    ),
-                    // Surprise Me Mini Button
-                    InkWell(
-                      onTap: onSurpriseMe,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [colorScheme.secondary, Colors.orangeAccent],
+                      // Surprise Me Mini Button
+                      InkWell(
+                        onTap: onSurpriseMe,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.orange.shade50, // Softer background
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.orange.shade200),
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: colorScheme.secondary.withValues(alpha: 0.3),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.auto_awesome, color: Colors.white, size: 14),
-                            const SizedBox(width: 6),
-                            Text(
-                              l10n.surpriseMeButton,
-                              style: const TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                          child: Row(
+                            children: [
+                              Icon(Icons.auto_awesome,
+                                  color: Colors.orange.shade700, size: 14),
+                              const SizedBox(width: 6),
+                              Text(
+                                l10n.surpriseMeButton,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.orange.shade800,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 MacroDashboardCard(
@@ -239,31 +239,25 @@ class DashboardView extends StatelessWidget {
           ),
         ),
 
-        // Meal Timeline
+        // Meal Timeline Header
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                      ),
-                    ],
+                    color: colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(Icons.restaurant_menu_rounded, color: colorScheme.primary, size: 20),
+                  child: Icon(Icons.restaurant_menu_rounded,
+                      color: colorScheme.primary, size: 22),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 16),
                 Text(
                   l10n.menuTitle,
                   style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
                     color: colorScheme.onSurface,
                   ),
                 ),

@@ -48,7 +48,8 @@ class NutrientRing extends StatelessWidget {
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.local_fire_department_rounded, size: 24, color: colorScheme.primary),
+                  Icon(Icons.local_fire_department_rounded,
+                      size: 24, color: colorScheme.primary),
                   Text(
                     "$remaining",
                     style: TextStyle(
@@ -83,11 +84,14 @@ class NutrientRing extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMacroRow(context, l10n.macroProtein, protein, targetProtein, const Color(0xFFFF7043)), // Deep Orange
+                _buildMacroRow(context, l10n.macroProtein, protein,
+                    targetProtein, const Color(0xFFFF7043)), // Deep Orange
                 const SizedBox(height: 16),
-                _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs, const Color(0xFF42A5F5)), // Blue
+                _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs,
+                    const Color(0xFF42A5F5)), // Blue
                 const SizedBox(height: 16),
-                _buildMacroRow(context, l10n.macroFat, fat, targetFat, const Color(0xFFAB47BC)), // Purple
+                _buildMacroRow(context, l10n.macroFat, fat, targetFat,
+                    const Color(0xFFAB47BC)), // Purple
               ],
             ),
           ),
@@ -96,7 +100,8 @@ class NutrientRing extends StatelessWidget {
     );
   }
 
-  Widget _buildMacroRow(BuildContext context, String label, int value, int target, Color color) {
+  Widget _buildMacroRow(
+      BuildContext context, String label, int value, int target, Color color) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
