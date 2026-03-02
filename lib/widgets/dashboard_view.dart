@@ -69,20 +69,18 @@ class DashboardView extends StatelessWidget {
               children: [
                 Text(
                   l10n.hello,
-                  style: TextStyle(
+                  style: theme.textTheme.headlineSmall?.copyWith(
                     color: colorScheme.onSurface,
                     fontWeight: FontWeight.w800,
-                    fontSize: 24, // Bigger, bolder greeting
                     letterSpacing: -0.5,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   dateFormat.format(now),
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurface.withOpacity(0.6),
                     fontWeight: FontWeight.w600,
-                    fontSize: 12, // Subdued date
                   ),
                 ),
               ],
