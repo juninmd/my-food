@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
       ),
       cardTheme: CardThemeData(
         elevation: 0, // Flat design
-        shadowColor: Colors.black.withValues(alpha: 0.04),
+        shadowColor: Colors.black.withOpacity(0.04),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24), // Even rounder corners
