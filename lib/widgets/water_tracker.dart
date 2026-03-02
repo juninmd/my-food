@@ -17,8 +17,6 @@ class WaterTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
     if (progress > 1.0) progress = 1.0;
@@ -92,7 +90,8 @@ class WaterTracker extends StatelessWidget {
                   onTap: onAdd,
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
                         Icon(

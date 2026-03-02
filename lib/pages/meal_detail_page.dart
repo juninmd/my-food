@@ -70,7 +70,8 @@ class MealDetailPage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(32)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
@@ -119,7 +120,8 @@ class MealDetailPage extends StatelessWidget {
 
                     // Macros Grid
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 24, horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
@@ -135,13 +137,37 @@ class MealDetailPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _buildMacroItem(context, l10n.caloriesTitle, "${meal.calories}", Icons.local_fire_department_rounded, Colors.orange.shade700, Colors.orange.shade50),
+                          _buildMacroItem(
+                              context,
+                              l10n.caloriesTitle,
+                              "${meal.calories}",
+                              Icons.local_fire_department_rounded,
+                              Colors.orange.shade700,
+                              Colors.orange.shade50),
                           _buildDivider(),
-                          _buildMacroItem(context, l10n.macroProtein, "${meal.protein}g", Icons.fitness_center_rounded, colorScheme.primary, colorScheme.primary.withValues(alpha: 0.1)),
+                          _buildMacroItem(
+                              context,
+                              l10n.macroProtein,
+                              "${meal.protein}g",
+                              Icons.fitness_center_rounded,
+                              colorScheme.primary,
+                              colorScheme.primary.withValues(alpha: 0.1)),
                           _buildDivider(),
-                          _buildMacroItem(context, l10n.macroCarbs, "${meal.carbs}g", Icons.bolt_rounded, Colors.blue.shade700, Colors.blue.shade50),
+                          _buildMacroItem(
+                              context,
+                              l10n.macroCarbs,
+                              "${meal.carbs}g",
+                              Icons.bolt_rounded,
+                              Colors.blue.shade700,
+                              Colors.blue.shade50),
                           _buildDivider(),
-                          _buildMacroItem(context, l10n.macroFat, "${meal.fat}g", Icons.water_drop_rounded, Colors.purple.shade700, Colors.purple.shade50),
+                          _buildMacroItem(
+                              context,
+                              l10n.macroFat,
+                              "${meal.fat}g",
+                              Icons.water_drop_rounded,
+                              Colors.purple.shade700,
+                              Colors.purple.shade50),
                         ],
                       ),
                     ),
@@ -156,7 +182,8 @@ class MealDetailPage extends StatelessWidget {
                             color: colorScheme.secondary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Icon(Icons.list_alt_rounded, color: colorScheme.secondary, size: 20),
+                          child: Icon(Icons.list_alt_rounded,
+                              color: colorScheme.secondary, size: 20),
                         ),
                         const SizedBox(width: 12),
                         Text(
@@ -184,15 +211,18 @@ class MealDetailPage extends StatelessWidget {
                           return Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.check_circle_rounded, size: 20, color: colorScheme.primary),
+                                    Icon(Icons.check_circle_rounded,
+                                        size: 20, color: colorScheme.primary),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Text(
                                         ingredient,
-                                        style: theme.textTheme.bodyLarge?.copyWith(
+                                        style:
+                                            theme.textTheme.bodyLarge?.copyWith(
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -201,7 +231,12 @@ class MealDetailPage extends StatelessWidget {
                                 ),
                               ),
                               if (!isLast)
-                                Divider(height: 1, thickness: 1, indent: 56, endIndent: 20, color: Colors.grey.shade100),
+                                Divider(
+                                    height: 1,
+                                    thickness: 1,
+                                    indent: 56,
+                                    endIndent: 20,
+                                    color: Colors.grey.shade100),
                             ],
                           );
                         }).toList(),
@@ -216,8 +251,8 @@ class MealDetailPage extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton.icon(
                           onPressed: () {
-                             Navigator.pop(context); // Close detail
-                             onSwap!(); // Trigger swap
+                            Navigator.pop(context); // Close detail
+                            onSwap!(); // Trigger swap
                           },
                           icon: const Icon(Icons.swap_horiz_rounded),
                           label: Text(l10n.swapMeal),
@@ -257,7 +292,8 @@ class MealDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMacroItem(BuildContext context, String label, String value, IconData icon, Color color, Color bgColor) {
+  Widget _buildMacroItem(BuildContext context, String label, String value,
+      IconData icon, Color color, Color bgColor) {
     return Column(
       children: [
         Container(
