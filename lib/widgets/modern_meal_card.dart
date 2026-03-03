@@ -23,19 +23,19 @@ class ModernMealCard extends StatelessWidget {
       margin: const EdgeInsets.only(right: 24, bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(28), // Even rounder
-        border: Border.all(color: Colors.grey.shade200, width: 1.5),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.shade200, width: 1.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04), // Softer shadow
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () {
@@ -50,165 +50,136 @@ class ModernMealCard extends StatelessWidget {
               ),
             );
           },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Stack(
             children: [
-              // Top Image Section
-              Stack(
-                children: [
-                  Hero(
-                    tag: 'meal_${title}_${meal.name}',
-                    child: AspectRatio(
-                      aspectRatio: 16 / 9,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left Image Section
+                    Hero(
+                      tag: 'meal_${title}_${meal.name}',
                       child: Container(
+                        width: 100,
+                        height: 100,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
                           image: DecorationImage(
                             image: AssetImage(meal.imagePath),
                             fit: BoxFit.cover,
                           ),
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.black.withValues(alpha: 0.0),
-                                Colors.black.withValues(
-                                    alpha: 0.2), // Slightly darker for contrast
-                              ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+
+                    // Right Details Section
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title.toUpperCase(),
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 10,
+                              letterSpacing: 0.5,
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 16,
-                    left: 16,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.95),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 4,
+                          const SizedBox(height: 4),
+                          Text(
+                            meal.name,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 16,
+                              height: 1.2,
+                              color: colorScheme.onSurface,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
-                      child: Text(
-                        title.toUpperCase(),
-                        style: TextStyle(
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 11,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 16,
-                    right: 16,
-                    child: Material(
-                      color: Colors.white.withValues(
-                          alpha: 0.95), // White button instead of primary color
-                      borderRadius: BorderRadius.circular(20),
-                      elevation: 4,
-                      child: InkWell(
-                        onTap: onEdit,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          const SizedBox(height: 6),
+                          Text(
+                            meal.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.grey.shade600,
+                              height: 1.3,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 6,
+                            runSpacing: 6,
                             children: [
-                              Icon(
-                                Icons.swap_horiz_rounded,
-                                size: 16,
-                                color: colorScheme
-                                    .primary, // Icon is primary color
+                              _buildMacroBadge(
+                                context,
+                                Icons.local_fire_department_rounded,
+                                "${meal.calories}",
+                                Colors.orange.shade800,
+                                Colors.orange.shade50,
                               ),
-                              const SizedBox(width: 4),
-                              Text(
-                                "SWAP",
-                                style: TextStyle(
-                                  color: colorScheme
-                                      .primary, // Text is primary color
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 11,
-                                ),
+                              _buildMacroBadge(
+                                context,
+                                Icons.fitness_center_rounded,
+                                "${meal.protein}g",
+                                colorScheme.primary,
+                                colorScheme.primary.withValues(alpha: 0.1),
+                              ),
+                              _buildMacroBadge(
+                                context,
+                                Icons.bolt_rounded,
+                                "${meal.carbs}g",
+                                Colors.blue.shade800,
+                                Colors.blue.shade50,
                               ),
                             ],
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Swap Button
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Material(
+                  color: Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(20),
+                  child: InkWell(
+                    onTap: onEdit,
+                    borderRadius: BorderRadius.circular(20),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.swap_horiz_rounded,
+                            size: 14,
+                            color: colorScheme.primary,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "SWAP",
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-
-              // Bottom Details Section
-              Padding(
-                padding: const EdgeInsets.all(24.0), // Increased padding
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      meal.name,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w800, // Bolder
-                        fontSize: 18,
-                        height: 1.2,
-                        color: colorScheme.onSurface,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      meal.description,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey.shade600,
-                        height: 1.5,
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        _buildMacroBadge(
-                          context,
-                          Icons.local_fire_department_rounded,
-                          "${meal.calories}",
-                          Colors.orange.shade800,
-                          Colors.orange.shade50,
-                        ),
-                        const SizedBox(width: 8),
-                        _buildMacroBadge(
-                          context,
-                          Icons.fitness_center_rounded,
-                          "${meal.protein}g", // Removed 'P'
-                          colorScheme.primary,
-                          colorScheme.primary.withValues(alpha: 0.1),
-                        ),
-                        const SizedBox(width: 8),
-                        _buildMacroBadge(
-                          context,
-                          Icons.bolt_rounded,
-                          "${meal.carbs}g", // Removed 'C'
-                          Colors.blue.shade800,
-                          Colors.blue.shade50,
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
             ],

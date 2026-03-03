@@ -56,7 +56,7 @@ class DashboardView extends StatelessWidget {
           expandedHeight: 140.0,
           floating: false,
           pinned: true,
-          backgroundColor: theme.scaffoldBackgroundColor,
+          backgroundColor: Colors.white,
           surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
@@ -183,21 +183,34 @@ class DashboardView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 8),
                           decoration: BoxDecoration(
-                            color: Colors.orange.shade50, // Softer background
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.orange.shade400,
+                                Colors.orange.shade600,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.orange.shade200),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.orange.withValues(alpha: 0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.auto_awesome,
-                                  color: Colors.orange.shade700, size: 14),
+                              const Icon(Icons.auto_awesome,
+                                  color: Colors.white, size: 14),
                               const SizedBox(width: 6),
                               Text(
                                 l10n.surpriseMeButton,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w800,
-                                  color: Colors.orange.shade800,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
