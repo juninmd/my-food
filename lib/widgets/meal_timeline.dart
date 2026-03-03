@@ -73,28 +73,28 @@ class MealTimeline extends StatelessWidget {
                   // Top line segment (only if not first)
                   if (!isFirst)
                     Container(
-                      width: 2,
+                      width: 1,
                       height: 28, // Connects to the previous item
                       color: colorScheme.primary
-                          .withValues(alpha: 0.15), // Softer line
+                          .withValues(alpha: 0.1), // Softer line
                     )
                   else
                     const SizedBox(height: 28),
 
                   // Dot
                   Container(
-                    width: 16,
-                    height: 16,
+                    width: 12,
+                    height: 12,
                     decoration: BoxDecoration(
                       color: colorScheme.primary,
                       shape: BoxShape.circle,
                       border: Border.all(
                           color: colorScheme.surface,
-                          width: 4), // Thicker border to stand out
+                          width: 2), // Thicker border to stand out
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.primary.withValues(alpha: 0.2),
-                          blurRadius: 8,
+                          color: colorScheme.primary.withValues(alpha: 0.1),
+                          blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
                       ],
@@ -105,8 +105,8 @@ class MealTimeline extends StatelessWidget {
                   if (!isLast)
                     Expanded(
                       child: Container(
-                        width: 2,
-                        color: colorScheme.primary.withValues(alpha: 0.15),
+                        width: 1,
+                        color: colorScheme.primary.withValues(alpha: 0.1),
                       ),
                     ),
                 ],

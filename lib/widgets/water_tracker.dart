@@ -22,24 +22,17 @@ class WaterTracker extends StatelessWidget {
     if (progress > 1.0) progress = 1.0;
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.blue.shade400,
-            Colors.blue.shade600,
+            Colors.blue.shade300,
+            Colors.blue.shade500,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.25),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
