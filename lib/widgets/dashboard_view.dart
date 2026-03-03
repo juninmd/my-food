@@ -56,7 +56,7 @@ class DashboardView extends StatelessWidget {
           expandedHeight: 140.0,
           floating: false,
           pinned: true,
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).cardColor,
           surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
@@ -194,7 +194,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.orange.withValues(alpha: 0.3),
+                                color: Colors.orange.withOpacity(0.3),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),
