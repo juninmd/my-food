@@ -75,16 +75,15 @@ class MealTimeline extends StatelessWidget {
                     Container(
                       width: 1,
                       height: 28, // Connects to the previous item
-                      color: colorScheme.primary
-                          .withValues(alpha: 0.1), // Softer line
+                      color: Theme.of(context).dividerColor,
                     )
                   else
                     const SizedBox(height: 28),
 
                   // Dot
                   Container(
-                    width: 12,
-                    height: 12,
+                    width: 10,
+                    height: 10,
                     decoration: BoxDecoration(
                       color: colorScheme.primary,
                       shape: BoxShape.circle,
@@ -93,7 +92,7 @@ class MealTimeline extends StatelessWidget {
                           width: 2), // Thicker border to stand out
                       boxShadow: [
                         BoxShadow(
-                          color: colorScheme.primary.withValues(alpha: 0.1),
+                          color: colorScheme.primary.withValues(alpha: 0.2),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
@@ -106,7 +105,7 @@ class MealTimeline extends StatelessWidget {
                     Expanded(
                       child: Container(
                         width: 1,
-                        color: colorScheme.primary.withValues(alpha: 0.1),
+                        color: Theme.of(context).dividerColor,
                       ),
                     ),
                 ],

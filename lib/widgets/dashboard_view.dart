@@ -71,8 +71,8 @@ class DashboardView extends StatelessWidget {
                   l10n.hello,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.5,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -125,10 +125,10 @@ class DashboardView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: colorScheme.secondary.withValues(alpha: 0.1),
+                      color: Colors.grey.shade50,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                          color: colorScheme.secondary.withValues(alpha: 0.2)),
+                          color: Theme.of(context).dividerColor),
                     ),
                     child: Row(
                       children: [
@@ -140,8 +140,7 @@ class DashboardView extends StatelessWidget {
                             text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              color: colorScheme.secondary
-                                  .withValues(alpha: 1.0), // Darker shade
+                              color: colorScheme.onSurface,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -185,8 +184,8 @@ class DashboardView extends StatelessWidget {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.orange.shade400,
-                                Colors.orange.shade600,
+                                colorScheme.primary,
+                                const Color(0xFF10AC84), // This could also be part of the theme
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -194,8 +193,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.orange.withOpacity(0.3),
-                                blurRadius: 8,
+                                color: colorScheme.primary.withOpacity(0.3),
                                 offset: const Offset(0, 4),
                               ),
                             ],
