@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
     final baseTextTheme = GoogleFonts.nunitoTextTheme();
 
     // Updated Palette: WebDiet Aesthetic - Soft, approachable, clinical
-    const primaryColor = Color(0xFF00A86B); // Jade/Mint Green - WebDiet style
-    const secondaryColor = Color(0xFF5AC18E); // Soft Mint
+    const primaryColor = Color(0xFF1DD1A1); // WebDiet Teal
+    const secondaryColor = Color(0xFFC89639); // WebDiet Gold/Bronze
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFF8F9FA); // Very light gray background
+    const backgroundColor = Color(0xFFFAFAFA); // Off-white
 
     return ThemeData(
       useMaterial3: true,
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         secondary: secondaryColor,
         surface: surfaceColor,
         onPrimary: Colors.white,
-        onSurface: const Color(0xFF2D3748), // Dark Gray for high contrast text
+        onSurface: const Color(0xFF1C1C1C), // Dark Charcoal
         surfaceContainerHighest: const Color(0xFFEDF2F7), // Light Gray
         error: const Color(0xFFE53E3E), // Red
       ),
@@ -67,19 +67,19 @@ class MyApp extends StatelessWidget {
       textTheme: baseTextTheme
           .apply(
             bodyColor: const Color(0xFF4A5568), // Gray 600
-            displayColor: const Color(0xFF2D3748),
+            displayColor: const Color(0xFF1C1C1C),
           )
           .copyWith(
             displayLarge: baseTextTheme.displayLarge
-                ?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -1.0),
+                ?.copyWith(fontWeight: FontWeight.w700, letterSpacing: -1.0),
             displayMedium: baseTextTheme.displayMedium
-                ?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -0.5),
+                ?.copyWith(fontWeight: FontWeight.w700, letterSpacing: -0.5),
             headlineLarge: baseTextTheme.headlineLarge
                 ?.copyWith(fontWeight: FontWeight.w700),
             headlineMedium: baseTextTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.w700),
             titleLarge: baseTextTheme.titleLarge
-                ?.copyWith(fontWeight: FontWeight.w800), // Bolder titles
+                ?.copyWith(fontWeight: FontWeight.w700),
             bodyLarge: baseTextTheme.bodyLarge?.copyWith(
                 fontSize: 16, height: 1.5, fontWeight: FontWeight.w500),
             bodyMedium: baseTextTheme.bodyMedium?.copyWith(
@@ -88,22 +88,22 @@ class MyApp extends StatelessWidget {
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        foregroundColor: Color(0xFF2D3748),
+        foregroundColor: Color(0xFF1C1C1C),
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        iconTheme: IconThemeData(color: Color(0xFF2D3748)),
+        iconTheme: IconThemeData(color: Color(0xFF1C1C1C)),
       ),
       cardTheme: CardThemeData(
         elevation: 0, // Flat design
-        shadowColor: Colors.black.withOpacity(0.04),
+        shadowColor: Colors.black.withOpacity(0.02),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24), // Even rounder corners
+          borderRadius: BorderRadius.circular(16),
           side: BorderSide(
               color: Colors.grey.shade100,
-              width: 1.5), // Slightly more visible border
+              width: 1.0),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.white,

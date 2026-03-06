@@ -33,13 +33,13 @@ class MacroDashboardCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Theme.of(context).dividerColor, width: 1.0),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade100, width: 1.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),

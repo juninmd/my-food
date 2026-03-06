@@ -71,8 +71,8 @@ class DashboardView extends StatelessWidget {
                   l10n.hello,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.5,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -125,23 +125,22 @@ class DashboardView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: colorScheme.secondary.withValues(alpha: 0.1),
+                      color: Colors.grey.shade50,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                          color: colorScheme.secondary.withValues(alpha: 0.2)),
+                          color: Colors.grey.shade200),
                     ),
                     child: Row(
                       children: [
                         Icon(Icons.format_quote_rounded,
-                            color: colorScheme.secondary, size: 20),
+                            color: const Color(0xFFC89639), size: 20),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              color: colorScheme.secondary
-                                  .withValues(alpha: 1.0), // Darker shade
+                              color: const Color(0xFF1C1C1C),
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -183,10 +182,10 @@ class DashboardView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 8),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [
-                                Colors.orange.shade400,
-                                Colors.orange.shade600,
+                                Color(0xFF1DD1A1),
+                                Color(0xFF10AC84),
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -194,7 +193,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.orange.withOpacity(0.3),
+                                color: const Color(0xFF1DD1A1).withOpacity(0.3),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),
