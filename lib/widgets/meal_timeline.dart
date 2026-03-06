@@ -75,7 +75,7 @@ class MealTimeline extends StatelessWidget {
                     Container(
                       width: 1,
                       height: 28, // Connects to the previous item
-                      color: Colors.grey.shade200,
+                      color: Theme.of(context).dividerColor,
                     )
                   else
                     const SizedBox(height: 28),
@@ -88,7 +88,7 @@ class MealTimeline extends StatelessWidget {
                       color: colorScheme.primary,
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: Colors.white,
+                          color: colorScheme.surface,
                           width: 2), // Thicker border to stand out
                       boxShadow: [
                         BoxShadow(
@@ -105,7 +105,7 @@ class MealTimeline extends StatelessWidget {
                     Expanded(
                       child: Container(
                         width: 1,
-                        color: Colors.grey.shade200,
+                        color: Theme.of(context).dividerColor,
                       ),
                     ),
                 ],
