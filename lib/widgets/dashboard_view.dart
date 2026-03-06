@@ -128,19 +128,19 @@ class DashboardView extends StatelessWidget {
                       color: Colors.grey.shade50,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                          color: Colors.grey.shade200),
+                          color: Theme.of(context).dividerColor),
                     ),
                     child: Row(
                       children: [
                         Icon(Icons.format_quote_rounded,
-                            color: const Color(0xFFC89639), size: 20),
+                            color: colorScheme.secondary, size: 20),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              color: const Color(0xFF1C1C1C),
+                              color: colorScheme.onSurface,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -182,10 +182,10 @@ class DashboardView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 8),
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
+                            gradient: LinearGradient(
                               colors: [
-                                Color(0xFF1DD1A1),
-                                Color(0xFF10AC84),
+                                colorScheme.primary,
+                                const Color(0xFF10AC84), // This could also be part of the theme
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -193,8 +193,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF1DD1A1).withOpacity(0.3),
-                                blurRadius: 8,
+                                color: colorScheme.primary.withOpacity(0.3),
                                 offset: const Offset(0, 4),
                               ),
                             ],
