@@ -24,11 +24,11 @@ class ModernMealCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade200, width: 1.0),
+        border: Border.all(color: Colors.transparent),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 10,
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 16,
             offset: const Offset(0, 4),
           ),
         ],
@@ -61,8 +61,8 @@ class ModernMealCard extends StatelessWidget {
                     Hero(
                       tag: 'meal_${title}_${meal.name}',
                       child: Container(
-                        width: 100,
-                        height: 100,
+                        width: 120,
+                        height: 120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           image: DecorationImage(

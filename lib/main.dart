@@ -96,14 +96,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF1C1C1C)),
       ),
       cardTheme: CardThemeData(
-        elevation: 0, // Flat design
-        shadowColor: Colors.black.withOpacity(0.02),
+        elevation: 4, // Flat design
+        shadowColor: Colors.black.withOpacity(0.05),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(
-              color: Colors.grey.shade100,
-              width: 1.0),
+          side: BorderSide.none,
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.white,
@@ -164,9 +162,9 @@ class MyApp extends StatelessWidget {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey.shade400,
         type: BottomNavigationBarType.fixed,
-        elevation: 10,
+        elevation: 20,
         showSelectedLabels: true,
-        showUnselectedLabels: true,
+        showUnselectedLabels: false,
         selectedLabelStyle:
             const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
         unselectedLabelStyle:
