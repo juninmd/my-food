@@ -56,7 +56,8 @@ class DashboardView extends StatelessWidget {
           expandedHeight: 140.0,
           floating: false,
           pinned: true,
-          backgroundColor: Theme.of(context).cardColor,
+          backgroundColor: Colors.white,
+          elevation: 2,
           surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
@@ -79,7 +80,7 @@ class DashboardView extends StatelessWidget {
                 Text(
                   dateFormat.format(now),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -125,10 +126,10 @@ class DashboardView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade50,
+                      color: colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                          color: Theme.of(context).dividerColor),
+                          color: Colors.transparent),
                     ),
                     child: Row(
                       children: [
@@ -140,7 +141,7 @@ class DashboardView extends StatelessWidget {
                             text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              color: colorScheme.onSurface,
+                              color: colorScheme.primary,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -193,7 +194,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: colorScheme.primary.withOpacity(0.3),
+                                color: colorScheme.primary.withValues(alpha: 0.3),
                                 offset: const Offset(0, 4),
                               ),
                             ],

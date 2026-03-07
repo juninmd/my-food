@@ -26,8 +26,8 @@ class WaterTracker extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF48DBFB),
-            Color(0xFF0ABDE3),
+            Color(0xFF89CFF0),
+            Color(0xFF00BFFF),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -87,16 +87,16 @@ class WaterTracker extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.add_rounded,
-                          color: const Color(0xFF0ABDE3),
+                          color: Color(0xFF00BFFF),
                           size: 18,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           l10n.addWater,
                           style: const TextStyle(
-                            color: Color(0xFF0ABDE3),
+                            color: Color(0xFF00BFFF),
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
                           ),
@@ -110,11 +110,11 @@ class WaterTracker extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           LinearPercentIndicator(
-            lineHeight: 8.0,
+            lineHeight: 12.0,
             percent: progress,
             progressColor: Colors.white,
             backgroundColor: Colors.black.withValues(alpha: 0.1),
-            barRadius: const Radius.circular(4),
+            barRadius: const Radius.circular(6),
             padding: EdgeInsets.zero,
             animation: true,
             animationDuration: 800,

@@ -43,7 +43,7 @@ class NutrientRing extends StatelessWidget {
             flex: 5,
             child: CircularPercentIndicator(
               radius: 70.0,
-              lineWidth: 12.0,
+              lineWidth: 16.0,
               percent: calorieProgress,
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
