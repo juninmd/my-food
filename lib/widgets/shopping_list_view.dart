@@ -131,7 +131,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       listItems.add(
         Card(
           elevation: 4,
-          shadowColor: Colors.black.withValues(alpha: 0.05),
+          shadowColor: Colors.black.withOpacity(0.05),
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           color: Colors.white,
           shape: RoundedRectangleBorder(
