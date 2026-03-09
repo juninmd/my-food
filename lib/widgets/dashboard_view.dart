@@ -80,7 +80,7 @@ class DashboardView extends StatelessWidget {
                 Text(
                   dateFormat.format(now),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -126,7 +126,7 @@ class DashboardView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: colorScheme.primary.withOpacity(0.1),
+                      color: colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                           color: Colors.transparent),
@@ -181,12 +181,12 @@ class DashboardView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 8),
+                              horizontal: 16, vertical: 10),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
                                 colorScheme.primary,
-                                const Color(0xFF10AC84), // This could also be part of the theme
+                                const Color(0xFF27AE60), // This could also be part of the theme
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -194,7 +194,7 @@ class DashboardView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: colorScheme.primary.withOpacity(0.3),
+                                color: colorScheme.primary.withValues(alpha: 0.3),
                                 offset: const Offset(0, 4),
                               ),
                             ],
