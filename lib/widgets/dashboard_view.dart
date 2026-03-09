@@ -181,12 +181,12 @@ class DashboardView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 8),
+                              horizontal: 16, vertical: 10),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
                                 colorScheme.primary,
-                                const Color(0xFF10AC84), // This could also be part of the theme
+                                const Color(0xFF27AE60), // This could also be part of the theme
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,

@@ -40,14 +40,14 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData _buildThemeData() {
-    // WebDiet Inspired Modern Clean Theme
+    // Inspired Modern Clean Theme
     final baseTextTheme = GoogleFonts.nunitoTextTheme();
 
-    // Updated Palette: WebDiet Aesthetic - Soft, approachable, clinical
-    const primaryColor = Color(0xFF1DD1A1); // WebDiet Teal
-    const secondaryColor = Color(0xFFC89639); // WebDiet Gold/Bronze
+    // Updated Palette: Aesthetic - Soft, approachable, clinical
+    const primaryColor = Color(0xFF2ECC71); // Teal
+    const secondaryColor = Color(0xFFC89639); // Gold/Bronze
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFFAFAFA); // Off-white
+    const backgroundColor = Color(0xFFFFFFFF); // Off-white
 
     return ThemeData(
       useMaterial3: true,
@@ -97,10 +97,10 @@ class MyApp extends StatelessWidget {
       ),
       cardTheme: CardThemeData(
         elevation: 4, // Flat design
-        shadowColor: Colors.black.withOpacity(0.05),
+        shadowColor: Colors.black.withOpacity(0.04),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           side: BorderSide.none,
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
