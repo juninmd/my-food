@@ -24,7 +24,7 @@ echo "Checking Flutter version..."
 flutter --version
 
 echo "Running Flutter doctor..."
-flutter doctor
+flutter doctor || true
 
 echo "Enabling web..."
 flutter config --enable-web
