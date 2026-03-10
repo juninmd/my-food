@@ -91,7 +91,7 @@ class NutrientRing extends StatelessWidget {
                     colorScheme.primary), // Mint Green
                 const SizedBox(height: 16),
                 _buildMacroRow(context, l10n.macroFat, fat, targetFat,
-                    const Color(0xFF9E9E9E)), // Gray
+                    Colors.grey), // Gray
               ],
             ),
           ),
