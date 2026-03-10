@@ -186,7 +186,7 @@ class DashboardView extends StatelessWidget {
                             gradient: LinearGradient(
                               colors: [
                                 colorScheme.primary,
-                                const Color(0xFF27AE60), // This could also be part of the theme
+                                const Color(0xFF15B085), // Slightly darker WebDiet mint
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
