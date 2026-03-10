@@ -16,8 +16,8 @@ fi
 echo "Cloning Flutter (stable)..."
 git clone https://github.com/flutter/flutter.git -b stable --depth 1 "$FLUTTER_ROOT"
 
-# Add Flutter to PATH (put it at the front so it overrides any pre-installed system flutter)
-export PATH="$FLUTTER_ROOT/bin:$PATH"
+# Add Flutter to PATH
+export PATH="$PATH:$FLUTTER_ROOT/bin"
 
 # Run Flutter commands
 echo "Checking Flutter version..."
@@ -36,4 +36,4 @@ echo "Generating localization..."
 flutter gen-l10n
 
 echo "Building web..."
-flutter build web --release --no-wasm-dry-run
+flutter build web --release --verbose

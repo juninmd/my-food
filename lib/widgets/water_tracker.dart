@@ -26,8 +26,8 @@ class WaterTracker extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF89CFF0),
-            Color(0xFF00BFFF),
+            Color(0xFF4EE2B9), // Light Mint Green
+            Color(0xFF1DD1A1), // WebDiet Mint Green
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -89,14 +89,14 @@ class WaterTracker extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.add_rounded,
-                          color: Color(0xFF00BFFF),
+                          color: Color(0xFF1DD1A1),
                           size: 18,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           l10n.addWater,
                           style: const TextStyle(
-                            color: Color(0xFF00BFFF),
+                            color: Color(0xFF1DD1A1),
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
                           ),

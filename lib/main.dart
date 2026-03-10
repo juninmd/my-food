@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
     // Inspired Modern Clean Theme
     final baseTextTheme = GoogleFonts.nunitoTextTheme();
 
-    // Updated Palette: Aesthetic - Soft, approachable, clinical
-    const primaryColor = Color(0xFF2ECC71); // Teal
-    const secondaryColor = Color(0xFFC89639); // Gold/Bronze
+    // Updated Palette: Aesthetic - Soft, approachable, clinical (WebDiet inspired)
+    const primaryColor = Color(0xFF1DD1A1); // WebDiet Mint Green
+    const secondaryColor = Color(0xFF333333); // Dark Gray
     const surfaceColor = Colors.white;
     const backgroundColor = Color(0xFFFFFFFF); // Off-white
 
@@ -59,15 +59,15 @@ class MyApp extends StatelessWidget {
         secondary: secondaryColor,
         surface: surfaceColor,
         onPrimary: Colors.white,
-        onSurface: const Color(0xFF1C1C1C), // Dark Charcoal
+        onSurface: const Color(0xFF141414), // Dark Charcoal
         surfaceContainerHighest: const Color(0xFFEDF2F7), // Light Gray
         error: const Color(0xFFE53E3E), // Red
       ),
       scaffoldBackgroundColor: backgroundColor,
       textTheme: baseTextTheme
           .apply(
-            bodyColor: const Color(0xFF4A5568), // Gray 600
-            displayColor: const Color(0xFF1C1C1C),
+            bodyColor: const Color(0xFF555555), // Gray 600
+            displayColor: const Color(0xFF141414),
           )
           .copyWith(
             displayLarge: baseTextTheme.displayLarge
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
       ),
       cardTheme: CardThemeData(
         elevation: 4, // Flat design
-        shadowColor: Colors.black.withOpacity(0.04),
+        shadowColor: Colors.black.withValues(alpha: 0.04),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

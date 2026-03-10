@@ -2,6 +2,10 @@
 command = "chmod +x build_web.sh && ./build_web.sh"
 publish = "build/web"
 
+[build.environment]
+  NODE_VERSION = "20"
+  DISABLE_ESLINT_PLUGIN = "true"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
