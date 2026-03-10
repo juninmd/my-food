@@ -1,0 +1,8 @@
+--- build_web.sh
++++ build_web.sh
+@@ -34,4 +34,4 @@
+ flutter gen-l10n
+
+ echo "Building web..."
+-flutter build web --release --verbose
++flutter build web --release

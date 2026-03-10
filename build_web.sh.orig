@@ -36,4 +36,4 @@ echo "Generating localization..."
 flutter gen-l10n
 
 echo "Building web..."
-flutter build web --release --no-wasm-dry-run
+flutter build web --release --verbose
