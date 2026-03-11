@@ -41,10 +41,10 @@ class MyApp extends StatelessWidget {
 
   ThemeData _buildThemeData() {
     // Inspired Modern Clean Theme
-    final baseTextTheme = GoogleFonts.nunitoTextTheme();
+    final baseTextTheme = GoogleFonts.montserratTextTheme();
 
     // Updated Palette: Aesthetic - Soft, approachable, clinical (WebDiet inspired)
-    const primaryColor = Color(0xFF1DD1A1); // WebDiet Mint Green
+    const primaryColor = Color(0xFF00D1A3); // WebDiet Mint Green
     const secondaryColor = Color(0xFF333333); // Dark Gray
     const surfaceColor = Colors.white;
     const backgroundColor = Color(0xFFFFFFFF); // Off-white
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       useMaterial3: true,
       fontFamily:
-          GoogleFonts.nunito().fontFamily, // More rounded, friendly font
+          GoogleFonts.montserrat().fontFamily, // Clean, modern font
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         primary: primaryColor,
@@ -96,12 +96,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF1C1C1C)),
       ),
       cardTheme: CardThemeData(
-        elevation: 4, // Flat design
-        shadowColor: Colors.black.withValues(alpha: 0.04),
+        elevation: 0, // Flat design
+        shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide.none,
+          side: BorderSide(color: Colors.grey.shade200, width: 1),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.white,
@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Colors.grey.shade50,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: Colors.grey.shade200),

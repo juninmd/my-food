@@ -26,7 +26,7 @@ class MealDetailPage extends StatelessWidget {
         slivers: [
           // App Bar with Image
           SliverAppBar(
-            expandedHeight: 320,
+            expandedHeight: 400,
             pinned: true,
             backgroundColor: theme.scaffoldBackgroundColor,
             surfaceTintColor: Colors.transparent,
@@ -125,14 +125,7 @@ class MealDetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: Colors.grey.shade100),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.03),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
+                        border: Border.all(color: Colors.grey.shade200),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

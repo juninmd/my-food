@@ -82,13 +82,13 @@ class MealTimeline extends StatelessWidget {
 
                   // Dot
                   Container(
-                    width: 10,
-                    height: 10,
+                    width: 12,
+                    height: 12,
                     decoration: BoxDecoration(
-                      color: colorScheme.primary,
+                      color: Colors.grey.shade300,
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: colorScheme.surface,
+                          color: colorScheme.primary,
                           width: 2), // Thicker border to stand out
                       boxShadow: [
                         BoxShadow(

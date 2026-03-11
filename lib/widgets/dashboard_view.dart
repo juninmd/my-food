@@ -53,7 +53,7 @@ class DashboardView extends StatelessWidget {
       slivers: [
         // App Bar & Header
         SliverAppBar(
-          expandedHeight: 140.0,
+          expandedHeight: 160.0,
           floating: false,
           pinned: true,
           backgroundColor: Colors.white,
@@ -63,28 +63,39 @@ class DashboardView extends StatelessWidget {
             centerTitle: false,
             titlePadding:
                 const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            title: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  l10n.hello,
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0,
+            title: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        l10n.hello,
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(Icons.waving_hand, color: Colors.amber, size: 20),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  dateFormat.format(now),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(height: 2),
+                  Text(
+                    dateFormat.format(now),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           actions: [
@@ -175,47 +186,6 @@ class DashboardView extends StatelessWidget {
                           color: colorScheme.onSurface,
                         ),
                       ),
-                      // Surprise Me Mini Button
-                      InkWell(
-                        onTap: onSurpriseMe,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                colorScheme.primary,
-                                const Color(0xFF15B085), // Slightly darker WebDiet mint
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: colorScheme.primary.withValues(alpha: 0.3),
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.auto_awesome,
-                                  color: Colors.white, size: 14),
-                              const SizedBox(width: 6),
-                              Text(
-                                l10n.surpriseMeButton,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -250,6 +220,55 @@ class DashboardView extends StatelessWidget {
             child: NutritionistNoteCard(),
           ),
         ),
+
+        // Surprise Me
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+            child: InkWell(
+              onTap: onSurpriseMe,
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      colorScheme.primary,
+                      const Color(0xFF15B085), // Slightly darker WebDiet mint
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.primary.withValues(alpha: 0.3),
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
+                    const SizedBox(width: 12),
+                    Text(
+                      l10n.surpriseMeButton,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        const SliverPadding(padding: EdgeInsets.only(top: 32)),
 
         // Meal Timeline Header
         SliverToBoxAdapter(
