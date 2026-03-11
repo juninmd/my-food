@@ -130,13 +130,13 @@ class _ShoppingListViewState extends State<ShoppingListView> {
 
       listItems.add(
         Card(
-          elevation: 4,
-          shadowColor: Colors.black.withValues(alpha: 0.05),
+          elevation: 0,
+          shadowColor: Colors.transparent,
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide.none,
+            side: BorderSide(color: Colors.grey.shade200),
           ),
           child: Column(
             children: ingredients.map((ingredient) {
@@ -189,7 +189,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                             ),
                           )
                         : null,
-                    activeColor: colorScheme.primary,
+                    activeColor: Colors.green,
                     checkboxShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

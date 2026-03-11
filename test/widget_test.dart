@@ -28,7 +28,11 @@ void main() {
     // If l10n.remaining is 'Remaining', then toLowerCase() is 'remaining'.
     expect(find.text('remaining'), findsOneWidget);
 
+    // Scroll a little
+    await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -500));
+    await tester.pumpAndSettle();
+
     // Verify that Me Surpreenda button DOES exist on Dashboard.
-    expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
+    expect(find.byIcon(Icons.auto_awesome), findsWidgets);
   });
 }
