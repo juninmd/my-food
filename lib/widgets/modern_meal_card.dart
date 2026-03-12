@@ -144,7 +144,7 @@ class ModernMealCard extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: Material(
-                  color: colorScheme.primary.withValues(alpha: 0.15),
+                  color: colorScheme.primary.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
                     onTap: onEdit,
