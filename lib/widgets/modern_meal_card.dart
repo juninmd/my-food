@@ -20,7 +20,7 @@ class ModernMealCard extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Container(
-      margin: const EdgeInsets.only(right: 24, bottom: 20),
+      margin: const EdgeInsets.only(right: 20, bottom: 24),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -54,17 +54,17 @@ class ModernMealCard extends StatelessWidget {
                     Hero(
                       tag: 'meal_${title}_${meal.name}',
                       child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage(meal.imagePath),
-                            fit: BoxFit.cover,
+                          width: 130,
+                          height: 130,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            image: DecorationImage(
+                              image: AssetImage(meal.imagePath),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     const SizedBox(width: 16),
 
                     // Right Details Section
@@ -144,7 +144,7 @@ class ModernMealCard extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: Material(
-                  color: Colors.grey.shade50,
+                  color: colorScheme.primary.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
                     onTap: onEdit,
@@ -165,8 +165,9 @@ class ModernMealCard extends StatelessWidget {
                             "SWAP",
                             style: TextStyle(
                               color: colorScheme.primary,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                               fontSize: 10,
+                              letterSpacing: 1.0,
                             ),
                           ),
                         ],
