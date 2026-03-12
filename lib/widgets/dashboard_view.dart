@@ -62,7 +62,7 @@ class DashboardView extends StatelessWidget {
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
             titlePadding:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             title: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -230,12 +230,12 @@ class DashboardView extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
-                      colorScheme.primary,
-                      const Color(0xFF15B085), // Slightly darker WebDiet mint
+                      Color(0xFF00D1A3),
+                      Color(0xFF00BFA5),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -251,12 +251,12 @@ class DashboardView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
+                    const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
                     const SizedBox(width: 12),
                     Text(
                       l10n.surpriseMeButton,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

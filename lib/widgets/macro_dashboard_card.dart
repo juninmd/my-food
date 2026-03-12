@@ -33,12 +33,12 @@ class MacroDashboardCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.transparent),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 16,
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 24,
             offset: const Offset(0, 4),
           ),
         ],
@@ -46,7 +46,7 @@ class MacroDashboardCard extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
