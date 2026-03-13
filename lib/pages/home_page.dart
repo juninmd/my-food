@@ -395,7 +395,6 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(child: body),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           boxShadow: [
             BoxShadow(
