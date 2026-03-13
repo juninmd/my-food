@@ -395,15 +395,19 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(child: body),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 20,
               offset: const Offset(0, -4),
             ),
           ],
         ),
-        child: BottomNavigationBar(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+          child: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
@@ -423,7 +427,8 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.grid_view),
                 activeIcon: const Icon(Icons.grid_view_rounded),
                 label: l10n.toolsTitle),
-          ],
+            ],
+          ),
         ),
       ),
     );

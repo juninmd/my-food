@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     const primaryColor = Color(0xFF00D1A3); // WebDiet Mint Green
     const secondaryColor = Color(0xFF333333); // Dark Gray
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFFFFFFF); // Off-white
+    const backgroundColor = Color(0xFFF4F7F6); // Soft clinical off-white
 
     return ThemeData(
       useMaterial3: true,
@@ -162,7 +162,7 @@ class MyApp extends StatelessWidget {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey.shade400,
         type: BottomNavigationBarType.fixed,
-        elevation: 20,
+        elevation: 0,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         selectedLabelStyle:
