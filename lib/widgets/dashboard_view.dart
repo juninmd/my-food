@@ -235,7 +235,7 @@ class DashboardView extends StatelessWidget {
                   gradient: const LinearGradient(
                     colors: [
                       Color(0xFF00D1A3),
-                      Color(0xFF00BFA5),
+                      Color(0xFF00C49A),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -243,8 +243,9 @@ class DashboardView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.primary.withValues(alpha: 0.3),
-                      offset: const Offset(0, 4),
+                      color: colorScheme.primary.withValues(alpha: 0.25),
+                      blurRadius: 16,
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),

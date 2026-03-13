@@ -16,7 +16,14 @@ class NutritionistNoteCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blue.shade50,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.blue.shade100),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withValues(alpha: 0.05),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -26,13 +26,20 @@ class WaterTracker extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF4EE2B9), // Light Mint Green
-            Color(0xFF1DD1A1), // WebDiet Mint Green
+            Color(0xFF38E0B1), // Softer Mint Green
+            Color(0xFF00D1A3), // WebDiet Mint Green
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         children: [
