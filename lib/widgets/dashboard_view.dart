@@ -171,10 +171,11 @@ class DashboardView extends StatelessWidget {
         // Nutritionist Note
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: NutritionistNoteCard(),
+            padding: const EdgeInsets.only(bottom: 16),
+            child: const NutritionistNoteCard(),
           ),
         ),
+
 
         // Daily Goal Title
         SliverToBoxAdapter(
@@ -196,7 +197,7 @@ class DashboardView extends StatelessWidget {
           sliver: SliverToBoxAdapter(
             child: MacroDashboardCard(
               calories: totalCalories,
-              targetCalories: 2500,
+              targetCalories: DietConstants.caloriesTarget,
               protein: totalProtein,
               targetProtein: DietConstants.proteinTarget,
               carbs: totalCarbs,
