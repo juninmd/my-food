@@ -125,7 +125,7 @@ class DashboardView extends StatelessWidget {
         // Quote
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
             child: FutureBuilder<String>(
               future: quoteFuture,
               builder: (context, snapshot) {
@@ -168,58 +168,58 @@ class DashboardView extends StatelessWidget {
           ),
         ),
 
-        // Daily Progress (Macros)
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          sliver: SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.dailyGoal,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: colorScheme.onSurface,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                MacroDashboardCard(
-                  calories: totalCalories,
-                  targetCalories: 2500,
-                  protein: totalProtein,
-                  targetProtein: DietConstants.proteinTarget,
-                  carbs: totalCarbs,
-                  targetCarbs: DietConstants.carbsTarget,
-                  fat: totalFat,
-                  targetFat: DietConstants.fatTarget,
-                ),
-                const SizedBox(height: 24),
-                WaterTracker(
-                  currentGlasses: waterGlasses,
-                  targetGlasses: DietConstants.waterGlassTarget,
-                  onAdd: onAddWater,
-                ),
-              ],
+        // Nutritionist Note
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
+            child: NutritionistNoteCard(),
+          ),
+        ),
+
+        // Daily Goal Title
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            child: Text(
+              l10n.dailyGoal,
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
 
-        const SliverPadding(padding: EdgeInsets.only(top: 32)),
-
-        // Nutritionist Note
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 24),
-            child: NutritionistNoteCard(),
+        // Daily Progress (Macros)
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          sliver: SliverToBoxAdapter(
+            child: MacroDashboardCard(
+              calories: totalCalories,
+              targetCalories: 2500,
+              protein: totalProtein,
+              targetProtein: DietConstants.proteinTarget,
+              carbs: totalCarbs,
+              targetCarbs: DietConstants.carbsTarget,
+              fat: totalFat,
+              targetFat: DietConstants.fatTarget,
+            ),
           ),
         ),
+
+        // Water Tracker
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          sliver: SliverToBoxAdapter(
+            child: WaterTracker(
+              currentGlasses: waterGlasses,
+              targetGlasses: DietConstants.waterGlassTarget,
+              onAdd: onAddWater,
+            ),
+          ),
+        ),
+
+        const SliverPadding(padding: EdgeInsets.only(top: 16)),
 
         // Surprise Me
         SliverToBoxAdapter(
