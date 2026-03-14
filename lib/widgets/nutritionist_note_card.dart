@@ -14,16 +14,9 @@ class NutritionistNoteCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
+        color: colorScheme.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.blue.withValues(alpha: 0.15)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.05),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border(left: BorderSide(width: 4, color: colorScheme.primary)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +24,12 @@ class NutritionistNoteCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.blue.withValues(alpha: 0.1),
+              color: colorScheme.primary.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.health_and_safety_rounded,
-              color: Colors.blue,
+              color: colorScheme.primary,
               size: 24,
             ),
           ),
@@ -49,7 +42,7 @@ class NutritionistNoteCard extends StatelessWidget {
                   l10n.nutritionistNoteTitle,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: colorScheme.primary,
                     letterSpacing: 0.5,
                   ),
                 ),
