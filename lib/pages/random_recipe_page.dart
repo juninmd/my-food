@@ -72,7 +72,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                   Text(
                     '${l10n.randomRecipeErrorPrefix}${l10n.recipeLoadError}',
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: Colors.grey.shade700,
+                      color: colorScheme.onSurface.withOpacity(0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -106,7 +106,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
+                            color: Colors.black.withOpacity(0.1),
                             blurRadius: 20,
                             offset: const Offset(0, 8),
                           ),
@@ -122,9 +122,9 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
                               height: 200,
-                              color: Colors.grey.shade200,
-                              child: const Center(
-                                  child: Icon(Icons.broken_image, size: 50, color: Colors.grey)),
+                              color: colorScheme.surfaceVariant,
+                              child: Center(
+                                  child: Icon(Icons.broken_image, size: 50, color: colorScheme.onSurfaceVariant)),
                             );
                           },
                         ),
@@ -144,7 +144,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: colorScheme.primary.withValues(alpha: 0.1),
+                      color: colorScheme.primary.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -168,14 +168,14 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.grey.shade100),
+                      border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
                     ),
                     child: Text(
                       meal['strInstructions'] ?? l10n.randomRecipeNoInstructions,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade700,
+                        color: colorScheme.onSurface.withOpacity(0.7),
                         height: 1.6,
                       ),
                     ),
