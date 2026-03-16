@@ -42,28 +42,30 @@ class NutrientRing extends StatelessWidget {
           Expanded(
             flex: 5,
             child: CircularPercentIndicator(
-              radius: 70.0,
-              lineWidth: 16.0,
+              radius: 75.0,
+              lineWidth: 12.0, // Thinner line
               percent: calorieProgress,
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.local_fire_department_rounded,
-                      size: 24, color: colorScheme.primary),
+                      size: 20, color: colorScheme.primary),
+                  const SizedBox(height: 4),
                   Text(
                     "$remaining",
                     style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 28,
+                      fontWeight: FontWeight.w800, // Slightly softer font weight
+                      fontSize: 32, // Larger numbers
                       color: colorScheme.onSurface,
                       letterSpacing: -1.0,
                       height: 1.0,
                     ),
                   ),
+                  const SizedBox(height: 4),
                   Text(
                     l10n.remaining.toLowerCase(),
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       fontSize: 12,
                       color: Colors.grey.shade500,
                     ),
@@ -71,14 +73,14 @@ class NutrientRing extends StatelessWidget {
                 ],
               ),
               progressColor: colorScheme.primary,
-              backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+              backgroundColor: colorScheme.primary.withValues(alpha: 0.08),
               circularStrokeCap: CircularStrokeCap.round,
               animation: true,
               animationDuration: 1000,
               backgroundWidth: 12.0,
             ),
           ),
-          const SizedBox(width: 24),
+          const SizedBox(width: 32),
           Expanded(
             flex: 6,
             child: Column(
@@ -86,12 +88,12 @@ class NutrientRing extends StatelessWidget {
               children: [
                 _buildMacroRow(context, l10n.macroProtein, protein,
                     targetProtein, colorScheme.secondary), // Dark Gray
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs,
                     colorScheme.primary), // Mint Green
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 _buildMacroRow(context, l10n.macroFat, fat, targetFat,
-                    Colors.grey), // Gray
+                    Colors.grey.shade400), // Lighter gray
               ],
             ),
           ),
@@ -115,27 +117,27 @@ class NutrientRing extends StatelessWidget {
               label,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 12,
+                fontSize: 13,
                 color: Colors.grey.shade600,
               ),
             ),
             Text(
               "${value}g / ${target}g",
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 8),
         LinearPercentIndicator(
-          lineHeight: 6.0,
+          lineHeight: 8.0,
           percent: progress,
           progressColor: color,
-          backgroundColor: color.withValues(alpha: 0.15),
-          barRadius: const Radius.circular(3),
+          backgroundColor: color.withValues(alpha: 0.1),
+          barRadius: const Radius.circular(4),
           padding: EdgeInsets.zero,
           animation: true,
           animationDuration: 1000,

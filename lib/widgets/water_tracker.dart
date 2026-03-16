@@ -22,24 +22,31 @@ class WaterTracker extends StatelessWidget {
     if (progress > 1.0) progress = 1.0;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF38E0B1), // Softer Mint Green
-            Color(0xFF00D1A3), // WebDiet Mint Green
+            Color(0xFF48E5C2), // Lighter, softer Mint
+            Color(0xFF00D1A3), // Primary WebDiet Mint
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF00D1A3).withValues(alpha: 0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
@@ -59,7 +66,7 @@ class WaterTracker extends StatelessWidget {
                       l10n.waterTrackerTitle,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w800,
                         fontSize: 16,
                         letterSpacing: 0.5,
                       ),
@@ -78,27 +85,27 @@ class WaterTracker extends StatelessWidget {
               ),
               Material(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20), // Rounder button
                 child: InkWell(
                   onTap: onAdd,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(20),
                   child: Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.add_rounded,
-                          color: Color(0xFF1DD1A1),
+                          color: Color(0xFF00D1A3),
                           size: 18,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           l10n.addWater,
                           style: const TextStyle(
-                            color: Color(0xFF1DD1A1),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            color: Color(0xFF00D1A3),
+                            fontWeight: FontWeight.w800,
+                            fontSize: 13,
                           ),
                         ),
                       ],
@@ -108,13 +115,13 @@ class WaterTracker extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           LinearPercentIndicator(
-            lineHeight: 12.0,
+            lineHeight: 8.0, // Thinner progress bar
             percent: progress,
             progressColor: Colors.white,
             backgroundColor: Colors.black.withValues(alpha: 0.1),
-            barRadius: const Radius.circular(6),
+            barRadius: const Radius.circular(4),
             padding: EdgeInsets.zero,
             animation: true,
             animationDuration: 800,

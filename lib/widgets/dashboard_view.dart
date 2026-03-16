@@ -53,11 +53,11 @@ class DashboardView extends StatelessWidget {
       slivers: [
         // App Bar & Header
         SliverAppBar(
-          expandedHeight: 160.0,
+          expandedHeight: 140.0,
           floating: false,
           pinned: true,
-          backgroundColor: Colors.white,
-          elevation: 2,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           surfaceTintColor: Colors.transparent,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: false,
@@ -76,22 +76,22 @@ class DashboardView extends StatelessWidget {
                         l10n.hello,
                         style: theme.textTheme.headlineSmall?.copyWith(
                           color: colorScheme.onSurface,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0,
-                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -0.5,
+                          fontSize: 24,
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.waving_hand, color: Colors.amber, size: 20),
+                      const Icon(Icons.waving_hand, color: Colors.amber, size: 24),
                     ],
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
                   Text(
                     dateFormat.format(now),
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
                     ),
                   ),
                 ],
@@ -104,16 +104,17 @@ class DashboardView extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(color: Colors.white, width: 3),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 10,
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
                 child: CircleAvatar(
-                  radius: 22,
+                  radius: 24,
                   backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                   child: Icon(Icons.person, color: colorScheme.primary),
                 ),
@@ -228,24 +229,24 @@ class DashboardView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
             child: InkWell(
               onTap: onSurpriseMe,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(24),
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [
-                      Color(0xFF00D1A3),
-                      Color(0xFF00C49A),
+                      Color(0xFF00E5B2), // Slightly lighter mint
+                      Color(0xFF00D1A3), // Primary mint
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.primary.withValues(alpha: 0.25),
-                      blurRadius: 16,
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                      blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
                   ],
@@ -258,8 +259,9 @@ class DashboardView extends StatelessWidget {
                     Text(
                       l10n.surpriseMeButton,
                       style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
                         color: Colors.white,
                       ),
                     ),
