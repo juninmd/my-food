@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     const primaryColor = Color(0xFF00D1A3); // WebDiet Mint Green
     const secondaryColor = Color(0xFF333333); // Dark Gray
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFF4F7F6); // Soft clinical off-white
+    const backgroundColor = Color(0xFFF8F9FA); // Even softer, cleaner off-white
 
     return ThemeData(
       useMaterial3: true,
@@ -96,12 +96,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xFF1C1C1C)),
       ),
       cardTheme: CardThemeData(
-        elevation: 0, // Flat design
-        shadowColor: Colors.transparent,
+        elevation: 0, // Flat design but with soft shadows in usage
+        shadowColor: Colors.black.withOpacity(0.03),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: Colors.grey.shade200, width: 1),
+          borderRadius: BorderRadius.circular(24),
+          side: BorderSide.none, // Removed hard borders
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.white,
