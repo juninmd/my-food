@@ -234,18 +234,11 @@ class DashboardView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF00E5B2), // Slightly lighter mint
-                      Color(0xFF00D1A3), // Primary mint
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: colorScheme.primary, // Flat mint green
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.primary.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
