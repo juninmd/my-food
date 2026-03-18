@@ -392,43 +392,89 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      body: SafeArea(child: body),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 20,
-              offset: const Offset(0, -4),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 800) {
+            return Row(
+              children: [
+                NavigationRail(
+                  selectedIndex: _currentIndex,
+                  onDestinationSelected: (int index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  labelType: NavigationRailLabelType.all,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.dashboard_outlined),
+                      selectedIcon: const Icon(Icons.dashboard_rounded),
+                      label: Text(l10n.dashboardTitle),
+                    ),
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.shopping_bag_outlined),
+                      selectedIcon: const Icon(Icons.shopping_bag_rounded),
+                      label: Text(l10n.shoppingListTitle),
+                    ),
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.grid_view),
+                      selectedIcon: const Icon(Icons.grid_view_rounded),
+                      label: Text(l10n.toolsTitle),
+                    ),
+                  ],
+                ),
+                const VerticalDivider(thickness: 1, width: 1),
+                Expanded(child: SafeArea(child: body)),
+              ],
+            );
+          } else {
+            return SafeArea(child: body);
+          }
+        },
+      ),
+      bottomNavigationBar: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 800) {
+            return const SizedBox.shrink();
+          }
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 20,
+                  offset: const Offset(0, -4),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-          child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.dashboard_outlined),
-                activeIcon: const Icon(Icons.dashboard_rounded),
-                label: l10n.dashboardTitle),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.shopping_bag_outlined),
-                activeIcon: const Icon(Icons.shopping_bag_rounded),
-                label: l10n.shoppingListTitle),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.grid_view),
-                activeIcon: const Icon(Icons.grid_view_rounded),
-                label: l10n.toolsTitle),
-            ],
-          ),
-        ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+              child: BottomNavigationBar(
+                currentIndex: _currentIndex,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.dashboard_outlined),
+                      activeIcon: const Icon(Icons.dashboard_rounded),
+                      label: l10n.dashboardTitle),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.shopping_bag_outlined),
+                      activeIcon: const Icon(Icons.shopping_bag_rounded),
+                      label: l10n.shoppingListTitle),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.grid_view),
+                      activeIcon: const Icon(Icons.grid_view_rounded),
+                      label: l10n.toolsTitle),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
