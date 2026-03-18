@@ -123,100 +123,116 @@ class DashboardView extends StatelessWidget {
           ],
         ),
 
-        // Quote
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-            child: FutureBuilder<String>(
-              future: quoteFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasData || snapshot.hasError) {
-                  final text = snapshot.hasError
-                      ? l10n.quoteFallbackMessage
-                      : snapshot.data!;
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: colorScheme.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                          color: Colors.transparent),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Wrap(
+                  spacing: 16.0,
+                  runSpacing: 16.0,
+                  children: [
+                    // Quote
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+                      ),
+                      child: FutureBuilder<String>(
+                        future: quoteFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData || snapshot.hasError) {
+                            final text = snapshot.hasError
+                                ? l10n.quoteFallbackMessage
+                                : snapshot.data!;
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              decoration: BoxDecoration(
+                                color: colorScheme.primary.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                    color: Colors.transparent),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.format_quote_rounded,
+                                      color: colorScheme.secondary, size: 20),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      text,
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: colorScheme.primary,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.format_quote_rounded,
-                            color: colorScheme.secondary, size: 20),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: colorScheme.primary,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
+
+                    // Nutritionist Note
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+                      ),
+                      child: const NutritionistNoteCard(),
                     ),
-                  );
-                }
-                return const SizedBox.shrink();
+                  ],
+                );
               },
             ),
           ),
         ),
 
-        // Nutritionist Note
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: const NutritionistNoteCard(),
-          ),
-        ),
+        const SliverPadding(padding: EdgeInsets.only(top: 32)),
 
-
-        // Daily Goal Title
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            child: Text(
-              l10n.dailyGoal,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: colorScheme.onSurface,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-
-        // Daily Progress (Macros)
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          sliver: SliverToBoxAdapter(
-            child: MacroDashboardCard(
-              calories: totalCalories,
-              targetCalories: DietConstants.caloriesTarget,
-              protein: totalProtein,
-              targetProtein: DietConstants.proteinTarget,
-              carbs: totalCarbs,
-              targetCarbs: DietConstants.carbsTarget,
-              fat: totalFat,
-              targetFat: DietConstants.fatTarget,
-            ),
-          ),
-        ),
-
-        // Water Tracker
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          sliver: SliverToBoxAdapter(
-            child: WaterTracker(
-              currentGlasses: waterGlasses,
-              targetGlasses: DietConstants.waterGlassTarget,
-              onAdd: onAddWater,
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Wrap(
+                  spacing: 16.0,
+                  runSpacing: 16.0,
+                  children: [
+                    // Daily Progress (Macros)
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+                      ),
+                      child: MacroDashboardCard(
+                        calories: totalCalories,
+                        targetCalories: DietConstants.caloriesTarget,
+                        protein: totalProtein,
+                        targetProtein: DietConstants.proteinTarget,
+                        carbs: totalCarbs,
+                        targetCarbs: DietConstants.carbsTarget,
+                        fat: totalFat,
+                        targetFat: DietConstants.fatTarget,
+                      ),
+                    ),
+                    // Water Tracker
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+                      ),
+                      child: WaterTracker(
+                        currentGlasses: waterGlasses,
+                        targetGlasses: DietConstants.waterGlassTarget,
+                        onAdd: onAddWater,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

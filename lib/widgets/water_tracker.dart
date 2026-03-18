@@ -32,10 +32,10 @@ class WaterTracker extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00D1A3).withOpacity(0.2),
+            color: const Color(0xFF00D1A3).withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),

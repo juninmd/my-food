@@ -123,48 +123,31 @@ class ModernMealCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Swap Button
-            Positioned(
-              top: 8,
-              right: 8,
-              child: Material(
-                color: colorScheme.primary.withOpacity(0.1), // Softer button
-                borderRadius: BorderRadius.circular(20),
-                child: InkWell(
-                  onTap: onEdit,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.swap_horiz_rounded,
-                          size: 14,
-                          color: colorScheme.primary,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "SWAP",
-                          style: TextStyle(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 10,
-                            letterSpacing: 1.0,
+                        const SizedBox(height: 12),
+                        OutlinedButton.icon(
+                          onPressed: onEdit,
+                          icon: Icon(Icons.swap_horiz_rounded, size: 16, color: colorScheme.primary),
+                          label: Text(
+                            "SWAP",
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 12,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.5)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ],
