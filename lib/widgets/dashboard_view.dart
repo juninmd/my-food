@@ -196,6 +196,21 @@ class DashboardView extends StatelessWidget {
 
         SliverToBoxAdapter(
           child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
+            child: Text(
+              l10n.yourProgress, // Localized "Daily Goal"
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+
+        const SliverPadding(padding: EdgeInsets.only(top: 8)),
+
+        SliverToBoxAdapter(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: LayoutBuilder(
               builder: (context, constraints) {

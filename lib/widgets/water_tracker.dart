@@ -21,34 +21,31 @@ class WaterTracker extends StatelessWidget {
     double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
     if (progress > 1.0) progress = 1.0;
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFF48E5C2), // Lighter, softer Mint
-            Color(0xFF00D1A3), // Primary WebDiet Mint
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(40),
+        color: const Color(0xFF00D1A3), // Solid mint green
+        borderRadius: BorderRadius.circular(32), // Modern rounded corners
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00D1A3).withOpacity(0.1),
+            color: const Color(0xFF00D1A3).withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
