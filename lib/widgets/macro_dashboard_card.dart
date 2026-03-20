@@ -61,7 +61,7 @@ class MacroDashboardCard extends StatelessWidget {
                   color: colorScheme.onSurface,
                 ),
               ),
-              Icon(Icons.more_horiz, color: Colors.grey.shade400),
+              Icon(Icons.more_horiz, color: colorScheme.onSurfaceVariant),
             ],
           ),
           const SizedBox(height: 24),
