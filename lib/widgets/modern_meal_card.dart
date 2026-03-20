@@ -149,7 +149,7 @@ class ModernMealCard extends StatelessWidget {
                           context,
                           Icons.local_fire_department_rounded,
                           "${meal.calories}",
-                          Colors.orange,
+                          colorScheme.error,
                         ),
                         const SizedBox(width: 8),
                         _buildMacroBadge(
@@ -163,7 +163,7 @@ class ModernMealCard extends StatelessWidget {
                           context,
                           Icons.bolt_rounded,
                           "${meal.carbs}g C",
-                          Colors.blue,
+                          colorScheme.secondary,
                         ),
                       ],
                     ),
