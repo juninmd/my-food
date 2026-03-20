@@ -33,7 +33,7 @@ class MealDetailPage extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios_rounded),
               onPressed: () => Navigator.pop(context),
               style: IconButton.styleFrom(
-                backgroundColor: Colors.white.withValues(alpha: 0.5),
+                backgroundColor: Colors.white.withOpacity(0.5),
                 foregroundColor: Colors.black,
               ),
             ),
@@ -99,7 +99,7 @@ class MealDetailPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.03),
+                            color: Colors.black.withOpacity(0.03),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                           ),
@@ -183,7 +183,7 @@ class MealDetailPage extends StatelessWidget {
     return Container(
       height: 30,
       width: 1,
-      color: Colors.grey.withValues(alpha: 0.2),
+      color: Colors.grey.withOpacity(0.2),
     );
   }
 
