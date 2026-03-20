@@ -61,7 +61,7 @@ class DashboardView extends StatelessWidget {
             titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
             title: Text(
               l10n.hello,
-              style: TextStyle(
+              style: theme.textTheme.titleLarge?.copyWith(
                 color: colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
               ),
@@ -130,7 +130,7 @@ class DashboardView extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [colorScheme.secondary, Colors.orangeAccent],
+                colors: [colorScheme.secondary, colorScheme.tertiaryAccent ?? Colors.orangeAccent],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
