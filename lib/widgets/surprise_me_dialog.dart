@@ -88,7 +88,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withValues(alpha: 0.03),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -141,7 +141,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: theme.primaryColor.withOpacity(0.1),
+                      color: theme.primaryColor.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -169,7 +169,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                          BoxShadow(
-                          color: Colors.black.withOpacity(0.02),
+                          color: Colors.black.withValues(alpha: 0.02),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -178,7 +178,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                     child: Column(
                       children: [
                         Icon(Icons.format_quote_rounded,
-                            color: theme.colorScheme.secondary.withOpacity(0.3), size: 24),
+                            color: theme.colorScheme.secondary.withValues(alpha: 0.3), size: 24),
                         const SizedBox(height: 8),
                         Text(
                           _quote!,

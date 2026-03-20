@@ -44,7 +44,7 @@ class ToolsView extends StatelessWidget {
                 context,
                 icon: Icons.monitor_weight_outlined,
                 title: l10n.bmiTitle,
-                color: Colors.blue,
+                color: colorScheme.primary,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -58,7 +58,7 @@ class ToolsView extends StatelessWidget {
                 context,
                 icon: Icons.auto_awesome_outlined,
                 title: l10n.surpriseMeButton,
-                color: Colors.purple,
+                color: colorScheme.primary,
                 onTap: onSurpriseMe,
                 description: l10n.surpriseMeFeedback, // Reuse localized string
               ),
@@ -66,7 +66,7 @@ class ToolsView extends StatelessWidget {
                 context,
                 icon: Icons.restaurant_menu_outlined,
                 title: l10n.randomRecipeTitle,
-                color: Colors.orange,
+                color: colorScheme.primary,
                 onTap: () {
                   Navigator.push(
                     context,

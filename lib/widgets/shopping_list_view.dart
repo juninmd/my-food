@@ -189,7 +189,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                             ),
                           )
                         : null,
-                    activeColor: Colors.green,
+                    activeColor: colorScheme.primary,
                     checkboxShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
