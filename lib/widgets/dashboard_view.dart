@@ -214,6 +214,7 @@ class DashboardView extends StatelessWidget {
 
 
 
+
         // Daily Goal Title
         SliverToBoxAdapter(
           child: Padding(
