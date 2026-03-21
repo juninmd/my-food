@@ -42,7 +42,10 @@ We have successfully delivered the core foundation of the application (Phase 1).
 ### Authentication System
 - **User Value Proposition:** Users can securely save their health data, preferences, and meal plans across devices without fear of data loss.
 - **Technical Approach:** Implement JWT-based auth on the backend. On the Flutter side, integrate secure storage for tokens and robust state management for user sessions.
-- **Success Criteria:** 99.9% login success rate; zero reported security breaches; seamless cross-device synchronization.
+- **Success Criteria:**
+  - 99.9% login success rate
+  - Zero reported security breaches
+  - Seamless cross-device synchronization
 - **Estimated Effort:** Medium
 
 ### AI Meal Planner
