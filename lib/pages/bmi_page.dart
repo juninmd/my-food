@@ -148,7 +148,7 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   textStyle: const TextStyle(
@@ -165,9 +165,8 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                 Container(
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(
-                    color: _resultColor.withValues(alpha: 0.1),
+                    color: _resultColor.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: _resultColor.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     children: [

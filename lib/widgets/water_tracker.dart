@@ -80,34 +80,33 @@ class WaterTracker extends StatelessWidget {
                   ],
                 ),
               ),
-              Material(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20), // Rounder button
-                child: InkWell(
-                  onTap: onAdd,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.add_rounded,
-                          color: Color(0xFF00D1A3),
-                          size: 18,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          l10n.addWater,
-                          style: const TextStyle(
-                            color: Color(0xFF00D1A3),
-                            fontWeight: FontWeight.w800,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
+              ElevatedButton(
+                onPressed: onAdd,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFF00D1A3),
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.add_rounded,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      l10n.addWater,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_food/models/meal.dart';
 import 'package:my_food/pages/meal_detail_page.dart';
+import 'package:my_food/l10n/generated/app_localizations.dart';
 
 class ModernMealCard extends StatelessWidget {
   final Meal meal;
@@ -16,6 +17,7 @@ class ModernMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -128,7 +130,7 @@ class ModernMealCard extends StatelessWidget {
                           onPressed: onEdit,
                           icon: Icon(Icons.swap_horiz_rounded, size: 16, color: colorScheme.primary),
                           label: Text(
-                            "SWAP",
+                            l10n.swapMeal.toUpperCase(),
                             style: TextStyle(
                               color: colorScheme.primary,
                               fontWeight: FontWeight.w900,
@@ -139,7 +141,7 @@ class ModernMealCard extends StatelessWidget {
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.5)),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           ),
