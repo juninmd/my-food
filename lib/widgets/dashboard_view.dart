@@ -108,10 +108,9 @@ class DashboardView extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           l10n.approvedBy,
-                          style: TextStyle(
+                          style: theme.textTheme.labelSmall?.copyWith(
                             color: colorScheme.primary,
                             fontWeight: FontWeight.w700,
-                            fontSize: 11,
                           ),
                         ),
                       ],
