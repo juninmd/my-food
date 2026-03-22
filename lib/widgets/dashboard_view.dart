@@ -94,6 +94,28 @@ class DashboardView extends StatelessWidget {
                       fontSize: 13,
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.verified_rounded, color: colorScheme.primary, size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          l10n.approvedBy,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -198,7 +220,7 @@ class DashboardView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
             child: Text(
-              l10n.yourProgress, // Localized "Daily Goal"
+              l10n.dailyGoal, // Localized "Daily Goal"
               style: theme.textTheme.titleLarge?.copyWith(
                 color: colorScheme.onSurface,
                 fontWeight: FontWeight.w500,

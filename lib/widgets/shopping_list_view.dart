@@ -135,8 +135,8 @@ class _ShoppingListViewState extends State<ShoppingListView> {
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: Colors.grey.shade200),
+            borderRadius: BorderRadius.circular(24),
+            side: BorderSide.none,
           ),
           child: Column(
             children: ingredients.map((ingredient) {

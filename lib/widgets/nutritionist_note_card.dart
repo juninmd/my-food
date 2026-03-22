@@ -15,8 +15,7 @@ class NutritionistNoteCard extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.2)),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

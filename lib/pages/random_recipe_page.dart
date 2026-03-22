@@ -85,7 +85,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                       backgroundColor: colorScheme.primary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(24),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     ),
@@ -106,8 +106,8 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            blurRadius: 20,
+                            color: Colors.black.withValues(alpha: 0.03),
+                            blurRadius: 24,
                             offset: const Offset(0, 8),
                           ),
                         ],
@@ -170,7 +170,6 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
                     ),
                     child: Text(
                       meal['strInstructions'] ?? l10n.randomRecipeNoInstructions,
@@ -192,7 +191,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(24),
                         ),
                         textStyle: const TextStyle(
                           fontSize: 16,
