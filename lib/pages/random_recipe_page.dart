@@ -170,7 +170,6 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: colorScheme.outline.withValues(alpha: 0.05)),
                     ),
                     child: Text(
                       meal['strInstructions'] ?? l10n.randomRecipeNoInstructions,
