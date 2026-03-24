@@ -178,12 +178,12 @@ class DashboardView extends StatelessWidget {
                                 children: [
                                   const Text(
                                     '"',
-                                    style: TextStyle(
-                                      color: Color(0xFF333333),
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w900,
-                                      height: 1.0,
-                                    ),
+style: TextStyle(
+  color: colorScheme.secondary,
+  fontSize: 24,
+  fontWeight: FontWeight.w900,
+  height: 1.0,
+),
                                   ),
                                   const SizedBox(width: 16),
                                   Expanded(
