@@ -168,26 +168,36 @@ class DashboardView extends StatelessWidget {
                                 : snapshot.data!;
                             return Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
+                                  horizontal: 20, vertical: 16),
                               decoration: BoxDecoration(
-                                color: colorScheme.primary.withValues(alpha: 0.1),
+                                color: const Color(0xFFE6F9F5),
                                 borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                    color: Colors.transparent),
                               ),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(Icons.format_quote_rounded,
-                                      color: colorScheme.secondary, size: 20),
-                                  const SizedBox(width: 12),
+                                  const Text(
+                                    '"',
+                                    style: TextStyle(
+                                      color: Color(0xFF333333),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w900,
+                                      height: 1.0,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
                                   Expanded(
-                                    child: Text(
-                                      text,
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: colorScheme.primary,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 4.0),
+                                      child: Text(
+                                        text,
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: colorScheme.primary,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          height: 1.4,
+                                        ),
                                       ),
                                     ),
                                   ),
