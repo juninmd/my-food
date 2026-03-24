@@ -87,7 +87,7 @@ class NutrientRing extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildMacroRow(context, l10n.macroProtein, protein,
-                    targetProtein, const Color(0xFF333333), Colors.grey.shade200),
+                    targetProtein, colorScheme.secondary, Colors.grey.shade200),
                 const SizedBox(height: 20),
                 _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs,
                     colorScheme.primary, const Color(0xFFE6F9F5)),
