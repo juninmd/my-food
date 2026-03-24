@@ -43,7 +43,7 @@ class NutrientRing extends StatelessWidget {
             flex: 5,
             child: CircularPercentIndicator(
               radius: 75.0,
-              lineWidth: 12.0, // Thinner line
+              lineWidth: 10.0,
               percent: calorieProgress,
               center: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -54,8 +54,8 @@ class NutrientRing extends StatelessWidget {
                   Text(
                     "$remaining",
                     style: TextStyle(
-                      fontWeight: FontWeight.w800, // Slightly softer font weight
-                      fontSize: 32, // Larger numbers
+                      fontWeight: FontWeight.w700,
+                      fontSize: 32,
                       color: colorScheme.onSurface,
                       letterSpacing: -1.0,
                       height: 1.0,
@@ -73,11 +73,11 @@ class NutrientRing extends StatelessWidget {
                 ],
               ),
               progressColor: colorScheme.primary,
-              backgroundColor: colorScheme.primary.withValues(alpha: 0.08),
+              backgroundColor: const Color(0xFFE6F9F5), // Light mint background for ring
               circularStrokeCap: CircularStrokeCap.round,
               animation: true,
               animationDuration: 1000,
-              backgroundWidth: 12.0,
+              backgroundWidth: 10.0,
             ),
           ),
           const SizedBox(width: 32),
@@ -87,13 +87,13 @@ class NutrientRing extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildMacroRow(context, l10n.macroProtein, protein,
-                    targetProtein, colorScheme.secondary), // Dark Gray
+                    targetProtein, colorScheme.secondary, Colors.grey.shade200),
                 const SizedBox(height: 20),
                 _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs,
-                    colorScheme.primary), // Mint Green
+                    colorScheme.primary, const Color(0xFFE6F9F5)),
                 const SizedBox(height: 20),
                 _buildMacroRow(context, l10n.macroFat, fat, targetFat,
-                    Colors.grey.shade400), // Lighter gray
+                    Colors.grey.shade400, Colors.grey.shade100),
               ],
             ),
           ),
@@ -103,7 +103,7 @@ class NutrientRing extends StatelessWidget {
   }
 
   Widget _buildMacroRow(
-      BuildContext context, String label, int value, int target, Color color) {
+      BuildContext context, String label, int value, int target, Color color, Color bgColor) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 
@@ -125,19 +125,19 @@ class NutrientRing extends StatelessWidget {
               "${value}g / ${target}g",
               style: TextStyle(
                 fontSize: 13,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         LinearPercentIndicator(
-          lineHeight: 8.0,
+          lineHeight: 6.0,
           percent: progress,
           progressColor: color,
-          backgroundColor: color.withValues(alpha: 0.1),
-          barRadius: const Radius.circular(4),
+          backgroundColor: bgColor,
+          barRadius: const Radius.circular(3),
           padding: EdgeInsets.zero,
           animation: true,
           animationDuration: 1000,

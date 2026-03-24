@@ -27,18 +27,16 @@ class MacroDashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -51,12 +49,13 @@ class MacroDashboardCard extends StatelessWidget {
               children: [
                 Text(
                   l10n.caloriesTitle,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Color(0xFF141414),
                   ),
                 ),
-                Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400),
+                Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400, size: 20),
               ],
             ),
           ),
