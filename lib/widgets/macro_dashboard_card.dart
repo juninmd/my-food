@@ -49,10 +49,10 @@ class MacroDashboardCard extends StatelessWidget {
               children: [
                 Text(
                   l10n.caloriesTitle,
-                  style: const TextStyle(
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
-                    color: Color(0xFF141414),
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400, size: 20),
