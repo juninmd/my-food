@@ -27,8 +27,6 @@ class MacroDashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Container(
       decoration: BoxDecoration(
@@ -51,10 +49,10 @@ class MacroDashboardCard extends StatelessWidget {
               children: [
                 Text(
                   l10n.caloriesTitle,
-                  style: theme.textTheme.titleMedium?.copyWith(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
-                    color: colorScheme.onSurface,
+                    color: Color(0xFF141414),
                   ),
                 ),
                 Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400, size: 20),

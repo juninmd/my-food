@@ -21,9 +21,6 @@ class WaterTracker extends StatelessWidget {
     double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
     if (progress > 1.0) progress = 1.0;
 
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(

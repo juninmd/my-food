@@ -122,7 +122,7 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
                               height: 200,
-                              color: colorScheme.surfaceVariant,
+                              color: colorScheme.surfaceContainerHighest,
                               child: Center(
                                   child: Icon(Icons.broken_image, size: 50, color: colorScheme.onSurfaceVariant)),
                             );
