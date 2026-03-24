@@ -41,7 +41,7 @@ class NutritionistNoteCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.2),
+                    color: colorScheme.primary.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -58,7 +58,7 @@ class NutritionistNoteCard extends StatelessWidget {
                     children: [
                       Text(
                         l10n.nutritionistNoteTitle,
-                        style: TextStyle(
+                        style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: colorScheme.primary,
                           fontSize: 14,
