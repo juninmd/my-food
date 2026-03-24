@@ -9,7 +9,7 @@
  * 5. Git committing of artifacts.
  * 6. GitHub release creation with APK asset.
  */
-module.exports = {
+export default {
   branches: ['main'],
   plugins: [
     '@semantic-release/commit-analyzer',
