@@ -40,7 +40,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
-  google_fonts: ^6.1.0
+  google_fonts: ^8.0.2
   percent_indicator: ^4.2.3
 
 dev_dependencies:
