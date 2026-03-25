@@ -126,24 +126,27 @@ class ModernMealCard extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 12),
-                        OutlinedButton.icon(
-                          onPressed: onEdit,
-                          icon: Icon(Icons.swap_horiz_rounded, size: 16, color: colorScheme.primary),
-                          label: Text(
-                            l10n.swapMeal.toUpperCase(),
-                            style: TextStyle(
-                              color: colorScheme.primary,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 12,
-                              letterSpacing: 1.0,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: OutlinedButton.icon(
+                            onPressed: onEdit,
+                            icon: Icon(Icons.swap_horiz_rounded, size: 16, color: colorScheme.primary),
+                            label: Text(
+                              l10n.swapMeal.toUpperCase(),
+                              style: TextStyle(
+                                color: colorScheme.primary,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                letterSpacing: 1.0,
+                              ),
                             ),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.5)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.5)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           ),
                         ),
                       ],
