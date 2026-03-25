@@ -141,7 +141,7 @@ class ModernMealCard extends StatelessWidget {
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.5)),
+                              side: BorderSide(color: colorScheme.primary.withOpacity(0.5)),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
