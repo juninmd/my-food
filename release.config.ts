@@ -1,3 +1,5 @@
+import type { Options } from 'semantic-release';
+
 /**
  * Semantic Release Configuration
  *
@@ -9,7 +11,7 @@
  * 5. Git committing of artifacts.
  * 6. GitHub release creation with APK asset.
  */
-export default {
+const config: Options = {
   branches: ['main'],
   plugins: [
     '@semantic-release/commit-analyzer',
@@ -39,3 +41,5 @@ export default {
     ],
   ],
 };
+
+export default config;
