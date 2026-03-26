@@ -28,7 +28,7 @@ class ModernMealCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 24,
             offset: const Offset(0, 8),
           ),
@@ -65,7 +65,7 @@ class ModernMealCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: Colors.black.withOpacity(0.1),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -160,7 +160,7 @@ class ModernMealCard extends StatelessWidget {
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.3)),
+                              side: BorderSide(color: colorScheme.primary.withOpacity(0.3)),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
