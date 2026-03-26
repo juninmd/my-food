@@ -21,44 +21,63 @@ class ModernMealCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Card(
+    return Container(
       margin: const EdgeInsets.only(right: 20, bottom: 24),
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MealDetailPage(
-                meal: meal,
-                onSwap: onEdit,
-                heroTag: 'meal_${title}_${meal.name}',
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(24),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MealDetailPage(
+                  meal: meal,
+                  onSwap: onEdit,
+                  heroTag: 'meal_${title}_${meal.name}',
+                ),
               ),
-            ),
-          );
-        },
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left Image Section
-                  Hero(
-                    tag: 'meal_${title}_${meal.name}',
-                    child: Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20), // Increased radius
-                          image: DecorationImage(
-                            image: AssetImage(meal.imagePath),
-                            fit: BoxFit.cover,
-                          ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left Image Section
+                Hero(
+                  tag: 'meal_${title}_${meal.name}',
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
                         ),
+                      ],
+                      image: DecorationImage(
+                        image: AssetImage(meal.imagePath),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  const SizedBox(width: 16),
+                  ),
+                ),
+                const SizedBox(width: 20),
 
                   // Right Details Section
                   Expanded(
@@ -141,7 +160,7 @@ class ModernMealCard extends StatelessWidget {
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: colorScheme.primary.withOpacity(0.5)),
+                              side: BorderSide(color: colorScheme.primary.withOpacity(0.3)),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
@@ -155,10 +174,9 @@ class ModernMealCard extends StatelessWidget {
                 ],
               ),
             ),
-          ],
+          ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildMacroBadge(BuildContext context, IconData icon, String text,
