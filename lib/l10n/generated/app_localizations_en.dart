@@ -372,4 +372,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catOther => 'Other';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsDietaryPreferences => 'Dietary Preferences';
+
+  @override
+  String get settingsTargetCalories => 'Target Calories';
+
+  @override
+  String get settingsTargetProtein => 'Target Protein (g)';
+
+  @override
+  String get settingsTargetCarbs => 'Target Carbs (g)';
+
+  @override
+  String get settingsTargetFats => 'Target Fats (g)';
+
+  @override
+  String get settingsSaveButton => 'Save Settings';
+
+  @override
+  String get settingsSavedMessage => 'Settings saved successfully!';
+
+  @override
+  String get recipesTitle => 'Recipes';
+
+  @override
+  String get aiRecommendationTitle => 'AI Smart Recommendation';
+
+  @override
+  String get aiRecommendationDesc =>
+      'We have generated a personalized meal plan based on your dietary preferences and nutritional goals.';
+
+  @override
+  String get viewPlanButton => 'View Plan';
 }

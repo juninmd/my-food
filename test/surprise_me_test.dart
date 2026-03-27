@@ -83,11 +83,11 @@ void main() {
     expect(secondQuoteFinder, findsNWidgets(2));
 
     // Verify Dialog feedback message
-    expect(find.text('Meal plan randomized! Check out the new quote.'),
+    expect(find.text('We have generated a personalized meal plan based on your dietary preferences and nutritional goals.'),
         findsOneWidget);
 
     // Tap OK to close the dialog
-    await tester.tap(find.text('OK'));
+    await tester.tap(find.text('View Plan'));
     await tester.pumpAndSettle();
 
     // Verify we are back on Dashboard and only one quote exists

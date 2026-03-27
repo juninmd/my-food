@@ -811,6 +811,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get catOther;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsDietaryPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Dietary Preferences'**
+  String get settingsDietaryPreferences;
+
+  /// No description provided for @settingsTargetCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Calories'**
+  String get settingsTargetCalories;
+
+  /// No description provided for @settingsTargetProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Protein (g)'**
+  String get settingsTargetProtein;
+
+  /// No description provided for @settingsTargetCarbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Carbs (g)'**
+  String get settingsTargetCarbs;
+
+  /// No description provided for @settingsTargetFats.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Fats (g)'**
+  String get settingsTargetFats;
+
+  /// No description provided for @settingsSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Settings'**
+  String get settingsSaveButton;
+
+  /// No description provided for @settingsSavedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings saved successfully!'**
+  String get settingsSavedMessage;
+
+  /// No description provided for @recipesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get recipesTitle;
+
+  /// No description provided for @aiRecommendationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Smart Recommendation'**
+  String get aiRecommendationTitle;
+
+  /// No description provided for @aiRecommendationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'We have generated a personalized meal plan based on your dietary preferences and nutritional goals.'**
+  String get aiRecommendationDesc;
+
+  /// No description provided for @viewPlanButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View Plan'**
+  String get viewPlanButton;
 }
 
 class _AppLocalizationsDelegate

@@ -134,5 +134,17 @@
   "catMeatPoultry": "Meat & Poultry",
   "catGrains": "Grains & Bread",
   "catPantry": "Pantry",
-  "catOther": "Other"
+  "catOther": "Other",
+  "settingsTitle": "Settings",
+  "settingsDietaryPreferences": "Dietary Preferences",
+  "settingsTargetCalories": "Target Calories",
+  "settingsTargetProtein": "Target Protein (g)",
+  "settingsTargetCarbs": "Target Carbs (g)",
+  "settingsTargetFats": "Target Fats (g)",
+  "settingsSaveButton": "Save Settings",
+  "settingsSavedMessage": "Settings saved successfully!",
+  "recipesTitle": "Recipes",
+  "aiRecommendationTitle": "AI Smart Recommendation",
+  "aiRecommendationDesc": "We have generated a personalized meal plan based on your dietary preferences and nutritional goals.",
+  "viewPlanButton": "View Plan"
 }

@@ -14,11 +14,16 @@ class DashboardView extends StatelessWidget {
   final Meal lunch;
   final Meal dinner;
   final int waterGlasses;
+  final int targetCalories;
+  final int targetProtein;
+  final int targetCarbs;
+  final int targetFats;
   final VoidCallback onAddWater;
   final Function(Meal) onEditBreakfast;
   final Function(Meal) onEditLunch;
   final Function(Meal) onEditDinner;
   final VoidCallback onSurpriseMe;
+  final VoidCallback onSettingsTap;
 
   const DashboardView({
     super.key,
@@ -27,11 +32,16 @@ class DashboardView extends StatelessWidget {
     required this.lunch,
     required this.dinner,
     required this.waterGlasses,
+    required this.targetCalories,
+    required this.targetProtein,
+    required this.targetCarbs,
+    required this.targetFats,
     required this.onAddWater,
     required this.onEditBreakfast,
     required this.onEditLunch,
     required this.onEditDinner,
     required this.onSurpriseMe,
+    required this.onSettingsTap,
   });
 
   @override
@@ -123,22 +133,25 @@ class DashboardView extends StatelessWidget {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 24.0, top: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 3),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: CircleAvatar(
-                  radius: 24,
-                  backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                  child: Icon(Icons.person, color: colorScheme.primary),
+              child: GestureDetector(
+                onTap: onSettingsTap,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                    child: Icon(Icons.settings, color: colorScheme.primary),
+                  ),
                 ),
               ),
             ),
@@ -257,13 +270,13 @@ class DashboardView extends StatelessWidget {
                       ),
                       child: MacroDashboardCard(
                         calories: totalCalories,
-                        targetCalories: DietConstants.caloriesTarget,
+                        targetCalories: targetCalories,
                         protein: totalProtein,
-                        targetProtein: DietConstants.proteinTarget,
+                        targetProtein: targetProtein,
                         carbs: totalCarbs,
-                        targetCarbs: DietConstants.carbsTarget,
+                        targetCarbs: targetCarbs,
                         fat: totalFat,
-                        targetFat: DietConstants.fatTarget,
+                        targetFat: targetFats,
                       ),
                     ),
                     // Water Tracker
@@ -273,7 +286,7 @@ class DashboardView extends StatelessWidget {
                       ),
                       child: WaterTracker(
                         currentGlasses: waterGlasses,
-                        targetGlasses: DietConstants.waterGlassTarget,
+                        targetGlasses: DietConstants.defaultWaterGlassTarget,
                         onAdd: onAddWater,
                       ),
                     ),
@@ -286,7 +299,7 @@ class DashboardView extends StatelessWidget {
 
         const SliverPadding(padding: EdgeInsets.only(top: 16)),
 
-        // Surprise Me
+        // AI Recommendation
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
@@ -297,7 +310,12 @@ class DashboardView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
-                  color: colorScheme.primary, // Flat mint green
+                  gradient: LinearGradient(
+                    colors: [
+                      colorScheme.primary,
+                      colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                  ),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
@@ -313,7 +331,7 @@ class DashboardView extends StatelessWidget {
                     const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
                     const SizedBox(width: 12),
                     Text(
-                      l10n.surpriseMeButton,
+                      l10n.aiRecommendationTitle,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,

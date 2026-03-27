@@ -111,7 +111,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  "${l10n.surpriseMeButton}...",
+                  "${l10n.aiRecommendationTitle}...",
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: theme.colorScheme.onSurface,
@@ -153,11 +153,10 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  l10n.surpriseMeFeedback,
+                  l10n.aiRecommendationDesc,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: theme.colorScheme.onSurface,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey.shade600,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -201,7 +200,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    child: const Text("OK"),
+                    child: Text(l10n.viewPlanButton),
                   ),
                 ),
               ],

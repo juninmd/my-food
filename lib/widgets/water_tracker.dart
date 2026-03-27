@@ -21,11 +21,20 @@ class WaterTracker extends StatelessWidget {
     double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
     if (progress > 1.0) progress = 1.0;
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF00D1A3),
+        color: colorScheme.primary,
         borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,7 +82,7 @@ class WaterTracker extends StatelessWidget {
                 onPressed: onAdd,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFF00D1A3),
+                  foregroundColor: colorScheme.primary,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   shape: RoundedRectangleBorder(

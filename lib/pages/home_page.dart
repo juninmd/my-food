@@ -8,10 +8,12 @@ import 'package:my_food/models/meal.dart';
 import 'package:my_food/data/meal_data.dart';
 import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
+import 'package:my_food/pages/settings_page.dart';
 import 'package:my_food/widgets/dashboard_view.dart';
 import 'package:my_food/widgets/shopping_list_view.dart';
 import 'package:my_food/widgets/surprise_me_dialog.dart';
 import 'package:my_food/widgets/tools_view.dart';
+import 'package:my_food/widgets/recipes_view.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;
@@ -29,9 +31,14 @@ class _HomePageState extends State<HomePage> {
   int _lunchIndex = 0;
   int _dinnerIndex = 0;
   int _waterGlasses = 0;
-  final int _targetGlasses = DietConstants.waterGlassTarget;
+  final int _targetGlasses = DietConstants.defaultWaterGlassTarget;
   late Future<String> _quoteFuture;
   late ApiService _apiService;
+
+  int _targetCalories = DietConstants.defaultCaloriesTarget;
+  int _targetProtein = DietConstants.defaultProteinTarget;
+  int _targetCarbs = DietConstants.defaultCarbsTarget;
+  int _targetFats = DietConstants.defaultFatTarget;
 
   @override
   void initState() {
@@ -49,6 +56,11 @@ class _HomePageState extends State<HomePage> {
       _breakfastIndex = prefs.getInt('breakfast_index') ?? 0;
       _lunchIndex = prefs.getInt('lunch_index') ?? 0;
       _dinnerIndex = prefs.getInt('dinner_index') ?? 0;
+
+      _targetCalories = prefs.getInt('target_calories') ?? DietConstants.defaultCaloriesTarget;
+      _targetProtein = prefs.getInt('target_protein') ?? DietConstants.defaultProteinTarget;
+      _targetCarbs = prefs.getInt('target_carbs') ?? DietConstants.defaultCarbsTarget;
+      _targetFats = prefs.getInt('target_fats') ?? DietConstants.defaultFatTarget;
     });
   }
 
@@ -78,15 +90,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  int _nextIntDifferent(int currentIndex, int length, Random random) {
-    if (length <= 1) return 0;
-    int newIndex = currentIndex;
-    while (newIndex == currentIndex) {
-      newIndex = random.nextInt(length);
-    }
-    return newIndex;
-  }
-
   Future<void> _surpriseMe() async {
     final l10n = AppLocalizations.of(context)!;
     final breakfastOptions = MealData.getBreakfastOptions(l10n);
@@ -104,13 +107,33 @@ class _HomePageState extends State<HomePage> {
           onReveal: () {
             if (!mounted) return;
             setState(() {
-              final random = Random();
-              _breakfastIndex = _nextIntDifferent(
-                  _breakfastIndex, breakfastOptions.length, random);
-              _lunchIndex =
-                  _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
-              _dinnerIndex =
-                  _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
+              // Simulating AI: Find a combination of meals that closest matches the user's caloric goal
+              int bestDiff = 999999;
+              int bestB = 0;
+              int bestL = 0;
+              int bestD = 0;
+
+              for (int b = 0; b < breakfastOptions.length; b++) {
+                for (int l = 0; l < lunchOptions.length; l++) {
+                  for (int d = 0; d < dinnerOptions.length; d++) {
+                    // Prevent generating the exact same plan as before to ensure a "surprise"
+                    if (b == _breakfastIndex && l == _lunchIndex && d == _dinnerIndex) continue;
+
+                    int totalCal = breakfastOptions[b].calories + lunchOptions[l].calories + dinnerOptions[d].calories;
+                    int diff = (totalCal - _targetCalories).abs();
+                    if (diff < bestDiff) {
+                      bestDiff = diff;
+                      bestB = b;
+                      bestL = l;
+                      bestD = d;
+                    }
+                  }
+                }
+              }
+
+              _breakfastIndex = bestB;
+              _lunchIndex = bestL;
+              _dinnerIndex = bestD;
 
               _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
 
@@ -343,6 +366,10 @@ class _HomePageState extends State<HomePage> {
           lunch: lunch,
           dinner: dinner,
           waterGlasses: _waterGlasses,
+          targetCalories: _targetCalories,
+          targetProtein: _targetProtein,
+          targetCarbs: _targetCarbs,
+          targetFats: _targetFats,
           onAddWater: () {
             setState(() {
               if (_waterGlasses < _targetGlasses + 5) {
@@ -374,12 +401,24 @@ class _HomePageState extends State<HomePage> {
             });
           }),
           onSurpriseMe: _surpriseMe,
+          onSettingsTap: () async {
+            final changed = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
+            if (changed == true) {
+              _loadState();
+            }
+          },
         );
         break;
       case 1:
         body = ShoppingListView(ingredients: allIngredients);
         break;
       case 2:
+        body = const RecipesView();
+        break;
+      case 3:
         body = ToolsView(onSurpriseMe: () {
           _surpriseMe();
           setState(() {
@@ -415,6 +454,11 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.shopping_bag_outlined),
                       selectedIcon: const Icon(Icons.shopping_bag_rounded),
                       label: Text(l10n.shoppingListTitle),
+                    ),
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.menu_book_outlined),
+                      selectedIcon: const Icon(Icons.menu_book_rounded),
+                      label: Text(l10n.recipesTitle),
                     ),
                     NavigationRailDestination(
                       icon: const Icon(Icons.grid_view),
@@ -466,6 +510,10 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.shopping_bag_outlined),
                       activeIcon: const Icon(Icons.shopping_bag_rounded),
                       label: l10n.shoppingListTitle),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.menu_book_outlined),
+                      activeIcon: const Icon(Icons.menu_book_rounded),
+                      label: l10n.recipesTitle),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.grid_view),
                       activeIcon: const Icon(Icons.grid_view_rounded),

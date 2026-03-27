@@ -134,5 +134,17 @@
   "catMeatPoultry": "Carnes e Aves",
   "catGrains": "Grãos e Pães",
   "catPantry": "Despensa",
-  "catOther": "Outros"
+  "catOther": "Outros",
+  "settingsTitle": "Configurações",
+  "settingsDietaryPreferences": "Preferências Alimentares",
+  "settingsTargetCalories": "Meta de Calorias",
+  "settingsTargetProtein": "Meta de Proteínas (g)",
+  "settingsTargetCarbs": "Meta de Carboidratos (g)",
+  "settingsTargetFats": "Meta de Gorduras (g)",
+  "settingsSaveButton": "Salvar Configurações",
+  "settingsSavedMessage": "Configurações salvas com sucesso!",
+  "recipesTitle": "Receitas",
+  "aiRecommendationTitle": "Recomendação Inteligente",
+  "aiRecommendationDesc": "Geramos um plano alimentar personalizado com base nas suas preferências alimentares e metas nutricionais.",
+  "viewPlanButton": "Ver Plano"
 }
