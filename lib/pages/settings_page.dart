@@ -25,10 +25,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _caloriesController.text = (prefs.getInt('target_calories') ?? DietConstants.defaultCaloriesTarget).toString();
-      _proteinController.text = (prefs.getInt('target_protein') ?? DietConstants.defaultProteinTarget).toString();
-      _carbsController.text = (prefs.getInt('target_carbs') ?? DietConstants.defaultCarbsTarget).toString();
-      _fatsController.text = (prefs.getInt('target_fats') ?? DietConstants.defaultFatTarget).toString();
+      _caloriesController.text = (prefs.getInt('target_calories') ?? 2430).toString();
+      _proteinController.text = (prefs.getInt('target_protein') ?? 150).toString();
+      _carbsController.text = (prefs.getInt('target_carbs') ?? 300).toString();
+      _fatsController.text = (prefs.getInt('target_fats') ?? 70).toString();
     });
   }
 
@@ -149,8 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
         if (value == null || value.isEmpty) {
           return 'Please enter a value';
         }
-        final number = int.tryParse(value);
-        if (number == null || number <= 0) {
+        if (int.tryParse(value) == null || int.parse(value) <= 0) {
           return 'Please enter a valid positive number';
         }
         return null;
