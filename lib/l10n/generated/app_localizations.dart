@@ -623,7 +623,7 @@ abstract class AppLocalizations {
   /// No description provided for @surpriseMeButton.
   ///
   /// In en, this message translates to:
-  /// **'Surprise Me'**
+  /// **'AI Recommendation'**
   String get surpriseMeButton;
 
   /// No description provided for @changeFoodButton.
@@ -665,7 +665,7 @@ abstract class AppLocalizations {
   /// No description provided for @surpriseMeFeedback.
   ///
   /// In en, this message translates to:
-  /// **'Meal plan randomized! Check out the new quote.'**
+  /// **'AI optimized meal plan! Check out the new quote.'**
   String get surpriseMeFeedback;
 
   /// No description provided for @dashboardTitle.

@@ -286,7 +286,7 @@ class DashboardView extends StatelessWidget {
 
         const SliverPadding(padding: EdgeInsets.only(top: 16)),
 
-        // Surprise Me
+        // AI Recommendation
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
@@ -297,12 +297,19 @@ class DashboardView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
-                  color: colorScheme.primary, // Flat mint green
+                  gradient: LinearGradient(
+                    colors: [
+                      colorScheme.primary,
+                      colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
-                      blurRadius: 20,
+                      color: Colors.black.withValues(alpha: 0.05), // Soft drop shadow
+                      blurRadius: 24,
                       offset: const Offset(0, 8),
                     ),
                   ],

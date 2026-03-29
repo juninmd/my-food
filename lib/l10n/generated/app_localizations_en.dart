@@ -276,7 +276,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mealDinner => 'Dinner';
 
   @override
-  String get surpriseMeButton => 'Surprise Me';
+  String get surpriseMeButton => 'AI Recommendation';
 
   @override
   String get changeFoodButton => 'Change Food';
@@ -298,7 +298,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get surpriseMeFeedback =>
-      'Meal plan randomized! Check out the new quote.';
+      'AI optimized meal plan! Check out the new quote.';
 
   @override
   String get dashboardTitle => 'Dashboard';

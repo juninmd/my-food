@@ -65,10 +65,10 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify Surprise Me button exists
-    expect(find.text('Surprise Me'), findsOneWidget);
+    expect(find.text('AI Recommendation'), findsOneWidget);
 
     // Tap Surprise Me button
-    await tester.tap(find.text('Surprise Me'));
+    await tester.tap(find.text('AI Recommendation'));
 
     // Pump to start the future and navigation
     await tester.pump();
@@ -83,7 +83,7 @@ void main() {
     expect(secondQuoteFinder, findsNWidgets(2));
 
     // Verify Dialog feedback message
-    expect(find.text('Meal plan randomized! Check out the new quote.'),
+    expect(find.text('AI optimized meal plan! Check out the new quote.'),
         findsOneWidget);
 
     // Tap OK to close the dialog

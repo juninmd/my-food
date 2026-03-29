@@ -104,13 +104,39 @@ class _HomePageState extends State<HomePage> {
           onReveal: () {
             if (!mounted) return;
             setState(() {
+              final targetCalories = DietConstants.caloriesTarget;
+
+              // Find all combinations and their absolute difference from target calories
+              final List<Map<String, dynamic>> combinations = [];
+              for (int b = 0; b < breakfastOptions.length; b++) {
+                for (int l = 0; l < lunchOptions.length; l++) {
+                  for (int d = 0; d < dinnerOptions.length; d++) {
+                    final totalCal = breakfastOptions[b].calories +
+                        lunchOptions[l].calories +
+                        dinnerOptions[d].calories;
+                    combinations.add({
+                      'b': b,
+                      'l': l,
+                      'd': d,
+                      'diff': (targetCalories - totalCal).abs(),
+                    });
+                  }
+                }
+              }
+
+              // Sort by closest to target calories
+              combinations.sort((a, b) => (a['diff'] as int).compareTo(b['diff'] as int));
+
+              // Get the top 3 combinations to add variety, or less if not enough combinations
+              final topCombinations = combinations.take(3).toList();
+
+              // Randomly select one from the top combinations
               final random = Random();
-              _breakfastIndex = _nextIntDifferent(
-                  _breakfastIndex, breakfastOptions.length, random);
-              _lunchIndex =
-                  _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
-              _dinnerIndex =
-                  _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
+              final selectedCombination = topCombinations[random.nextInt(topCombinations.length)];
+
+              _breakfastIndex = selectedCombination['b'] as int;
+              _lunchIndex = selectedCombination['l'] as int;
+              _dinnerIndex = selectedCombination['d'] as int;
 
               _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
 

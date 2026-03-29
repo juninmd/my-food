@@ -276,7 +276,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get mealDinner => 'Jantar';
 
   @override
-  String get surpriseMeButton => 'Me Surpreenda';
+  String get surpriseMeButton => 'Recomendação da IA';
 
   @override
   String get changeFoodButton => 'Trocar Alimento';
@@ -298,7 +298,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get surpriseMeFeedback =>
-      'Plano alimentar alterado! Confira a nova frase.';
+      'Plano alimentar otimizado com IA! Confira a nova frase.';
 
   @override
   String get dashboardTitle => 'Painel';
