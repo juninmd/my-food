@@ -29,6 +29,7 @@ class MacroDashboardCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
+      padding: const EdgeInsets.all(24.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -41,24 +42,23 @@ class MacroDashboardCard extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  l10n.caloriesTitle,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: Color(0xFF141414),
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                l10n.caloriesTitle,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Color(0xFF141414),
                 ),
-                Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400, size: 20),
-              ],
-            ),
+              ),
+              Icon(Icons.more_horiz_rounded, color: Colors.grey.shade400, size: 20),
+            ],
           ),
+          const SizedBox(height: 24),
           NutrientRing(
             calories: calories,
             targetCalories: targetCalories,

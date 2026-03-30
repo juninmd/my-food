@@ -35,14 +35,14 @@ class NutrientRing extends StatelessWidget {
     int remaining = targetCalories - calories;
     if (remaining < 0) remaining = 0;
 
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 5,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmall = constraints.maxWidth < 400;
+        final content = [
+          Container(
+            padding: EdgeInsets.only(bottom: isSmall ? 24.0 : 0),
             child: CircularPercentIndicator(
-              radius: 75.0,
+              radius: 65.0,
               lineWidth: 10.0,
               percent: calorieProgress,
               center: Column(
@@ -50,23 +50,23 @@ class NutrientRing extends StatelessWidget {
                 children: [
                   Icon(Icons.local_fire_department_rounded,
                       size: 20, color: colorScheme.primary),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     "$remaining",
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 32,
+                      fontSize: 28,
                       color: colorScheme.onSurface,
                       letterSpacing: -1.0,
                       height: 1.0,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     l10n.remaining.toLowerCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 12,
+                      fontSize: 11,
                       color: Colors.grey.shade500,
                     ),
                   ),
@@ -80,9 +80,9 @@ class NutrientRing extends StatelessWidget {
               backgroundWidth: 10.0,
             ),
           ),
-          const SizedBox(width: 32),
+          if (!isSmall) const SizedBox(width: 32),
           Expanded(
-            flex: 6,
+            flex: isSmall ? 0 : 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -97,8 +97,19 @@ class NutrientRing extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ];
+
+        if (isSmall) {
+          return Column(
+            children: content,
+          );
+        } else {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: content,
+          );
+        }
+      },
     );
   }
 

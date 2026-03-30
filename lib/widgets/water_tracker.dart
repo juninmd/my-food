@@ -17,14 +17,13 @@ class WaterTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-
     double progress = targetGlasses > 0 ? currentGlasses / targetGlasses : 0;
     if (progress > 1.0) progress = 1.0;
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
-        color: const Color(0xFF00D1A3),
+        color: const Color(0xFF00D1A3), // Mint green from mockup
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -39,15 +38,16 @@ class WaterTracker extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
-                  Icons.water_drop_rounded,
+                  Icons.water_drop_rounded, // Water drop icon
                   color: Colors.white,
-                  size: 20,
+                  size: 24,
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       l10n.waterTrackerTitle,
@@ -60,8 +60,8 @@ class WaterTracker extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       l10n.hydrationStatus(currentGlasses, targetGlasses),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.9),
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -69,33 +69,24 @@ class WaterTracker extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: onAdd,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: const Color(0xFF00D1A3),
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.add,
-                      size: 16,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      l10n.addWater,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
+                icon: const Icon(Icons.add, size: 16),
+                label: Text(
+                  l10n.addWater,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ],
