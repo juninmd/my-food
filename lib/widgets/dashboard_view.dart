@@ -146,140 +146,105 @@ class DashboardView extends StatelessWidget {
         ),
 
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Wrap(
-                  spacing: 16.0,
-                  runSpacing: 16.0,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1000),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Quote
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
-                      ),
-                      child: FutureBuilder<String>(
-                        future: quoteFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData || snapshot.hasError) {
-                            final text = snapshot.hasError
-                                ? l10n.quoteFallbackMessage
-                                : snapshot.data!;
-                            return Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 16),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE6F9F5),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '"',
-                                    style: TextStyle(
-                                      color: colorScheme.secondary,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w900,
-                                      height: 1.0,
-                                    ),
+                    FutureBuilder<String>(
+                      future: quoteFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData || snapshot.hasError) {
+                          final text = snapshot.hasError
+                              ? l10n.quoteFallbackMessage
+                              : snapshot.data!;
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE6F9F5),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '"',
+                                  style: TextStyle(
+                                    color: colorScheme.secondary,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w900,
+                                    height: 1.0,
                                   ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 4.0),
-                                      child: Text(
-                                        text,
-                                        style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          color: colorScheme.primary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.4,
-                                        ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 4.0),
+                                    child: Text(
+                                      text,
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: colorScheme.primary,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.4,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
                     ),
 
                     // Nutritionist Note
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
+                    const NutritionistNoteCard(),
+                    const SizedBox(height: 32),
+
+                    // Daily Goal Title
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        l10n.dailyGoal,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      child: const NutritionistNoteCard(),
                     ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ),
+                    const SizedBox(height: 8),
 
-        const SliverPadding(padding: EdgeInsets.only(top: 32)),
-
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            child: Text(
-              l10n.dailyGoal, // Localized "Daily Goal"
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: colorScheme.onSurface,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-
-        const SliverPadding(padding: EdgeInsets.only(top: 8)),
-
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Wrap(
-                  spacing: 16.0,
-                  runSpacing: 16.0,
-                  children: [
                     // Daily Progress (Macros)
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
-                      ),
-                      child: MacroDashboardCard(
-                        calories: totalCalories,
-                        targetCalories: DietConstants.caloriesTarget,
-                        protein: totalProtein,
-                        targetProtein: DietConstants.proteinTarget,
-                        carbs: totalCarbs,
-                        targetCarbs: DietConstants.carbsTarget,
-                        fat: totalFat,
-                        targetFat: DietConstants.fatTarget,
-                      ),
+                    MacroDashboardCard(
+                      calories: totalCalories,
+                      targetCalories: DietConstants.caloriesTarget,
+                      protein: totalProtein,
+                      targetProtein: DietConstants.proteinTarget,
+                      carbs: totalCarbs,
+                      targetCarbs: DietConstants.carbsTarget,
+                      fat: totalFat,
+                      targetFat: DietConstants.fatTarget,
                     ),
+                    const SizedBox(height: 16),
+
                     // Water Tracker
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth > 800 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth,
-                      ),
-                      child: WaterTracker(
-                        currentGlasses: waterGlasses,
-                        targetGlasses: DietConstants.waterGlassTarget,
-                        onAdd: onAddWater,
-                      ),
+                    WaterTracker(
+                      currentGlasses: waterGlasses,
+                      targetGlasses: DietConstants.waterGlassTarget,
+                      onAdd: onAddWater,
                     ),
                   ],
-                );
-              },
+                ),
+              ),
             ),
           ),
         ),

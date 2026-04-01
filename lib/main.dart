@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     const primaryColor = Color(0xFF00D1A3); // WebDiet Mint Green
     const secondaryColor = Color(0xFF333333); // Dark Gray
     const surfaceColor = Colors.white;
-    const backgroundColor = Color(0xFFFAFBFC); // Even softer, cleaner off-white
+    const backgroundColor = Color(0xFFF7F9FA); // Even softer, cleaner off-white
 
     return ThemeData(
       useMaterial3: true,
