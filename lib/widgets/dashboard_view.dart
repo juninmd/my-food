@@ -262,11 +262,18 @@ class DashboardView extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
-                  color: colorScheme.primary, // Flat mint green
+                  gradient: LinearGradient(
+                    colors: [
+                      colorScheme.primary,
+                      colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
+                      color: colorScheme.primary.withValues(alpha: 0.2), // Soft colored shadow
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -275,7 +282,7 @@ class DashboardView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
+                    const Icon(Icons.auto_fix_high, color: Colors.white, size: 28),
                     const SizedBox(width: 12),
                     Text(
                       l10n.surpriseMeButton,
