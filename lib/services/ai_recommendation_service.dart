@@ -8,7 +8,7 @@ class AiRecommendationService {
     int target = DietConstants.caloriesTarget;
 
     // Calculate all combinations and their difference from target
-    List<Map<String, dynamic>> combinations = [];
+    final combinations = <({int diff, List<int> combo})>[];
 
     for (int b = 0; b < breakfasts.length; b++) {
       for (int l = 0; l < lunches.length; l++) {
@@ -36,7 +36,7 @@ class AiRecommendationService {
     int topN = min(3, combinations.length);
     if (topN == 0) return [0, 0, 0]; // Fallback
 
-    final random = Random();
+  static final _random = Random();
     int selectedIndex = random.nextInt(topN);
 
     return combinations[selectedIndex]['combo'] as List<int>;
