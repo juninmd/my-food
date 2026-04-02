@@ -5,7 +5,7 @@ import 'package:my_food/l10n/generated/app_localizations.dart';
 
 class MealSelectorSheet extends StatelessWidget {
   final List<Meal> options;
-  final Function(Meal) onSelect;
+  final ValueChanged<Meal> onSelect;
 
   const MealSelectorSheet({
     super.key,
