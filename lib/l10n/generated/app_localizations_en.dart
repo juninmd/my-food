@@ -372,4 +372,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catOther => 'Other';
+
+  @override
+  String get foodCatalogTitle => 'Food Catalog';
+
+  @override
+  String get foodCatalogEmpty =>
+      'No foods in your catalog yet.\nTap + to add one.';
+
+  @override
+  String get foodCatalogAdd => 'Add Food';
+
+  @override
+  String get foodCatalogEdit => 'Edit Food';
+
+  @override
+  String get foodCatalogDesc => 'View and manage food catalog';
+
+  @override
+  String get foodNameLabel => 'Food Name';
+
+  @override
+  String get foodCategoryLabel => 'Category';
+
+  @override
+  String get foodCaloriesLabel => 'Calories (kcal)';
+
+  @override
+  String get foodProteinLabel => 'Protein (g)';
+
+  @override
+  String get foodCarbsLabel => 'Carbs (g)';
+
+  @override
+  String get foodFatLabel => 'Fat (g)';
+
+  @override
+  String get foodAddPhoto => 'Add Photo';
+
+  @override
+  String get foodSaveButton => 'Save Food';
+
+  @override
+  String get foodRequiredField => 'Required';
+
+  @override
+  String get foodDeleteConfirm => 'Are you sure you want to delete this food?';
 }

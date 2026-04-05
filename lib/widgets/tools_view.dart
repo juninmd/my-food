@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/pages/bmi_page.dart';
 import 'package:my_food/pages/random_recipe_page.dart';
+import 'package:my_food/widgets/food_catalog_view.dart' as my_food;
 
 class ToolsView extends StatelessWidget {
   final VoidCallback onSurpriseMe;
@@ -75,6 +76,20 @@ class ToolsView extends StatelessWidget {
                   );
                 },
                 description: l10n.randomRecipeNew, // Reuse localized string
+              ),
+              _buildToolCard(
+                context,
+                icon: Icons.menu_book_outlined,
+                title: l10n.foodCatalogTitle,
+                color: colorScheme.primary,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const my_food.FoodCatalogView()),
+                  );
+                },
+                description: l10n.foodCatalogDesc,
               ),
             ],
           ),

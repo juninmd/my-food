@@ -811,6 +811,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get catOther;
+
+  /// No description provided for @foodCatalogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Catalog'**
+  String get foodCatalogTitle;
+
+  /// No description provided for @foodCatalogEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No foods in your catalog yet.\nTap + to add one.'**
+  String get foodCatalogEmpty;
+
+  /// No description provided for @foodCatalogAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Food'**
+  String get foodCatalogAdd;
+
+  /// No description provided for @foodCatalogEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Food'**
+  String get foodCatalogEdit;
+
+  /// No description provided for @foodCatalogDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'View and manage food catalog'**
+  String get foodCatalogDesc;
+
+  /// No description provided for @foodNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Name'**
+  String get foodNameLabel;
+
+  /// No description provided for @foodCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get foodCategoryLabel;
+
+  /// No description provided for @foodCaloriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories (kcal)'**
+  String get foodCaloriesLabel;
+
+  /// No description provided for @foodProteinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein (g)'**
+  String get foodProteinLabel;
+
+  /// No description provided for @foodCarbsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs (g)'**
+  String get foodCarbsLabel;
+
+  /// No description provided for @foodFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat (g)'**
+  String get foodFatLabel;
+
+  /// No description provided for @foodAddPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Photo'**
+  String get foodAddPhoto;
+
+  /// No description provided for @foodSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Food'**
+  String get foodSaveButton;
+
+  /// No description provided for @foodRequiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get foodRequiredField;
+
+  /// No description provided for @foodDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this food?'**
+  String get foodDeleteConfirm;
 }
 
 class _AppLocalizationsDelegate

@@ -134,5 +134,20 @@
   "catMeatPoultry": "Carnes e Aves",
   "catGrains": "Grãos e Pães",
   "catPantry": "Despensa",
-  "catOther": "Outros"
+  "catOther": "Outros",
+  "foodCatalogTitle": "Catálogo de Alimentos",
+  "foodCatalogEmpty": "Nenhum alimento no seu catálogo.\nToque em + para adicionar.",
+  "foodCatalogAdd": "Adicionar Alimento",
+  "foodCatalogEdit": "Editar Alimento",
+  "foodCatalogDesc": "Veja e gerencie o catálogo de alimentos",
+  "foodNameLabel": "Nome do Alimento",
+  "foodCategoryLabel": "Categoria",
+  "foodCaloriesLabel": "Calorias (kcal)",
+  "foodProteinLabel": "Proteínas (g)",
+  "foodCarbsLabel": "Carboidratos (g)",
+  "foodFatLabel": "Gorduras (g)",
+  "foodAddPhoto": "Adicionar Foto",
+  "foodSaveButton": "Salvar Alimento",
+  "foodRequiredField": "Obrigatório",
+  "foodDeleteConfirm": "Tem certeza que deseja excluir este alimento?"
 }
