@@ -134,5 +134,20 @@
   "catMeatPoultry": "Meat & Poultry",
   "catGrains": "Grains & Bread",
   "catPantry": "Pantry",
-  "catOther": "Other"
+  "catOther": "Other",
+  "foodCatalogTitle": "Food Catalog",
+  "foodCatalogDesc": "Manage your custom foods",
+  "addFoodTitle": "Add Food",
+  "editFoodTitle": "Edit Food",
+  "deleteFood": "Delete Food",
+  "foodNameLabel": "Name",
+  "foodDescriptionLabel": "Description",
+  "foodCaloriesLabel": "Calories",
+  "foodProteinLabel": "Protein (g)",
+  "foodCarbsLabel": "Carbs (g)",
+  "foodFatLabel": "Fat (g)",
+  "saveFoodButton": "Save Food",
+  "pickImageButton": "Pick Image",
+  "noFoodsYet": "No custom foods added yet.",
+  "deleteConfirmation": "Are you sure you want to delete this food?"
 }

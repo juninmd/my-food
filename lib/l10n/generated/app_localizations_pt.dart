@@ -372,4 +372,50 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get catOther => 'Outros';
+
+  @override
+  String get foodCatalogTitle => 'Catálogo de Alimentos';
+
+  @override
+  String get foodCatalogDesc => 'Gerencie seus alimentos';
+
+  @override
+  String get addFoodTitle => 'Adicionar Alimento';
+
+  @override
+  String get editFoodTitle => 'Editar Alimento';
+
+  @override
+  String get deleteFood => 'Excluir Alimento';
+
+  @override
+  String get foodNameLabel => 'Nome';
+
+  @override
+  String get foodDescriptionLabel => 'Descrição';
+
+  @override
+  String get foodCaloriesLabel => 'Calorias';
+
+  @override
+  String get foodProteinLabel => 'Proteínas (g)';
+
+  @override
+  String get foodCarbsLabel => 'Carboidratos (g)';
+
+  @override
+  String get foodFatLabel => 'Gorduras (g)';
+
+  @override
+  String get saveFoodButton => 'Salvar Alimento';
+
+  @override
+  String get pickImageButton => 'Escolher Foto';
+
+  @override
+  String get noFoodsYet => 'Nenhum alimento adicionado ainda.';
+
+  @override
+  String get deleteConfirmation =>
+      'Tem certeza que deseja excluir este alimento?';
 }
