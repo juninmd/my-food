@@ -811,6 +811,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get catOther;
+
+  /// No description provided for @foodCatalogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Catalog'**
+  String get foodCatalogTitle;
+
+  /// No description provided for @foodCatalogDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your custom foods'**
+  String get foodCatalogDesc;
+
+  /// No description provided for @addFoodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Food'**
+  String get addFoodTitle;
+
+  /// No description provided for @editFoodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Food'**
+  String get editFoodTitle;
+
+  /// No description provided for @deleteFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Food'**
+  String get deleteFood;
+
+  /// No description provided for @foodNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get foodNameLabel;
+
+  /// No description provided for @foodDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get foodDescriptionLabel;
+
+  /// No description provided for @foodCaloriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories'**
+  String get foodCaloriesLabel;
+
+  /// No description provided for @foodProteinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein (g)'**
+  String get foodProteinLabel;
+
+  /// No description provided for @foodCarbsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs (g)'**
+  String get foodCarbsLabel;
+
+  /// No description provided for @foodFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat (g)'**
+  String get foodFatLabel;
+
+  /// No description provided for @saveFoodButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Food'**
+  String get saveFoodButton;
+
+  /// No description provided for @pickImageButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Image'**
+  String get pickImageButton;
+
+  /// No description provided for @noFoodsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom foods added yet.'**
+  String get noFoodsYet;
+
+  /// No description provided for @deleteConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this food?'**
+  String get deleteConfirmation;
 }
 
 class _AppLocalizationsDelegate
