@@ -226,7 +226,7 @@ class _FoodFormPageState extends State<FoodFormPage> {
           borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: theme.colorScheme.surface,
       ),
       validator: validator,
     );
