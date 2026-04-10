@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/models/food_item.dart';
 import 'package:my_food/services/food_service.dart';
+import 'package:my_food/widgets/food_image_picker.dart';
 
 class FoodFormPage extends StatefulWidget {
   final FoodItem? foodToEdit;
@@ -116,37 +117,10 @@ class _FoodFormPageState extends State<FoodFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              GestureDetector(
+              FoodImagePicker(
+                imageBytes: _imageBytes,
                 onTap: _pickImage,
-                child: Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(24),
-                    image: _imageBytes != null
-                        ? DecorationImage(
-                            image: MemoryImage(_imageBytes!),
-                            fit: BoxFit.cover,
-                          )
-                        : null,
-                  ),
-                  child: _imageBytes == null
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add_a_photo_outlined,
-                                size: 40, color: colorScheme.primary),
-                            const SizedBox(height: 8),
-                            Text(
-                              l10n.pickImageButton,
-                              style: TextStyle(
-                                  color: colorScheme.primary,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        )
-                      : null,
-                ),
+                pickImageText: l10n.pickImageButton,
               ),
               const SizedBox(height: 24),
               _buildTextField(
@@ -232,6 +206,7 @@ class _FoodFormPageState extends State<FoodFormPage> {
     int maxLines = 1,
     String? Function(String?)? validator,
   }) {
+    final theme = Theme.of(context);
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
@@ -240,9 +215,18 @@ class _FoodFormPageState extends State<FoodFormPage> {
         labelText: label,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
+        fillColor: Colors.white,
       ),
       validator: validator,
     );
