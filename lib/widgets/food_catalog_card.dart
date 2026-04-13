@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/models/food_item.dart';
+import 'package:my_food/widgets/food_catalog_delete_dialog.dart';
+import 'package:my_food/widgets/macro_badge.dart';
 
 class FoodCatalogCard extends StatelessWidget {
   final FoodItem food;
@@ -86,7 +88,7 @@ class FoodCatalogCard extends StatelessWidget {
                             icon: Icon(Icons.delete_outline,
                                 color: colorScheme.error, size: 20),
                             onPressed: () {
-                              _showDeleteDialog(context, l10n);
+                              showFoodDeleteDialog(context, l10n, onDelete);
                             },
                             constraints: const BoxConstraints(),
                             padding: EdgeInsets.zero,
@@ -107,12 +109,12 @@ class FoodCatalogCard extends StatelessWidget {
                         spacing: 8,
                         runSpacing: 4,
                         children: [
-                          _buildMacroBadge(
+                          buildMacroBadge(
                               context,
                               '${food.calories} kcal',
                               Colors.orange.shade800,
                               Colors.orange.withValues(alpha: 0.1)),
-                          _buildMacroBadge(
+                          buildMacroBadge(
                               context,
                               '${food.protein}g P',
                               colorScheme.primary,
@@ -126,53 +128,6 @@ class FoodCatalogCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMacroBadge(
-      BuildContext context, String text, Color color, Color bgColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-          color: color,
-        ),
-      ),
-    );
-  }
-
-  void _showDeleteDialog(BuildContext context, AppLocalizations l10n) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Text(l10n.deleteFood),
-        content: Text(l10n.deleteConfirmation),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'), // Could be localized, but following existing code for now
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-              onDelete();
-            },
-            child: Text(l10n.deleteFood),
-          ),
-        ],
       ),
     );
   }

@@ -46,34 +46,47 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          l10n.foodCatalogTitle,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 120.0,
+            floating: true,
+            pinned: true,
+            backgroundColor: colorScheme.surface,
+            iconTheme: IconThemeData(color: colorScheme.onSurface),
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: false,
+              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+              title: Text(
+                l10n.foodCatalogTitle,
+                style: TextStyle(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: colorScheme.onSurface),
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _foods.isEmpty
-              ? Center(
-                  child: Text(
-                    l10n.noFoodsYet,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.6),
-                    ),
+          if (_isLoading)
+            const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator()),
+            )
+          else if (_foods.isEmpty)
+            SliverFillRemaining(
+              child: Center(
+                child: Text(
+                  l10n.noFoodsYet,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(24.0),
-                  itemCount: _foods.length,
-                  itemBuilder: (context, index) {
+                ),
+              ),
+            )
+          else
+            SliverPadding(
+              padding: const EdgeInsets.all(24.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
                     final food = _foods[index];
                     return FoodCatalogCard(
                       food: food,
@@ -81,7 +94,8 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FoodFormPage(foodToEdit: food),
+                            builder: (context) =>
+                                FoodFormPage(foodToEdit: food),
                           ),
                         );
                         _loadFoods();
@@ -91,7 +105,12 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
                       },
                     );
                   },
+                  childCount: _foods.length,
                 ),
+              ),
+            ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.push(
