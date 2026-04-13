@@ -111,7 +111,7 @@ class _FoodFormPageState extends State<FoodFormPage> {
               titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
               title: Text(
                 isEditing ? l10n.editFoodTitle : l10n.addFoodTitle,
-                style: TextStyle(
+                style: theme.textTheme.titleLarge?.copyWith(
                   color: colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 ),
