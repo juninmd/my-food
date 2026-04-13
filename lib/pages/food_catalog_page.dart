@@ -59,7 +59,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
               titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
               title: Text(
                 l10n.foodCatalogTitle,
-                style: TextStyle(
+                style: theme.textTheme.titleLarge?.copyWith(
                   color: colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
                 ),
