@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/models/food_item.dart';
 import 'package:my_food/services/food_service.dart';
-import 'package:my_food/widgets/food_image_picker.dart';
+import 'package:my_food/widgets/food_form_body.dart';
 
 class FoodFormPage extends StatefulWidget {
   final FoodItem? foodToEdit;
@@ -98,137 +98,42 @@ class _FoodFormPageState extends State<FoodFormPage> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          isEditing ? l10n.editFoodTitle : l10n.addFoodTitle,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: colorScheme.onSurface),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              FoodImagePicker(
-                imageBytes: _imageBytes,
-                onTap: _pickImage,
-                pickImageText: l10n.pickImageButton,
-              ),
-              const SizedBox(height: 24),
-              _buildTextField(
-                controller: _nameController,
-                label: l10n.foodNameLabel,
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: _descController,
-                label: l10n.foodDescriptionLabel,
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildTextField(
-                      controller: _calController,
-                      label: l10n.foodCaloriesLabel,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildTextField(
-                      controller: _proteinController,
-                      label: l10n.foodProteinLabel,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildTextField(
-                      controller: _carbsController,
-                      label: l10n.foodCarbsLabel,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildTextField(
-                      controller: _fatController,
-                      label: l10n.foodFatLabel,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _saveFood,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colorScheme.primary,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                child: Text(
-                  l10n.saveFoodButton,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 120.0,
+            floating: true,
+            pinned: true,
+            backgroundColor: colorScheme.surface,
+            iconTheme: IconThemeData(color: colorScheme.onSurface),
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: false,
+              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+              title: Text(
+                isEditing ? l10n.editFoodTitle : l10n.addFoodTitle,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          SliverToBoxAdapter(
+            child: FoodFormBody(
+              formKey: _formKey,
+              nameController: _nameController,
+              descController: _descController,
+              calController: _calController,
+              proteinController: _proteinController,
+              carbsController: _carbsController,
+              fatController: _fatController,
+              imageBytes: _imageBytes,
+              onPickImage: _pickImage,
+              onSave: _saveFood,
+            ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    TextInputType keyboardType = TextInputType.text,
-    int maxLines = 1,
-    String? Function(String?)? validator,
-  }) {
-    final theme = Theme.of(context);
-    return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
-        ),
-        filled: true,
-        fillColor: theme.colorScheme.surface,
-      ),
-      validator: validator,
     );
   }
 }
