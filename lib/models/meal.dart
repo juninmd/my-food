@@ -7,6 +7,7 @@ class Meal {
   final int fat;
   final String description;
   final List<String> ingredients;
+  final String? imageBase64;
 
   const Meal({
     required this.name,
@@ -17,5 +18,6 @@ class Meal {
     required this.fat,
     required this.description,
     required this.ingredients,
+    this.imageBase64,
   });
 }

@@ -8,10 +8,12 @@ import 'package:my_food/models/meal.dart';
 import 'package:my_food/data/meal_data.dart';
 import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
+import 'dart:convert';
 import 'package:my_food/widgets/dashboard_view.dart';
 import 'package:my_food/widgets/shopping_list_view.dart';
 import 'package:my_food/widgets/surprise_me_dialog.dart';
 import 'package:my_food/widgets/tools_view.dart';
+import 'package:my_food/services/food_service.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   final int _targetGlasses = DietConstants.waterGlassTarget;
   late Future<String> _quoteFuture;
   late ApiService _apiService;
+  List<Meal> _customMeals = [];
 
   @override
   void initState() {
@@ -39,6 +42,27 @@ class _HomePageState extends State<HomePage> {
     _apiService = widget.apiService ?? ApiService();
     _quoteFuture = _apiService.fetchQuote();
     _loadState();
+    _loadCustomMeals();
+  }
+
+  Future<void> _loadCustomMeals() async {
+    final foodService = FoodService();
+    final customFoods = await foodService.getFoods();
+    if (mounted) {
+      setState(() {
+        _customMeals = customFoods.map((food) => Meal(
+          name: food.name,
+          imagePath: '', // Empty path for custom foods
+          calories: food.calories,
+          protein: food.protein,
+          carbs: food.carbs,
+          fat: food.fat,
+          description: food.description,
+          ingredients: [], // Custom foods don't have ingredients list yet
+          imageBase64: food.imageBase64,
+        )).toList();
+      });
+    }
   }
 
   Future<void> _loadState() async {
@@ -231,10 +255,25 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.asset(
-                    meal.imagePath,
-                    fit: BoxFit.cover,
-                  ),
+                  if (meal.imageBase64 != null && meal.imageBase64!.isNotEmpty)
+                    Image.memory(
+                      base64Decode(meal.imageBase64!),
+                      fit: BoxFit.cover,
+                    )
+                  else if (meal.imagePath.isNotEmpty)
+                    Image.asset(
+                      meal.imagePath,
+                      fit: BoxFit.cover,
+                    )
+                  else
+                    Container(
+                      color: theme.primaryColor.withValues(alpha: 0.1),
+                      child: Icon(
+                        Icons.fastfood_outlined,
+                        size: 48,
+                        color: theme.primaryColor.withValues(alpha: 0.5),
+                      ),
+                    ),
                   Positioned(
                     bottom: 0,
                     left: 0,
@@ -320,13 +359,17 @@ class _HomePageState extends State<HomePage> {
     final lunchOptions = MealData.getLunchOptions(l10n);
     final dinnerOptions = MealData.getDinnerOptions(l10n);
 
-    if (_breakfastIndex >= breakfastOptions.length) _breakfastIndex = 0;
-    if (_lunchIndex >= lunchOptions.length) _lunchIndex = 0;
-    if (_dinnerIndex >= dinnerOptions.length) _dinnerIndex = 0;
+    final combinedBreakfastOptions = [...breakfastOptions, ..._customMeals];
+    final combinedLunchOptions = [...lunchOptions, ..._customMeals];
+    final combinedDinnerOptions = [...dinnerOptions, ..._customMeals];
 
-    final breakfast = breakfastOptions[_breakfastIndex];
-    final lunch = lunchOptions[_lunchIndex];
-    final dinner = dinnerOptions[_dinnerIndex];
+    if (_breakfastIndex >= combinedBreakfastOptions.length) _breakfastIndex = 0;
+    if (_lunchIndex >= combinedLunchOptions.length) _lunchIndex = 0;
+    if (_dinnerIndex >= combinedDinnerOptions.length) _dinnerIndex = 0;
+
+    final breakfast = combinedBreakfastOptions[_breakfastIndex];
+    final lunch = combinedLunchOptions[_lunchIndex];
+    final dinner = combinedDinnerOptions[_dinnerIndex];
 
     final allIngredients = [
       ...breakfast.ingredients,
@@ -353,23 +396,23 @@ class _HomePageState extends State<HomePage> {
             });
           },
           onEditBreakfast: (meal) =>
-              _showMealSelector(context, breakfastOptions, (selected) {
+              _showMealSelector(context, combinedBreakfastOptions, (selected) {
             setState(() {
-              _breakfastIndex = breakfastOptions.indexOf(selected);
+              _breakfastIndex = combinedBreakfastOptions.indexOf(selected);
               _saveSingleMeal('breakfast_index', _breakfastIndex);
             });
           }),
           onEditLunch: (meal) =>
-              _showMealSelector(context, lunchOptions, (selected) {
+              _showMealSelector(context, combinedLunchOptions, (selected) {
             setState(() {
-              _lunchIndex = lunchOptions.indexOf(selected);
+              _lunchIndex = combinedLunchOptions.indexOf(selected);
               _saveSingleMeal('lunch_index', _lunchIndex);
             });
           }),
           onEditDinner: (meal) =>
-              _showMealSelector(context, dinnerOptions, (selected) {
+              _showMealSelector(context, combinedDinnerOptions, (selected) {
             setState(() {
-              _dinnerIndex = dinnerOptions.indexOf(selected);
+              _dinnerIndex = combinedDinnerOptions.indexOf(selected);
               _saveSingleMeal('dinner_index', _dinnerIndex);
             });
           }),
