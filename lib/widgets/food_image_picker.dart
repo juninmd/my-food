@@ -22,8 +22,13 @@ class FoodImagePicker extends StatelessWidget {
       child: Container(
         height: 150,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest,
+          color: colorScheme.primary.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: colorScheme.primary.withValues(alpha: 0.2),
+            style: BorderStyle.solid, // Use solid line simulating dashed or soft border
+            width: 1.5,
+          ),
           image: imageBytes != null
               ? DecorationImage(
                   image: MemoryImage(imageBytes!),
