@@ -40,13 +40,13 @@ class FoodImagePicker extends StatelessWidget {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_a_photo_outlined,
-                      size: 40, color: colorScheme.primary),
-                  const SizedBox(height: 8),
+                  Icon(Icons.add_photo_alternate_outlined,
+                      size: 48, color: colorScheme.primary.withValues(alpha: 0.6)),
+                  const SizedBox(height: 12),
                   Text(
                     pickImageText,
                     style: TextStyle(
-                        color: colorScheme.primary,
+                        color: colorScheme.primary.withValues(alpha: 0.8),
                         fontWeight: FontWeight.w600),
                   ),
                 ],
