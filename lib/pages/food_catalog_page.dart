@@ -73,11 +73,22 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
           else if (_foods.isEmpty)
             SliverFillRemaining(
               child: Center(
-                child: Text(
-                  l10n.noFoodsYet,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.fastfood_outlined,
+                      size: 64,
+                      color: colorScheme.primary.withValues(alpha: 0.3),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.noFoodsYet,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )

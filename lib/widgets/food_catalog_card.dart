@@ -32,7 +32,7 @@ class FoodCatalogCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 24,
-            offset: const Offset(0, 4),
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -48,10 +48,10 @@ class FoodCatalogCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 100,
+                  height: 100,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(24),
                     color: colorScheme.primary.withValues(alpha: 0.1),
                     image: food.imageBase64 != null
                         ? DecorationImage(
@@ -77,8 +77,10 @@ class FoodCatalogCard extends StatelessWidget {
                             child: Text(
                               food.name,
                               style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16,
                                 color: colorScheme.onSurface,
+                                height: 1.2,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

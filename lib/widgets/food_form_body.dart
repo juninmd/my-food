@@ -62,6 +62,17 @@ class FoodFormBody extends StatelessWidget {
               label: l10n.foodDescriptionLabel,
               maxLines: 3,
             ),
+            const SizedBox(height: 32),
+            Row(
+              children: [
+                Icon(Icons.monitor_weight_outlined, color: colorScheme.primary, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.ingredientsTitle,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             Row(
               children: [
