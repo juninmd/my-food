@@ -8,6 +8,7 @@ import 'package:my_food/models/meal.dart';
 import 'package:my_food/data/meal_data.dart';
 import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
+import 'package:my_food/services/ai_recommendation_service.dart';
 import 'package:my_food/widgets/dashboard_view.dart';
 import 'package:my_food/widgets/shopping_list_view.dart';
 import 'package:my_food/widgets/surprise_me_dialog.dart';
@@ -89,9 +90,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _surpriseMe() async {
     final l10n = AppLocalizations.of(context)!;
-    final breakfastOptions = MealData.getBreakfastOptions(l10n);
-    final lunchOptions = MealData.getLunchOptions(l10n);
-    final dinnerOptions = MealData.getDinnerOptions(l10n);
+
+    final aiService = AiRecommendationService();
+    final bestCombination = aiService.getBestMealCombination(l10n);
 
     final quoteFuture = _apiService.fetchQuote();
 
@@ -104,13 +105,9 @@ class _HomePageState extends State<HomePage> {
           onReveal: () {
             if (!mounted) return;
             setState(() {
-              final random = Random();
-              _breakfastIndex = _nextIntDifferent(
-                  _breakfastIndex, breakfastOptions.length, random);
-              _lunchIndex =
-                  _nextIntDifferent(_lunchIndex, lunchOptions.length, random);
-              _dinnerIndex =
-                  _nextIntDifferent(_dinnerIndex, dinnerOptions.length, random);
+              _breakfastIndex = bestCombination[0];
+              _lunchIndex = bestCombination[1];
+              _dinnerIndex = bestCombination[2];
 
               _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
 

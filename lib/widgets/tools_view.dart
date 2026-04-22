@@ -57,7 +57,7 @@ class ToolsView extends StatelessWidget {
               ),
               _buildToolCard(
                 context,
-                icon: Icons.auto_awesome_outlined,
+                icon: Icons.auto_fix_high_outlined,
                 title: l10n.surpriseMeButton,
                 color: colorScheme.primary,
                 onTap: onSurpriseMe,

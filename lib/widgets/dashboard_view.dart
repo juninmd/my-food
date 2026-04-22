@@ -275,7 +275,7 @@ class DashboardView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.auto_awesome, color: Colors.white, size: 28),
+                    const Icon(Icons.auto_fix_high, color: Colors.white, size: 28),
                     const SizedBox(width: 12),
                     Text(
                       l10n.surpriseMeButton,
