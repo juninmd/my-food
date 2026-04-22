@@ -33,6 +33,6 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that Me Surpreenda button DOES exist on Dashboard.
-    expect(find.byIcon(Icons.auto_awesome), findsWidgets);
+    expect(find.byIcon(Icons.auto_fix_high), findsWidgets);
   });
 }
