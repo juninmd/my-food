@@ -418,4 +418,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get deleteConfirmation =>
       'Tem certeza que deseja excluir este alimento?';
+
+  @override
+  String get basicDetails => 'Detalhes Básicos';
+
+  @override
+  String get nutritionPer100g => 'Nutrição (por 100g)';
 }

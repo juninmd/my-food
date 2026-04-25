@@ -149,7 +149,5 @@
   "saveFoodButton": "Salvar Alimento",
   "pickImageButton": "Escolher Foto",
   "noFoodsYet": "Nenhum alimento adicionado ainda.",
-  "deleteConfirmation": "Tem certeza que deseja excluir este alimento?",
-  "basicDetails": "Detalhes Básicos",
-  "nutritionPer100g": "Nutrição (por 100g)"
+  "deleteConfirmation": "Tem certeza que deseja excluir este alimento?"
 }
