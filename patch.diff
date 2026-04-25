@@ -1,0 +1,22 @@
+--- lib/l10n/app_en.arb
++++ lib/l10n/app_en.arb
+@@ -148,5 +148,7 @@
+   "saveFoodButton": "Save Food",
+   "pickImageButton": "Pick Image",
+   "noFoodsYet": "No custom foods added yet.",
+-  "deleteConfirmation": "Are you sure you want to delete this food?"
++  "deleteConfirmation": "Are you sure you want to delete this food?",
++  "basicDetails": "Basic Details",
++  "nutritionPer100g": "Nutrition (per 100g)"
+ }
+--- lib/l10n/app_pt.arb
++++ lib/l10n/app_pt.arb
+@@ -148,5 +148,7 @@
+   "saveFoodButton": "Salvar Alimento",
+   "pickImageButton": "Escolher Foto",
+   "noFoodsYet": "Nenhum alimento adicionado ainda.",
+-  "deleteConfirmation": "Tem certeza que deseja excluir este alimento?"
++  "deleteConfirmation": "Tem certeza que deseja excluir este alimento?",
++  "basicDetails": "Detalhes Básicos",
++  "nutritionPer100g": "Nutrição (por 100g)"
+ }

@@ -417,4 +417,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteConfirmation => 'Are you sure you want to delete this food?';
+
+  @override
+  String get basicDetails => 'Basic Details';
+
+  @override
+  String get nutritionPer100g => 'Nutrition (per 100g)';
 }

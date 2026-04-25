@@ -49,6 +49,17 @@ class FoodFormBody extends StatelessWidget {
               pickImageText: l10n.pickImageButton,
             ),
             const SizedBox(height: 24),
+            Row(
+              children: [
+                Icon(Icons.info_outline, color: colorScheme.primary, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.basicDetails,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
             buildTextField(
               context: context,
               controller: nameController,
@@ -68,7 +79,7 @@ class FoodFormBody extends StatelessWidget {
                 Icon(Icons.monitor_weight_outlined, color: colorScheme.primary, size: 20),
                 const SizedBox(width: 8),
                 Text(
-                  l10n.ingredientsTitle,
+                  l10n.nutritionPer100g,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
                 ),
               ],

@@ -901,6 +901,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this food?'**
   String get deleteConfirmation;
+
+  /// No description provided for @basicDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Details'**
+  String get basicDetails;
+
+  /// No description provided for @nutritionPer100g.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition (per 100g)'**
+  String get nutritionPer100g;
 }
 
 class _AppLocalizationsDelegate

@@ -1,0 +1,33 @@
+--- lib/widgets/food_form_body.dart
++++ lib/widgets/food_form_body.dart
+@@ -48,6 +48,16 @@
+               pickImageText: l10n.pickImageButton,
+             ),
+             const SizedBox(height: 24),
++            Row(
++              children: [
++                Icon(Icons.info_outline, color: colorScheme.primary, size: 20),
++                const SizedBox(width: 8),
++                Text(
++                  l10n.basicDetails,
++                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
++                ),
++              ],
++            ),
++            const SizedBox(height: 16),
+             buildTextField(
+               context: context,
+               controller: nameController,
+@@ -62,11 +72,11 @@
+             const SizedBox(height: 32),
+             Row(
+               children: [
+                 Icon(Icons.monitor_weight_outlined, color: colorScheme.primary, size: 20),
+                 const SizedBox(width: 8),
+                 Text(
+-                  l10n.ingredientsTitle,
++                  l10n.nutritionPer100g,
+                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+                 ),
+               ],
+             ),
