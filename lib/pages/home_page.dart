@@ -13,6 +13,7 @@ import 'package:my_food/widgets/dashboard_view.dart';
 import 'package:my_food/widgets/shopping_list_view.dart';
 import 'package:my_food/widgets/surprise_me_dialog.dart';
 import 'package:my_food/widgets/tools_view.dart';
+import 'package:my_food/pages/food_catalog_page.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;
@@ -377,6 +378,9 @@ class _HomePageState extends State<HomePage> {
         body = ShoppingListView(ingredients: allIngredients);
         break;
       case 2:
+        body = const FoodCatalogPage();
+        break;
+      case 3:
         body = ToolsView(onSurpriseMe: () {
           _surpriseMe();
           setState(() {
@@ -412,6 +416,11 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.shopping_bag_outlined),
                       selectedIcon: const Icon(Icons.shopping_bag_rounded),
                       label: Text(l10n.shoppingListTitle),
+                    ),
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.fastfood_outlined),
+                      selectedIcon: const Icon(Icons.fastfood_rounded),
+                      label: Text(l10n.foodCatalogTitle),
                     ),
                     NavigationRailDestination(
                       icon: const Icon(Icons.grid_view),
@@ -463,6 +472,10 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.shopping_bag_outlined),
                       activeIcon: const Icon(Icons.shopping_bag_rounded),
                       label: l10n.shoppingListTitle),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.fastfood_outlined),
+                      activeIcon: const Icon(Icons.fastfood_rounded),
+                      label: l10n.foodCatalogTitle),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.grid_view),
                       activeIcon: const Icon(Icons.grid_view_rounded),
