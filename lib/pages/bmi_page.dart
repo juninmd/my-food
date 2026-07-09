@@ -99,7 +99,6 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -118,29 +117,31 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                   children: [
                     TextField(
                       controller: _weightController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         labelText: l10n.bmiWeightLabel,
                         hintText: 'e.g. 70.5',
-                        prefixIcon: Icon(Icons.monitor_weight_outlined, color: colorScheme.primary),
+                        prefixIcon: Icon(Icons.monitor_weight_outlined,
+                            color: colorScheme.primary),
                       ),
                     ),
                     const SizedBox(height: 20),
                     TextField(
                       controller: _heightController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         labelText: l10n.bmiHeightLabel,
                         hintText: 'e.g. 1.75',
-                        prefixIcon: Icon(Icons.height_outlined, color: colorScheme.primary),
+                        prefixIcon: Icon(Icons.height_outlined,
+                            color: colorScheme.primary),
                       ),
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(height: 32),
-
               ElevatedButton(
                 onPressed: _calculateBMI,
                 style: ElevatedButton.styleFrom(
@@ -158,9 +159,7 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                 ),
                 child: Text(l10n.bmiCalculateButton),
               ),
-
               const SizedBox(height: 40),
-
               if (_bmi != null && _bmiCategory != null)
                 Container(
                   padding: const EdgeInsets.all(32),
@@ -187,7 +186,8 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
                           color: _resultColor,
                           borderRadius: BorderRadius.circular(20),

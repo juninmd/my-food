@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 
-void showFoodDeleteDialog(BuildContext context, AppLocalizations l10n, VoidCallback onDelete) {
+void showFoodDeleteDialog(
+    BuildContext context, AppLocalizations l10n, VoidCallback onDelete) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -11,7 +12,8 @@ void showFoodDeleteDialog(BuildContext context, AppLocalizations l10n, VoidCallb
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'), // Could be localized, but following existing code
+          child: const Text(
+              'Cancel'), // Could be localized, but following existing code
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

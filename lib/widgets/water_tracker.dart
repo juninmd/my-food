@@ -76,8 +76,8 @@ class WaterTracker extends StatelessWidget {
                   backgroundColor: Colors.white,
                   foregroundColor: const Color(0xFF00D1A3),
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

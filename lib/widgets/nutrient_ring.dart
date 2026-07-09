@@ -117,8 +117,8 @@ class NutrientRing extends StatelessWidget {
     );
   }
 
-  Widget _buildMacroRow(
-      BuildContext context, String label, int value, int target, Color color, Color bgColor) {
+  Widget _buildMacroRow(BuildContext context, String label, int value,
+      int target, Color color, Color bgColor) {
     double progress = target > 0 ? value / target : 0;
     if (progress > 1.0) progress = 1.0;
 

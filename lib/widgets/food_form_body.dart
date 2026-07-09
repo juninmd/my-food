@@ -67,11 +67,15 @@ class FoodFormBody extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.info_outline, color: colorScheme.primary, size: 20),
+                      Icon(Icons.info_outline,
+                          color: colorScheme.primary, size: 20),
                       const SizedBox(width: 8),
                       Text(
                         l10n.basicDetails,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.onSurface),
                       ),
                     ],
                   ),
@@ -80,7 +84,8 @@ class FoodFormBody extends StatelessWidget {
                     context: context,
                     controller: nameController,
                     label: l10n.foodNameLabel,
-                    validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Required' : null,
                   ),
                   const SizedBox(height: 16),
                   buildTextField(
@@ -111,28 +116,52 @@ class FoodFormBody extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.monitor_weight_outlined, color: colorScheme.primary, size: 20),
+                      Icon(Icons.monitor_weight_outlined,
+                          color: colorScheme.primary, size: 20),
                       const SizedBox(width: 8),
                       Text(
                         l10n.nutritionPer100g,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.onSurface),
                       ),
                     ],
                   ),
                   const SizedBox(height: 24),
                   Row(
                     children: [
-                      Expanded(child: buildTextField(context: context, controller: calController, label: l10n.foodCaloriesLabel, keyboardType: TextInputType.number)),
+                      Expanded(
+                          child: buildTextField(
+                              context: context,
+                              controller: calController,
+                              label: l10n.foodCaloriesLabel,
+                              keyboardType: TextInputType.number)),
                       const SizedBox(width: 16),
-                      Expanded(child: buildTextField(context: context, controller: proteinController, label: l10n.foodProteinLabel, keyboardType: TextInputType.number)),
+                      Expanded(
+                          child: buildTextField(
+                              context: context,
+                              controller: proteinController,
+                              label: l10n.foodProteinLabel,
+                              keyboardType: TextInputType.number)),
                     ],
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: buildTextField(context: context, controller: carbsController, label: l10n.foodCarbsLabel, keyboardType: TextInputType.number)),
+                      Expanded(
+                          child: buildTextField(
+                              context: context,
+                              controller: carbsController,
+                              label: l10n.foodCarbsLabel,
+                              keyboardType: TextInputType.number)),
                       const SizedBox(width: 16),
-                      Expanded(child: buildTextField(context: context, controller: fatController, label: l10n.foodFatLabel, keyboardType: TextInputType.number)),
+                      Expanded(
+                          child: buildTextField(
+                              context: context,
+                              controller: fatController,
+                              label: l10n.foodFatLabel,
+                              keyboardType: TextInputType.number)),
                     ],
                   ),
                 ],
@@ -145,11 +174,13 @@ class FoodFormBody extends StatelessWidget {
                 backgroundColor: colorScheme.primary,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24)),
               ),
               child: Text(
                 l10n.saveFoodButton,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ],

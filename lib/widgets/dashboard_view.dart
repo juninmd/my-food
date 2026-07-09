@@ -82,7 +82,8 @@ class DashboardView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.waving_hand, color: Colors.amber, size: 24),
+                      const Icon(Icons.waving_hand,
+                          color: Colors.amber, size: 24),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -96,7 +97,8 @@ class DashboardView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -104,7 +106,8 @@ class DashboardView extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.verified_rounded, color: colorScheme.primary, size: 14),
+                        Icon(Icons.verified_rounded,
+                            color: colorScheme.primary, size: 14),
                         const SizedBox(width: 4),
                         Text(
                           l10n.approvedBy,
@@ -266,7 +269,8 @@ class DashboardView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
+                      color:
+                          Colors.black.withValues(alpha: 0.03), // Subtle shadow
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -275,7 +279,8 @@ class DashboardView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.auto_fix_high, color: Colors.white, size: 28),
+                    const Icon(Icons.auto_fix_high,
+                        color: Colors.white, size: 28),
                     const SizedBox(width: 12),
                     Text(
                       l10n.surpriseMeButton,

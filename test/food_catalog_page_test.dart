@@ -21,7 +21,8 @@ void main() {
     );
   }
 
-  testWidgets('FoodCatalogPage displays empty state when no foods exist', (WidgetTester tester) async {
+  testWidgets('FoodCatalogPage displays empty state when no foods exist',
+      (WidgetTester tester) async {
     SharedPreferences.setMockInitialValues({});
 
     await tester.pumpWidget(createLocalizedContext(const FoodCatalogPage()));
@@ -33,7 +34,8 @@ void main() {
     expect(find.byType(FloatingActionButton), findsOneWidget);
   });
 
-  testWidgets('FoodCatalogPage displays food items correctly', (WidgetTester tester) async {
+  testWidgets('FoodCatalogPage displays food items correctly',
+      (WidgetTester tester) async {
     final food = FoodItem(
       id: '1',
       name: 'Custom Apple',
@@ -56,7 +58,8 @@ void main() {
     expect(find.text('1g P'), findsOneWidget);
   });
 
-  testWidgets('FoodCatalogPage delete button shows dialog and deletes item', (WidgetTester tester) async {
+  testWidgets('FoodCatalogPage delete button shows dialog and deletes item',
+      (WidgetTester tester) async {
     final food = FoodItem(
       id: '1',
       name: 'Custom Apple',
@@ -81,7 +84,8 @@ void main() {
 
     // Verify dialog appears
     expect(find.text('Delete Food'), findsWidgets); // Title and Button
-    expect(find.text('Are you sure you want to delete this food?'), findsOneWidget);
+    expect(find.text('Are you sure you want to delete this food?'),
+        findsOneWidget);
 
     // Tap delete button in dialog
     await tester.tap(find.widgetWithText(ElevatedButton, 'Delete Food'));

@@ -25,7 +25,8 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  testWidgets('FoodFormPage renders add mode correctly', (WidgetTester tester) async {
+  testWidgets('FoodFormPage renders add mode correctly',
+      (WidgetTester tester) async {
     await tester.pumpWidget(createLocalizedContext(const FoodFormPage()));
     await tester.pumpAndSettle();
 
@@ -37,7 +38,8 @@ void main() {
     expect(find.text('Save Food'), findsOneWidget);
   });
 
-  testWidgets('FoodFormPage renders edit mode correctly with existing data', (WidgetTester tester) async {
+  testWidgets('FoodFormPage renders edit mode correctly with existing data',
+      (WidgetTester tester) async {
     final food = FoodItem(
       id: '1',
       name: 'Custom Apple',
@@ -48,7 +50,8 @@ void main() {
       fat: 0,
     );
 
-    await tester.pumpWidget(createLocalizedContext(FoodFormPage(foodToEdit: food)));
+    await tester
+        .pumpWidget(createLocalizedContext(FoodFormPage(foodToEdit: food)));
     await tester.pumpAndSettle();
 
     expect(find.text('Edit Food'), findsOneWidget);
@@ -57,12 +60,14 @@ void main() {
     expect(find.text('100'), findsOneWidget);
   });
 
-  testWidgets('FoodFormPage shows validation errors on empty required fields', (WidgetTester tester) async {
+  testWidgets('FoodFormPage shows validation errors on empty required fields',
+      (WidgetTester tester) async {
     await tester.pumpWidget(createLocalizedContext(const FoodFormPage()));
     await tester.pumpAndSettle();
 
     // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+    await tester.drag(
+        find.byType(SingleChildScrollView), const Offset(0, -500));
     await tester.pumpAndSettle();
 
     // Tap save without entering anything
@@ -72,7 +77,8 @@ void main() {
     expect(find.text('Required'), findsOneWidget);
   });
 
-  testWidgets('FoodFormPage saves food successfully and pops', (WidgetTester tester) async {
+  testWidgets('FoodFormPage saves food successfully and pops',
+      (WidgetTester tester) async {
     await tester.pumpWidget(createLocalizedContext(const FoodFormPage()));
     await tester.pumpAndSettle();
 
@@ -84,7 +90,8 @@ void main() {
     await tester.enterText(find.byType(TextFormField).at(2), '300');
 
     // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+    await tester.drag(
+        find.byType(SingleChildScrollView), const Offset(0, -500));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Save Food'));

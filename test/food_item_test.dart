@@ -50,7 +50,8 @@ void main() {
     });
 
     test('copyWith updates fields correctly', () {
-      final updatedFoodItem = foodItem.copyWith(name: 'Green Apple', calories: 90);
+      final updatedFoodItem =
+          foodItem.copyWith(name: 'Green Apple', calories: 90);
       expect(updatedFoodItem.id, '123');
       expect(updatedFoodItem.name, 'Green Apple');
       expect(updatedFoodItem.description, 'A healthy fruit');

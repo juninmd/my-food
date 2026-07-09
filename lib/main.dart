@@ -51,8 +51,7 @@ class MyApp extends StatelessWidget {
 
     return ThemeData(
       useMaterial3: true,
-      fontFamily:
-          GoogleFonts.montserrat().fontFamily, // Clean, modern font
+      fontFamily: GoogleFonts.montserrat().fontFamily, // Clean, modern font
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         primary: primaryColor,
@@ -78,8 +77,8 @@ class MyApp extends StatelessWidget {
                 ?.copyWith(fontWeight: FontWeight.w700),
             headlineMedium: baseTextTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.w700),
-            titleLarge: baseTextTheme.titleLarge
-                ?.copyWith(fontWeight: FontWeight.w700),
+            titleLarge:
+                baseTextTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
             bodyLarge: baseTextTheme.bodyLarge?.copyWith(
                 fontSize: 16, height: 1.5, fontWeight: FontWeight.w500),
             bodyMedium: baseTextTheme.bodyMedium?.copyWith(

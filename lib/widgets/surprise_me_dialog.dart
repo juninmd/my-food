@@ -168,7 +168,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                       color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
-                         BoxShadow(
+                        BoxShadow(
                           color: Colors.black.withValues(alpha: 0.02),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
@@ -178,7 +178,9 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
                     child: Column(
                       children: [
                         Icon(Icons.format_quote_rounded,
-                            color: theme.colorScheme.secondary.withValues(alpha: 0.3), size: 24),
+                            color: theme.colorScheme.secondary
+                                .withValues(alpha: 0.3),
+                            size: 24),
                         const SizedBox(height: 8),
                         Text(
                           _quote!,
