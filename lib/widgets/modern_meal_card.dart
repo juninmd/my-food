@@ -79,104 +79,111 @@ class ModernMealCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 20),
 
-                  // Right Details Section
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title.toUpperCase(),
-                          style: TextStyle(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 10,
-                            letterSpacing: 0.5,
+                // Right Details Section
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title.toUpperCase(),
+                        style: TextStyle(
+                          color: colorScheme.primary,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 10,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        meal.name,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                          height: 1.2,
+                          color: colorScheme.onSurface,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        meal.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.grey.shade600,
+                          height: 1.3,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: [
+                          _buildMacroBadge(
+                            context,
+                            Icons.local_fire_department_rounded,
+                            "${meal.calories}",
+                            Colors.orange.shade800,
+                            Colors.orange
+                                .withValues(alpha: 0.08), // Softer background
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          meal.name,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
-                            height: 1.2,
-                            color: colorScheme.onSurface,
+                          _buildMacroBadge(
+                            context,
+                            Icons.fitness_center_rounded,
+                            "${meal.protein}g",
+                            colorScheme.primary,
+                            colorScheme.primary
+                                .withValues(alpha: 0.08), // Softer background
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          meal.description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.grey.shade600,
-                            height: 1.3,
-                            fontSize: 12,
+                          _buildMacroBadge(
+                            context,
+                            Icons.bolt_rounded,
+                            "${meal.carbs}g",
+                            Colors.blue.shade800,
+                            Colors.blue
+                                .withValues(alpha: 0.08), // Softer background
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 6,
-                          runSpacing: 6,
-                          children: [
-                            _buildMacroBadge(
-                              context,
-                              Icons.local_fire_department_rounded,
-                              "${meal.calories}",
-                              Colors.orange.shade800,
-                              Colors.orange.withValues(alpha: 0.08), // Softer background
-                            ),
-                            _buildMacroBadge(
-                              context,
-                              Icons.fitness_center_rounded,
-                              "${meal.protein}g",
-                              colorScheme.primary,
-                              colorScheme.primary.withValues(alpha: 0.08), // Softer background
-                            ),
-                            _buildMacroBadge(
-                              context,
-                              Icons.bolt_rounded,
-                              "${meal.carbs}g",
-                              Colors.blue.shade800,
-                              Colors.blue.withValues(alpha: 0.08), // Softer background
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: OutlinedButton.icon(
-                            onPressed: onEdit,
-                            icon: Icon(Icons.swap_horiz_rounded, size: 16, color: colorScheme.primary),
-                            label: Text(
-                              l10n.swapMeal.toUpperCase(),
-                              style: TextStyle(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
-                                letterSpacing: 1.0,
-                              ),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.3)),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: OutlinedButton.icon(
+                          onPressed: onEdit,
+                          icon: Icon(Icons.swap_horiz_rounded,
+                              size: 16, color: colorScheme.primary),
+                          label: Text(
+                            l10n.swapMeal.toUpperCase(),
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 12,
+                              letterSpacing: 1.0,
                             ),
                           ),
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                                color:
+                                    colorScheme.primary.withValues(alpha: 0.3)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 
   Widget _buildMacroBadge(BuildContext context, IconData icon, String text,

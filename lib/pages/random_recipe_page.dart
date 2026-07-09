@@ -87,7 +87,8 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                     ),
                   ),
                 ],
@@ -124,25 +125,27 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                               height: 200,
                               color: colorScheme.surfaceContainerHighest,
                               child: Center(
-                                  child: Icon(Icons.broken_image, size: 50, color: colorScheme.onSurfaceVariant)),
+                                  child: Icon(Icons.broken_image,
+                                      size: 50,
+                                      color: colorScheme.onSurfaceVariant)),
                             );
                           },
                         ),
                       ),
                     ),
                   const SizedBox(height: 32),
-
                   Text(
                     meal['strMeal'] ?? l10n.randomRecipeNoName,
                     style: theme.textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
-                        height: 1.2,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
+                      height: 1.2,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -150,18 +153,17 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                     child: Text(
                       '${l10n.randomRecipeCategoryPrefix}${meal['strCategory'] ?? l10n.randomRecipeNA}',
                       style: theme.textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.primary,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 32),
                   Text(
                     l10n.randomRecipeInstructions,
                     style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onSurface,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -172,7 +174,8 @@ class _RandomRecipePageState extends State<RandomRecipePage> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Text(
-                      meal['strInstructions'] ?? l10n.randomRecipeNoInstructions,
+                      meal['strInstructions'] ??
+                          l10n.randomRecipeNoInstructions,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.7),
                         height: 1.6,

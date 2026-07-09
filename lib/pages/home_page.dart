@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,15 +76,6 @@ class _HomePageState extends State<HomePage> {
       _apiService.dispose();
     }
     super.dispose();
-  }
-
-  int _nextIntDifferent(int currentIndex, int length, Random random) {
-    if (length <= 1) return 0;
-    int newIndex = currentIndex;
-    while (newIndex == currentIndex) {
-      newIndex = random.nextInt(length);
-    }
-    return newIndex;
   }
 
   Future<void> _surpriseMe() async {
@@ -445,7 +434,8 @@ class _HomePageState extends State<HomePage> {
           }
           return Container(
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(30)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.04),
@@ -455,7 +445,8 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(30)),
               child: BottomNavigationBar(
                 currentIndex: _currentIndex,
                 onTap: (index) {

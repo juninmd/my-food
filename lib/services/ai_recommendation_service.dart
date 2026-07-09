@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/meal.dart';
+
 import 'package:my_food/data/meal_data.dart';
 import 'package:my_food/data/diet_constants.dart';
 
@@ -27,7 +27,7 @@ class AiRecommendationService {
             bestCombination = [b, l, d];
           } else if (diff == bestDiff) {
             if (Random().nextBool()) {
-               bestCombination = [b, l, d];
+              bestCombination = [b, l, d];
             }
           }
         }

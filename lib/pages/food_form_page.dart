@@ -37,9 +37,12 @@ class _FoodFormPageState extends State<FoodFormPage> {
     final food = widget.foodToEdit;
     _nameController = TextEditingController(text: food?.name ?? '');
     _descController = TextEditingController(text: food?.description ?? '');
-    _calController = TextEditingController(text: food?.calories.toString() ?? '');
-    _proteinController = TextEditingController(text: food?.protein.toString() ?? '');
-    _carbsController = TextEditingController(text: food?.carbs.toString() ?? '');
+    _calController =
+        TextEditingController(text: food?.calories.toString() ?? '');
+    _proteinController =
+        TextEditingController(text: food?.protein.toString() ?? '');
+    _carbsController =
+        TextEditingController(text: food?.carbs.toString() ?? '');
     _fatController = TextEditingController(text: food?.fat.toString() ?? '');
     _imageBase64 = food?.imageBase64;
     if (_imageBase64 != null) {
@@ -72,7 +75,8 @@ class _FoodFormPageState extends State<FoodFormPage> {
   void _saveFood() async {
     if (_formKey.currentState!.validate()) {
       final newFood = FoodItem(
-        id: widget.foodToEdit?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+        id: widget.foodToEdit?.id ??
+            DateTime.now().millisecondsSinceEpoch.toString(),
         name: _nameController.text.trim(),
         description: _descController.text.trim(),
         calories: int.tryParse(_calController.text) ?? 0,

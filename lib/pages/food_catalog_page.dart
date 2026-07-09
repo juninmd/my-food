@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
 import 'package:my_food/models/food_item.dart';
@@ -137,5 +136,4 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
       ),
     );
   }
-
 }

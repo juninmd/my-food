@@ -29,7 +29,8 @@ void main() {
     expect(find.text('remaining'), findsOneWidget);
 
     // Scroll a little
-    await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -500));
+    await tester.drag(
+        find.byType(CustomScrollView).first, const Offset(0, -500));
     await tester.pumpAndSettle();
 
     // Verify that Me Surpreenda button DOES exist on Dashboard.
