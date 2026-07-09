@@ -28,7 +28,7 @@ Widget buildTextField({
         borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
       ),
       filled: true,
-      fillColor: Colors.white,
+      fillColor: theme.colorScheme.surface,
     ),
     validator: validator,
   );
