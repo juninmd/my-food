@@ -66,7 +66,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(
+    await tester.drag(warnIfMissed: false,
         find.byType(SingleChildScrollView), const Offset(0, -500));
     await tester.pumpAndSettle();
 
@@ -90,7 +90,7 @@ void main() {
     await tester.enterText(find.byType(TextFormField).at(2), '300');
 
     // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(
+    await tester.drag(warnIfMissed: false,
         find.byType(SingleChildScrollView), const Offset(0, -500));
     await tester.pumpAndSettle();
 
