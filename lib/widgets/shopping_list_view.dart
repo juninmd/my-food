@@ -129,14 +129,18 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       );
 
       listItems.add(
-        Card(
-          elevation: 0,
-          shadowColor: Colors.transparent,
+        Container(
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
-            side: BorderSide.none,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
           ),
           child: Column(
             children: ingredients.map((ingredient) {
