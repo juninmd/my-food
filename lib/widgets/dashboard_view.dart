@@ -157,93 +157,135 @@ class DashboardView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Quote
-                    FutureBuilder<String>(
-                      future: quoteFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData || snapshot.hasError) {
-                          final text = snapshot.hasError
-                              ? l10n.quoteFallbackMessage
-                              : snapshot.data!;
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 16),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFE6F9F5),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '"',
-                                  style: TextStyle(
-                                    color: colorScheme.secondary,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w900,
-                                    height: 1.0,
-                                  ),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final isDesktop = constraints.maxWidth > 800;
+
+                        final quoteWidget = FutureBuilder<String>(
+                          future: quoteFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData || snapshot.hasError) {
+                              final text = snapshot.hasError
+                                  ? l10n.quoteFallbackMessage
+                                  : snapshot.data!;
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 16),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE6F9F5),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
-                                    child: Text(
-                                      text,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '"',
                                       style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: colorScheme.primary,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1.4,
+                                        color: colorScheme.secondary,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w900,
+                                        height: 1.0,
                                       ),
                                     ),
-                                  ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 4.0),
+                                        child: Text(
+                                          text,
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            color: colorScheme.primary,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1.4,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        );
+
+                        final nutritionistNoteWidget = const NutritionistNoteCard();
+
+                        final topSection = isDesktop
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(child: quoteWidget),
+                                  const SizedBox(width: 16),
+                                  Expanded(child: nutritionistNoteWidget),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  quoteWidget,
+                                  nutritionistNoteWidget,
+                                ],
+                              );
+
+                        final macroWidget = MacroDashboardCard(
+                          calories: totalCalories,
+                          targetCalories: DietConstants.caloriesTarget,
+                          protein: totalProtein,
+                          targetProtein: DietConstants.proteinTarget,
+                          carbs: totalCarbs,
+                          targetCarbs: DietConstants.carbsTarget,
+                          fat: totalFat,
+                          targetFat: DietConstants.fatTarget,
+                        );
+
+                        final waterWidget = WaterTracker(
+                          currentGlasses: waterGlasses,
+                          targetGlasses: DietConstants.waterGlassTarget,
+                          onAdd: onAddWater,
+                        );
+
+                        final midSection = isDesktop
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(child: macroWidget),
+                                  const SizedBox(width: 16),
+                                  Expanded(child: waterWidget),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  macroWidget,
+                                  const SizedBox(height: 16),
+                                  waterWidget,
+                                ],
+                              );
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            topSection,
+                            const SizedBox(height: 32),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: Text(
+                                l10n.dailyGoal,
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  color: colorScheme.onSurface,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          );
-                        }
-                        return const SizedBox.shrink();
+                            const SizedBox(height: 8),
+                            midSection,
+                          ],
+                        );
                       },
-                    ),
-
-                    // Nutritionist Note
-                    const NutritionistNoteCard(),
-                    const SizedBox(height: 32),
-
-                    // Daily Goal Title
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Text(
-                        l10n.dailyGoal,
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: colorScheme.onSurface,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-
-                    // Daily Progress (Macros)
-                    MacroDashboardCard(
-                      calories: totalCalories,
-                      targetCalories: DietConstants.caloriesTarget,
-                      protein: totalProtein,
-                      targetProtein: DietConstants.proteinTarget,
-                      carbs: totalCarbs,
-                      targetCarbs: DietConstants.carbsTarget,
-                      fat: totalFat,
-                      targetFat: DietConstants.fatTarget,
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Water Tracker
-                    WaterTracker(
-                      currentGlasses: waterGlasses,
-                      targetGlasses: DietConstants.waterGlassTarget,
-                      onAdd: onAddWater,
                     ),
                   ],
                 ),
