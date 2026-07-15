@@ -101,7 +101,6 @@ class MealSelectorSheet {
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Colors.grey.shade100),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
@@ -117,22 +116,9 @@ class MealSelectorSheet {
                     meal.imagePath,
                     fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
+                  Positioned.fill(
                     child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.6),
-                          ],
-                        ),
-                      ),
+                      color: Colors.black.withValues(alpha: 0.05),
                     ),
                   ),
                 ],
