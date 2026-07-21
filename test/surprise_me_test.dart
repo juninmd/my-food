@@ -65,10 +65,10 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify Surprise Me button exists
-    expect(find.text('Surprise Me'), findsOneWidget);
+    expect(find.text('AI Recommendation'), findsOneWidget);
 
     // Tap Surprise Me button
-    await tester.tap(find.text('Surprise Me'));
+    await tester.tap(find.text('AI Recommendation'));
 
     // Pump to start the future and navigation
     await tester.pump();

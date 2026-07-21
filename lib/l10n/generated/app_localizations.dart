@@ -623,7 +623,7 @@ abstract class AppLocalizations {
   /// No description provided for @surpriseMeButton.
   ///
   /// In en, this message translates to:
-  /// **'Surprise Me'**
+  /// **'AI Recommendation'**
   String get surpriseMeButton;
 
   /// No description provided for @changeFoodButton.

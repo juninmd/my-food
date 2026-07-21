@@ -103,7 +103,7 @@
   "mealBreakfast": "Café da manhã",
   "mealLunch": "Almoço",
   "mealDinner": "Jantar",
-  "surpriseMeButton": "Me Surpreenda",
+  "surpriseMeButton": "Recomendação de IA",
   "changeFoodButton": "Trocar Alimento",
   "selectFoodTitle": "Selecione um alimento:",
   "quoteErrorMessage": "Falha ao carregar frase.",
