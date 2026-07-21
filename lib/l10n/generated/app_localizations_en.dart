@@ -276,7 +276,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mealDinner => 'Dinner';
 
   @override
-  String get surpriseMeButton => 'Surprise Me';
+  String get surpriseMeButton => 'AI Recommendation';
 
   @override
   String get changeFoodButton => 'Change Food';

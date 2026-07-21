@@ -103,7 +103,7 @@
   "mealBreakfast": "Breakfast",
   "mealLunch": "Lunch",
   "mealDinner": "Dinner",
-  "surpriseMeButton": "Surprise Me",
+  "surpriseMeButton": "AI Recommendation",
   "changeFoodButton": "Change Food",
   "selectFoodTitle": "Select a food:",
   "quoteErrorMessage": "Failed to load quote.",
