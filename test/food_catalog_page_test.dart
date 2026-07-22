@@ -54,8 +54,8 @@ void main() {
 
     expect(find.text('Custom Apple'), findsOneWidget);
     expect(find.text('A very custom apple'), findsOneWidget);
-    expect(find.text('100 kcal'), findsOneWidget);
-    expect(find.text('1g P'), findsOneWidget);
+    expect(find.text('100'), findsOneWidget);
+    expect(find.text('1g'), findsOneWidget);
   });
 
   testWidgets('FoodCatalogPage delete button shows dialog and deletes item',

@@ -76,7 +76,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(40),
+                    padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
                       borderRadius: BorderRadius.circular(24),
@@ -94,15 +94,16 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
                       children: [
                         Icon(
                           Icons.fastfood_outlined,
-                          size: 64,
+                          size: 80,
                           color: colorScheme.primary.withValues(alpha: 0.3),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           l10n.noFoodsYet,
-                          style: theme.textTheme.bodyLarge?.copyWith(
+                          style: theme.textTheme.headlineMedium?.copyWith(
                             color: colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),

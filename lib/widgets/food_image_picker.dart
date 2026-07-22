@@ -24,13 +24,6 @@ class FoodImagePicker extends StatelessWidget {
         decoration: BoxDecoration(
           color: colorScheme.primary.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 24,
-              offset: const Offset(0, 8),
-            ),
-          ],
           image: imageBytes != null
               ? DecorationImage(
                   image: MemoryImage(imageBytes!),
