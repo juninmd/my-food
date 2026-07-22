@@ -24,9 +24,9 @@ class FoodCatalogCard extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -52,6 +52,13 @@ class FoodCatalogCard extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                     color: colorScheme.primary.withValues(alpha: 0.1),
                     image: food.imageBase64 != null
                         ? DecorationImage(
@@ -108,19 +115,23 @@ class FoodCatalogCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Wrap(
-                        spacing: 8,
-                        runSpacing: 4,
+                        spacing: 6,
+                        runSpacing: 6,
                         children: [
                           buildMacroBadge(
-                              context,
-                              '${food.calories} kcal',
-                              Colors.orange.shade800,
-                              Colors.orange.withValues(alpha: 0.1)),
+                            context,
+                            '${food.calories}',
+                            Colors.orange.shade800,
+                            Colors.orange.withValues(alpha: 0.08),
+                            icon: Icons.local_fire_department_rounded,
+                          ),
                           buildMacroBadge(
-                              context,
-                              '${food.protein}g P',
-                              colorScheme.primary,
-                              colorScheme.primary.withValues(alpha: 0.1)),
+                            context,
+                            '${food.protein}g',
+                            colorScheme.primary,
+                            colorScheme.primary.withValues(alpha: 0.08),
+                            icon: Icons.fitness_center_rounded,
+                          ),
                         ],
                       ),
                     ],
