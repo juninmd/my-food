@@ -8,7 +8,7 @@ Widget buildTextField({
   int maxLines = 1,
   String? Function(String?)? validator,
 }) {
-  final theme = Theme.of(context);
+
   return TextFormField(
     controller: controller,
     keyboardType: keyboardType,
