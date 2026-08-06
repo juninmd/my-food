@@ -1,8 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/meal.dart';
 import 'package:my_food/data/meal_data.dart';
 import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
@@ -13,24 +11,21 @@ import 'package:my_food/widgets/surprise_me_dialog.dart';
 import 'package:my_food/widgets/tools_view.dart';
 import 'package:my_food/widgets/meal_selector_sheet.dart';
 import 'package:my_food/pages/food_catalog_page.dart';
+import 'package:my_food/widgets/home_navigation.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;
-
   const HomePage({super.key, this.apiService});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-
   int _breakfastIndex = 0;
   int _lunchIndex = 0;
   int _dinnerIndex = 0;
   int _waterGlasses = 0;
-  final int _targetGlasses = DietConstants.waterGlassTarget;
   late Future<String> _quoteFuture;
   late ApiService _apiService;
 
@@ -53,67 +48,44 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _saveWater() async {
+  Future<void> _saveState(String key, int value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('water_glasses', _waterGlasses);
-  }
-
-  Future<void> _saveMealPlan(
-      int breakfastIndex, int lunchIndex, int dinnerIndex) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('breakfast_index', breakfastIndex);
-    await prefs.setInt('lunch_index', lunchIndex);
-    await prefs.setInt('dinner_index', dinnerIndex);
-  }
-
-  Future<void> _saveSingleMeal(String key, int index) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(key, index);
+    await prefs.setInt(key, value);
   }
 
   @override
   void dispose() {
-    if (widget.apiService == null) {
-      _apiService.dispose();
-    }
+    if (widget.apiService == null) _apiService.dispose();
     super.dispose();
   }
 
-  Future<void> _surpriseMe() async {
+  void _surpriseMe() async {
     final l10n = AppLocalizations.of(context)!;
-
-    final aiService = AiRecommendationService();
-    final bestCombination = aiService.getBestMealCombination(l10n);
-
+    final bestCombination = AiRecommendationService().getBestMealCombination(l10n);
     final quoteFuture = _apiService.fetchQuote();
 
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
-        return SurpriseMeDialog(
-          quoteFuture: quoteFuture,
-          onReveal: () {
-            if (!mounted) return;
-            setState(() {
-              _breakfastIndex = bestCombination[0];
-              _lunchIndex = bestCombination[1];
-              _dinnerIndex = bestCombination[2];
-
-              _saveMealPlan(_breakfastIndex, _lunchIndex, _dinnerIndex);
-
-              _quoteFuture = quoteFuture;
-            });
-          },
-        );
-      },
+      builder: (context) => SurpriseMeDialog(
+        quoteFuture: quoteFuture,
+        onReveal: () {
+          if (!mounted) return;
+          setState(() {
+            _breakfastIndex = bestCombination[0];
+            _lunchIndex = bestCombination[1];
+            _dinnerIndex = bestCombination[2];
+            _saveState('breakfast_index', _breakfastIndex);
+            _saveState('lunch_index', _lunchIndex);
+            _saveState('dinner_index', _dinnerIndex);
+            _quoteFuture = quoteFuture;
+          });
+        },
+      ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
+  Widget _buildBody(AppLocalizations l10n) {
     final breakfastOptions = MealData.getBreakfastOptions(l10n);
     final lunchOptions = MealData.getLunchOptions(l10n);
     final dinnerOptions = MealData.getDinnerOptions(l10n);
@@ -122,172 +94,82 @@ class _HomePageState extends State<HomePage> {
     if (_lunchIndex >= lunchOptions.length) _lunchIndex = 0;
     if (_dinnerIndex >= dinnerOptions.length) _dinnerIndex = 0;
 
-    final breakfast = breakfastOptions[_breakfastIndex];
-    final lunch = lunchOptions[_lunchIndex];
-    final dinner = dinnerOptions[_dinnerIndex];
-
-    final allIngredients = [
-      ...breakfast.ingredients,
-      ...lunch.ingredients,
-      ...dinner.ingredients,
-    ];
-
-    Widget body;
     switch (_currentIndex) {
       case 0:
-        body = DashboardView(
+        return DashboardView(
           quoteFuture: _quoteFuture,
-          breakfast: breakfast,
-          lunch: lunch,
-          dinner: dinner,
+          breakfast: breakfastOptions[_breakfastIndex],
+          lunch: lunchOptions[_lunchIndex],
+          dinner: dinnerOptions[_dinnerIndex],
           waterGlasses: _waterGlasses,
-          onAddWater: () {
-            setState(() {
-              if (_waterGlasses < _targetGlasses + 5) {
-                // Allow slightly over target
-                _waterGlasses++;
-                _saveWater();
-              }
-            });
-          },
-          onEditBreakfast: (meal) => MealSelectorSheet.show(
-              context, breakfastOptions, (selected) {
+          onAddWater: () => setState(() {
+            if (_waterGlasses < DietConstants.waterGlassTarget + 5) {
+              _waterGlasses++;
+              _saveState('water_glasses', _waterGlasses);
+            }
+          }),
+          onEditBreakfast: (_) => MealSelectorSheet.show(context, breakfastOptions, (selected) {
             setState(() {
               _breakfastIndex = breakfastOptions.indexOf(selected);
-              _saveSingleMeal('breakfast_index', _breakfastIndex);
+              _saveState('breakfast_index', _breakfastIndex);
             });
           }),
-          onEditLunch: (meal) => MealSelectorSheet.show(
-              context, lunchOptions, (selected) {
+          onEditLunch: (_) => MealSelectorSheet.show(context, lunchOptions, (selected) {
             setState(() {
               _lunchIndex = lunchOptions.indexOf(selected);
-              _saveSingleMeal('lunch_index', _lunchIndex);
+              _saveState('lunch_index', _lunchIndex);
             });
           }),
-          onEditDinner: (meal) => MealSelectorSheet.show(
-              context, dinnerOptions, (selected) {
+          onEditDinner: (_) => MealSelectorSheet.show(context, dinnerOptions, (selected) {
             setState(() {
               _dinnerIndex = dinnerOptions.indexOf(selected);
-              _saveSingleMeal('dinner_index', _dinnerIndex);
+              _saveState('dinner_index', _dinnerIndex);
             });
           }),
           onSurpriseMe: _surpriseMe,
         );
-        break;
       case 1:
-        body = ShoppingListView(ingredients: allIngredients);
-        break;
+        return ShoppingListView(
+          ingredients: [
+            ...breakfastOptions[_breakfastIndex].ingredients,
+            ...lunchOptions[_lunchIndex].ingredients,
+            ...dinnerOptions[_dinnerIndex].ingredients,
+          ],
+        );
       case 2:
-        body = const FoodCatalogPage();
-        break;
+        return const FoodCatalogPage();
       case 3:
-        body = ToolsView(onSurpriseMe: () {
+        return ToolsView(onSurpriseMe: () {
           _surpriseMe();
-          setState(() {
-            _currentIndex = 0; // Go back to dashboard
-          });
+          setState(() => _currentIndex = 0);
         });
-        break;
-      default:
-        body = const SizedBox.shrink();
+      default: return const SizedBox.shrink();
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final body = _buildBody(l10n);
+    void onTap(int i) => setState(() => _currentIndex = i);
 
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 800) {
-            return Row(
-              children: [
-                NavigationRail(
-                  selectedIndex: _currentIndex,
-                  onDestinationSelected: (int index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                  labelType: NavigationRailLabelType.all,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: const Icon(Icons.dashboard_outlined),
-                      selectedIcon: const Icon(Icons.dashboard_rounded),
-                      label: Text(l10n.dashboardTitle),
-                    ),
-                    NavigationRailDestination(
-                      icon: const Icon(Icons.shopping_bag_outlined),
-                      selectedIcon: const Icon(Icons.shopping_bag_rounded),
-                      label: Text(l10n.shoppingListTitle),
-                    ),
-                    NavigationRailDestination(
-                      icon: const Icon(Icons.fastfood_outlined),
-                      selectedIcon: const Icon(Icons.fastfood_rounded),
-                      label: Text(l10n.foodCatalogTitle),
-                    ),
-                    NavigationRailDestination(
-                      icon: const Icon(Icons.grid_view),
-                      selectedIcon: const Icon(Icons.grid_view_rounded),
-                      label: Text(l10n.toolsTitle),
-                    ),
-                  ],
-                ),
-                const VerticalDivider(thickness: 1, width: 1),
-                Expanded(child: SafeArea(child: body)),
-              ],
-            );
-          } else {
-            return SafeArea(child: body);
-          }
-        },
-      ),
-      bottomNavigationBar: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 800) {
-            return const SizedBox.shrink();
-          }
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.04),
-                  blurRadius: 20,
-                  offset: const Offset(0, -4),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(30)),
-              child: BottomNavigationBar(
-                currentIndex: _currentIndex,
-                onTap: (index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-                items: [
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.dashboard_outlined),
-                      activeIcon: const Icon(Icons.dashboard_rounded),
-                      label: l10n.dashboardTitle),
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.shopping_bag_outlined),
-                      activeIcon: const Icon(Icons.shopping_bag_rounded),
-                      label: l10n.shoppingListTitle),
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.fastfood_outlined),
-                      activeIcon: const Icon(Icons.fastfood_rounded),
-                      label: l10n.foodCatalogTitle),
-                  BottomNavigationBarItem(
-                      icon: const Icon(Icons.grid_view),
-                      activeIcon: const Icon(Icons.grid_view_rounded),
-                      label: l10n.toolsTitle),
-                ],
-              ),
-            ),
+      body: LayoutBuilder(builder: (context, constraints) {
+        if (constraints.maxWidth > 800) {
+          return Row(
+            children: [
+              HomeNavigation.buildDesktopRail(context, _currentIndex, onTap, l10n),
+              const VerticalDivider(thickness: 1, width: 1),
+              Expanded(child: SafeArea(child: body)),
+            ],
           );
-        },
-      ),
+        }
+        return SafeArea(child: body);
+      }),
+      bottomNavigationBar: LayoutBuilder(builder: (context, constraints) {
+        if (constraints.maxWidth > 800) return const SizedBox.shrink();
+        return HomeNavigation.buildBottomBar(context, _currentIndex, onTap, l10n);
+      }),
     );
   }
 }
