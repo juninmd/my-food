@@ -7,7 +7,9 @@ Widget buildTextField({
   TextInputType keyboardType = TextInputType.text,
   int maxLines = 1,
   String? Function(String?)? validator,
+  IconData? prefixIcon,
 }) {
+  final colorScheme = Theme.of(context).colorScheme;
 
   return TextFormField(
     controller: controller,
@@ -15,6 +17,9 @@ Widget buildTextField({
     maxLines: maxLines,
     decoration: InputDecoration(
       labelText: label,
+      prefixIcon: prefixIcon != null
+          ? Icon(prefixIcon, color: colorScheme.primary)
+          : null,
     ),
     validator: validator,
   );
