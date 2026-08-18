@@ -2,7 +2,11 @@
 
 Aplicativo de Planejamento Alimentar e Saúde.
 
-Este projeto oferece uma solução completa para gerenciamento de dieta e saúde de pacientes.
+Projeto responsável pela dieta de pacientes, cálculo de nutrientes, lista de compras, me surpreenda.
+
+Deve ter uma interface moderna, reformule da melhor forma possível, que possa substituir o app. Precisa ser agradável também aos nutricionistas, mas os pacientes também podem fazer alterações inspirados por [WebDiet](https://webdiet.com.br/site/HOME).
+
+Deixe essa app produtiva, com recursos completos para cadastro de alimentos, edição de alimentos, adição de fotos e catálogo de alimentos.
 
 ## Funcionalidades Principais
 
