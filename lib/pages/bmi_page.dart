@@ -110,7 +110,6 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                       offset: const Offset(0, 4),
                     ),
                   ],
-                  border: Border.all(color: Colors.grey.shade100),
                 ),
                 padding: const EdgeInsets.all(24),
                 child: Column(
