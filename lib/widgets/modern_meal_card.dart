@@ -150,7 +150,7 @@ class ModernMealCard extends StatelessWidget {
                       const SizedBox(height: 12),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: OutlinedButton.icon(
+                        child: TextButton.icon(
                           onPressed: onEdit,
                           icon: Icon(Icons.swap_horiz_rounded,
                               size: 16, color: colorScheme.primary),
@@ -163,10 +163,9 @@ class ModernMealCard extends StatelessWidget {
                               letterSpacing: 1.0,
                             ),
                           ),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                                color:
-                                    colorScheme.primary.withValues(alpha: 0.3)),
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                colorScheme.primary.withValues(alpha: 0.1),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
                             ),
