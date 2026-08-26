@@ -4,6 +4,7 @@ import 'package:my_food/models/food_item.dart';
 import 'package:my_food/services/food_service.dart';
 import 'package:my_food/pages/food_form_page.dart';
 import 'package:my_food/widgets/food_catalog_card.dart';
+import 'package:my_food/widgets/food_catalog_empty_state.dart';
 
 class FoodCatalogPage extends StatefulWidget {
   const FoodCatalogPage({super.key});
@@ -70,47 +71,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
               child: Center(child: CircularProgressIndicator()),
             )
           else if (_foods.isEmpty)
-            SliverPadding(
-              padding: const EdgeInsets.all(24.0),
-              sliver: SliverFillRemaining(
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(32),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.05),
-                          blurRadius: 24,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.fastfood_outlined,
-                          size: 80,
-                          color: colorScheme.primary.withValues(alpha: 0.3),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          l10n.noFoodsYet,
-                          style: theme.textTheme.headlineMedium?.copyWith(
-                            color: colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
+            const FoodCatalogEmptyState()
           else
             SliverPadding(
               padding: const EdgeInsets.all(24.0),

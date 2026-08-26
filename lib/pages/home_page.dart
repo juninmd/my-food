@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/data/meal_data.dart';
-import 'package:my_food/data/diet_constants.dart';
 import 'package:my_food/services/api_service.dart';
 import 'package:my_food/services/ai_recommendation_service.dart';
-import 'package:my_food/widgets/dashboard_view.dart';
-import 'package:my_food/widgets/shopping_list_view.dart';
 import 'package:my_food/widgets/surprise_me_dialog.dart';
-import 'package:my_food/widgets/tools_view.dart';
-import 'package:my_food/widgets/meal_selector_sheet.dart';
-import 'package:my_food/pages/food_catalog_page.dart';
 import 'package:my_food/widgets/home_navigation.dart';
+import 'package:my_food/widgets/home_body.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;
@@ -85,72 +79,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildBody(AppLocalizations l10n) {
-    final breakfastOptions = MealData.getBreakfastOptions(l10n);
-    final lunchOptions = MealData.getLunchOptions(l10n);
-    final dinnerOptions = MealData.getDinnerOptions(l10n);
-
-    if (_breakfastIndex >= breakfastOptions.length) _breakfastIndex = 0;
-    if (_lunchIndex >= lunchOptions.length) _lunchIndex = 0;
-    if (_dinnerIndex >= dinnerOptions.length) _dinnerIndex = 0;
-
-    switch (_currentIndex) {
-      case 0:
-        return DashboardView(
-          quoteFuture: _quoteFuture,
-          breakfast: breakfastOptions[_breakfastIndex],
-          lunch: lunchOptions[_lunchIndex],
-          dinner: dinnerOptions[_dinnerIndex],
-          waterGlasses: _waterGlasses,
-          onAddWater: () => setState(() {
-            if (_waterGlasses < DietConstants.waterGlassTarget + 5) {
-              _waterGlasses++;
-              _saveState('water_glasses', _waterGlasses);
-            }
-          }),
-          onEditBreakfast: (_) => MealSelectorSheet.show(context, breakfastOptions, (selected) {
-            setState(() {
-              _breakfastIndex = breakfastOptions.indexOf(selected);
-              _saveState('breakfast_index', _breakfastIndex);
-            });
-          }),
-          onEditLunch: (_) => MealSelectorSheet.show(context, lunchOptions, (selected) {
-            setState(() {
-              _lunchIndex = lunchOptions.indexOf(selected);
-              _saveState('lunch_index', _lunchIndex);
-            });
-          }),
-          onEditDinner: (_) => MealSelectorSheet.show(context, dinnerOptions, (selected) {
-            setState(() {
-              _dinnerIndex = dinnerOptions.indexOf(selected);
-              _saveState('dinner_index', _dinnerIndex);
-            });
-          }),
-          onSurpriseMe: _surpriseMe,
-        );
-      case 1:
-        return ShoppingListView(
-          ingredients: [
-            ...breakfastOptions[_breakfastIndex].ingredients,
-            ...lunchOptions[_lunchIndex].ingredients,
-            ...dinnerOptions[_dinnerIndex].ingredients,
-          ],
-        );
-      case 2:
-        return const FoodCatalogPage();
-      case 3:
-        return ToolsView(onSurpriseMe: () {
-          _surpriseMe();
-          setState(() => _currentIndex = 0);
-        });
-      default: return const SizedBox.shrink();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final body = _buildBody(l10n);
+    final body = HomeBody(
+      currentIndex: _currentIndex,
+      breakfastIndex: _breakfastIndex,
+      lunchIndex: _lunchIndex,
+      dinnerIndex: _dinnerIndex,
+      waterGlasses: _waterGlasses,
+      quoteFuture: _quoteFuture,
+      onSurpriseMe: _surpriseMe,
+      onUpdateWater: (val) {
+        setState(() => _waterGlasses = val);
+        _saveState('water_glasses', val);
+      },
+      onUpdateBreakfast: (val) {
+        setState(() => _breakfastIndex = val);
+        _saveState('breakfast_index', val);
+      },
+      onUpdateLunch: (val) {
+        setState(() => _lunchIndex = val);
+        _saveState('lunch_index', val);
+      },
+      onUpdateDinner: (val) {
+        setState(() => _dinnerIndex = val);
+        _saveState('dinner_index', val);
+      },
+      onUpdateIndex: (val) => setState(() => _currentIndex = val),
+    );
     void onTap(int i) => setState(() => _currentIndex = i);
 
     return Scaffold(
