@@ -1,0 +1,3 @@
+Refactor: Update input decoration theme to use 16px border radius
+
+Changes the border radius of `inputDecorationTheme` from 24px to 16px to adhere to the design system constraints specifying that text fields should have a 16px radius, while cards and other containers maintain a 24px radius.
