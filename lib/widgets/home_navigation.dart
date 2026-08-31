@@ -16,7 +16,7 @@ class HomeNavigation {
         NavigationRailDestination(
           icon: const Icon(Icons.dashboard_outlined),
           selectedIcon: const Icon(Icons.dashboard_rounded),
-          label: Text(l10n.dashboardTitle),
+          label: Text(l10n.mealPageTitle),
         ),
         NavigationRailDestination(
           icon: const Icon(Icons.shopping_bag_outlined),
@@ -63,7 +63,7 @@ class HomeNavigation {
             BottomNavigationBarItem(
                 icon: const Icon(Icons.dashboard_outlined),
                 activeIcon: const Icon(Icons.dashboard_rounded),
-                label: l10n.dashboardTitle),
+                label: l10n.mealPageTitle),
             BottomNavigationBarItem(
                 icon: const Icon(Icons.shopping_bag_outlined),
                 activeIcon: const Icon(Icons.shopping_bag_rounded),
