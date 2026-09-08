@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/pages/bmi_page.dart';
-import 'package:my_food/pages/random_recipe_page.dart';
-import 'package:my_food/pages/food_catalog_page.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/pages/bmi_page.dart';
+import 'package:webdiet/pages/random_recipe_page.dart';
+import 'package:webdiet/pages/food_catalog_page.dart';
 
 class ToolsView extends StatelessWidget {
   final VoidCallback onSurpriseMe;

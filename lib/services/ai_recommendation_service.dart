@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 
-import 'package:my_food/data/meal_data.dart';
-import 'package:my_food/data/diet_constants.dart';
+import 'package:webdiet/data/meal_data.dart';
+import 'package:webdiet/data/diet_constants.dart';
 
 class AiRecommendationService {
   List<int> getBestMealCombination(AppLocalizations l10n) {

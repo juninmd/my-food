@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 import '../utils/bmi_calculator.dart';
 
 class BMICalculatorPage extends StatefulWidget {

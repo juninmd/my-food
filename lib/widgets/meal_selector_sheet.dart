@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/meal.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/meal.dart';
 
 class MealSelectorSheet {
   static void show(

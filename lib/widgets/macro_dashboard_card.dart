@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/widgets/nutrient_ring.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/nutrient_ring.dart';
 
 class MacroDashboardCard extends StatelessWidget {
   final int calories;

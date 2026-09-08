@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/models/food_item.dart';
-import 'package:my_food/services/food_service.dart';
+import 'package:webdiet/models/food_item.dart';
+import 'package:webdiet/services/food_service.dart';
 
 void main() {
   setUp(() {

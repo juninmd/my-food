@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:my_food/pages/random_recipe_page.dart';
-import 'package:my_food/services/api_service.dart';
+import 'package:webdiet/pages/random_recipe_page.dart';
+import 'package:webdiet/services/api_service.dart';
 
 void main() {
   Widget createLocalizedContext(Widget child) {

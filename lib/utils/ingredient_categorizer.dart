@@ -1,4 +1,4 @@
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 
 class IngredientCategorizer {
   static String getCategory(String ingredient, AppLocalizations l10n) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/models/meal.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/meal.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 
 class MealDetailPage extends StatelessWidget {
   final Meal meal;

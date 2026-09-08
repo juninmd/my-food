@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/food_item.dart';
-import 'package:my_food/services/food_service.dart';
-import 'package:my_food/pages/food_form_page.dart';
-import 'package:my_food/widgets/food_catalog_card.dart';
-import 'package:my_food/widgets/food_catalog_empty_state.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/food_item.dart';
+import 'package:webdiet/services/food_service.dart';
+import 'package:webdiet/pages/food_form_page.dart';
+import 'package:webdiet/widgets/food_catalog_card.dart';
+import 'package:webdiet/widgets/food_catalog_empty_state.dart';
 
 class FoodCatalogPage extends StatefulWidget {
   const FoodCatalogPage({super.key});

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'My Food';
+  String get appTitle => 'WebDiet';
 
   @override
   String get bmiTitle => 'BMI Calculator';

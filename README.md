@@ -1,4 +1,4 @@
-# 🥗 My Food (Meal Planning)
+# 🥗 WebDiet (Meal Planning)
 
 [![Flutter](https://img.shields.io/badge/Flutter-Latest-02569B?logo=flutter)](https://flutter.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=nodedotjs)](https://nodejs.org/)

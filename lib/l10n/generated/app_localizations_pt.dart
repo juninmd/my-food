@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'My Food';
+  String get appTitle => 'WebDiet';
 
   @override
   String get bmiTitle => 'Calculadora IMC';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/meal.dart';
-import 'package:my_food/widgets/dashboard_header.dart';
-import 'package:my_food/widgets/dashboard_stats_section.dart';
-import 'package:my_food/widgets/dashboard_surprise_button.dart';
-import 'package:my_food/widgets/meal_timeline.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/meal.dart';
+import 'package:webdiet/widgets/dashboard_header.dart';
+import 'package:webdiet/widgets/dashboard_stats_section.dart';
+import 'package:webdiet/widgets/dashboard_surprise_button.dart';
+import 'package:webdiet/widgets/meal_timeline.dart';
 
 class DashboardView extends StatelessWidget {
   final Future<String> quoteFuture;

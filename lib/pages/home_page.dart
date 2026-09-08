@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/services/api_service.dart';
-import 'package:my_food/services/ai_recommendation_service.dart';
-import 'package:my_food/widgets/surprise_me_dialog.dart';
-import 'package:my_food/widgets/home_navigation.dart';
-import 'package:my_food/widgets/home_body.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/services/api_service.dart';
+import 'package:webdiet/services/ai_recommendation_service.dart';
+import 'package:webdiet/widgets/surprise_me_dialog.dart';
+import 'package:webdiet/widgets/home_navigation.dart';
+import 'package:webdiet/widgets/home_body.dart';
 
 class HomePage extends StatefulWidget {
   final ApiService? apiService;

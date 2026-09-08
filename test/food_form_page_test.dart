@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/pages/food_form_page.dart';
-import 'package:my_food/models/food_item.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/pages/food_form_page.dart';
+import 'package:webdiet/models/food_item.dart';
 
 void main() {
   Widget createLocalizedContext(Widget child) {

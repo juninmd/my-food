@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:my_food/main.dart';
+import 'package:webdiet/main.dart';
 
 void main() {
   setUp(() {

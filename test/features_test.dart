@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_food/data/meal_data.dart';
-import 'package:my_food/utils/bmi_calculator.dart';
+import 'package:webdiet/data/meal_data.dart';
+import 'package:webdiet/utils/bmi_calculator.dart';
 
 void main() {
   group('Project Features Verification', () {

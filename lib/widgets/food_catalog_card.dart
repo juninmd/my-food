@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/food_item.dart';
-import 'package:my_food/widgets/food_catalog_delete_dialog.dart';
-import 'package:my_food/widgets/macro_badge.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/food_item.dart';
+import 'package:webdiet/widgets/food_catalog_delete_dialog.dart';
+import 'package:webdiet/widgets/macro_badge.dart';
 
 class FoodCatalogCard extends StatelessWidget {
   final FoodItem food;
