@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_food/main.dart';
-import 'package:my_food/pages/bmi_page.dart';
-import 'package:my_food/widgets/shopping_list_view.dart';
-import 'package:my_food/widgets/tools_view.dart';
+import 'package:webdiet/main.dart';
+import 'package:webdiet/pages/bmi_page.dart';
+import 'package:webdiet/widgets/shopping_list_view.dart';
+import 'package:webdiet/widgets/tools_view.dart';
 
 void main() {
   testWidgets('Navigation to BMI Calculator Page via Tools Tab',

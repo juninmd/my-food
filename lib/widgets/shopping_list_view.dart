@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/utils/ingredient_categorizer.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/utils/ingredient_categorizer.dart';
 
 class ShoppingListView extends StatefulWidget {
   final List<String> ingredients;

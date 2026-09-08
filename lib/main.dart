@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'pages/home_page.dart';
 import 'theme/app_theme.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     ));
 
     return MaterialApp(
-      title: 'My Food',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         AppLocalizations.delegate,

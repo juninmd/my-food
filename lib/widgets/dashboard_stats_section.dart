@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/data/diet_constants.dart';
-import 'package:my_food/widgets/macro_dashboard_card.dart';
-import 'package:my_food/widgets/nutritionist_note_card.dart';
-import 'package:my_food/widgets/water_tracker.dart';
-import 'package:my_food/widgets/dashboard_quote_section.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/data/diet_constants.dart';
+import 'package:webdiet/widgets/macro_dashboard_card.dart';
+import 'package:webdiet/widgets/nutritionist_note_card.dart';
+import 'package:webdiet/widgets/water_tracker.dart';
+import 'package:webdiet/widgets/dashboard_quote_section.dart';
 
 class DashboardStatsSection extends StatelessWidget {
   final Future<String> quoteFuture;

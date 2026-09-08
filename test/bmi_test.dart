@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_food/utils/bmi_calculator.dart';
+import 'package:webdiet/utils/bmi_calculator.dart';
 
 void main() {
   group('BmiCalculator Tests', () {

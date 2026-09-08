@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/models/food_item.dart';
-import 'package:my_food/services/food_service.dart';
-import 'package:my_food/widgets/food_form_body.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/food_item.dart';
+import 'package:webdiet/services/food_service.dart';
+import 'package:webdiet/widgets/food_form_body.dart';
 
 class FoodFormPage extends StatefulWidget {
   final FoodItem? foodToEdit;

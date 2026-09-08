@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_food/widgets/shopping_list_view.dart';
+import 'package:webdiet/widgets/shopping_list_view.dart';
 
 void main() {
   group('ShoppingListView Widget Tests', () {

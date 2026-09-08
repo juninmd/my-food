@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 
 class NutrientRing extends StatelessWidget {
   final int calories;

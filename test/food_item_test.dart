@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_food/models/food_item.dart';
+import 'package:webdiet/models/food_item.dart';
 
 void main() {
   group('FoodItem Tests', () {

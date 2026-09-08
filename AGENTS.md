@@ -1,4 +1,4 @@
-# 🧠 AGENTS.md - My Food Intelligence System
+# 🧠 AGENTS.md - WebDiet Intelligence System
 
 ## 👤 AI Personas
 

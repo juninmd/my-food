@@ -1,4 +1,4 @@
-# 🗺️ Product Roadmap: My Food
+# 🗺️ Product Roadmap: WebDiet
 
 ## 1. Vision & Goals
 **Vision:** To build a comprehensive, intelligent health companion that seamlessly integrates personalized meal planning, health tracking, and actionable insights to empower users to achieve their dietary goals. The app features a modern, clean, WebDiet-inspired aesthetic.

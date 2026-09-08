@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/models/meal.dart';
-import 'package:my_food/pages/meal_detail_page.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
+import 'package:webdiet/models/meal.dart';
+import 'package:webdiet/pages/meal_detail_page.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
 
 class ModernMealCard extends StatelessWidget {
   final Meal meal;

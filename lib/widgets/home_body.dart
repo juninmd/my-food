@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/data/meal_data.dart';
-import 'package:my_food/data/diet_constants.dart';
-import 'package:my_food/widgets/dashboard_view.dart';
-import 'package:my_food/widgets/shopping_list_view.dart';
-import 'package:my_food/widgets/tools_view.dart';
-import 'package:my_food/widgets/meal_selector_sheet.dart';
-import 'package:my_food/pages/food_catalog_page.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/data/meal_data.dart';
+import 'package:webdiet/data/diet_constants.dart';
+import 'package:webdiet/widgets/dashboard_view.dart';
+import 'package:webdiet/widgets/shopping_list_view.dart';
+import 'package:webdiet/widgets/tools_view.dart';
+import 'package:webdiet/widgets/meal_selector_sheet.dart';
+import 'package:webdiet/pages/food_catalog_page.dart';
 
 class HomeBody extends StatelessWidget {
   final int currentIndex;

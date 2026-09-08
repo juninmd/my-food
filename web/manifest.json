@@ -1,6 +1,6 @@
 {
-    "name": "my_food",
-    "short_name": "my_food",
+    "name": "WebDiet",
+    "short_name": "WebDiet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

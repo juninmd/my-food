@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_food/l10n/generated/app_localizations.dart';
-import 'package:my_food/widgets/food_image_picker.dart';
-import 'package:my_food/widgets/food_form_fields.dart';
-import 'package:my_food/widgets/food_form_section.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/food_image_picker.dart';
+import 'package:webdiet/widgets/food_form_fields.dart';
+import 'package:webdiet/widgets/food_form_section.dart';
 import 'dart:typed_data';
 
 class FoodFormBody extends StatelessWidget {
