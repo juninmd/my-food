@@ -1,4 +1,4 @@
-# my_food
+# WebDiet
 
 Aplicativo de Planejamento Alimentar e Saúde.
 
