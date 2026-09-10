@@ -1,4 +1,4 @@
-package com.myfood.my_food
+package com.myfood.webdiet
 
 import io.flutter.embedding.android.FlutterActivity
 

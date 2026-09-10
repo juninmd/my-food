@@ -1,6 +1,6 @@
-# Contributing to my_food
+# Contributing to WebDiet
 
-Thank you for your interest in contributing to `my_food`! We welcome contributions from everyone.
+Thank you for your interest in contributing to `WebDiet`! We welcome contributions from everyone.
 
 ## How to Contribute
 

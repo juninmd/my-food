@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myfood.my_food">
+    package="com.myfood.webdiet">
    <application
-        android:label="my_food"
+        android:label="WebDiet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
