@@ -35,10 +35,10 @@
     "express": "^5.2.1"
   },
   "pnpm": {
-    "approvedBuilds": [
+    "onlyBuiltDependencies": [
       "esbuild"
     ],
-    "onlyBuiltDependencies": [
+    "approvedBuilds": [
       "esbuild"
     ]
   }
