@@ -17,7 +17,7 @@ class MealSelectorSheet {
           height: MediaQuery.of(context).size.height * 0.7,
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             children: [
@@ -29,7 +29,7 @@ class MealSelectorSheet {
                   height: 4,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                 ),
               ),
@@ -159,7 +159,7 @@ class MealSelectorSheet {
                           horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: theme.primaryColor.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(24),
                       ),
                       child: Text(
                         '${meal.calories} kcal',
