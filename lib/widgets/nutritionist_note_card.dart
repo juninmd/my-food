@@ -14,7 +14,7 @@ class NutritionistNoteCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       decoration: BoxDecoration(
         color: const Color(0xFFE6F9F5),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Stack(
         children: [
@@ -27,8 +27,8 @@ class NutritionistNoteCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: colorScheme.primary,
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  bottomLeft: Radius.circular(16),
+                  topLeft: Radius.circular(24),
+                  bottomLeft: Radius.circular(24),
                 ),
               ),
             ),

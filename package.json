@@ -33,5 +33,11 @@
   },
   "dependencies": {
     "express": "^5.2.1"
-  }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "packageManager": "pnpm@10.30.3"
 }
