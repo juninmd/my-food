@@ -38,5 +38,6 @@
     "approvedBuilds": [
       "esbuild"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.30.3"
 }
