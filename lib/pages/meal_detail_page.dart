@@ -71,7 +71,7 @@ class MealDetailPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.scaffoldBackgroundColor,
                 borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(32)),
+                    const BorderRadius.vertical(top: Radius.circular(24)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
@@ -93,7 +93,7 @@ class MealDetailPage extends StatelessWidget {
                         height: 4,
                         decoration: BoxDecoration(
                           color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(2),
+                          borderRadius: BorderRadius.circular(24),
                         ),
                       ),
                     ),
@@ -267,7 +267,7 @@ class MealDetailPage extends StatelessWidget {
                             foregroundColor: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                             textStyle: const TextStyle(
                               fontSize: 16,

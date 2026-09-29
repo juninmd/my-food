@@ -110,7 +110,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                 height: 16,
                 decoration: BoxDecoration(
                   color: colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(6),
                 ),
               ),
               const SizedBox(width: 8),
@@ -181,7 +181,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
                               color: colorScheme.primary.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                             child: Text(
                               'x$count',
@@ -200,7 +200,7 @@ class _ShoppingListViewState extends State<ShoppingListView> {
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(24),
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),

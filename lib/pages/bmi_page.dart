@@ -189,7 +189,7 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                             horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
                           color: _resultColor,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(24),
                         ),
                         child: Text(
                           _getCategoryText(context, _bmiCategory!),

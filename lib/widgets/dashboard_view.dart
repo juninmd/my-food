@@ -72,7 +72,7 @@ class DashboardView extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Icon(Icons.restaurant_menu_rounded,
                       color: colorScheme.primary, size: 22),
