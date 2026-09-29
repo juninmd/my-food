@@ -37,9 +37,6 @@
   "pnpm": {
     "approvedBuilds": [
       "esbuild"
-    ],
-    "approvedBuilds": [
-      "esbuild"
     ]
   }
 }
