@@ -1,46 +1,85 @@
 Resolving dependencies...
 Downloading packages...
-  carousel_slider 5.1.1 (5.1.2 available)
-  characters 1.4.0 (1.4.1 available)
-  ffi 2.1.5 (2.2.0 available)
-  flutter_lints 4.0.0 (6.0.0 available)
-  google_fonts 6.3.3 (8.0.2 available)
-  lints 4.0.0 (6.1.0 available)
-  matcher 0.12.17 (0.12.19 available)
-  material_color_utilities 0.11.1 (0.13.0 available)
-  meta 1.17.0 (1.18.1 available)
-  shared_preferences_android 2.4.20 (2.4.21 available)
-  source_span 1.10.1 (1.10.2 available)
-  test_api 0.7.7 (0.7.10 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  google_fonts 8.2.1 (9.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  image_picker_android 0.8.13+17 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+9 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  jni_flutter 1.0.2 (1.0.3 available)
+  matcher 0.12.18 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.17.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  record_use 0.6.0 (1.1.1 available)
+  shared_preferences_android 2.4.23 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test_api 0.7.9 (0.7.14 available)
+  vector_math 2.2.0 (2.4.3 available)
+  yaml 3.1.3 (3.1.4 available)
 Got dependencies!
-12 packages have newer versions incompatible with dependency constraints.
+28 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /app/test/surprise_me_test.dart                                                                                                                                                      00:01 +0: loading /app/test/surprise_me_test.dart                                                                                                                                                      00:02 +0: loading /app/test/surprise_me_test.dart                                                                                                                                                      00:02 +0: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:03 +0: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +1: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +2: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +3: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +4: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +5: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI                                                                                                         00:04 +5: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +5: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +6: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +7: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +8: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +9: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                          00:05 +10: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error                                                                                                         00:05 +10: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: exactly one matching candidate
-  Actual: _TextWidgetFinder:<Found 0 widgets with text "Keep focused and healthy!": []>
-   Which: means none were found but one was expected
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure> (file:///app/test/surprise_me_test.dart:114:5)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///app/test/surprise_me_test.dart line 114
-The test description was:
-  Surprise Me displays fallback message on API error
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:05 +10 -1: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error [E]
-  Test failed. See exception logs above.
-  The test description was: Surprise Me displays fallback message on API error
-
-
-To run this test again: /opt/flutter/bin/cache/dart-sdk/bin/dart test /app/test/surprise_me_test.dart -p vm --plain-name 'Surprise Me displays fallback message on API error'
-00:06 +10 -1: loading /app/test/api_service_lifecycle_test.dart                                                                                                                                        00:06 +10 -1: /app/test/api_service_lifecycle_test.dart: ApiService dispose closes the client                                                                                                          00:06 +11 -1: /app/test/api_service_lifecycle_test.dart: ApiService dispose closes the client                                                                                                          00:06 +11 -1: loading /app/test/navigation_test.dart                                                                                                                                                   00:06 +11 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:07 +11 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:07 +12 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:07 +13 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:07 +14 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:07 +15 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:08 +15 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:08 +16 -1: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab                                                                                                          00:08 +16 -1: /app/test/navigation_test.dart: Navigation to Shopping List via Tab                                                                                                                      00:09 +16 -1: /app/test/navigation_test.dart: Navigation to Shopping List via Tab                                                                                                                      00:09 +17 -1: /app/test/random_recipe_lifecycle_test.dart: RandomRecipePage does NOT dispose injected ApiService                                                                                       00:09 +18 -1: /app/test/random_recipe_lifecycle_test.dart: RandomRecipePage does NOT dispose injected ApiService                                                                                       00:09 +18 -1: loading /app/test/bmi_test.dart                                                                                                                                                          00:09 +18 -1: /app/test/bmi_test.dart: BmiCalculator Tests Calculates BMI correctly                                                                                                                    00:10 +18 -1: /app/test/bmi_test.dart: BmiCalculator Tests Calculates BMI correctly                                                                                                                    00:10 +19 -1: /app/test/bmi_test.dart: BmiCalculator Tests Calculates BMI correctly                                                                                                                    00:10 +19 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Underweight correctly                                                                                                           00:10 +20 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Underweight correctly                                                                                                           00:10 +20 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Normal Weight correctly                                                                                                         00:10 +21 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Normal Weight correctly                                                                                                         00:10 +21 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Overweight correctly                                                                                                            00:10 +22 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Overweight correctly                                                                                                            00:10 +22 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Obesity correctly                                                                                                               00:10 +23 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Obesity correctly                                                                                                               00:10 +23 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Edge Cases correctly (Logic Fix Verification)                                                                                   00:10 +24 -1: /app/test/bmi_test.dart: BmiCalculator Tests Categorizes Edge Cases correctly (Logic Fix Verification)                                                                                   00:10 +24 -1: /app/test/bmi_test.dart: BmiCalculator Tests Throws error on invalid height                                                                                                              00:10 +25 -1: /app/test/bmi_test.dart: BmiCalculator Tests Throws error on invalid height                                                                                                              00:10 +25 -1: loading /app/test/meal_logic_test.dart                                                                                                                                                   00:10 +25 -1: /app/test/meal_logic_test.dart: MealData Tests Breakfast options should not be empty                                                                                                     00:11 +25 -1: /app/test/meal_logic_test.dart: MealData Tests Breakfast options should not be empty                                                                                                     00:11 +26 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:11 +27 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:11 +28 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:11 +29 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:11 +30 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:11 +31 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:12 +31 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:12 +32 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly                                                                               00:12 +32 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Toggles checkbox when item is tapped                                                                                    00:12 +33 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Toggles checkbox when item is tapped                                                                                    00:12 +33 -1: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Copy to clipboard triggers SnackBar                                                                                     00:12 +34 -1: /app/test/widget_test.dart: App smoke test                                                                                                                                               00:13 +34 -1: /app/test/widget_test.dart: App smoke test                                                                                                                                               00:13 +35 -1: /app/test/widget_test.dart: App smoke test                                                                                                                                               00:13 +35 -1: Some tests failed.
+00:00 +0: loading /app/test/food_form_page_test.dart
+00:00 +0: /app/test/food_form_page_test.dart: FoodFormPage renders add mode correctly
+00:01 +1: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI
+00:01 +2: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI
+00:02 +3: /app/test/surprise_me_test.dart: Surprise Me button fetches new quote and updates UI
+00:03 +4: /app/test/food_form_page_test.dart: FoodFormPage saves food successfully and pops
+00:03 +5: /app/test/surprise_me_test.dart: Surprise Me displays fallback message on API error
+00:04 +6: /app/test/api_service_test.dart: ApiService Tests fetchQuote returns quote when call is successful
+00:04 +7: /app/test/api_service_test.dart: ApiService Tests fetchQuote throws exception on error
+00:04 +8: /app/test/api_service_test.dart: ApiService Tests fetchQuote throws exception on network error
+00:04 +9: /app/test/api_service_test.dart: ApiService Tests fetchRandomRecipe returns meal when call is successful
+00:04 +10: /app/test/api_service_test.dart: ApiService Tests fetchRandomRecipe throws exception on error
+00:04 +11: /app/test/features_test.dart: Project Features Verification Diet Data Integrity
+00:05 +12: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:05 +13: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:05 +14: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:05 +15: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +16: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +17: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +18: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +19: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +20: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +21: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +22: /app/test/random_recipe_test.dart: RandomRecipePage shows loading indicator initially
+00:06 +23: /app/test/random_recipe_test.dart: RandomRecipePage displays recipe details when API call is successful
+00:06 +24: /app/test/random_recipe_test.dart: RandomRecipePage displays error message and retry button on failure
+00:06 +25: /app/test/random_recipe_test.dart: RandomRecipePage retry button triggers new fetch
+00:07 +26: /app/test/food_catalog_page_test.dart: FoodCatalogPage displays empty state when no foods exist
+00:08 +27: /app/test/meal_logic_test.dart: MealData Tests Breakfast options should not be empty
+00:08 +28: /app/test/food_catalog_page_test.dart: FoodCatalogPage displays food items correctly
+00:08 +29: /app/test/food_catalog_page_test.dart: FoodCatalogPage displays food items correctly
+00:08 +30: /app/test/meal_logic_test.dart: MealData Tests Dinner options should not be empty
+00:08 +31: /app/test/food_catalog_page_test.dart: FoodCatalogPage delete button shows dialog and deletes item
+00:08 +32: /app/test/food_catalog_page_test.dart: FoodCatalogPage delete button shows dialog and deletes item
+00:09 +33: /app/test/food_catalog_page_test.dart: FoodCatalogPage delete button shows dialog and deletes item
+00:09 +34: /app/test/food_catalog_page_test.dart: FoodCatalogPage delete button shows dialog and deletes item
+00:09 +35: /app/test/shopping_list_test.dart: ShoppingListView Widget Tests Displays aggregated ingredients correctly
+00:11 +36: /app/test/widget_test.dart: App smoke test
+00:11 +37: /app/test/widget_test.dart: App smoke test
+00:11 +38: /app/test/widget_test.dart: App smoke test
+00:13 +39: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab
+00:13 +40: /app/test/navigation_test.dart: Navigation to BMI Calculator Page via Tools Tab
+00:15 +41: /app/test/random_recipe_lifecycle_test.dart: RandomRecipePage does NOT dispose injected ApiService
+00:16 +42: /app/test/navigation_test.dart: Navigation to Shopping List via Tab
+00:17 +43: /app/test/food_service_test.dart: FoodService Tests getFoods returns empty list initially
+00:17 +44: /app/test/food_service_test.dart: FoodService Tests saveFood saves a new food item
+00:17 +45: /app/test/food_service_test.dart: FoodService Tests saveFood updates an existing food item
+00:17 +46: /app/test/food_service_test.dart: FoodService Tests deleteFood removes a food item
+00:18 +47: /app/test/food_item_test.dart: FoodItem Tests toJson returns correct map
+00:18 +48: /app/test/food_item_test.dart: FoodItem Tests fromJson creates correct object
+00:18 +49: /app/test/food_item_test.dart: FoodItem Tests copyWith updates fields correctly
+00:18 +50: All tests passed!
