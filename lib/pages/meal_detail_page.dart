@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webdiet/models/meal.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/meal_detail_macro_item.dart';
+import 'package:webdiet/widgets/meal_detail_ingredients_list.dart';
 
 class MealDetailPage extends StatelessWidget {
   final Meal meal;
@@ -136,31 +138,31 @@ class MealDetailPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _buildMacroItem(
+                          buildMealDetailMacroItem(
                               context,
                               l10n.caloriesTitle,
                               "${meal.calories}",
                               Icons.local_fire_department_rounded,
                               Colors.orange.shade700,
                               Colors.orange.shade50),
-                          _buildDivider(),
-                          _buildMacroItem(
+                          buildMealDetailDivider(),
+                          buildMealDetailMacroItem(
                               context,
                               l10n.macroProtein,
                               "${meal.protein}g",
                               Icons.fitness_center_rounded,
                               colorScheme.primary,
                               colorScheme.primary.withValues(alpha: 0.1)),
-                          _buildDivider(),
-                          _buildMacroItem(
+                          buildMealDetailDivider(),
+                          buildMealDetailMacroItem(
                               context,
                               l10n.macroCarbs,
                               "${meal.carbs}g",
                               Icons.bolt_rounded,
                               Colors.blue.shade700,
                               Colors.blue.shade50),
-                          _buildDivider(),
-                          _buildMacroItem(
+                          buildMealDetailDivider(),
+                          buildMealDetailMacroItem(
                               context,
                               l10n.macroFat,
                               "${meal.fat}g",
@@ -195,58 +197,7 @@ class MealDetailPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 24,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: meal.ingredients.asMap().entries.map((entry) {
-                          final index = entry.key;
-                          final ingredient = entry.value;
-                          final isLast = index == meal.ingredients.length - 1;
-
-                          return Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 16),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.check_circle_rounded,
-                                        size: 20, color: colorScheme.primary),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: Text(
-                                        ingredient,
-                                        style:
-                                            theme.textTheme.bodyLarge?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (!isLast)
-                                Divider(
-                                    height: 1,
-                                    thickness: 1,
-                                    indent: 56,
-                                    endIndent: 20,
-                                    color: Colors.grey.shade100),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    ),
+                    MealDetailIngredientsList(ingredients: meal.ingredients),
 
                     const SizedBox(height: 40),
 
@@ -286,47 +237,6 @@ class MealDetailPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDivider() {
-    return Container(
-      height: 40,
-      width: 1,
-      color: Colors.grey.shade200,
-    );
-  }
-
-  Widget _buildMacroItem(BuildContext context, String label, String value,
-      IconData icon, Color color, Color bgColor) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: bgColor,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: color, size: 20),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          value,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade500,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
     );
   }
 }

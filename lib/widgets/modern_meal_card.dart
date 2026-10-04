@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/models/meal.dart';
 import 'package:webdiet/pages/meal_detail_page.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/macro_badge.dart';
 
 class ModernMealCard extends StatelessWidget {
   final Meal meal;
@@ -121,29 +122,26 @@ class ModernMealCard extends StatelessWidget {
                         spacing: 6,
                         runSpacing: 6,
                         children: [
-                          _buildMacroBadge(
+                          buildMacroBadge(
                             context,
-                            Icons.local_fire_department_rounded,
                             "${meal.calories}",
                             Colors.orange.shade800,
-                            Colors.orange
-                                .withValues(alpha: 0.08), // Softer background
+                            Colors.orange.withValues(alpha: 0.08),
+                            icon: Icons.local_fire_department_rounded,
                           ),
-                          _buildMacroBadge(
+                          buildMacroBadge(
                             context,
-                            Icons.fitness_center_rounded,
                             "${meal.protein}g",
                             colorScheme.primary,
-                            colorScheme.primary
-                                .withValues(alpha: 0.08), // Softer background
+                            colorScheme.primary.withValues(alpha: 0.08),
+                            icon: Icons.fitness_center_rounded,
                           ),
-                          _buildMacroBadge(
+                          buildMacroBadge(
                             context,
-                            Icons.bolt_rounded,
                             "${meal.carbs}g",
                             Colors.blue.shade800,
-                            Colors.blue
-                                .withValues(alpha: 0.08), // Softer background
+                            Colors.blue.withValues(alpha: 0.08),
+                            icon: Icons.bolt_rounded,
                           ),
                         ],
                       ),
@@ -181,32 +179,6 @@ class ModernMealCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMacroBadge(BuildContext context, IconData icon, String text,
-      Color color, Color bgColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: color),
-          const SizedBox(width: 4),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: color,
-            ),
-          ),
-        ],
       ),
     );
   }

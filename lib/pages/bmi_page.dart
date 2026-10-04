@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import '../utils/bmi_calculator.dart';
+import 'package:webdiet/widgets/bmi_result_card.dart';
 
 class BMICalculatorPage extends StatefulWidget {
   const BMICalculatorPage({super.key});
@@ -39,19 +40,6 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
         SnackBar(
             content: Text(AppLocalizations.of(context)!.bmiErrorInvalidInput)),
       );
-    }
-  }
-
-  String _getCategoryText(BuildContext context, BmiCategory category) {
-    switch (category) {
-      case BmiCategory.underweight:
-        return AppLocalizations.of(context)!.bmiUnderweight;
-      case BmiCategory.normal:
-        return AppLocalizations.of(context)!.bmiNormal;
-      case BmiCategory.overweight:
-        return AppLocalizations.of(context)!.bmiOverweight;
-      case BmiCategory.obesity:
-        return AppLocalizations.of(context)!.bmiObesity;
     }
   }
 
@@ -160,48 +148,10 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
               ),
               const SizedBox(height: 40),
               if (_bmi != null && _bmiCategory != null)
-                Container(
-                  padding: const EdgeInsets.all(32),
-                  decoration: BoxDecoration(
-                    color: _resultColor.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        l10n.bmiResultLabel,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: Colors.grey.shade700,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _bmi!.toStringAsFixed(1),
-                        style: theme.textTheme.displayLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: _resultColor,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: _resultColor,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
-                          _getCategoryText(context, _bmiCategory!),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                BmiResultCard(
+                  bmi: _bmi!,
+                  category: _bmiCategory!,
+                  resultColor: _resultColor,
                 ),
             ],
           ),

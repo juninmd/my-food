@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/utils/ingredient_categorizer.dart';
+import 'package:webdiet/widgets/shopping_list/shopping_list_category.dart';
+import 'package:webdiet/widgets/shopping_list/shopping_list_app_bar.dart';
+import 'package:webdiet/widgets/shopping_list/shopping_list_clipboard.dart';
 
 class ShoppingListView extends StatefulWidget {
   final List<String> ingredients;
@@ -39,39 +41,10 @@ class _ShoppingListViewState extends State<ShoppingListView> {
         'checked_ingredients', _checkedIngredients.toList());
   }
 
-  void _copyToClipboard(Map<String, int> ingredientCounts) {
-    final l10n = AppLocalizations.of(context)!;
-    final buffer = StringBuffer();
-    buffer.writeln(l10n.shoppingListClipboardTitle);
-
-    final sortedIngredients = ingredientCounts.keys.toList()..sort();
-
-    for (var ingredient in sortedIngredients) {
-      final count = ingredientCounts[ingredient];
-      final isChecked = _checkedIngredients.contains(ingredient);
-      final checkStatus = isChecked ? '[x]' : '[ ]';
-      final quantity = count! > 1 ? ' (x$count)' : '';
-
-      buffer.writeln('$checkStatus $ingredient$quantity');
-    }
-
-    Clipboard.setData(ClipboardData(text: buffer.toString()));
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(l10n.shoppingListCopied),
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     // 1. Calculate Counts
     final Map<String, int> ingredientCounts = {};
@@ -101,121 +74,21 @@ class _ShoppingListViewState extends State<ShoppingListView> {
       ingredients.sort();
 
       listItems.add(
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
-          child: Row(
-            children: [
-              Container(
-                width: 4,
-                height: 16,
-                decoration: BoxDecoration(
-                  color: colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                category.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.secondary,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-      listItems.add(
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Column(
-            children: ingredients.map((ingredient) {
-              final count = ingredientCounts[ingredient];
-              final isChecked = _checkedIngredients.contains(ingredient);
-              final isLast = ingredient == ingredients.last;
-
-              return Column(
-                children: [
-                  CheckboxListTile(
-                    value: isChecked,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        if (value == true) {
-                          _checkedIngredients.add(ingredient);
-                        } else {
-                          _checkedIngredients.remove(ingredient);
-                        }
-                        _saveCheckedIngredients();
-                      });
-                    },
-                    title: Text(
-                      ingredient,
-                      style: TextStyle(
-                        decoration:
-                            isChecked ? TextDecoration.lineThrough : null,
-                        color: isChecked
-                            ? Colors.grey.withValues(alpha: 0.5)
-                            : colorScheme.onSurface,
-                        fontWeight:
-                            isChecked ? FontWeight.w500 : FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                    ),
-                    secondary: count! > 1
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primary.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: Text(
-                              'x$count',
-                              style: TextStyle(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                          )
-                        : null,
-                    activeColor: colorScheme.primary,
-                    checkboxShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    controlAffinity: ListTileControlAffinity.leading,
-                  ),
-                  if (!isLast)
-                    Divider(
-                      height: 1,
-                      thickness: 1,
-                      indent: 56, // Align with text
-                      endIndent: 20,
-                      color: Colors.grey.shade100,
-                    ),
-                ],
-              );
-            }).toList(),
-          ),
+        ShoppingListCategory(
+          category: category,
+          ingredients: ingredients,
+          ingredientCounts: ingredientCounts,
+          checkedIngredients: _checkedIngredients,
+          onIngredientChecked: (ingredient, isChecked) {
+            setState(() {
+              if (isChecked) {
+                _checkedIngredients.add(ingredient);
+              } else {
+                _checkedIngredients.remove(ingredient);
+              }
+              _saveCheckedIngredients();
+            });
+          },
         ),
       );
     }
@@ -223,44 +96,22 @@ class _ShoppingListViewState extends State<ShoppingListView> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _copyToClipboard(ingredientCounts),
+        onPressed: () => copyShoppingListToClipboard(
+            context, l10n, ingredientCounts, _checkedIngredients),
         icon: const Icon(Icons.copy_rounded),
         label: Text(l10n.shoppingListCopyTooltip),
       ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: 120.0,
-            floating: true,
-            pinned: true,
-            backgroundColor: theme.scaffoldBackgroundColor,
-            surfaceTintColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: false,
-              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-              title: Text(
-                l10n.shoppingListTitle,
-                style: TextStyle(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            actions: [
-              if (_checkedIngredients.isNotEmpty)
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _checkedIngredients.clear();
-                      _saveCheckedIngredients();
-                    });
-                  },
-                  icon: const Icon(Icons.delete_sweep_outlined),
-                  color: colorScheme.error,
-                  tooltip: "Clear Checked",
-                ),
-              const SizedBox(width: 16),
-            ],
+          ShoppingListAppBar(
+            title: l10n.shoppingListTitle,
+            hasCheckedItems: _checkedIngredients.isNotEmpty,
+            onClearChecked: () {
+              setState(() {
+                _checkedIngredients.clear();
+                _saveCheckedIngredients();
+              });
+            },
           ),
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 100),
