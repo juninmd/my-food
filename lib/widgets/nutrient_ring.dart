@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/macro_progress_row.dart';
 
 class NutrientRing extends StatelessWidget {
   final int calories;
@@ -84,14 +85,26 @@ class NutrientRing extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildMacroRow(context, l10n.macroProtein, protein, targetProtein,
-                  colorScheme.secondary, Colors.grey.shade200),
+              MacroProgressRow(
+                  label: l10n.macroProtein,
+                  value: protein,
+                  target: targetProtein,
+                  color: colorScheme.secondary,
+                  bgColor: Colors.grey.shade200),
               const SizedBox(height: 20),
-              _buildMacroRow(context, l10n.macroCarbs, carbs, targetCarbs,
-                  colorScheme.primary, const Color(0xFFE6F9F5)),
+              MacroProgressRow(
+                  label: l10n.macroCarbs,
+                  value: carbs,
+                  target: targetCarbs,
+                  color: colorScheme.primary,
+                  bgColor: const Color(0xFFE6F9F5)),
               const SizedBox(height: 20),
-              _buildMacroRow(context, l10n.macroFat, fat, targetFat,
-                  Colors.grey.shade400, Colors.grey.shade100),
+              MacroProgressRow(
+                  label: l10n.macroFat,
+                  value: fat,
+                  target: targetFat,
+                  color: Colors.grey.shade400,
+                  bgColor: Colors.grey.shade100),
             ],
           );
 
@@ -114,50 +127,6 @@ class NutrientRing extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-
-  Widget _buildMacroRow(BuildContext context, String label, int value,
-      int target, Color color, Color bgColor) {
-    double progress = target > 0 ? value / target : 0;
-    if (progress > 1.0) progress = 1.0;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            Text(
-              "${value}g / ${target}g",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        LinearPercentIndicator(
-          lineHeight: 6.0,
-          percent: progress,
-          progressColor: color,
-          backgroundColor: bgColor,
-          barRadius: const Radius.circular(3),
-          padding: EdgeInsets.zero,
-          animation: true,
-          animationDuration: 1000,
-        ),
-      ],
     );
   }
 }
