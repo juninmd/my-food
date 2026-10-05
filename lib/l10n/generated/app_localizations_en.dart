@@ -423,4 +423,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nutritionPer100g => 'Nutrition (per 100g)';
+
+  @override
+  String get searchFoodHint => 'Search foods...';
+
+  @override
+  String get noFoodsFound => 'No foods found.';
+
+  @override
+  String get foodSavedSuccess => 'Food saved successfully!';
+
+  @override
+  String get imagePickError => 'Error picking image.';
 }

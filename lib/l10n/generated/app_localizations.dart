@@ -913,6 +913,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nutrition (per 100g)'**
   String get nutritionPer100g;
+
+  /// No description provided for @searchFoodHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search foods...'**
+  String get searchFoodHint;
+
+  /// No description provided for @noFoodsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No foods found.'**
+  String get noFoodsFound;
+
+  /// No description provided for @foodSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Food saved successfully!'**
+  String get foodSavedSuccess;
+
+  /// No description provided for @imagePickError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error picking image.'**
+  String get imagePickError;
 }
 
 class _AppLocalizationsDelegate

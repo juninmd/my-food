@@ -16,7 +16,9 @@ class FoodCatalogPage extends StatefulWidget {
 class _FoodCatalogPageState extends State<FoodCatalogPage> {
   final FoodService _foodService = FoodService();
   List<FoodItem> _foods = [];
+  List<FoodItem> _filteredFoods = [];
   bool _isLoading = true;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -29,7 +31,23 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
     final foods = await _foodService.getFoods();
     setState(() {
       _foods = foods;
+      _filterFoods(_searchQuery);
       _isLoading = false;
+    });
+  }
+
+  void _filterFoods(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (query.isEmpty) {
+        _filteredFoods = _foods;
+      } else {
+        _filteredFoods = _foods.where((food) {
+          final lowerQuery = query.toLowerCase();
+          return food.name.toLowerCase().contains(lowerQuery) ||
+              food.description.toLowerCase().contains(lowerQuery);
+        }).toList();
+      }
     });
   }
 
@@ -49,19 +67,37 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 120.0,
+            expandedHeight: 180.0,
             floating: true,
             pinned: true,
             backgroundColor: colorScheme.surface,
             iconTheme: IconThemeData(color: colorScheme.onSurface),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
-              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+              titlePadding: const EdgeInsets.only(left: 24, bottom: 80),
               title: Text(
                 l10n.foodCatalogTitle,
                 style: theme.textTheme.titleLarge?.copyWith(
                   color: colorScheme.onSurface,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+              background: Container(
+                alignment: Alignment.bottomCenter,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: TextField(
+                  onChanged: _filterFoods,
+                  decoration: InputDecoration(
+                    hintText: l10n.searchFoodHint,
+                    prefixIcon: const Icon(Icons.search),
+                    filled: true,
+                    fillColor: theme.scaffoldBackgroundColor,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -70,15 +106,26 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
             const SliverFillRemaining(
               child: Center(child: CircularProgressIndicator()),
             )
-          else if (_foods.isEmpty)
+          else if (_filteredFoods.isEmpty && _searchQuery.isEmpty)
             const FoodCatalogEmptyState()
+          else if (_filteredFoods.isEmpty && _searchQuery.isNotEmpty)
+            SliverFillRemaining(
+              child: Center(
+                child: Text(
+                  l10n.noFoodsFound,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            )
           else
             SliverPadding(
               padding: const EdgeInsets.all(24.0),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    final food = _foods[index];
+                    final food = _filteredFoods[index];
                     return FoodCatalogCard(
                       food: food,
                       onTap: () async {
@@ -96,7 +143,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
                       },
                     );
                   },
-                  childCount: _foods.length,
+                  childCount: _filteredFoods.length,
                 ),
               ),
             ),

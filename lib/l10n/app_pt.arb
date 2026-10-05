@@ -151,5 +151,9 @@
   "noFoodsYet": "Nenhum alimento adicionado ainda.",
   "deleteConfirmation": "Tem certeza que deseja excluir este alimento?",
   "basicDetails": "Detalhes Básicos",
-  "nutritionPer100g": "Nutrição (por 100g)"
+  "nutritionPer100g": "Nutrição (por 100g)",
+  "searchFoodHint": "Buscar alimentos...",
+  "noFoodsFound": "Nenhum alimento encontrado.",
+  "foodSavedSuccess": "Alimento salvo com sucesso!",
+  "imagePickError": "Erro ao escolher a imagem."
 }
