@@ -424,4 +424,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get nutritionPer100g => 'Nutrição (por 100g)';
+
+  @override
+  String get searchFoodHint => 'Buscar alimentos...';
+
+  @override
+  String get noFoodsFound => 'Nenhum alimento encontrado.';
+
+  @override
+  String get foodSavedSuccess => 'Alimento salvo com sucesso!';
+
+  @override
+  String get imagePickError => 'Erro ao escolher a imagem.';
 }
