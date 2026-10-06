@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/widgets/surprise_me_content.dart';
 
 class SurpriseMeDialog extends StatefulWidget {
   final Future<String> quoteFuture;
@@ -46,7 +46,6 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
 
   Future<void> _startSurprise() async {
     try {
-      // Wait for both the minimum delay and the quote
       final results = await Future.wait([
         Future.delayed(const Duration(seconds: 2)),
         widget.quoteFuture,
@@ -54,7 +53,7 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
 
       if (!mounted) return;
 
-      widget.onReveal(); // Update parent state
+      widget.onReveal();
 
       setState(() {
         _loading = false;
@@ -73,11 +72,8 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-
     return Dialog(
-      backgroundColor: const Color(0xFFF8F9FA), // Clean off-white
+      backgroundColor: const Color(0xFFF8F9FA),
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -96,118 +92,12 @@ class _SurpriseMeDialogState extends State<SurpriseMeDialog>
         ),
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (_loading) ...[
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: 48,
-                  height: 48,
-                  child: CircularProgressIndicator(
-                    color: theme.primaryColor,
-                    strokeWidth: 3,
-                  ),
-                ),
-                const SizedBox(height: 32),
-                Text(
-                  "${l10n.surpriseMeButton}...",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 8),
-              ] else if (_error != null) ...[
-                Icon(Icons.error_outline,
-                    color: theme.colorScheme.error, size: 56),
-                const SizedBox(height: 24),
-                Text(
-                  l10n.quoteErrorMessage,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("OK"),
-                  ),
-                )
-              ] else ...[
-                ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: theme.primaryColor.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.check_rounded,
-                      color: theme.primaryColor,
-                      size: 48,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  l10n.surpriseMeFeedback,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (_quote != null)
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.02),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Icon(Icons.format_quote_rounded,
-                            color: theme.colorScheme.secondary
-                                .withValues(alpha: 0.3),
-                            size: 24),
-                        const SizedBox(height: 8),
-                        Text(
-                          _quote!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: Colors.grey.shade600,
-                            height: 1.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: const Text("OK"),
-                  ),
-                ),
-              ],
-            ],
+          child: SurpriseMeContent(
+            loading: _loading,
+            error: _error,
+            quote: _quote,
+            scaleAnimation: _scaleAnimation,
+            onOk: () => Navigator.pop(context),
           ),
         ),
       ),
