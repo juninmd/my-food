@@ -5,6 +5,7 @@ import 'package:webdiet/services/food_service.dart';
 import 'package:webdiet/pages/food_form_page.dart';
 import 'package:webdiet/widgets/food_catalog_card.dart';
 import 'package:webdiet/widgets/food_catalog_empty_state.dart';
+import 'package:webdiet/widgets/food_catalog_app_bar.dart';
 
 class FoodCatalogPage extends StatefulWidget {
   const FoodCatalogPage({super.key});
@@ -66,41 +67,8 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: 180.0,
-            floating: true,
-            pinned: true,
-            backgroundColor: colorScheme.surface,
-            iconTheme: IconThemeData(color: colorScheme.onSurface),
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: false,
-              titlePadding: const EdgeInsets.only(left: 24, bottom: 80),
-              title: Text(
-                l10n.foodCatalogTitle,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              background: Container(
-                alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                child: TextField(
-                  onChanged: _filterFoods,
-                  decoration: InputDecoration(
-                    hintText: l10n.searchFoodHint,
-                    prefixIcon: const Icon(Icons.search),
-                    filled: true,
-                    fillColor: theme.scaffoldBackgroundColor,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          FoodCatalogAppBar(
+            onFilterFoods: _filterFoods,
           ),
           if (_isLoading)
             const SliverFillRemaining(

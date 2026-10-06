@@ -6,6 +6,7 @@ import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/services/food_service.dart';
 import 'package:webdiet/widgets/food_form_body.dart';
+import 'package:webdiet/widgets/food_form_app_bar.dart';
 
 class FoodFormPage extends StatefulWidget {
   final FoodItem? foodToEdit;
@@ -114,33 +115,14 @@ class _FoodFormPageState extends State<FoodFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final isEditing = widget.foodToEdit != null;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: 120.0,
-            floating: true,
-            pinned: true,
-            backgroundColor: colorScheme.surface,
-            iconTheme: IconThemeData(color: colorScheme.onSurface),
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: false,
-              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-              title: Text(
-                isEditing ? l10n.editFoodTitle : l10n.addFoodTitle,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
+          FoodFormAppBar(isEditing: isEditing),
           SliverToBoxAdapter(
             child: FoodFormBody(
               formKey: _formKey,

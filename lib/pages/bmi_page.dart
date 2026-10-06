@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import '../utils/bmi_calculator.dart';
 import 'package:webdiet/widgets/bmi_result_card.dart';
+import 'package:webdiet/widgets/bmi_input_form.dart';
 
 class BMICalculatorPage extends StatefulWidget {
   const BMICalculatorPage({super.key});
@@ -87,46 +88,9 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
-                      blurRadius: 16,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _weightController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        labelText: l10n.bmiWeightLabel,
-                        hintText: 'e.g. 70.5',
-                        prefixIcon: Icon(Icons.monitor_weight_outlined,
-                            color: colorScheme.primary),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: _heightController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        labelText: l10n.bmiHeightLabel,
-                        hintText: 'e.g. 1.75',
-                        prefixIcon: Icon(Icons.height_outlined,
-                            color: colorScheme.primary),
-                      ),
-                    ),
-                  ],
-                ),
+              BmiInputForm(
+                weightController: _weightController,
+                heightController: _heightController,
               ),
               const SizedBox(height: 32),
               ElevatedButton(
