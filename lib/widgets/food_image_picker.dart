@@ -35,8 +35,8 @@ class FoodImagePicker extends StatelessWidget {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_photo_alternate_outlined,
-                      size: 48,
+                  Icon(Icons.camera_alt_outlined,
+                      size: 64,
                       color: colorScheme.primary.withValues(alpha: 0.6)),
                   const SizedBox(height: 12),
                   Text(
@@ -47,7 +47,21 @@ class FoodImagePicker extends StatelessWidget {
                   ),
                 ],
               )
-            : null,
+            : Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.8),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.edit_outlined,
+                        color: colorScheme.primary, size: 20),
+                  ),
+                ),
+              ),
       ),
     );
   }
