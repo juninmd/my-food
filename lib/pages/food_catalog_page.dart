@@ -117,7 +117,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
             ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.push(
             context,
@@ -128,7 +128,11 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
           _loadFoods();
         },
         backgroundColor: colorScheme.primary,
-        child: const Icon(Icons.add, color: Colors.white),
+        icon: const Icon(Icons.add, color: Colors.white),
+        label: Text(
+          l10n.addFoodTitle,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

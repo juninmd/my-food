@@ -17,6 +17,13 @@ Widget buildTextField({
     maxLines: maxLines,
     decoration: InputDecoration(
       labelText: label,
+      filled: true,
+      fillColor: Colors.grey.shade50,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24),
+        borderSide: BorderSide.none,
+      ),
       prefixIcon: prefixIcon != null
           ? Icon(prefixIcon, color: colorScheme.primary)
           : null,
