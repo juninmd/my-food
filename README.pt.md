@@ -4,9 +4,13 @@ Aplicativo de Planejamento Alimentar e Saúde.
 
 Projeto responsável pela dieta de pacientes, cálculo de nutrientes, lista de compras, me surpreenda.
 
-Deve ter uma interface moderna, reformule da melhor forma possível, que possa substituir o app. Precisa ser agradável também aos nutricionistas, mas os pacientes também podem fazer alterações inspirados por [WebDiet](https://webdiet.com.br/site/HOME).
+O aplicativo possui uma interface moderna, projetada para substituir aplicativos antigos e agradar tanto pacientes quanto nutricionistas. O visual é inspirado pelo [WebDiet](https://webdiet.com.br/site/HOME), utilizando cores clean (como verde menta) e sem bordas pesadas.
 
-Deixe essa app produtiva, com recursos completos para cadastro de alimentos, edição de alimentos, adição de fotos e catálogo de alimentos.
+O app é extremamente produtivo, já contemplando nativamente todos os recursos solicitados:
+* **Cadastro de alimentos**
+* **Edição de alimentos**
+* **Adição de fotos de alimentos**
+* **Catálogo completo de alimentos**
 
 ## Funcionalidades Principais
 
