@@ -38,7 +38,8 @@ class FoodFormBody extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
+      // Productive layout spacing (WebDiet inspired)
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
       child: Form(
         key: formKey,
         child: Column(

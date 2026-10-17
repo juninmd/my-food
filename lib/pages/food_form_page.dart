@@ -8,6 +8,8 @@ import 'package:webdiet/services/food_service.dart';
 import 'package:webdiet/widgets/food_form_body.dart';
 import 'package:webdiet/widgets/food_form_app_bar.dart';
 
+/// Formulário para o "Cadastro de alimentos" e "Edição de alimentos"
+/// Interface moderna e produtiva voltada a pacientes e agradável aos nutricionistas.
 class FoodFormPage extends StatefulWidget {
   final FoodItem? foodToEdit;
 
