@@ -7,6 +7,8 @@ import 'package:webdiet/widgets/food_catalog_card.dart';
 import 'package:webdiet/widgets/food_catalog_empty_state.dart';
 import 'package:webdiet/widgets/food_catalog_app_bar.dart';
 
+/// Página principal do "Catálogo de alimentos"
+/// Fornece interface moderna que pode substituir outros apps e ser agradável.
 class FoodCatalogPage extends StatefulWidget {
   const FoodCatalogPage({super.key});
 
@@ -117,6 +119,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
             ),
         ],
       ),
+      // Action for new foods registration
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.push(
@@ -128,7 +131,7 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
           _loadFoods();
         },
         backgroundColor: colorScheme.primary,
-        icon: const Icon(Icons.add, color: Colors.white),
+        icon: const Icon(Icons.add_circle_outline, color: Colors.white), // Slightly more modern icon
         label: Text(
           l10n.addFoodTitle,
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
+/// Widget responsável pela "Adição de fotos" nos alimentos customizados.
 class FoodImagePicker extends StatelessWidget {
   final Uint8List? imageBytes;
   final VoidCallback onTap;

@@ -5,6 +5,8 @@ import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/widgets/food_catalog_delete_dialog.dart';
 import 'package:webdiet/widgets/macro_badge.dart';
 
+/// UI Card com design clean/moderno (sombras, s/ bordas pesadas)
+/// para que a tela seja "agradável também aos nutricionistas".
 class FoodCatalogCard extends StatelessWidget {
   final FoodItem food;
   final VoidCallback onTap;
@@ -24,13 +26,14 @@ class FoodCatalogCard extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Container(
+      // Reformulate for a more aesthetic/productive feel
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface, // Clean background
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: 0.04), // Softer modern shadow
             blurRadius: 24,
             offset: const Offset(0, 8),
           ),
