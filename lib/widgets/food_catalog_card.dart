@@ -71,8 +71,11 @@ class FoodCatalogCard extends StatelessWidget {
                         : null,
                   ),
                   child: food.imageBase64 == null
-                      ? Icon(Icons.fastfood_outlined,
-                          color: colorScheme.primary, size: 32)
+                      ? Icon(
+                          Icons.fastfood_outlined,
+                          color: colorScheme.primary,
+                          size: 32,
+                        )
                       : null,
                 ),
                 const SizedBox(width: 16),
@@ -97,8 +100,11 @@ class FoodCatalogCard extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.delete_outline,
-                                color: colorScheme.error, size: 20),
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: colorScheme.error,
+                              size: 20,
+                            ),
                             onPressed: () {
                               showFoodDeleteDialog(context, l10n, onDelete);
                             },
@@ -117,39 +123,46 @@ class FoodCatalogCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 6,
-                        runSpacing: 6,
-                        children: [
-                          buildMacroBadge(
-                            context,
-                            '${food.calories}',
-                            Colors.orange.shade800,
-                            Colors.orange.withValues(alpha: 0.08),
-                            icon: Icons.local_fire_department_rounded,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerHighest.withValues(
+                            alpha: 0.3,
                           ),
-                          buildMacroBadge(
-                            context,
-                            '${food.protein}g',
-                            colorScheme.primary,
-                            colorScheme.primary.withValues(alpha: 0.08),
-                            icon: Icons.fitness_center_rounded,
-                          ),
-                          buildMacroBadge(
-                            context,
-                            '${food.carbs}g',
-                            Colors.blue.shade700,
-                            Colors.blue.withValues(alpha: 0.08),
-                            icon: Icons.grain_rounded,
-                          ),
-                          buildMacroBadge(
-                            context,
-                            '${food.fat}g',
-                            Colors.red.shade700,
-                            Colors.red.withValues(alpha: 0.08),
-                            icon: Icons.water_drop_rounded,
-                          ),
-                        ],
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _buildMacroStat(
+                              context,
+                              '${food.calories}',
+                              l10n.caloriesTitle,
+                              Colors.orange.shade800,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.protein}g',
+                              l10n.macroProtein,
+                              colorScheme.primary,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.carbs}g',
+                              l10n.macroCarbs,
+                              Colors.blue.shade700,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.fat}g',
+                              l10n.macroFat,
+                              Colors.red.shade700,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -159,6 +172,34 @@ class FoodCatalogCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildMacroStat(
+    BuildContext context,
+    String value,
+    String label,
+    Color color,
+  ) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 14,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.grey.shade600,
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }
