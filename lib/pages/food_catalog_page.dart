@@ -92,7 +92,13 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
           else
             SliverPadding(
               padding: const EdgeInsets.all(24.0),
-              sliver: SliverList(
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 400,
+                  mainAxisSpacing: 24.0,
+                  crossAxisSpacing: 24.0,
+                  childAspectRatio: 0.8,
+                ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final food = _filteredFoods[index];

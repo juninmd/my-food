@@ -45,33 +45,46 @@ class FoodFormBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FoodImagePicker(
-              imageBytes: imageBytes,
-              onTap: onPickImage,
-              pickImageText: l10n.pickImageButton,
-            ),
-            const SizedBox(height: 24),
-            FoodFormSection(
-              title: l10n.basicDetails,
-              icon: Icons.info_outline,
-              children: [
-                buildTextField(
-                  context: context,
-                  controller: nameController,
-                  label: l10n.foodNameLabel,
-                  prefixIcon: Icons.fastfood_outlined,
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 16),
-                buildTextField(
-                  context: context,
-                  controller: descController,
-                  label: l10n.foodDescriptionLabel,
-                  prefixIcon: Icons.description_outlined,
-                  maxLines: 3,
-                ),
-              ],
+            // Profile-style header integrating image and basic details
+            Container(
+              padding: const EdgeInsets.all(24.0),
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 24,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  FoodImagePicker(
+                    imageBytes: imageBytes,
+                    onTap: onPickImage,
+                    pickImageText: l10n.pickImageButton,
+                  ),
+                  const SizedBox(height: 24),
+                  buildTextField(
+                    context: context,
+                    controller: nameController,
+                    label: l10n.foodNameLabel,
+                    prefixIcon: Icons.fastfood_outlined,
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Required' : null,
+                  ),
+                  const SizedBox(height: 16),
+                  buildTextField(
+                    context: context,
+                    controller: descController,
+                    label: l10n.foodDescriptionLabel,
+                    prefixIcon: Icons.description_outlined,
+                    maxLines: 3,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
             FoodFormSection(
@@ -89,11 +102,15 @@ class FoodFormBody extends StatelessWidget {
                       color: colorScheme.surfaceContainerHighest,
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Row(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                       // Grid-like layout for macros
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
                         children: [
-                          Expanded(
+                          SizedBox(
+                            width: (constraints.maxWidth - 16) / 2,
                             child: buildTextField(
                               context: context,
                               controller: calController,
@@ -102,8 +119,8 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
+                           SizedBox(
+                            width: (constraints.maxWidth - 16) / 2,
                             child: buildTextField(
                               context: context,
                               controller: proteinController,
@@ -112,12 +129,8 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
+                          SizedBox(
+                            width: (constraints.maxWidth - 16) / 2,
                             child: buildTextField(
                               context: context,
                               controller: carbsController,
@@ -126,8 +139,8 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
+                          SizedBox(
+                            width: (constraints.maxWidth - 16) / 2,
                             child: buildTextField(
                               context: context,
                               controller: fatController,
@@ -137,8 +150,8 @@ class FoodFormBody extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-                    ],
+                      );
+                    }
                   ),
                 ),
               ],
