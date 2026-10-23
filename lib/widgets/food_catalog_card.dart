@@ -43,11 +43,11 @@ class FoodCatalogCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 120,
+                width: 140,
                 decoration: BoxDecoration(
                   color: colorScheme.primary.withValues(alpha: 0.1),
                   image: food.imageBase64 != null
@@ -65,93 +65,97 @@ class FoodCatalogCard extends StatelessWidget {
                       )
                     : null,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            food.name,
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 16,
-                              color: colorScheme.onSurface,
-                              height: 1.2,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.delete_outline,
-                            color: colorScheme.error,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            showFoodDeleteDialog(context, l10n, onDelete);
-                          },
-                          constraints: const BoxConstraints(),
-                          padding: EdgeInsets.zero,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      food.description,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey.shade600,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest.withValues(
-                          alpha: 0.3,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildMacroStat(
-                            context,
-                            '${food.calories}',
-                            l10n.caloriesTitle,
-                            Colors.orange.shade800,
+                          Expanded(
+                            child: Text(
+                              food.name,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16,
+                                color: colorScheme.onSurface,
+                                height: 1.2,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          _buildMacroStat(
-                            context,
-                            '${food.protein}g',
-                            l10n.macroProtein,
-                            colorScheme.primary,
-                          ),
-                          _buildMacroStat(
-                            context,
-                            '${food.carbs}g',
-                            l10n.macroCarbs,
-                            Colors.blue.shade700,
-                          ),
-                          _buildMacroStat(
-                            context,
-                            '${food.fat}g',
-                            l10n.macroFat,
-                            Colors.red.shade700,
+                          IconButton(
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: colorScheme.error,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              showFoodDeleteDialog(context, l10n, onDelete);
+                            },
+                            constraints: const BoxConstraints(),
+                            padding: const EdgeInsets.only(left: 8),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 4),
+                      Text(
+                        food.description,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.grey.shade600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerHighest.withValues(
+                            alpha: 0.3,
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _buildMacroStat(
+                              context,
+                              '${food.calories}',
+                              l10n.caloriesTitle,
+                              Colors.orange.shade800,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.protein}g',
+                              l10n.macroProtein,
+                              colorScheme.primary,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.carbs}g',
+                              l10n.macroCarbs,
+                              Colors.blue.shade700,
+                            ),
+                            _buildMacroStat(
+                              context,
+                              '${food.fat}g',
+                              l10n.macroFat,
+                              Colors.red.shade700,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -168,6 +172,7 @@ class FoodCatalogCard extends StatelessWidget {
     Color color,
   ) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value,
