@@ -46,45 +46,33 @@ class FoodFormBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Profile-style header integrating image and basic details
-            Container(
-              padding: const EdgeInsets.all(24.0),
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 24,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  FoodImagePicker(
-                    imageBytes: imageBytes,
-                    onTap: onPickImage,
-                    pickImageText: l10n.pickImageButton,
-                  ),
-                  const SizedBox(height: 24),
-                  buildTextField(
-                    context: context,
-                    controller: nameController,
-                    label: l10n.foodNameLabel,
-                    prefixIcon: Icons.fastfood_outlined,
-                    validator: (val) =>
-                        val == null || val.isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 16),
-                  buildTextField(
-                    context: context,
-                    controller: descController,
-                    label: l10n.foodDescriptionLabel,
-                    prefixIcon: Icons.description_outlined,
-                    maxLines: 3,
-                  ),
-                ],
-              ),
+            FoodImagePicker(
+              imageBytes: imageBytes,
+              onTap: onPickImage,
+              pickImageText: l10n.pickImageButton,
+            ),
+            const SizedBox(height: 24),
+            FoodFormSection(
+              title: l10n.basicDetails,
+              icon: Icons.info_outline,
+              children: [
+                buildTextField(
+                  context: context,
+                  controller: nameController,
+                  label: l10n.foodNameLabel,
+                  prefixIcon: Icons.fastfood_outlined,
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Required' : null,
+                ),
+                const SizedBox(height: 16),
+                buildTextField(
+                  context: context,
+                  controller: descController,
+                  label: l10n.foodDescriptionLabel,
+                  prefixIcon: Icons.description_outlined,
+                  maxLines: 3,
+                ),
+              ],
             ),
             const SizedBox(height: 24),
             FoodFormSection(

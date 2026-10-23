@@ -37,7 +37,11 @@
   "pnpm": {
     "approvedBuilds": [
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "handlebars": ">=4.7.10",
+      "micromatch": "npm:picomatch@^2.3.1"
+    }
   },
   "packageManager": "pnpm@10.30.3"
 }
