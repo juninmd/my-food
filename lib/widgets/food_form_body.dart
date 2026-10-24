@@ -90,15 +90,11 @@ class FoodFormBody extends StatelessWidget {
                       color: colorScheme.surfaceContainerHighest,
                     ),
                   ),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                       // Grid-like layout for macros
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          SizedBox(
-                            width: (constraints.maxWidth - 16) / 2,
+                          Expanded(
                             child: buildTextField(
                               context: context,
                               controller: calController,
@@ -107,8 +103,8 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                           SizedBox(
-                            width: (constraints.maxWidth - 16) / 2,
+                          const SizedBox(width: 16),
+                          Expanded(
                             child: buildTextField(
                               context: context,
                               controller: proteinController,
@@ -117,8 +113,12 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                          SizedBox(
-                            width: (constraints.maxWidth - 16) / 2,
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
                             child: buildTextField(
                               context: context,
                               controller: carbsController,
@@ -127,8 +127,8 @@ class FoodFormBody extends StatelessWidget {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                          SizedBox(
-                            width: (constraints.maxWidth - 16) / 2,
+                          const SizedBox(width: 16),
+                          Expanded(
                             child: buildTextField(
                               context: context,
                               controller: fatController,
@@ -138,8 +138,8 @@ class FoodFormBody extends StatelessWidget {
                             ),
                           ),
                         ],
-                      );
-                    }
+                      ),
+                    ],
                   ),
                 ),
               ],
