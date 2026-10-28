@@ -1,6 +1,6 @@
 [build]
 command = "chmod +x build_web.sh && ./build_web.sh"
-publish = "build/web"
+publish = "web"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -10,3 +10,8 @@ publish = "build/web"
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/*"
+  [headers]
+    X-Content-Type-Options = "nosniff"
