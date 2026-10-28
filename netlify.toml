@@ -3,6 +3,15 @@ command = "chmod +x build_web.sh && ./build_web.sh"
 publish = "build/web"
 
 [build.environment]
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=()"
+
   NODE_VERSION = "20"
   DISABLE_ESLINT_PLUGIN = "true"
 
