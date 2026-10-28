@@ -13,5 +13,5 @@ publish = "web"
 
 [[headers]]
   for = "/*"
-  [headers]
+  [headers.values]
     X-Content-Type-Options = "nosniff"
