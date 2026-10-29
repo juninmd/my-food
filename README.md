@@ -153,7 +153,6 @@ This project follows the **Antigravity** code standards from [AGENTS.md](AGENTS.
 - Meal options are static sample data in `lib/data/meal_data.dart`; all nine entries share one placeholder photo (`assets/images/lanche.jpg`).
 - The calorie suggestion only chooses among the static meal options.
 - The quote and recipe features depend on third-party APIs that may be unavailable.
-- Two files exceed the 150-line guideline: `lib/widgets/food_catalog_card.dart` (196) and `lib/widgets/food_form_body.dart` (175).
 - BMI categories are general guidance and do not replace a professional assessment.
 - Flutter web needs the Flutter SDK to build; `pnpm start` alone serves nothing until `build/web` exists.
 
