@@ -1,6 +1,6 @@
 [build]
 command = "chmod +x build_web.sh && ./build_web.sh"
-publish = "build/web"
+publish = "public"
 
 [build.environment]
   NODE_VERSION = "20"
