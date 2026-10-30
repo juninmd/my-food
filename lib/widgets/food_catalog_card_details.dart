@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/widgets/food_catalog_delete_dialog.dart';
+import 'package:webdiet/widgets/macro_badge.dart';
 
 class FoodCatalogCardDetails extends StatelessWidget {
   final FoodItem food;
@@ -84,64 +85,40 @@ class FoodCatalogCardDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.calories}',
-                  l10n.caloriesTitle,
                   Colors.orange.shade800,
+                  Colors.orange.shade50,
+                  icon: Icons.local_fire_department_outlined,
+                  label: l10n.caloriesTitle,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.protein}g',
-                  l10n.macroProtein,
                   colorScheme.primary,
+                  colorScheme.primary.withValues(alpha: 0.1),
+                  label: l10n.macroProtein,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.carbs}g',
-                  l10n.macroCarbs,
                   Colors.blue.shade700,
+                  Colors.blue.shade50,
+                  label: l10n.macroCarbs,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.fat}g',
-                  l10n.macroFat,
                   Colors.red.shade700,
+                  Colors.red.shade50,
+                  label: l10n.macroFat,
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildMacroStat(
-    BuildContext context,
-    String value,
-    String label,
-    Color color,
-  ) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          value,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: color,
-            fontSize: 14,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }
