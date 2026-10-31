@@ -52,6 +52,16 @@ flutter pub get
 flutter run
 ```
 
+## Deploy
+
+A versão web é publicada no **GitHub Pages** pelo workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). Cada push na branch padrão (`master`) ou execução manual gera `build/web` e publica em:
+
+```text
+https://juninmd.github.io/my-food/
+```
+
+Configuração única do repositório (para forks): em **Settings → Pages → Build and deployment**, selecione **Source: GitHub Actions**. Não é necessário Netlify, token ou `netlify.toml`. Pull requests executam o mesmo build sem publicar.
+
 ## Testes
 
 O projeto inclui testes unitários e de widget para garantir a integridade das funcionalidades principais.
