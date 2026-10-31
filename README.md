@@ -49,7 +49,7 @@ flutter build web --release   # build the web app into build/web (same step as b
 pnpm start               # serve build/web with Express on PORT (default 8080)
 ```
 
-`netlify.toml` runs `build_web.sh` and publishes `build/web`.
+Web deploys are handled by GitHub Pages (see [Deploy](#-deploy)); `build_web.sh` is only a helper for local builds.
 
 ## 🧭 Usage
 
@@ -64,6 +64,18 @@ App listening on port 8089
 ```
 
 Until `build/web` exists, requests to `/` return 404.
+
+## 🌐 Deploy
+
+The web app is published to **GitHub Pages** by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). Every push to the default branch (`master`) or a manual `workflow_dispatch` builds `build/web` and deploys it to:
+
+```text
+https://juninmd.github.io/my-food/
+```
+
+One-time repository setup for forks: go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**. No Netlify account, token, or `netlify.toml` is required.
+
+The build uses `--base-href` from `actions/configure-pages`, so the app works from the `/my-food/` subpath. Pull requests run the same build without deploying.
 
 ## ✨ Features
 
@@ -98,7 +110,7 @@ flowchart LR
 | Mobile and web UI | Flutter (Dart), state with `StatefulWidget` and `setState` |
 | Local storage | `shared_preferences` |
 | Static server | Node.js 20+, Express 5, TypeScript (`tsx`) |
-| CI/CD | GitHub Actions (`.github/workflows/`) and semantic-release (`release.config.ts`) |
+| CI/CD | GitHub Actions (`.github/workflows/`), GitHub Pages, and semantic-release (`release.config.ts`) |
 
 ## ⚙️ Configuration
 
