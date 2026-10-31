@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Widget buildMacroBadge(
     BuildContext context, String text, Color color, Color bgColor,
-    {IconData? icon}) {
+    {IconData? icon, String? label}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     decoration: BoxDecoration(
@@ -16,13 +16,28 @@ Widget buildMacroBadge(
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
         ],
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: color,
-          ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+            if (label != null)
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 8,
+                  fontWeight: FontWeight.w600,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
+          ],
         ),
       ],
     ),

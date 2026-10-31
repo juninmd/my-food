@@ -65,13 +65,13 @@ void main() {
     await tester.pumpWidget(createLocalizedContext(const FoodFormPage()));
     await tester.pumpAndSettle();
 
-    // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(warnIfMissed: false,
-        find.byType(SingleChildScrollView), const Offset(0, -500));
+    // Make sure we can actually tap the button by scrolling it into view properly
+    final saveButton = find.text('Save Food');
+    await tester.ensureVisible(saveButton);
     await tester.pumpAndSettle();
 
     // Tap save without entering anything
-    await tester.tap(find.text('Save Food'));
+    await tester.tap(saveButton, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     expect(find.text('Required'), findsOneWidget);
@@ -89,12 +89,12 @@ void main() {
     // Enter calories
     await tester.enterText(find.byType(TextFormField).at(2), '300');
 
-    // Ensure we can see the button by scrolling down if necessary
-    await tester.drag(warnIfMissed: false,
-        find.byType(SingleChildScrollView), const Offset(0, -500));
+    // Make sure we can actually tap the button by scrolling it into view properly
+    final saveButton = find.text('Save Food');
+    await tester.ensureVisible(saveButton);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Save Food'));
+    await tester.tap(saveButton, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     // Verify we popped out
