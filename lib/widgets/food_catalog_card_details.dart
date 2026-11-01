@@ -16,9 +16,9 @@ class FoodCatalogCardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -82,36 +82,41 @@ class FoodCatalogCardDetails extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Wrap(
+              spacing: 4,
+              runSpacing: 4,
+              alignment: WrapAlignment.center,
               children: [
                 buildMacroBadge(
                   context,
                   '${food.calories}',
                   Colors.orange.shade800,
-                  Colors.orange.shade50,
-                  icon: Icons.local_fire_department_outlined,
+                  Colors.orange.withValues(alpha: 0.08),
+                  icon: Icons.local_fire_department_rounded,
                   label: l10n.caloriesTitle,
                 ),
                 buildMacroBadge(
                   context,
                   '${food.protein}g',
                   colorScheme.primary,
-                  colorScheme.primary.withValues(alpha: 0.1),
+                  colorScheme.primary.withValues(alpha: 0.08),
+                  icon: Icons.fitness_center_rounded,
                   label: l10n.macroProtein,
                 ),
                 buildMacroBadge(
                   context,
                   '${food.carbs}g',
-                  Colors.blue.shade700,
-                  Colors.blue.shade50,
+                  Colors.blue.shade800,
+                  Colors.blue.withValues(alpha: 0.08),
+                  icon: Icons.bolt_rounded,
                   label: l10n.macroCarbs,
                 ),
                 buildMacroBadge(
                   context,
                   '${food.fat}g',
-                  Colors.red.shade700,
-                  Colors.red.shade50,
+                  Colors.red.shade800,
+                  Colors.red.withValues(alpha: 0.08),
+                  icon: Icons.water_drop_rounded,
                   label: l10n.macroFat,
                 ),
               ],
