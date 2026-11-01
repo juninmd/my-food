@@ -38,11 +38,16 @@ class FoodFormNutritionFields extends StatelessWidget {
               color: colorScheme.surfaceContainerHighest,
             ),
           ),
-          child: Column(
-            children: [
-              Row(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isSmall = constraints.maxWidth < 300;
+              final itemWidth = isSmall ? constraints.maxWidth : (constraints.maxWidth - 16) / 2;
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
                 children: [
-                  Expanded(
+                  SizedBox(
+                    width: itemWidth,
                     child: buildTextField(
                       context: context,
                       controller: calController,
@@ -51,8 +56,8 @@ class FoodFormNutritionFields extends StatelessWidget {
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
+                  SizedBox(
+                    width: itemWidth,
                     child: buildTextField(
                       context: context,
                       controller: proteinController,
@@ -61,12 +66,8 @@ class FoodFormNutritionFields extends StatelessWidget {
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
+                  SizedBox(
+                    width: itemWidth,
                     child: buildTextField(
                       context: context,
                       controller: carbsController,
@@ -75,8 +76,8 @@ class FoodFormNutritionFields extends StatelessWidget {
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
+                  SizedBox(
+                    width: itemWidth,
                     child: buildTextField(
                       context: context,
                       controller: fatController,
@@ -86,8 +87,8 @@ class FoodFormNutritionFields extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           ),
         ),
       ],
