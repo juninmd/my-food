@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/widgets/food_catalog_delete_dialog.dart';
+import 'package:webdiet/widgets/macro_badge.dart';
 
 class FoodCatalogCardDetails extends StatelessWidget {
   final FoodItem food;
@@ -15,7 +16,6 @@ class FoodCatalogCardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -52,7 +52,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                       size: 20,
                     ),
                     onPressed: () {
-                      showFoodDeleteDialog(context, l10n, onDelete);
+                      showFoodDeleteDialog(context, AppLocalizations.of(context)!, onDelete);
                     },
                     constraints: const BoxConstraints(),
                     padding: const EdgeInsets.only(left: 8),
@@ -81,67 +81,44 @@ class FoodCatalogCardDetails extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Wrap(
+              spacing: 4,
+              runSpacing: 4,
+              alignment: WrapAlignment.center,
               children: [
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.calories}',
-                  l10n.caloriesTitle,
                   Colors.orange.shade800,
+                  Colors.orange.withValues(alpha: 0.08),
+                  icon: Icons.local_fire_department_rounded,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.protein}g',
-                  l10n.macroProtein,
                   colorScheme.primary,
+                  colorScheme.primary.withValues(alpha: 0.08),
+                  icon: Icons.fitness_center_rounded,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.carbs}g',
-                  l10n.macroCarbs,
-                  Colors.blue.shade700,
+                  Colors.blue.shade800,
+                  Colors.blue.withValues(alpha: 0.08),
+                  icon: Icons.bolt_rounded,
                 ),
-                _buildMacroStat(
+                buildMacroBadge(
                   context,
                   '${food.fat}g',
-                  l10n.macroFat,
-                  Colors.red.shade700,
+                  Colors.red.shade800,
+                  Colors.red.withValues(alpha: 0.08),
+                  icon: Icons.water_drop_rounded,
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildMacroStat(
-    BuildContext context,
-    String value,
-    String label,
-    Color color,
-  ) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          value,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: color,
-            fontSize: 14,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }

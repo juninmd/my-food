@@ -49,6 +49,7 @@ class FoodCatalogCard extends StatelessWidget {
                 child: FoodCatalogCardImage(
                   imageBase64: food.imageBase64,
                   colorScheme: colorScheme,
+                  calories: food.calories,
                 ),
               ),
               Expanded(
