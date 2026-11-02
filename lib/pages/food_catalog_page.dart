@@ -92,31 +92,28 @@ class _FoodCatalogPageState extends State<FoodCatalogPage> {
           else
             SliverPadding(
               padding: const EdgeInsets.all(24.0),
-              sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                  mainAxisExtent: 340,
-                ),
+              sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final food = _filteredFoods[index];
-                    return FoodCatalogCard(
-                      food: food,
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                FoodFormPage(foodToEdit: food),
-                          ),
-                        );
-                        _loadFoods();
-                      },
-                      onDelete: () {
-                        _deleteFood(food.id);
-                      },
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: FoodCatalogCard(
+                        food: food,
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  FoodFormPage(foodToEdit: food),
+                            ),
+                          );
+                          _loadFoods();
+                        },
+                        onDelete: () {
+                          _deleteFood(food.id);
+                        },
+                      ),
                     );
                   },
                   childCount: _filteredFoods.length,
