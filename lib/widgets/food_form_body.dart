@@ -52,16 +52,47 @@ class FoodFormBody extends StatelessWidget {
               pickImageText: l10n.pickImageButton,
             ),
             const SizedBox(height: 24),
-            FoodFormBasicFields(
-              nameController: nameController,
-              descController: descController,
-            ),
-            const SizedBox(height: 24),
-            FoodFormNutritionFields(
-              calController: calController,
-              proteinController: proteinController,
-              carbsController: carbsController,
-              fatController: fatController,
+            LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 800) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: FoodFormBasicFields(
+                          nameController: nameController,
+                          descController: descController,
+                        ),
+                      ),
+                      const SizedBox(width: 24),
+                      Expanded(
+                        child: FoodFormNutritionFields(
+                          calController: calController,
+                          proteinController: proteinController,
+                          carbsController: carbsController,
+                          fatController: fatController,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      FoodFormBasicFields(
+                        nameController: nameController,
+                        descController: descController,
+                      ),
+                      const SizedBox(height: 24),
+                      FoodFormNutritionFields(
+                        calController: calController,
+                        proteinController: proteinController,
+                        carbsController: carbsController,
+                        fatController: fatController,
+                      ),
+                    ],
+                  );
+                }
+              },
             ),
             const SizedBox(height: 32),
             SizedBox(
