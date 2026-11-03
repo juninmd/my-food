@@ -36,9 +36,9 @@ class FoodCatalogCardDetails extends StatelessWidget {
                   Expanded(
                     child: Text(
                       food.name,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18,
                         color: colorScheme.onSurface,
                         height: 1.2,
                       ),
@@ -71,56 +71,106 @@ class FoodCatalogCardDetails extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 12,
-            ),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest.withValues(
-                alpha: 0.3,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Wrap(
-              spacing: 4,
-              runSpacing: 4,
-              alignment: WrapAlignment.center,
-              children: [
-                buildMacroBadge(
-                  context,
-                  '${food.calories}',
-                  Colors.orange.shade800,
-                  Colors.orange.withValues(alpha: 0.08),
-                  icon: Icons.local_fire_department_rounded,
-                  label: l10n.caloriesTitle,
+          Builder(
+            builder: (context) {
+              final proteinCals = food.protein * 4.0;
+              final carbsCals = food.carbs * 4.0;
+              final fatCals = food.fat * 9.0;
+              final totalCals = proteinCals + carbsCals + fatCals;
+
+              double pPct = 0, cPct = 0, fPct = 0;
+              if (totalCals > 0) {
+                pPct = proteinCals / totalCals;
+                cPct = carbsCals / totalCals;
+                fPct = fatCals / totalCals;
+              }
+
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 12,
                 ),
-                buildMacroBadge(
-                  context,
-                  '${food.protein}g',
-                  colorScheme.primary,
-                  colorScheme.primary.withValues(alpha: 0.08),
-                  icon: Icons.fitness_center_rounded,
-                  label: l10n.macroProtein,
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                buildMacroBadge(
-                  context,
-                  '${food.carbs}g',
-                  Colors.blue.shade800,
-                  Colors.blue.withValues(alpha: 0.08),
-                  icon: Icons.bolt_rounded,
-                  label: l10n.macroCarbs,
+                child: Column(
+                  children: [
+                    Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        buildMacroBadge(
+                          context,
+                          '${food.calories}',
+                          Colors.orange.shade800,
+                          Colors.orange.withValues(alpha: 0.08),
+                          icon: Icons.local_fire_department_rounded,
+                          label: l10n.caloriesTitle,
+                        ),
+                        buildMacroBadge(
+                          context,
+                          '${food.protein}g',
+                          colorScheme.primary,
+                          colorScheme.primary.withValues(alpha: 0.08),
+                          icon: Icons.fitness_center_rounded,
+                          label: l10n.macroProtein,
+                        ),
+                        buildMacroBadge(
+                          context,
+                          '${food.carbs}g',
+                          Colors.blue.shade800,
+                          Colors.blue.withValues(alpha: 0.08),
+                          icon: Icons.bolt_rounded,
+                          label: l10n.macroCarbs,
+                        ),
+                        buildMacroBadge(
+                          context,
+                          '${food.fat}g',
+                          Colors.red.shade800,
+                          Colors.red.withValues(alpha: 0.08),
+                          icon: Icons.water_drop_rounded,
+                          label: l10n.macroFat,
+                        ),
+                      ],
+                    ),
+                    if (totalCals > 0) ...[
+                      const SizedBox(height: 8),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Container(
+                          height: 4,
+                          width: double.infinity,
+                          color: Colors.grey.shade200,
+                          child: Row(
+                            children: [
+                              if ((pPct * 100).round() > 0)
+                                Expanded(
+                                  flex: (pPct * 100).round(),
+                                  child: Container(color: colorScheme.primary),
+                                ),
+                              if ((cPct * 100).round() > 0)
+                                Expanded(
+                                  flex: (cPct * 100).round(),
+                                  child: Container(color: Colors.blue.shade800),
+                                ),
+                              if ((fPct * 100).round() > 0)
+                                Expanded(
+                                  flex: (fPct * 100).round(),
+                                  child: Container(color: Colors.red.shade800),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-                buildMacroBadge(
-                  context,
-                  '${food.fat}g',
-                  Colors.red.shade800,
-                  Colors.red.withValues(alpha: 0.08),
-                  icon: Icons.water_drop_rounded,
-                  label: l10n.macroFat,
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),

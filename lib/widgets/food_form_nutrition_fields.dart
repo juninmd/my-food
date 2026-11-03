@@ -42,51 +42,131 @@ class FoodFormNutritionFields extends StatelessWidget {
             builder: (context, constraints) {
               final isSmall = constraints.maxWidth < 300;
               final itemWidth = isSmall ? constraints.maxWidth : (constraints.maxWidth - 16) / 2;
-              return Wrap(
-                spacing: 16,
-                runSpacing: 16,
-                children: [
-                  SizedBox(
-                    width: itemWidth,
-                    child: buildTextField(
-                      context: context,
-                      controller: calController,
-                      label: l10n.foodCaloriesLabel,
-                      prefixIcon: Icons.local_fire_department_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  SizedBox(
-                    width: itemWidth,
-                    child: buildTextField(
-                      context: context,
-                      controller: proteinController,
-                      label: l10n.foodProteinLabel,
-                      prefixIcon: Icons.fitness_center_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  SizedBox(
-                    width: itemWidth,
-                    child: buildTextField(
-                      context: context,
-                      controller: carbsController,
-                      label: l10n.foodCarbsLabel,
-                      prefixIcon: Icons.grain_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  SizedBox(
-                    width: itemWidth,
-                    child: buildTextField(
-                      context: context,
-                      controller: fatController,
-                      label: l10n.foodFatLabel,
-                      prefixIcon: Icons.water_drop_outlined,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
+              return ListenableBuilder(
+                listenable: Listenable.merge([
+                  proteinController,
+                  carbsController,
+                  fatController,
+                ]),
+                builder: (context, child) {
+                  final protein = double.tryParse(proteinController.text) ?? 0.0;
+                  final carbs = double.tryParse(carbsController.text) ?? 0.0;
+                  final fat = double.tryParse(fatController.text) ?? 0.0;
+
+                  final proteinCals = protein * 4.0;
+                  final carbsCals = carbs * 4.0;
+                  final fatCals = fat * 9.0;
+                  final totalCals = proteinCals + carbsCals + fatCals;
+
+                  double pPct = 0, cPct = 0, fPct = 0;
+                  if (totalCals > 0) {
+                    pPct = proteinCals / totalCals;
+                    cPct = carbsCals / totalCals;
+                    fPct = fatCals / totalCals;
+                  }
+
+                  return Column(
+                    children: [
+                      Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: [
+                          SizedBox(
+                            width: itemWidth,
+                            child: buildTextField(
+                              context: context,
+                              controller: calController,
+                              label: l10n.foodCaloriesLabel,
+                              prefixIcon: Icons.local_fire_department_outlined,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                          SizedBox(
+                            width: itemWidth,
+                            child: buildTextField(
+                              context: context,
+                              controller: proteinController,
+                              label: l10n.foodProteinLabel,
+                              prefixIcon: Icons.fitness_center_outlined,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                          SizedBox(
+                            width: itemWidth,
+                            child: buildTextField(
+                              context: context,
+                              controller: carbsController,
+                              label: l10n.foodCarbsLabel,
+                              prefixIcon: Icons.grain_outlined,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                          SizedBox(
+                            width: itemWidth,
+                            child: buildTextField(
+                              context: context,
+                              controller: fatController,
+                              label: l10n.foodFatLabel,
+                              prefixIcon: Icons.water_drop_outlined,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (totalCals > 0) ...[
+                        const SizedBox(height: 24),
+                        Row(
+                          children: [
+                            Text(
+                              "Macro Distribution",
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            height: 12,
+                            width: double.infinity,
+                            color: Colors.grey.shade200,
+                            child: Row(
+                              children: [
+                                if ((pPct * 100).round() > 0)
+                                  Expanded(
+                                    flex: (pPct * 100).round(),
+                                    child: Container(color: colorScheme.primary),
+                                  ),
+                                if ((cPct * 100).round() > 0)
+                                  Expanded(
+                                    flex: (cPct * 100).round(),
+                                    child: Container(color: Colors.blue.shade800),
+                                  ),
+                                if ((fPct * 100).round() > 0)
+                                  Expanded(
+                                    flex: (fPct * 100).round(),
+                                    child: Container(color: Colors.red.shade800),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("${(pPct * 100).toStringAsFixed(1)}% P", style: TextStyle(color: colorScheme.primary, fontSize: 12, fontWeight: FontWeight.bold)),
+                            Text("${(cPct * 100).toStringAsFixed(1)}% C", style: TextStyle(color: Colors.blue.shade800, fontSize: 12, fontWeight: FontWeight.bold)),
+                            Text("${(fPct * 100).toStringAsFixed(1)}% F", style: TextStyle(color: Colors.red.shade800, fontSize: 12, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ],
+                    ],
+                  );
+                },
               );
             },
           ),
