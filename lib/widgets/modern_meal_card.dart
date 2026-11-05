@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/models/meal.dart';
 import 'package:webdiet/pages/meal_detail_page.dart';
 import 'package:webdiet/widgets/modern_meal_details.dart';
+import 'package:webdiet/widgets/modern_meal_card_image.dart';
 
 class ModernMealCard extends StatelessWidget {
   final Meal meal;
@@ -51,26 +52,9 @@ class ModernMealCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: 'meal_${title}_${meal.name}',
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        image: AssetImage(meal.imagePath),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                ModernMealCardImage(
+                  meal: meal,
+                  title: title,
                 ),
                 const SizedBox(width: 20),
                 Expanded(

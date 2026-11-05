@@ -82,6 +82,13 @@ class ModernMealDetails extends StatelessWidget {
               Colors.blue.withValues(alpha: 0.08),
               icon: Icons.bolt_rounded,
             ),
+            buildMacroBadge(
+              context,
+              "${meal.fat}g",
+              Colors.red.shade800,
+              Colors.red.withValues(alpha: 0.08),
+              icon: Icons.water_drop_rounded,
+            ),
           ],
         ),
         const SizedBox(height: 12),
