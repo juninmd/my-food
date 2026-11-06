@@ -37,3 +37,8 @@ flutter gen-l10n
 
 echo "Building web..."
 flutter build web --release
+
+# Netlify publish dir seems to have issues with 'build/web'. Sometimes it's better to explicitly move or copy it.
+# We will create a `public` directory at root and copy `build/web` to it.
+mkdir -p public
+cp -R build/web/* public/

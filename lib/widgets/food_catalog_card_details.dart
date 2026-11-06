@@ -19,6 +19,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -53,7 +54,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                       size: 20,
                     ),
                     onPressed: () {
-                      showFoodDeleteDialog(context, AppLocalizations.of(context)!, onDelete);
+                      showFoodDeleteDialog(context, l10n, onDelete);
                     },
                     constraints: const BoxConstraints(),
                     padding: const EdgeInsets.only(left: 8),
@@ -109,6 +110,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.orange.shade800,
                           Colors.orange.withValues(alpha: 0.08),
                           icon: Icons.local_fire_department_rounded,
+                          label: l10n.caloriesTitle,
                         ),
                         buildMacroBadge(
                           context,
@@ -116,6 +118,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           colorScheme.primary,
                           colorScheme.primary.withValues(alpha: 0.08),
                           icon: Icons.fitness_center_rounded,
+                          label: l10n.macroProtein,
                         ),
                         buildMacroBadge(
                           context,
@@ -123,6 +126,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.blue.shade800,
                           Colors.blue.withValues(alpha: 0.08),
                           icon: Icons.bolt_rounded,
+                          label: l10n.macroCarbs,
                         ),
                         buildMacroBadge(
                           context,
@@ -130,6 +134,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.red.shade800,
                           Colors.red.withValues(alpha: 0.08),
                           icon: Icons.water_drop_rounded,
+                          label: l10n.macroFat,
                         ),
                       ],
                     ),
