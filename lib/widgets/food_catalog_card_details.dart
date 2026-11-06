@@ -3,6 +3,7 @@ import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/widgets/food_catalog_delete_dialog.dart';
 import 'package:webdiet/widgets/macro_badge.dart';
+import 'package:webdiet/widgets/macro_distribution_bar.dart';
 
 class FoodCatalogCardDetails extends StatelessWidget {
   final FoodItem food;
@@ -134,32 +135,14 @@ class FoodCatalogCardDetails extends StatelessWidget {
                     ),
                     if (totalCals > 0) ...[
                       const SizedBox(height: 8),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Container(
-                          height: 4,
-                          width: double.infinity,
-                          color: Colors.grey.shade200,
-                          child: Row(
-                            children: [
-                              if ((pPct * 100).round() > 0)
-                                Expanded(
-                                  flex: (pPct * 100).round(),
-                                  child: Container(color: colorScheme.primary),
-                                ),
-                              if ((cPct * 100).round() > 0)
-                                Expanded(
-                                  flex: (cPct * 100).round(),
-                                  child: Container(color: Colors.blue.shade800),
-                                ),
-                              if ((fPct * 100).round() > 0)
-                                Expanded(
-                                  flex: (fPct * 100).round(),
-                                  child: Container(color: Colors.red.shade800),
-                                ),
-                            ],
-                          ),
-                        ),
+                      MacroDistributionBar(
+                        pPct: pPct,
+                        cPct: cPct,
+                        fPct: fPct,
+                        colorScheme: colorScheme,
+                        height: 4.0,
+                        showLabels: false,
+                        showTitle: false,
                       ),
                     ],
                   ],

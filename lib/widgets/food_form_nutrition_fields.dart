@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/widgets/food_form_fields.dart';
 import 'package:webdiet/widgets/food_form_section.dart';
+import 'package:webdiet/widgets/macro_distribution_bar.dart';
 
 class FoodFormNutritionFields extends StatelessWidget {
   final TextEditingController calController;
@@ -115,53 +116,14 @@ class FoodFormNutritionFields extends StatelessWidget {
                       ),
                       if (totalCals > 0) ...[
                         const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            Text(
-                              "Macro Distribution",
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.onSurface,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            height: 12,
-                            width: double.infinity,
-                            color: Colors.grey.shade200,
-                            child: Row(
-                              children: [
-                                if ((pPct * 100).round() > 0)
-                                  Expanded(
-                                    flex: (pPct * 100).round(),
-                                    child: Container(color: colorScheme.primary),
-                                  ),
-                                if ((cPct * 100).round() > 0)
-                                  Expanded(
-                                    flex: (cPct * 100).round(),
-                                    child: Container(color: Colors.blue.shade800),
-                                  ),
-                                if ((fPct * 100).round() > 0)
-                                  Expanded(
-                                    flex: (fPct * 100).round(),
-                                    child: Container(color: Colors.red.shade800),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("${(pPct * 100).toStringAsFixed(1)}% P", style: TextStyle(color: colorScheme.primary, fontSize: 12, fontWeight: FontWeight.bold)),
-                            Text("${(cPct * 100).toStringAsFixed(1)}% C", style: TextStyle(color: Colors.blue.shade800, fontSize: 12, fontWeight: FontWeight.bold)),
-                            Text("${(fPct * 100).toStringAsFixed(1)}% F", style: TextStyle(color: Colors.red.shade800, fontSize: 12, fontWeight: FontWeight.bold)),
-                          ],
+                        MacroDistributionBar(
+                          pPct: pPct,
+                          cPct: cPct,
+                          fPct: fPct,
+                          colorScheme: colorScheme,
+                          height: 12.0,
+                          showLabels: true,
+                          showTitle: true,
                         ),
                       ],
                     ],
