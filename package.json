@@ -40,7 +40,10 @@
     ],
     "overrides": {
       "handlebars": ">=4.7.10",
-      "micromatch": "npm:picomatch@^2.3.1"
+      "micromatch": "npm:picomatch@^2.3.1",
+      "body-parser": ">=2.4.0, 1.20.9 <3.0.0",
+      "path-to-regexp": ">=8.4.0 <9.0.0",
+      "proxy-addr": ">=2.0.8 <3.0.0"
     }
   },
   "packageManager": "pnpm@10.30.3"
