@@ -109,6 +109,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.orange.shade800,
                           Colors.orange.withValues(alpha: 0.08),
                           icon: Icons.local_fire_department_rounded,
+                          label: AppLocalizations.of(context)!.caloriesTitle,
                         ),
                         buildMacroBadge(
                           context,
@@ -116,6 +117,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           colorScheme.primary,
                           colorScheme.primary.withValues(alpha: 0.08),
                           icon: Icons.fitness_center_rounded,
+                          label: AppLocalizations.of(context)!.macroProtein,
                         ),
                         buildMacroBadge(
                           context,
@@ -123,6 +125,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.blue.shade800,
                           Colors.blue.withValues(alpha: 0.08),
                           icon: Icons.bolt_rounded,
+                          label: AppLocalizations.of(context)!.macroCarbs,
                         ),
                         buildMacroBadge(
                           context,
@@ -130,6 +133,7 @@ class FoodCatalogCardDetails extends StatelessWidget {
                           Colors.red.shade800,
                           Colors.red.withValues(alpha: 0.08),
                           icon: Icons.water_drop_rounded,
+                          label: AppLocalizations.of(context)!.macroFat,
                         ),
                       ],
                     ),
