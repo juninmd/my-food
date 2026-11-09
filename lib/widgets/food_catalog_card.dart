@@ -41,26 +41,22 @@ class FoodCatalogCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  width: 140,
-                  child: FoodCatalogCardImage(
-                    imageBase64: food.imageBase64,
-                    colorScheme: colorScheme,
-                    calories: food.calories,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 160,
+                child: FoodCatalogCardImage(
+                  imageBase64: food.imageBase64,
+                  colorScheme: colorScheme,
+                  calories: food.calories,
                 ),
-                Expanded(
-                  child: FoodCatalogCardDetails(
-                    food: food,
-                    onDelete: onDelete,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              FoodCatalogCardDetails(
+                food: food,
+                onDelete: onDelete,
+              ),
+            ],
           ),
         ),
       ),
