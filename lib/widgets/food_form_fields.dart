@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:webdiet/theme/app_tokens.dart';
 
+/// Text field styled by the theme, with an optional leading icon.
 Widget buildTextField({
   required BuildContext context,
   required TextEditingController controller,
@@ -9,24 +12,16 @@ Widget buildTextField({
   String? Function(String?)? validator,
   IconData? prefixIcon,
 }) {
-  final colorScheme = Theme.of(context).colorScheme;
-
+  final t = AppTokens.of(context);
+  final numeric = keyboardType == TextInputType.number;
   return TextFormField(
     controller: controller,
     keyboardType: keyboardType,
     maxLines: maxLines,
+    inputFormatters: numeric ? [FilteringTextInputFormatter.digitsOnly] : null,
     decoration: InputDecoration(
       labelText: label,
-      filled: true,
-      fillColor: Colors.grey.shade50,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(24),
-        borderSide: BorderSide.none,
-      ),
-      prefixIcon: prefixIcon != null
-          ? Icon(prefixIcon, color: colorScheme.primary)
-          : null,
+      prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: t.mint) : null,
     ),
     validator: validator,
   );

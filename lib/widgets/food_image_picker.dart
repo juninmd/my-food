@@ -1,121 +1,79 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/services.dart';
+import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/widgets/common/meal_plate.dart';
+import 'package:webdiet/widgets/common/pressable.dart';
 
-/// Widget responsável pela "Adição de fotos" nos alimentos customizados.
+/// Live preview of the food: the plate follows the macros being typed,
+/// or shows the photo. Tapping it picks a photo.
 class FoodImagePicker extends StatelessWidget {
   final Uint8List? imageBytes;
   final VoidCallback onTap;
   final String pickImageText;
+  final Listenable macros;
+  final int Function() protein;
+  final int Function() carbs;
+  final int Function() fat;
 
   const FoodImagePicker({
     super.key,
     required this.imageBytes,
     required this.onTap,
     required this.pickImageText,
+    required this.macros,
+    required this.protein,
+    required this.carbs,
+    required this.fat,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppTokens.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: 220, // Taller for hero feel
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+    return Pressable(
+      onTap: onTap,
+      semanticLabel: pickImageText,
+      child: Column(children: [
+        Stack(clipBehavior: Clip.none, children: [
+          ListenableBuilder(
+            listenable: macros,
+            builder: (context, _) => MealPlate(
+              protein: protein(),
+              carbs: carbs(),
+              fat: fat(),
+              size: 120,
+              image: imageBytes,
             ),
-            clipBehavior: Clip.antiAlias,
-            child: imageBytes == null
-                ? DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(24),
-                    dashPattern: const [8, 4],
-                    color: colorScheme.primary.withValues(alpha: 0.5),
-                    strokeWidth: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: colorScheme.primary.withValues(alpha: 0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(Icons.cloud_upload_outlined,
-                                  size: 40, color: colorScheme.primary),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              pickImageText,
-                              style: TextStyle(
-                                  color: colorScheme.primary,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              "Tap to browse or take a photo",
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                : Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image.memory(
-                        imageBytes!,
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withValues(alpha: 0.4),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
           ),
-        ),
-        if (imageBytes != null)
           Positioned(
-            bottom: 16,
-            right: 16,
-            child: FloatingActionButton.extended(
-              heroTag: 'food_image_edit',
-              onPressed: onTap,
-              backgroundColor: colorScheme.surface,
-              elevation: 4,
-              icon: Icon(Icons.edit_outlined, color: colorScheme.primary, size: 20),
-              label: Text(
-                "Change",
-                style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold),
+            right: -4,
+            bottom: -4,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: t.ink,
+                shape: BoxShape.circle,
+                border: Border.all(color: t.paper, width: 3),
+              ),
+              child: Icon(
+                imageBytes == null
+                    ? Icons.add_a_photo_outlined
+                    : Icons.edit_outlined,
+                size: 18,
+                color: t.paper,
               ),
             ),
           ),
-      ],
+        ]),
+        const SizedBox(height: 10),
+        Text(
+          imageBytes == null ? l10n.tapToBrowse : l10n.changePhoto,
+          style: TextStyle(
+              fontSize: 12, color: t.ink2, fontWeight: FontWeight.w600),
+        ),
+      ]),
     );
   }
 }

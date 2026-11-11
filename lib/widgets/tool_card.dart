@@ -1,84 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/theme/app_type.dart';
+import 'package:webdiet/widgets/common/pressable.dart';
 
+/// Large tappable tile for one tool, tinted with the tool's [color].
 class ToolCard extends StatelessWidget {
   final IconData icon;
   final String title;
+  final String description;
   final Color color;
   final VoidCallback onTap;
-  final String description;
 
   const ToolCard({
     super.key,
     required this.icon,
     required this.title,
+    required this.description,
     required this.color,
     required this.onTap,
-    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(24),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: onTap,
-          splashColor: color.withValues(alpha: 0.1),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(icon, color: color, size: 32),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      description,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                        height: 1.4,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ],
+    final t = AppTokens.of(context);
+    return Pressable(
+      onTap: onTap,
+      semanticLabel: title,
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: t.card(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(icon, color: color),
             ),
-          ),
-        ),
+            const Spacer(),
+            Icon(Icons.arrow_outward_rounded, color: t.ink2, size: 20),
+          ]),
+          const Spacer(),
+          Text(title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppType.display(18, color: t.ink)),
+          const SizedBox(height: 4),
+          Text(description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 12, color: t.ink2, height: 1.35)),
+        ]),
       ),
     );
   }

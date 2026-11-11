@@ -27,7 +27,7 @@ class FoodFormBasicFields extends StatelessWidget {
           label: l10n.foodNameLabel,
           prefixIcon: Icons.fastfood_outlined,
           validator: (val) =>
-              val == null || val.isEmpty ? 'Required' : null,
+              val == null || val.trim().isEmpty ? l10n.requiredField : null,
         ),
         const SizedBox(height: 16),
         buildTextField(

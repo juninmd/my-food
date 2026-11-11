@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/theme/app_type.dart';
+import 'package:webdiet/widgets/common/cascade_in.dart';
 import 'package:webdiet/widgets/shopping_list/shopping_list_item_tile.dart';
 
+/// One aisle of the list. Items already in the cart sink to the bottom.
 class ShoppingListCategory extends StatelessWidget {
+  final int index;
   final String category;
   final List<String> ingredients;
   final Map<String, int> ingredientCounts;
   final Set<String> checkedIngredients;
-  final Function(String, bool) onIngredientChecked;
+  final void Function(String ingredient, bool checked) onIngredientChecked;
 
   const ShoppingListCategory({
     super.key,
+    this.index = 0,
     required this.category,
     required this.ingredients,
     required this.ingredientCounts,
@@ -19,67 +25,31 @@ class ShoppingListCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppTokens.of(context);
+    final ordered = [
+      ...ingredients.where((i) => !checkedIngredients.contains(i)),
+      ...ingredients.where(checkedIngredients.contains),
+    ];
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
-          child: Row(
-            children: [
-              Container(
-                width: 4,
-                height: 16,
-                decoration: BoxDecoration(
-                  color: colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                category.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.secondary,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Column(
-            children: ingredients.map((ingredient) {
-              final count = ingredientCounts[ingredient] ?? 1;
-              final isChecked = checkedIngredients.contains(ingredient);
-              final isLast = ingredient == ingredients.last;
-
-              return ShoppingListItemTile(
-                ingredient: ingredient,
-                count: count,
-                isChecked: isChecked,
-                isLast: isLast,
-                onChanged: (bool? value) {
-                  onIngredientChecked(ingredient, value ?? false);
-                },
-              );
-            }).toList(),
-          ),
-        ),
-      ],
+    return CascadeIn(
+      index: index,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
+        decoration: t.card(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(category.toUpperCase(), style: AppType.label(t.ink2)),
+          const SizedBox(height: 4),
+          for (final ingredient in ordered)
+            ShoppingListItemTile(
+              key: ValueKey(ingredient),
+              ingredient: ingredient,
+              count: ingredientCounts[ingredient] ?? 1,
+              isChecked: checkedIngredients.contains(ingredient),
+              isLast: ingredient == ordered.last,
+              onChanged: (v) => onIngredientChecked(ingredient, v ?? false),
+            ),
+        ]),
+      ),
     );
   }
 }

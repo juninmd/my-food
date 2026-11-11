@@ -2,96 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/pages/bmi_page.dart';
 import 'package:webdiet/pages/random_recipe_page.dart';
-import 'package:webdiet/pages/food_catalog_page.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/widgets/common/cascade_in.dart';
+import 'package:webdiet/widgets/common/view_header.dart';
 import 'package:webdiet/widgets/tool_card.dart';
 
+/// The Tools tab: BMI, random recipe, Surprise Me and the catalog.
 class ToolsView extends StatelessWidget {
   final VoidCallback onSurpriseMe;
+  final VoidCallback? onOpenCatalog;
 
-  const ToolsView({super.key, required this.onSurpriseMe});
+  const ToolsView({super.key, required this.onSurpriseMe, this.onOpenCatalog});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final t = AppTokens.of(context);
+    void push(Widget page) =>
+        Navigator.push(context, MaterialPageRoute(builder: (_) => page));
 
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          expandedHeight: 120.0,
-          floating: true,
-          pinned: true,
-          backgroundColor: colorScheme.surface,
-          flexibleSpace: FlexibleSpaceBar(
-            centerTitle: false,
-            titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-            title: Text(
-              l10n.toolsTitle,
-              style: TextStyle(
-                color: colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+    final tools = [
+      ToolCard(
+        icon: Icons.monitor_weight_outlined,
+        title: l10n.bmiTitle,
+        description: l10n.bmiCalculateTitle,
+        color: t.water,
+        onTap: () => push(const BMICalculatorPage()),
+      ),
+      ToolCard(
+        icon: Icons.restaurant_menu_outlined,
+        title: l10n.randomRecipeTitle,
+        description: l10n.randomRecipeNew,
+        color: t.protein,
+        onTap: () => push(const RandomRecipePage()),
+      ),
+      ToolCard(
+        icon: Icons.auto_fix_high,
+        title: l10n.surpriseMeButton,
+        description: l10n.surpriseMeSubtitle,
+        color: t.mint,
+        onTap: onSurpriseMe,
+      ),
+      if (onOpenCatalog != null)
+        ToolCard(
+          icon: Icons.grid_view_rounded,
+          title: l10n.foodCatalogTitle,
+          description: l10n.foodCatalogDesc,
+          color: t.fat,
+          onTap: onOpenCatalog!,
         ),
-        SliverPadding(
-          padding: const EdgeInsets.all(24),
-          sliver: SliverGrid.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.8,
-            children: [
-              ToolCard(
-                icon: Icons.monitor_weight_outlined,
-                title: l10n.bmiTitle,
-                color: colorScheme.primary,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BMICalculatorPage()),
-                  );
-                },
-                description: l10n.bmiCalculateTitle, // Using existing string
-              ),
-              ToolCard(
-                icon: Icons.auto_fix_high_outlined,
-                title: l10n.surpriseMeButton,
-                color: colorScheme.primary,
-                onTap: onSurpriseMe,
-                description: l10n.surpriseMeFeedback, // Reuse localized string
-              ),
-              ToolCard(
-                icon: Icons.restaurant_menu_outlined,
-                title: l10n.randomRecipeTitle,
-                color: colorScheme.primary,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RandomRecipePage()),
-                  );
-                },
-                description: l10n.randomRecipeNew, // Reuse localized string
-              ),
-              ToolCard(
-                icon: Icons.fastfood_outlined,
-                title: l10n.foodCatalogTitle,
-                color: colorScheme.primary,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FoodCatalogPage()),
-                  );
-                },
-                description: l10n.foodCatalogDesc,
-              ),
-            ],
-          ),
+    ];
+
+    return PageFrame(slivers: [
+      SliverToBoxAdapter(
+        child: ViewHeader(overline: l10n.toolsSubtitle, title: l10n.toolsTitle),
+      ),
+      SliverGrid.builder(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 260,
+          mainAxisSpacing: 14,
+          crossAxisSpacing: 14,
+          mainAxisExtent: 190,
         ),
-      ],
-    );
+        itemCount: tools.length,
+        itemBuilder: (context, i) => CascadeIn(index: i, child: tools[i]),
+      ),
+    ]);
   }
 }

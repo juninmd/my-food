@@ -1,39 +1,42 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:webdiet/main.dart';
+import 'package:webdiet/widgets/today/day_line_tile.dart';
+import 'package:webdiet/widgets/today/orbit_card.dart';
+import 'package:webdiet/widgets/today/water_card.dart';
 
 void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  testWidgets('App smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('App smoke test shows the Today tab', (tester) async {
     await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
 
-    // Verify Dashboard Title (localized "Hello!")
-    expect(find.text('Hello!'), findsOneWidget);
+    expect(find.byType(OrbitCard), findsOneWidget);
+    expect(find.byType(WaterCard), findsOneWidget);
+    expect(find.text('Calories'), findsOneWidget);
 
-    // Verify "remaining" text in NutrientRing (lowercase in new design)
-    // Note: Depends on locale, assuming 'en' -> 'remaining'
-    // If l10n.remaining is 'Remaining', then toLowerCase() is 'remaining'.
-    expect(find.text('remaining'), findsOneWidget);
-
-    // Scroll a little
     await tester.drag(
         find.byType(CustomScrollView).first, const Offset(0, -500));
     await tester.pumpAndSettle();
 
-    // Verify that Me Surpreenda button DOES exist on Dashboard.
-    expect(find.byIcon(Icons.auto_fix_high), findsWidgets);
+    expect(find.text('AI Recommendation'), findsOneWidget);
+    expect(find.byType(DayLineTile), findsNWidgets(3));
+  });
+
+  testWidgets('Adding water updates the counter', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('0 / 8 glasses (250ml)'), findsOneWidget);
+    await tester.tap(find.text('+ 1 glass'));
+    await tester.pumpAndSettle();
+    expect(find.text('1 / 8 glasses (250ml)'), findsOneWidget);
+
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getInt('water_glasses'), 1);
   });
 }

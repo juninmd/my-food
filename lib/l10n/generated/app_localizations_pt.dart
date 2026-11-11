@@ -436,4 +436,146 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get imagePickError => 'Erro ao escolher a imagem.';
+
+  @override
+  String get todayTitle => 'Hoje';
+
+  @override
+  String get goodMorning => 'Bom dia';
+
+  @override
+  String get goodAfternoon => 'Boa tarde';
+
+  @override
+  String get goodEvening => 'Boa noite';
+
+  @override
+  String get ofGoal => 'da meta';
+
+  @override
+  String kcalLeft(String kcal) {
+    return 'faltam $kcal kcal';
+  }
+
+  @override
+  String get todaysPlan => 'Plano de hoje';
+
+  @override
+  String get quoteOfTheDay => 'Frase do dia';
+
+  @override
+  String get anotherQuote => 'Outra frase';
+
+  @override
+  String get surpriseMeSubtitle => 'A IA monta o dia mais perto da sua meta';
+
+  @override
+  String get dayLineTitle => 'Linha do dia';
+
+  @override
+  String get tapToOpen => 'toque para ver';
+
+  @override
+  String get statusNext => 'PRÓXIMO';
+
+  @override
+  String get statusDone => 'FEITO';
+
+  @override
+  String get addGlass => '+ 1 copo';
+
+  @override
+  String get waterGoalReached => 'Meta de água batida';
+
+  @override
+  String get chooseAnotherOption => 'Escolha outra opção';
+
+  @override
+  String get swipeToChoose => 'Deslize e toque para trocar';
+
+  @override
+  String get currentLabel => 'atual';
+
+  @override
+  String mealSwapped(String slot, String meal) {
+    return '$slot: $meal';
+  }
+
+  @override
+  String shoppingProgress(int done, int total) {
+    return '$done de $total no carrinho';
+  }
+
+  @override
+  String get shoppingFromPlan => 'Gerada do seu plano';
+
+  @override
+  String get listComplete => 'Lista completa';
+
+  @override
+  String get clearChecked => 'Limpar marcados';
+
+  @override
+  String get filterAll => 'Todos';
+
+  @override
+  String get filterHighProtein => 'Alta proteína';
+
+  @override
+  String get filterLowCarb => 'Low carb';
+
+  @override
+  String get filterLight => 'Até 150 kcal';
+
+  @override
+  String get editButton => 'Editar';
+
+  @override
+  String get tapAgainToDelete => 'Toque de novo para excluir';
+
+  @override
+  String foodDeleted(String name) {
+    return '$name excluído';
+  }
+
+  @override
+  String get undo => 'Desfazer';
+
+  @override
+  String macroKcalHint(int kcal) {
+    return 'Pelos macros: ≈ $kcal kcal';
+  }
+
+  @override
+  String get useValue => 'Usar';
+
+  @override
+  String get fillMacrosHint => 'Preencha os macros para sugerir as calorias';
+
+  @override
+  String get toolsSubtitle => 'Calculadoras e inspiração';
+
+  @override
+  String get catalogSubtitle => 'Seus alimentos';
+
+  @override
+  String get bmiHint => 'Mova os controles e o resultado atualiza na hora';
+
+  @override
+  String get requiredField => 'Obrigatório';
+
+  @override
+  String get changePhoto => 'Trocar';
+
+  @override
+  String get tapToBrowse => 'Toque para escolher uma foto';
+
+  @override
+  String get noDescription => 'Sem descrição';
+
+  @override
+  String get navMarket => 'Mercado';
+
+  @override
+  String get navCatalog => 'Catálogo';
 }

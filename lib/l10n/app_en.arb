@@ -155,5 +155,90 @@
   "searchFoodHint": "Search foods...",
   "noFoodsFound": "No foods found.",
   "foodSavedSuccess": "Food saved successfully!",
-  "imagePickError": "Error picking image."
+  "imagePickError": "Error picking image.",
+  "todayTitle": "Today",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "ofGoal": "of goal",
+  "kcalLeft": "{kcal} kcal left",
+  "@kcalLeft": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "todaysPlan": "Today's plan",
+  "quoteOfTheDay": "Quote of the day",
+  "anotherQuote": "Another quote",
+  "surpriseMeSubtitle": "AI builds the day closest to your goal",
+  "dayLineTitle": "Your day",
+  "tapToOpen": "tap to open",
+  "statusNext": "NEXT",
+  "statusDone": "DONE",
+  "addGlass": "+ 1 glass",
+  "waterGoalReached": "Water goal reached",
+  "chooseAnotherOption": "Choose another option",
+  "swipeToChoose": "Swipe and tap to swap",
+  "currentLabel": "current",
+  "mealSwapped": "{slot}: {meal}",
+  "@mealSwapped": {
+    "placeholders": {
+      "slot": {
+        "type": "String"
+      },
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingProgress": "{done} of {total} in the cart",
+  "@shoppingProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "shoppingFromPlan": "Built from your plan",
+  "listComplete": "List complete",
+  "clearChecked": "Clear checked",
+  "filterAll": "All",
+  "filterHighProtein": "High protein",
+  "filterLowCarb": "Low carb",
+  "filterLight": "Up to 150 kcal",
+  "editButton": "Edit",
+  "tapAgainToDelete": "Tap again to delete",
+  "foodDeleted": "{name} deleted",
+  "@foodDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Undo",
+  "macroKcalHint": "From macros: ≈ {kcal} kcal",
+  "@macroKcalHint": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "useValue": "Use",
+  "fillMacrosHint": "Fill in the macros to suggest calories",
+  "toolsSubtitle": "Calculators and inspiration",
+  "catalogSubtitle": "Your foods",
+  "bmiHint": "Move the sliders, the result updates live",
+  "requiredField": "Required",
+  "changePhoto": "Change",
+  "tapToBrowse": "Tap to pick a photo",
+  "noDescription": "No description",
+  "navMarket": "Market",
+  "navCatalog": "Catalog"
 }

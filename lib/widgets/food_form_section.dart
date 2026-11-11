@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/theme/app_type.dart';
 
+/// A titled card grouping related form fields.
 class FoodFormSection extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -14,43 +17,20 @@ class FoodFormSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
+    final t = AppTokens.of(context);
     return Container(
-      padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: colorScheme.primary, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          ...children,
-        ],
-      ),
+      padding: const EdgeInsets.all(18),
+      decoration: t.card(),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Row(children: [
+          Icon(icon, size: 16, color: t.mint),
+          const SizedBox(width: 8),
+          Expanded(
+              child: Text(title.toUpperCase(), style: AppType.label(t.ink2))),
+        ]),
+        const SizedBox(height: 14),
+        ...children,
+      ]),
     );
   }
 }
