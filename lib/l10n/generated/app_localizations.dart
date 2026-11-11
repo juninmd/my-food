@@ -937,6 +937,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error picking image.'**
   String get imagePickError;
+
+  /// No description provided for @todayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get todayTitle;
+
+  /// No description provided for @goodMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get goodMorning;
+
+  /// No description provided for @goodAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get goodAfternoon;
+
+  /// No description provided for @goodEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get goodEvening;
+
+  /// No description provided for @ofGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'of goal'**
+  String get ofGoal;
+
+  /// No description provided for @kcalLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal left'**
+  String kcalLeft(String kcal);
+
+  /// No description provided for @todaysPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s plan'**
+  String get todaysPlan;
+
+  /// No description provided for @quoteOfTheDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Quote of the day'**
+  String get quoteOfTheDay;
+
+  /// No description provided for @anotherQuote.
+  ///
+  /// In en, this message translates to:
+  /// **'Another quote'**
+  String get anotherQuote;
+
+  /// No description provided for @surpriseMeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI builds the day closest to your goal'**
+  String get surpriseMeSubtitle;
+
+  /// No description provided for @dayLineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day'**
+  String get dayLineTitle;
+
+  /// No description provided for @tapToOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'tap to open'**
+  String get tapToOpen;
+
+  /// No description provided for @statusNext.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT'**
+  String get statusNext;
+
+  /// No description provided for @statusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get statusDone;
+
+  /// No description provided for @addGlass.
+  ///
+  /// In en, this message translates to:
+  /// **'+ 1 glass'**
+  String get addGlass;
+
+  /// No description provided for @waterGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Water goal reached'**
+  String get waterGoalReached;
+
+  /// No description provided for @chooseAnotherOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another option'**
+  String get chooseAnotherOption;
+
+  /// No description provided for @swipeToChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe and tap to swap'**
+  String get swipeToChoose;
+
+  /// No description provided for @currentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'current'**
+  String get currentLabel;
+
+  /// No description provided for @mealSwapped.
+  ///
+  /// In en, this message translates to:
+  /// **'{slot}: {meal}'**
+  String mealSwapped(String slot, String meal);
+
+  /// No description provided for @shoppingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} in the cart'**
+  String shoppingProgress(int done, int total);
+
+  /// No description provided for @shoppingFromPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Built from your plan'**
+  String get shoppingFromPlan;
+
+  /// No description provided for @listComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'List complete'**
+  String get listComplete;
+
+  /// No description provided for @clearChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear checked'**
+  String get clearChecked;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterHighProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'High protein'**
+  String get filterHighProtein;
+
+  /// No description provided for @filterLowCarb.
+  ///
+  /// In en, this message translates to:
+  /// **'Low carb'**
+  String get filterLowCarb;
+
+  /// No description provided for @filterLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 150 kcal'**
+  String get filterLight;
+
+  /// No description provided for @editButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get editButton;
+
+  /// No description provided for @tapAgainToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap again to delete'**
+  String get tapAgainToDelete;
+
+  /// No description provided for @foodDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} deleted'**
+  String foodDeleted(String name);
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @macroKcalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'From macros: ≈ {kcal} kcal'**
+  String macroKcalHint(int kcal);
+
+  /// No description provided for @useValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get useValue;
+
+  /// No description provided for @fillMacrosHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the macros to suggest calories'**
+  String get fillMacrosHint;
+
+  /// No description provided for @toolsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculators and inspiration'**
+  String get toolsSubtitle;
+
+  /// No description provided for @catalogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your foods'**
+  String get catalogSubtitle;
+
+  /// No description provided for @bmiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Move the sliders, the result updates live'**
+  String get bmiHint;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get requiredField;
+
+  /// No description provided for @changePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get changePhoto;
+
+  /// No description provided for @tapToBrowse.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to pick a photo'**
+  String get tapToBrowse;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No description'**
+  String get noDescription;
+
+  /// No description provided for @navMarket.
+  ///
+  /// In en, this message translates to:
+  /// **'Market'**
+  String get navMarket;
+
+  /// No description provided for @navCatalog.
+  ///
+  /// In en, this message translates to:
+  /// **'Catalog'**
+  String get navCatalog;
 }
 
 class _AppLocalizationsDelegate

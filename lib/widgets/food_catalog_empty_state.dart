@@ -1,55 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/widgets/common/meal_plate.dart';
 
+/// Empty catalog or no search results: a faded plate, the reason and a
+/// shortcut to add a food.
 class FoodCatalogEmptyState extends StatelessWidget {
-  const FoodCatalogEmptyState({super.key});
+  final String message;
+  final VoidCallback onAdd;
+
+  const FoodCatalogEmptyState({
+    super.key,
+    required this.message,
+    required this.onAdd,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final t = AppTokens.of(context);
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return SliverPadding(
-      padding: const EdgeInsets.all(24.0),
-      sliver: SliverFillRemaining(
-        child: Center(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              color: colorScheme.surface,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 24,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.fastfood_outlined,
-                  size: 80,
-                  color: colorScheme.primary.withValues(alpha: 0.3),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  l10n.noFoodsYet,
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Column(children: [
+        const Opacity(
+          opacity: 0.5,
+          child: MealPlate(protein: 10, carbs: 10, fat: 5, size: 88),
         ),
-      ),
+        const SizedBox(height: 16),
+        Text(message,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w700, color: t.ink)),
+        const SizedBox(height: 16),
+        ElevatedButton.icon(
+          onPressed: onAdd,
+          icon: const Icon(Icons.add_rounded),
+          label: Text(l10n.addFoodTitle),
+        ),
+      ]),
     );
   }
 }

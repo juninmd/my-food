@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
-import '../utils/bmi_calculator.dart';
-import 'package:webdiet/widgets/bmi_result_card.dart';
-import 'package:webdiet/widgets/bmi_input_form.dart';
+import 'package:webdiet/theme/app_motion.dart';
+import 'package:webdiet/theme/app_tokens.dart';
+import 'package:webdiet/theme/app_type.dart';
+import 'package:webdiet/utils/bmi_calculator.dart';
+import 'package:webdiet/widgets/bmi_gauge.dart';
 
+/// Live BMI: move height and weight, the gauge and category follow.
 class BMICalculatorPage extends StatefulWidget {
   const BMICalculatorPage({super.key});
 
@@ -12,112 +15,109 @@ class BMICalculatorPage extends StatefulWidget {
 }
 
 class _BMICalculatorPageState extends State<BMICalculatorPage> {
-  final TextEditingController _weightController = TextEditingController();
-  final TextEditingController _heightController = TextEditingController();
-  double? _bmi;
-  BmiCategory? _bmiCategory;
-  Color _resultColor = Colors.black;
+  double _height = 175;
+  double _weight = 72;
 
-  @override
-  void dispose() {
-    _weightController.dispose();
-    _heightController.dispose();
-    super.dispose();
-  }
+  String _label(AppLocalizations l10n, BmiCategory c) => switch (c) {
+        BmiCategory.underweight => l10n.bmiUnderweight,
+        BmiCategory.normal => l10n.bmiNormal,
+        BmiCategory.overweight => l10n.bmiOverweight,
+        BmiCategory.obesity => l10n.bmiObesity,
+      };
 
-  void _calculateBMI() {
-    final double? weight = double.tryParse(_weightController.text);
-    final double? height = double.tryParse(_heightController.text);
-
-    if (weight != null && height != null && height > 0) {
-      setState(() {
-        final result = BmiCalculator.calculate(weight, height);
-        _bmi = result.bmi;
-        _bmiCategory = result.category;
-        _resultColor = result.color;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(AppLocalizations.of(context)!.bmiErrorInvalidInput)),
-      );
-    }
+  Widget _slider(String label, String value, double v, double min, double max,
+      ValueChanged<double> onChanged, AppTokens t) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Row(children: [
+        Expanded(child: Text(label, style: TextStyle(color: t.ink2))),
+        Text(value, style: AppType.data(14, color: t.ink)),
+      ]),
+      Slider(
+        value: v,
+        min: min,
+        max: max,
+        divisions: (max - min).round(),
+        label: value,
+        semanticFormatterCallback: (_) => value,
+        onChanged: onChanged,
+      ),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final t = AppTokens.of(context);
+    final result = BmiCalculator.calculate(_weight, _height);
+    final colors = [t.water, t.mint, t.carbs, t.protein];
+    final color = colors[result.category.index];
+    final locale = Localizations.localeOf(context).languageCode;
+    final bmiText = result.bmi.toStringAsFixed(1);
+    final dark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          l10n.bmiTitle,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: colorScheme.onSurface),
-      ),
+      appBar: AppBar(title: Text(l10n.bmiTitle)),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                l10n.bmiCalculateTitle,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: colorScheme.onSurface,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Enter your details below to calculate your Body Mass Index.',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-              BmiInputForm(
-                weightController: _weightController,
-                heightController: _heightController,
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _calculateBMI,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colorScheme.primary,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
+        padding: const EdgeInsets.fromLTRB(18, 8, 18, 32),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(l10n.bmiCalculateTitle,
+                      style: AppType.display(26, color: t.ink)),
+                  const SizedBox(height: 6),
+                  Text(l10n.bmiHint, style: TextStyle(color: t.ink2)),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: t.card(),
+                    child: Column(children: [
+                      BmiGauge(
+                          bmi: result.bmi, bandColors: colors, needle: t.ink),
+                      const SizedBox(height: 12),
+                      Text(l10n.bmiResultLabel,
+                          style: TextStyle(color: t.ink2)),
+                      Text(
+                          locale == 'pt'
+                              ? bmiText.replaceAll('.', ',')
+                              : bmiText,
+                          style: AppType.display(44, color: t.ink)),
+                      const SizedBox(height: 6),
+                      AnimatedContainer(
+                        duration: AppMotion.of(context, AppMotion.tick),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Text(_label(l10n, result.category),
+                            style: TextStyle(
+                                color: dark ? t.paper : Colors.white,
+                                fontWeight: FontWeight.w700)),
+                      ),
+                      const SizedBox(height: 20),
+                      _slider(
+                          l10n.bmiHeightLabel,
+                          '${_height.round()} cm',
+                          _height,
+                          140,
+                          210,
+                          (v) => setState(() => _height = v),
+                          t),
+                      _slider(
+                          l10n.bmiWeightLabel,
+                          '${_weight.round()} kg',
+                          _weight,
+                          40,
+                          150,
+                          (v) => setState(() => _weight = v),
+                          t),
+                    ]),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                child: Text(l10n.bmiCalculateButton),
-              ),
-              const SizedBox(height: 40),
-              if (_bmi != null && _bmiCategory != null)
-                BmiResultCard(
-                  bmi: _bmi!,
-                  category: _bmiCategory!,
-                  resultColor: _resultColor,
-                ),
-            ],
+                ]),
           ),
         ),
       ),

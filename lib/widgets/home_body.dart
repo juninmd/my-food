@@ -1,93 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:webdiet/l10n/generated/app_localizations.dart';
-import 'package:webdiet/data/meal_data.dart';
-import 'package:webdiet/data/diet_constants.dart';
+import 'package:webdiet/models/day_plan.dart';
+import 'package:webdiet/models/meal.dart';
+import 'package:webdiet/pages/food_catalog_page.dart';
 import 'package:webdiet/widgets/dashboard_view.dart';
 import 'package:webdiet/widgets/shopping_list_view.dart';
 import 'package:webdiet/widgets/tools_view.dart';
-import 'package:webdiet/widgets/meal_selector_sheet.dart';
-import 'package:webdiet/pages/food_catalog_page.dart';
 
+/// Picks the view of the selected tab and wires it to the home state.
 class HomeBody extends StatelessWidget {
   final int currentIndex;
-  final int breakfastIndex;
-  final int lunchIndex;
-  final int dinnerIndex;
-  final int waterGlasses;
+  final DayPlan plan;
+  final Map<MealSlot, List<Meal>> options;
+  final Map<MealSlot, int> mealIndex;
+  final int water;
+  final Set<String> checked;
   final Future<String> quoteFuture;
+  final Animation<double> roll;
   final VoidCallback onSurpriseMe;
-  final Function(int) onUpdateWater;
-  final Function(int) onUpdateBreakfast;
-  final Function(int) onUpdateLunch;
-  final Function(int) onUpdateDinner;
-  final Function(int) onUpdateIndex;
+  final VoidCallback onRefreshQuote;
+  final ValueChanged<int> onSetWater;
+  final void Function(MealSlot slot, int index) onSelectMeal;
+  final ValueChanged<Set<String>> onCheckedChanged;
+  final ValueChanged<int> onGoTo;
 
   const HomeBody({
     super.key,
     required this.currentIndex,
-    required this.breakfastIndex,
-    required this.lunchIndex,
-    required this.dinnerIndex,
-    required this.waterGlasses,
+    required this.plan,
+    required this.options,
+    required this.mealIndex,
+    required this.water,
+    required this.checked,
     required this.quoteFuture,
+    required this.roll,
     required this.onSurpriseMe,
-    required this.onUpdateWater,
-    required this.onUpdateBreakfast,
-    required this.onUpdateLunch,
-    required this.onUpdateDinner,
-    required this.onUpdateIndex,
+    required this.onRefreshQuote,
+    required this.onSetWater,
+    required this.onSelectMeal,
+    required this.onCheckedChanged,
+    required this.onGoTo,
   });
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final breakfastOptions = MealData.getBreakfastOptions(l10n);
-    final lunchOptions = MealData.getLunchOptions(l10n);
-    final dinnerOptions = MealData.getDinnerOptions(l10n);
-
-    int safeBreakfast = breakfastIndex >= breakfastOptions.length ? 0 : breakfastIndex;
-    int safeLunch = lunchIndex >= lunchOptions.length ? 0 : lunchIndex;
-    int safeDinner = dinnerIndex >= dinnerOptions.length ? 0 : dinnerIndex;
-
     switch (currentIndex) {
       case 0:
         return DashboardView(
+          plan: plan,
+          options: options,
+          mealIndex: mealIndex,
+          water: water,
           quoteFuture: quoteFuture,
-          breakfast: breakfastOptions[safeBreakfast],
-          lunch: lunchOptions[safeLunch],
-          dinner: dinnerOptions[safeDinner],
-          waterGlasses: waterGlasses,
-          onAddWater: () {
-            if (waterGlasses < DietConstants.waterGlassTarget + 5) {
-              onUpdateWater(waterGlasses + 1);
-            }
-          },
-          onEditBreakfast: (_) => MealSelectorSheet.show(context, breakfastOptions, (selected) {
-            onUpdateBreakfast(breakfastOptions.indexOf(selected));
-          }),
-          onEditLunch: (_) => MealSelectorSheet.show(context, lunchOptions, (selected) {
-            onUpdateLunch(lunchOptions.indexOf(selected));
-          }),
-          onEditDinner: (_) => MealSelectorSheet.show(context, dinnerOptions, (selected) {
-            onUpdateDinner(dinnerOptions.indexOf(selected));
-          }),
+          roll: roll,
           onSurpriseMe: onSurpriseMe,
+          onRefreshQuote: onRefreshQuote,
+          onSetWater: onSetWater,
+          onSelectMeal: onSelectMeal,
         );
       case 1:
         return ShoppingListView(
-          ingredients: [
-            ...breakfastOptions[safeBreakfast].ingredients,
-            ...lunchOptions[safeLunch].ingredients,
-            ...dinnerOptions[safeDinner].ingredients,
-          ],
+          ingredients: plan.ingredients,
+          checked: checked,
+          onCheckedChanged: onCheckedChanged,
         );
       case 2:
-        return const FoodCatalogPage();
+        return FoodCatalogPage(
+          bottomInset: MediaQuery.sizeOf(context).width > 800 ? 0 : 76,
+        );
       case 3:
-        return ToolsView(onSurpriseMe: () {
-          onSurpriseMe();
-          onUpdateIndex(0);
-        });
+        return ToolsView(
+            onSurpriseMe: onSurpriseMe, onOpenCatalog: () => onGoTo(2));
       default:
         return const SizedBox.shrink();
     }

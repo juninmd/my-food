@@ -1,86 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webdiet/widgets/shopping_list/shopping_list_item_tile.dart';
 import 'package:webdiet/widgets/shopping_list_view.dart';
+
+import 'helpers/localized_app.dart';
 
 void main() {
   group('ShoppingListView Widget Tests', () {
-    final ingredients = [
-      'Ovos',
-      'Pão',
-      'Ovos',
-      'Leite'
-    ]; // 2 Ovos, 1 Pão, 1 Leite
+    final ingredients = ['Ovos', 'Pão', 'Ovos', 'Leite'];
 
     setUp(() {
       SharedPreferences.setMockInitialValues({});
     });
 
-    Widget createLocalizedContext(Widget child) {
-      return MaterialApp(
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('en')],
-        home: Scaffold(body: child),
-      );
-    }
+    Widget app(Widget child) => localizedApp(Scaffold(body: child));
 
-    testWidgets('Displays aggregated ingredients correctly',
+    ShoppingListItemTile tile(WidgetTester tester, String name) =>
+        tester.widget<ShoppingListItemTile>(
+            find.widgetWithText(ShoppingListItemTile, name));
+
+    testWidgets('Displays aggregated ingredients and progress',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createLocalizedContext(
-        ShoppingListView(ingredients: ingredients),
-      ));
+      await tester.pumpWidget(app(ShoppingListView(ingredients: ingredients)));
+      await tester.pumpAndSettle();
 
-      // Verify title "Shopping List" (English)
       expect(find.text('Shopping List'), findsWidgets);
-
-      // Verify ingredients
       expect(find.text('Ovos'), findsOneWidget);
       expect(find.text('Pão'), findsOneWidget);
       expect(find.text('Leite'), findsOneWidget);
-
-      // Verify count for Ovos (x2)
       expect(find.text('x2'), findsOneWidget);
+      expect(find.text('0 of 3 in the cart'), findsOneWidget);
     });
 
-    testWidgets('Toggles checkbox when item is tapped',
+    testWidgets('Toggles an item and saves the check',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createLocalizedContext(
-        ShoppingListView(ingredients: ingredients),
-      ));
-
-      // Find the CheckboxListTile for 'Pão'
-      final tileFinder = find.widgetWithText(CheckboxListTile, 'Pão');
-      expect(tileFinder, findsOneWidget);
-
-      // Verify initial state (unchecked)
-      expect(tester.widget<CheckboxListTile>(tileFinder).value, isFalse);
-
-      // Tap on the tile
-      await tester.tap(tileFinder);
+      await tester.pumpWidget(app(ShoppingListView(ingredients: ingredients)));
       await tester.pumpAndSettle();
 
-      // Verify new state (checked)
-      expect(tester.widget<CheckboxListTile>(tileFinder).value, isTrue);
+      expect(tile(tester, 'Pão').isChecked, isFalse);
+      await tester.tap(find.text('Pão'));
+      await tester.pumpAndSettle();
+      expect(tile(tester, 'Pão').isChecked, isTrue);
+      expect(find.text('1 of 3 in the cart'), findsOneWidget);
 
-      // Tap again to uncheck
-      await tester.tap(tileFinder);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getStringList('checked_ingredients'), ['Pão']);
+
+      await tester.tap(find.text('Pão'));
+      await tester.pumpAndSettle();
+      expect(tile(tester, 'Pão').isChecked, isFalse);
+    });
+
+    testWidgets('Reports checks to the parent when it owns them',
+        (WidgetTester tester) async {
+      Set<String>? reported;
+      await tester.pumpWidget(app(ShoppingListView(
+        ingredients: ingredients,
+        checked: const {'Leite'},
+        onCheckedChanged: (s) => reported = s,
+      )));
       await tester.pumpAndSettle();
 
-      // Verify final state (unchecked)
-      expect(tester.widget<CheckboxListTile>(tileFinder).value, isFalse);
+      expect(tile(tester, 'Leite').isChecked, isTrue);
+      await tester.tap(find.text('Ovos'));
+      await tester.pumpAndSettle();
+      expect(reported, {'Leite', 'Ovos'});
+    });
+
+    testWidgets('Checking every item shows "List complete"',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(app(ShoppingListView(ingredients: ingredients)));
+      await tester.pumpAndSettle();
+      for (final name in ['Ovos', 'Pão', 'Leite']) {
+        await tester.tap(find.text(name));
+        await tester.pumpAndSettle();
+      }
+      expect(find.text('List complete'), findsOneWidget);
     });
 
     testWidgets('Copy to clipboard triggers SnackBar',
         (WidgetTester tester) async {
-      // Mock Clipboard
       final List<MethodCall> log = <MethodCall>[];
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(SystemChannels.platform,
@@ -89,25 +90,18 @@ void main() {
         return null;
       });
 
-      await tester.pumpWidget(createLocalizedContext(
-        ShoppingListView(ingredients: ingredients),
-      ));
+      await tester.pumpWidget(app(ShoppingListView(ingredients: ingredients)));
+      await tester.pumpAndSettle();
 
-      // Tap copy button (using Icons.copy_rounded as updated in widget)
       await tester.tap(find.byIcon(Icons.copy_rounded));
-      await tester.pump(); // Start animation
-      await tester.pump(const Duration(seconds: 1)); // Wait for snackbar
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
 
-      // Verify SnackBar "List copied to clipboard!"
       expect(find.text('List copied to clipboard!'), findsOneWidget);
-
-      // Verify Clipboard was called
-      expect(log, isNotEmpty);
-      expect(log.last.method, 'Clipboard.setData');
-      // The text is sent as a Map inside arguments
-      final args = log.last.arguments as Map;
-      final text = args['text'] as String;
-
+      final setData = log
+          .lastWhere((c) => c.method == 'Clipboard.setData')
+          .arguments as Map;
+      final text = setData['text'] as String;
       expect(text, contains('Shopping List:'));
       expect(text, contains('[ ] Leite'));
       expect(text, contains('[ ] Ovos (x2)'));

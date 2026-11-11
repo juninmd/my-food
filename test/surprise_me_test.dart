@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -9,23 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webdiet/pages/home_page.dart';
 import 'package:webdiet/services/api_service.dart';
 
+import 'helpers/localized_app.dart';
+
 void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  Widget createLocalizedContext(Widget child) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('en')],
-      home: child,
-    );
-  }
+  Widget createLocalizedContext(Widget child) => localizedApp(child);
 
   testWidgets('Surprise Me button fetches new quote and updates UI',
       (WidgetTester tester) async {
@@ -60,38 +49,28 @@ void main() {
     final firstQuoteFinder = find.text('"First Quote" - Author 1');
     expect(firstQuoteFinder, findsOneWidget);
 
-    // Tap Tools tab (it might be at the bottom, but bottom nav bar is usually visible)
-    await tester.tap(find.byIcon(Icons.grid_view));
+    // Open the Tools tab and start Surprise Me from there.
+    await tester.tap(find.byIcon(Icons.handyman_outlined));
     await tester.pumpAndSettle();
-
-    // Verify Surprise Me button exists
     expect(find.text('AI Recommendation'), findsOneWidget);
-
-    // Tap Surprise Me button
     await tester.tap(find.text('AI Recommendation'));
 
-    // Pump to start the future and navigation
+    // The slot spins on the Today tab, then lands on the best combination.
     await tester.pump();
-
-    // Wait for the second future to complete and navigation
-    await tester.pumpAndSettle();
-
-    // The Dashboard updates in the background when onReveal is called.
-    // The Dialog also displays the quote.
-    // So we expect to find the quote twice.
-    final secondQuoteFinder = find.text('"Second Quote" - Author 2');
-    expect(secondQuoteFinder, findsNWidgets(2));
-
-    // Verify Dialog feedback message
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('Meal plan randomized! Check out the new quote.'),
         findsOneWidget);
 
-    // Tap OK to close the dialog
-    await tester.tap(find.text('OK'));
     await tester.pumpAndSettle();
+    expect(find.text('"Second Quote" - Author 2'), findsOneWidget);
+    expect(firstQuoteFinder, findsNothing);
 
-    // Verify we are back on Dashboard and only one quote exists
-    expect(secondQuoteFinder, findsOneWidget);
+    // The plan closest to 2430 kcal uses the richest option of each meal.
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getInt('breakfast_index'), 0);
+    expect(prefs.getInt('lunch_index'), 0);
+    expect(prefs.getInt('dinner_index'), 1);
   });
 
   testWidgets('Surprise Me displays fallback message on API error',

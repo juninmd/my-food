@@ -435,4 +435,146 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get imagePickError => 'Error picking image.';
+
+  @override
+  String get todayTitle => 'Today';
+
+  @override
+  String get goodMorning => 'Good morning';
+
+  @override
+  String get goodAfternoon => 'Good afternoon';
+
+  @override
+  String get goodEvening => 'Good evening';
+
+  @override
+  String get ofGoal => 'of goal';
+
+  @override
+  String kcalLeft(String kcal) {
+    return '$kcal kcal left';
+  }
+
+  @override
+  String get todaysPlan => 'Today\'s plan';
+
+  @override
+  String get quoteOfTheDay => 'Quote of the day';
+
+  @override
+  String get anotherQuote => 'Another quote';
+
+  @override
+  String get surpriseMeSubtitle => 'AI builds the day closest to your goal';
+
+  @override
+  String get dayLineTitle => 'Your day';
+
+  @override
+  String get tapToOpen => 'tap to open';
+
+  @override
+  String get statusNext => 'NEXT';
+
+  @override
+  String get statusDone => 'DONE';
+
+  @override
+  String get addGlass => '+ 1 glass';
+
+  @override
+  String get waterGoalReached => 'Water goal reached';
+
+  @override
+  String get chooseAnotherOption => 'Choose another option';
+
+  @override
+  String get swipeToChoose => 'Swipe and tap to swap';
+
+  @override
+  String get currentLabel => 'current';
+
+  @override
+  String mealSwapped(String slot, String meal) {
+    return '$slot: $meal';
+  }
+
+  @override
+  String shoppingProgress(int done, int total) {
+    return '$done of $total in the cart';
+  }
+
+  @override
+  String get shoppingFromPlan => 'Built from your plan';
+
+  @override
+  String get listComplete => 'List complete';
+
+  @override
+  String get clearChecked => 'Clear checked';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterHighProtein => 'High protein';
+
+  @override
+  String get filterLowCarb => 'Low carb';
+
+  @override
+  String get filterLight => 'Up to 150 kcal';
+
+  @override
+  String get editButton => 'Edit';
+
+  @override
+  String get tapAgainToDelete => 'Tap again to delete';
+
+  @override
+  String foodDeleted(String name) {
+    return '$name deleted';
+  }
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String macroKcalHint(int kcal) {
+    return 'From macros: ≈ $kcal kcal';
+  }
+
+  @override
+  String get useValue => 'Use';
+
+  @override
+  String get fillMacrosHint => 'Fill in the macros to suggest calories';
+
+  @override
+  String get toolsSubtitle => 'Calculators and inspiration';
+
+  @override
+  String get catalogSubtitle => 'Your foods';
+
+  @override
+  String get bmiHint => 'Move the sliders, the result updates live';
+
+  @override
+  String get requiredField => 'Required';
+
+  @override
+  String get changePhoto => 'Change';
+
+  @override
+  String get tapToBrowse => 'Tap to pick a photo';
+
+  @override
+  String get noDescription => 'No description';
+
+  @override
+  String get navMarket => 'Market';
+
+  @override
+  String get navCatalog => 'Catalog';
 }

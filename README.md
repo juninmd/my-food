@@ -25,6 +25,7 @@ WebDiet is a meal planning app for patients and nutritionists. It is built to re
 - **One screen for the day**: meals, calories, and protein/carbs/fat progress.
 - **Local first**: the food catalog is stored on the device, with no account required.
 - **Bilingual**: English and Portuguese, selected from the device locale.
+- **Alive, in light and dark**: animated macro orbit, water glass and meal slot, following the system theme. See the [redesign proposal](docs/redesign/webdiet-pulse.html).
 
 Orchestrated by **Jules-Architect** and **Chef-Domain**, the AI personas defined in [AGENTS.md](AGENTS.md).
 

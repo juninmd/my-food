@@ -6,7 +6,6 @@ import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'package:webdiet/models/food_item.dart';
 import 'package:webdiet/services/food_service.dart';
 import 'package:webdiet/widgets/food_form_body.dart';
-import 'package:webdiet/widgets/food_form_app_bar.dart';
 
 /// Formulário para o "Cadastro de alimentos" e "Edição de alimentos"
 /// Interface moderna e produtiva voltada a pacientes e agradável aos nutricionistas.
@@ -102,13 +101,7 @@ class _FoodFormPageState extends State<FoodFormPage> {
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.foodSavedSuccess),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+          SnackBar(content: Text(l10n.foodSavedSuccess)),
         );
         Navigator.pop(context);
       }
@@ -117,29 +110,24 @@ class _FoodFormPageState extends State<FoodFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final isEditing = widget.foodToEdit != null;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          FoodFormAppBar(isEditing: isEditing),
-          SliverToBoxAdapter(
-            child: FoodFormBody(
-              formKey: _formKey,
-              nameController: _nameController,
-              descController: _descController,
-              calController: _calController,
-              proteinController: _proteinController,
-              carbsController: _carbsController,
-              fatController: _fatController,
-              imageBytes: _imageBytes,
-              onPickImage: _pickImage,
-              onSave: _saveFood,
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text(isEditing ? l10n.editFoodTitle : l10n.addFoodTitle),
+      ),
+      body: FoodFormBody(
+        formKey: _formKey,
+        nameController: _nameController,
+        descController: _descController,
+        calController: _calController,
+        proteinController: _proteinController,
+        carbsController: _carbsController,
+        fatController: _fatController,
+        imageBytes: _imageBytes,
+        onPickImage: _pickImage,
+        onSave: _saveFood,
       ),
     );
   }

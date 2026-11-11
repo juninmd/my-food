@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:webdiet/l10n/generated/app_localizations.dart';
 import 'pages/home_page.dart';
@@ -12,15 +11,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // Root of the application
   @override
   Widget build(BuildContext context) {
-    // Set system UI overlay style for a cleaner look
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
-
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
@@ -31,10 +23,12 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en'), // English
-        Locale('pt'), // Portuguese
+        Locale('en'),
+        Locale('pt'),
       ],
       theme: AppTheme.buildThemeData(),
+      darkTheme: AppTheme.buildDarkThemeData(),
+      themeMode: ThemeMode.system,
       home: const HomePage(),
     );
   }
