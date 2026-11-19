@@ -15,7 +15,17 @@ class FoodService {
 
     try {
       final List<dynamic> decodedList = json.decode(foodsJson);
-      return decodedList.map((item) => FoodItem.fromJson(item)).toList();
+      final foods = <FoodItem>[];
+      for (final item in decodedList) {
+        // Skip a malformed entry instead of dropping the whole catalog, which
+        // the next saveFood would then overwrite.
+        try {
+          foods.add(FoodItem.fromJson(item as Map<String, dynamic>));
+        } catch (_) {
+          continue;
+        }
+      }
+      return foods;
     } catch (e) {
       return [];
     }
