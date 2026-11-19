@@ -44,6 +44,27 @@ void main() {
       expect(foods.first.name, 'Updated Food');
     });
 
+    test('getFoods skips a malformed entry and keeps the valid ones', () async {
+      SharedPreferences.setMockInitialValues({
+        'custom_foods':
+            '[{"id":"1","name":"Ok","description":"d","calories":1,"protein":1,"carbs":1,"fat":1},'
+                '{"id":"2","name":null},"not-a-map"]',
+      });
+      final foods = await foodService.getFoods();
+      expect(foods.map((f) => f.id), ['1']);
+    });
+
+    test('saveFood keeps valid foods when another stored entry is malformed',
+        () async {
+      SharedPreferences.setMockInitialValues({
+        'custom_foods':
+            '[{"id":"1","name":"Ok","description":"d","calories":1,"protein":1,"carbs":1,"fat":1},{"id":"2"}]',
+      });
+      await foodService.saveFood(testFood.copyWith(id: '3'));
+      final foods = await foodService.getFoods();
+      expect(foods.map((f) => f.id), ['1', '3']);
+    });
+
     test('deleteFood removes a food item', () async {
       await foodService.saveFood(testFood);
       var foods = await foodService.getFoods();
