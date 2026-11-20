@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +9,9 @@ class ApiService {
   static const String quoteUrl = 'https://dummyjson.com/quotes/random';
   static const String mealUrl =
       'https://www.themealdb.com/api/json/v1/1/random.php';
+
+  /// Upper bound for a single request so the UI never spins forever offline.
+  static const Duration requestTimeout = Duration(seconds: 10);
 
   final http.Client client;
 
@@ -22,7 +26,8 @@ class ApiService {
   /// Throws an [Exception] if the request fails or an error occurs.
   Future<String> fetchQuote() async {
     try {
-      final response = await client.get(Uri.parse(quoteUrl));
+      final response =
+          await client.get(Uri.parse(quoteUrl)).timeout(requestTimeout);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -42,12 +47,17 @@ class ApiService {
   /// Throws an [Exception] if the request fails or an error occurs.
   Future<Map<String, dynamic>> fetchRandomRecipe() async {
     try {
-      final response = await client.get(Uri.parse(mealUrl));
+      final response =
+          await client.get(Uri.parse(mealUrl)).timeout(requestTimeout);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final meal = data['meals'][0];
-        return meal;
+        final meals = data is Map ? data['meals'] : null;
+        // TheMealDB answers `{"meals": null}` when it has nothing to serve.
+        if (meals is! List || meals.isEmpty || meals.first is! Map) {
+          throw Exception('Failed to load recipe');
+        }
+        return Map<String, dynamic>.from(meals.first as Map);
       } else {
         throw Exception('Failed to load recipe');
       }
