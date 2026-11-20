@@ -82,5 +82,18 @@ void main() {
 
       expect(apiService.fetchRandomRecipe(), throwsException);
     });
+
+    for (final body in ['{"meals": null}', '{"meals": []}', '[]']) {
+      test('fetchRandomRecipe reports a load failure for $body', () async {
+        final client = MockClient((request) async => http.Response(body, 200));
+        final apiService = ApiService(client: client);
+
+        expect(
+            apiService.fetchRandomRecipe(),
+            throwsA(predicate((e) =>
+                e is Exception &&
+                e.toString().contains('Failed to load recipe'))));
+      });
+    }
   });
 }
