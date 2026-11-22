@@ -31,7 +31,13 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return '"${data['quote']}" - ${data['author']}';
+        final quote = data is Map ? data['quote'] : null;
+        final author = data is Map ? data['author'] : null;
+        // A 200 with another shape must not show `"null" - null` as a quote.
+        if (quote is! String || quote.isEmpty || author is! String) {
+          throw Exception('Failed to load quote');
+        }
+        return '"$quote" - $author';
       } else {
         throw Exception('Failed to load quote');
       }
