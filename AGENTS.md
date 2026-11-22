@@ -1,32 +1,50 @@
-# 🧠 AGENTS.md - WebDiet Intelligence System
+# AGENTS.md
 
-## 👤 AI Personas
+WebDiet (`my-food`): a meal-planning and nutrition app. A Flutter client (`lib/`) talks to a Node server (`server.ts`).
 
-### 1. Jules-Architect (System Architect)
-- **Role**: Designing the overall monorepo structure and backend/frontend sync.
-- **Focus**: Scalability, process integrity, and API orchestration.
-- **Vibe**: Direct, analytical, and strategic.
+## Stack
 
-### 2. Spark-Flutter (UI/UX Expert)
-- **Role**: Crafting the visual identity and interactive HUD.
-- **Focus**: Aesthetics, micro-interactions, and accessibility.
-- **Vibe**: Creative, detail-oriented, and "widget-obsessed".
+- Flutter, Dart `>=3.5.0 <4.0.0` (`pubspec.yaml`). Web and Android targets (`web/`, `android/`).
+- Node 20 (`.nvmrc`, `engines`), TypeScript, `tsx` for `server.ts`.
+- pnpm 10.30.3 (`packageManager`). semantic-release for versioning (`release.config.ts`).
 
-### 3. Chef-Domain (Domain Expert)
-- **Role**: Logic for meal planning, nutritional analysis, and health goals.
-- **Focus**: Data accuracy, dietary guidelines, and user personalization.
-- **Vibe**: Professional, visionary, and "health-focused".
+## Commands
 
-## 📜 Development Rules (Antigravity)
+```bash
+pnpm install
+pnpm start                    # tsx server.ts
+pnpm build:server             # tsc
+flutter pub get
+flutter analyze
+flutter test
+./build_web.sh                # clones Flutter into ./flutter and builds the web app (set -e)
+```
 
-1. **Size Limit**: **Max 150 lines per file**. Refactor and split if logic grows.
-2. **Clean Logic**: Business rules must be isolated from API routes and UI widgets.
-3. **Semantic Release**: All version bumps must be triggered by the semantic-release protocol.
-4. **Validation**: API contracts must be validated against a unified schema.
+`pnpm release` runs semantic-release, which publishes a version. Run it from CI, not by hand.
 
-## 🤝 Interaction Protocol
-- Follow the **Plan -> Act -> Validate** cycle for new health features.
-- Consult the `GEMINI.md` file for the core instruction set for the AI.
+## Structure
+
+- `lib/`: Flutter app. `lib/pages/` screens (e.g. `food_catalog_page.dart`, `food_form_page.dart`), `lib/widgets/` reusable UI.
+- `test/`: Flutter tests. `assets/`, `l10n.yaml`: assets and localization.
+- `server.ts`, `tsconfig.json`: Node server. `release.config.ts`: semantic-release config.
+- `web/`, `android/`: platform shells. `build_web.sh`: web build script.
+- `docs/`: design and redesign notes. `dist/`: `tsc` output (`outDir` in `tsconfig.json`); two compiled files are tracked.
+- `.github/workflows/`: `validate.yml` (base-actions), `deploy-pages.yml`, `release-drafter.yml`, `sast.yml`, `security.yml`.
+
+## Conventions
+
+- Max 150 lines per file. Refactor and split when logic grows.
+- Keep business rules out of API routes and UI widgets.
+- Validate API contracts against one unified schema.
+- Versions come only from semantic-release. Do not bump versions by hand.
+- Health features follow Plan, Act, Validate.
+- `GEMINI.md` holds the core instruction set for the AI. Read it when the rules here are not enough.
+
+## Gotchas
+
+- `deploy-pages.yml` runs on every push to `main` or `master`. Merging to either branch publishes the site.
+- `build_web.sh` deletes and re-clones `./flutter` on every run.
+- Do not commit secrets. `.gitignore` covers `*.key`, `*.pem`, `*.p12`, `secrets/`, and `config/secrets.yml`.
 
 <!-- base-actions-main-policy -->
 ## GitHub Actions — padrão obrigatório (@main)

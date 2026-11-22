@@ -60,3 +60,4 @@ flutter/
 *.p12
 secrets/
 config/secrets.yml
+verification/
