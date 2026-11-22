@@ -4,56 +4,60 @@ import '../models/food_item.dart';
 
 class FoodService {
   static const String _storageKey = 'custom_foods';
+  static const String _backupKey = 'custom_foods_backup';
 
   Future<List<FoodItem>> getFoods() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? foodsJson = prefs.getString(_storageKey);
-
-    if (foodsJson == null) {
-      return [];
-    }
-
-    try {
-      final List<dynamic> decodedList = json.decode(foodsJson);
-      final foods = <FoodItem>[];
-      for (final item in decodedList) {
-        // Skip a malformed entry instead of dropping the whole catalog, which
-        // the next saveFood would then overwrite.
-        try {
-          foods.add(FoodItem.fromJson(item as Map<String, dynamic>));
-        } catch (_) {
-          continue;
-        }
+    final foods = <FoodItem>[];
+    // Skip a malformed entry instead of dropping the whole catalog.
+    for (final item in _decode(prefs.getString(_storageKey)) ?? const []) {
+      try {
+        foods.add(FoodItem.fromJson(item as Map<String, dynamic>));
+      } catch (_) {
+        continue;
       }
-      return foods;
-    } catch (e) {
-      return [];
     }
+    return foods;
   }
 
   Future<void> saveFood(FoodItem food) async {
-    final foods = await getFoods();
-    final existingIndex = foods.indexWhere((f) => f.id == food.id);
-
-    if (existingIndex >= 0) {
-      foods[existingIndex] = food;
-    } else {
-      foods.add(food);
-    }
-
-    await _saveFoodsList(foods);
+    await _update((entries) {
+      final index = entries.indexWhere((e) => _idOf(e) == food.id);
+      if (index >= 0) {
+        entries[index] = food.toJson();
+      } else {
+        entries.add(food.toJson());
+      }
+    });
   }
 
   Future<void> deleteFood(String id) async {
-    final foods = await getFoods();
-    foods.removeWhere((f) => f.id == id);
-    await _saveFoodsList(foods);
+    await _update((entries) => entries.removeWhere((e) => _idOf(e) == id));
   }
 
-  Future<void> _saveFoodsList(List<FoodItem> foods) async {
+  /// Edits the raw stored list, so entries this version cannot parse are written
+  /// back untouched; a payload that is not a list is backed up before the overwrite.
+  Future<void> _update(void Function(List<dynamic> entries) change) async {
     final prefs = await SharedPreferences.getInstance();
-    final String encodedList =
-        json.encode(foods.map((f) => f.toJson()).toList());
-    await prefs.setString(_storageKey, encodedList);
+    final raw = prefs.getString(_storageKey);
+    var entries = _decode(raw);
+    if (entries == null) {
+      if (raw != null) await prefs.setString(_backupKey, raw);
+      entries = [];
+    }
+    change(entries);
+    await prefs.setString(_storageKey, json.encode(entries));
   }
+
+  static List<dynamic>? _decode(String? raw) {
+    if (raw == null) return [];
+    try {
+      final decoded = json.decode(raw);
+      return decoded is List ? List<dynamic>.of(decoded) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static Object? _idOf(Object? entry) => entry is Map ? entry['id'] : null;
 }
