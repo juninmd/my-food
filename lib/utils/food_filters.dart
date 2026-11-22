@@ -23,16 +23,31 @@ class FoodFilters {
     }
   }
 
-  /// Foods that pass [filter] and contain [query] in name or description.
+  static const _accented = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+  static const _plain = 'aaaaaeeeeiiiiooooouuuucn';
+
+  /// Lowercase without Portuguese diacritics, so "pao" finds "Pão".
+  static String fold(String text) {
+    final lower = text.toLowerCase();
+    final out = StringBuffer();
+    for (final ch in lower.split('')) {
+      final i = _accented.indexOf(ch);
+      out.write(i == -1 ? ch : _plain[i]);
+    }
+    return out.toString();
+  }
+
+  /// Foods that pass [filter] and contain [query] in name or description,
+  /// ignoring case and accents.
   static List<FoodItem> apply(
       List<FoodItem> foods, FoodFilter filter, String query) {
-    final q = query.trim().toLowerCase();
+    final q = fold(query.trim());
     return foods
         .where((f) => matches(f, filter))
         .where((f) =>
             q.isEmpty ||
-            f.name.toLowerCase().contains(q) ||
-            f.description.toLowerCase().contains(q))
+            fold(f.name).contains(q) ||
+            fold(f.description).contains(q))
         .toList();
   }
 }
