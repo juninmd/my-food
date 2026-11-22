@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webdiet/models/food_item.dart';
@@ -63,6 +65,26 @@ void main() {
       await foodService.saveFood(testFood.copyWith(id: '3'));
       final foods = await foodService.getFoods();
       expect(foods.map((f) => f.id), ['1', '3']);
+    });
+
+    test('saveFood writes back a stored entry it cannot parse', () async {
+      SharedPreferences.setMockInitialValues({
+        'custom_foods':
+            '[{"id":"1","name":"Ok","description":"d","calories":1,"protein":1,"carbs":1,"fat":1},{"id":"2"}]',
+      });
+      await foodService.saveFood(testFood.copyWith(id: '3'));
+      final prefs = await SharedPreferences.getInstance();
+      final stored = json.decode(prefs.getString('custom_foods')!) as List;
+      expect(stored.map((e) => e['id']), ['1', '2', '3']);
+    });
+
+    test('saveFood backs up a corrupt payload before overwriting it', () async {
+      const corrupt = '[{"id":"1","name":"Ok"';
+      SharedPreferences.setMockInitialValues({'custom_foods': corrupt});
+      await foodService.saveFood(testFood);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString('custom_foods_backup'), corrupt);
+      expect((await foodService.getFoods()).map((f) => f.id), ['1']);
     });
 
     test('deleteFood removes a food item', () async {
