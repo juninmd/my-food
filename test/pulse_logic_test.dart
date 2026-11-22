@@ -129,5 +129,23 @@ void main() {
       expect(names(FoodFilter.highProtein, 'oat'), ['Oats']);
       expect(names(FoodFilter.all, '  '), ['Chicken', 'Rice', 'Oats']);
     });
+
+    test('query ignores accents both ways (pt-BR catalog)', () {
+      const pao = FoodItem(
+          id: '4',
+          name: 'Pão de Queijo',
+          description: 'polvilho e requeijão',
+          calories: 335,
+          protein: 5,
+          carbs: 34,
+          fat: 20);
+      List<String> find(String q) => FoodFilters.apply([pao], FoodFilter.all, q)
+          .map((e) => e.name)
+          .toList();
+      expect(find('pao'), ['Pão de Queijo']);
+      expect(find('REQUEIJAO'), ['Pão de Queijo']);
+      expect(find('pão'), ['Pão de Queijo']);
+      expect(find('arroz'), isEmpty);
+    });
   });
 }
