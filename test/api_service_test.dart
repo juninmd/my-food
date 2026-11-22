@@ -36,6 +36,19 @@ void main() {
               e.toString().contains('Failed to load quote'))));
     });
 
+    test('fetchQuote rejects a 200 without quote and author', () async {
+      for (final body in ['{}', '[]', '{"quote":null,"author":"A"}']) {
+        final apiService = ApiService(
+            client: MockClient((_) async => http.Response(body, 200)));
+        await expectLater(
+            apiService.fetchQuote(),
+            throwsA(predicate((e) =>
+                e is Exception &&
+                e.toString().contains('Failed to load quote'))),
+            reason: body);
+      }
+    });
+
     test('fetchQuote throws exception on network error', () async {
       final client = MockClient((request) async {
         throw Exception('Network Error');
